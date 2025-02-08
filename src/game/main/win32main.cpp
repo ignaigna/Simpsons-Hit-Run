@@ -68,7 +68,7 @@ SDLMAIN_DECLSPEC int main( int argc, char *argv[] )
     //
     // Initialize SDL subsystems
     //
-    SDL_Init(SDL_INIT_EVENTS | SDL_INIT_VIDEO);
+    SDL_Init(SDL_INIT_EVENTS | SDL_INIT_VIDEO | SDL_INIT_GAMECONTROLLER);
 
     //
     // Have to get FTech setup first so that we can use all the memory services.
@@ -192,7 +192,7 @@ void ProcessCommandLineArguments(int argc, char* argv[])
     // Pick out all the command line options and store them in GameDB.
     // Also dump them to the output for handy dandy viewing.
     //
-    for (int i = 0; i < argc; i++ )
+    for (int i = 1; i < argc; i++)
     {
         rDebugPrintf( "arg%d: %s\n", i, argv[i] );
         

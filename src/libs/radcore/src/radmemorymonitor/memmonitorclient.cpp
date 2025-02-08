@@ -496,8 +496,6 @@ void radMemoryMonitorClient::Suspend( void )
     m_bSendSuspendedState = true;
 }
 
-extern void main();
-
 //===========================================================================
 // radMemoryMonitorClient::DeclarePlatform
 //===========================================================================

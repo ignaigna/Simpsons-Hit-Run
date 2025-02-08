@@ -209,9 +209,6 @@
     <ClCompile Include="src\radremotecommand\remotecommandtarget.cpp">
       <Filter>src\radremotecommand</Filter>
     </ClCompile>
-    <ClCompile Include="src\radcontroller\directinputcontroller.cpp">
-      <Filter>src\radcontroller</Filter>
-    </ClCompile>
     <ClCompile Include="src\radfile\common\cementer.cpp">
       <Filter>src\radfile\common</Filter>
     </ClCompile>
@@ -304,6 +301,9 @@
     </ClCompile>
     <ClCompile Include="src\radprofiler\microprofile.cpp">
       <Filter>src\radprofiler</Filter>
+    </ClCompile>
+    <ClCompile Include="src\radcontroller\sdlcontroller.cpp">
+      <Filter>src\radcontroller</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -492,9 +492,6 @@
     </ClInclude>
     <ClInclude Include="src\radprofiler\profilesample.hpp">
       <Filter>src\radprofiler</Filter>
-    </ClInclude>
-    <ClInclude Include="include\directinputcontroller.hpp">
-      <Filter>inc</Filter>
     </ClInclude>
     <ClInclude Include="include\rad1394.hpp">
       <Filter>inc</Filter>

@@ -595,9 +595,6 @@
     <ClCompile Include="input\steeringspring.cpp">
       <Filter>Source Files\input</Filter>
     </ClCompile>
-    <ClCompile Include="input\usercontrollerWin32.cpp">
-      <Filter>Source Files\input</Filter>
-    </ClCompile>
     <ClCompile Include="input\virtualinputs.cpp">
       <Filter>Source Files\input</Filter>
     </ClCompile>
@@ -980,9 +977,6 @@
       <Filter>Source Files\presentation\gui\frontend</Filter>
     </ClCompile>
     <ClCompile Include="presentation\gui\frontend\guiscreencardgallery.cpp">
-      <Filter>Source Files\presentation\gui\frontend</Filter>
-    </ClCompile>
-    <ClCompile Include="presentation\gui\frontend\guiscreencontrollerWin32.cpp">
       <Filter>Source Files\presentation\gui\frontend</Filter>
     </ClCompile>
     <ClCompile Include="presentation\gui\frontend\guiscreendisplay.cpp">
@@ -1846,6 +1840,12 @@
     <ClCompile Include="supersprint\supersprintmanager.cpp">
       <Filter>Source Files\supersprint</Filter>
     </ClCompile>
+    <ClCompile Include="input\usercontroller.cpp">
+      <Filter>Source Files\input</Filter>
+    </ClCompile>
+    <ClCompile Include="presentation\gui\frontend\guiscreencontroller.cpp">
+      <Filter>Source Files\presentation\gui\frontend</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ai\actionbuttonhandler.h">
@@ -2280,9 +2280,6 @@
     <ClInclude Include="input\steeringspring.h">
       <Filter>Source Files\input</Filter>
     </ClInclude>
-    <ClInclude Include="input\usercontrollerWin32.h">
-      <Filter>Source Files\input</Filter>
-    </ClInclude>
     <ClInclude Include="input\virtualinputs.hpp">
       <Filter>Source Files\input</Filter>
     </ClInclude>
@@ -2704,9 +2701,6 @@
       <Filter>Source Files\presentation\gui\frontend</Filter>
     </ClInclude>
     <ClInclude Include="presentation\gui\frontend\guiscreencardgallery.h">
-      <Filter>Source Files\presentation\gui\frontend</Filter>
-    </ClInclude>
-    <ClInclude Include="presentation\gui\frontend\guiscreencontrollerWin32.h">
       <Filter>Source Files\presentation\gui\frontend</Filter>
     </ClInclude>
     <ClInclude Include="presentation\gui\frontend\guiscreendisplay.h">
@@ -3707,6 +3701,12 @@
     </ClInclude>
     <ClInclude Include="supersprint\supersprintmanager.h">
       <Filter>Source Files\supersprint</Filter>
+    </ClInclude>
+    <ClInclude Include="input\usercontroller.h">
+      <Filter>Source Files\input</Filter>
+    </ClInclude>
+    <ClInclude Include="presentation\gui\frontend\guiscreencontroller.h">
+      <Filter>Source Files\presentation\gui\frontend</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

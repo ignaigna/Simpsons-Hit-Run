@@ -182,7 +182,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Tune|Win32'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="src\rad1394\win32lib\rad1394master.cpp" />
-    <ClCompile Include="src\radcontroller\directinputcontroller.cpp" />
+    <ClCompile Include="src\radcontroller\sdlcontroller.cpp" />
     <ClCompile Include="src\raddebugcommunication\host.cpp" />
     <ClCompile Include="src\raddebugcommunication\host1394socket.cpp" />
     <ClCompile Include="src\raddebugcommunication\hostchannel.cpp" />
@@ -250,7 +250,6 @@
     <ClCompile Include="src\radtime\time.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\directinputcontroller.hpp" />
     <ClInclude Include="include\microprofile.h" />
     <ClInclude Include="include\pch.hpp" />
     <ClInclude Include="include\rad1394.hpp" />
