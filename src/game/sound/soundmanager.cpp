@@ -1894,7 +1894,7 @@ SoundManager::SoundManager( bool noSound, bool noMusic,
     m_soundFXPlayer( NULL ),
     m_NISPlayer( NULL ),
     m_movingSoundManager( NULL ),
-    m_isMuted( noSound ),
+    m_isMuted( true /*noSound*/ ), // TODO(3UR): FIX THE SOUND SYSTEM CODE!!!!!!!!!!!!!! IT SHOULDNT BE NULLPTR
     m_noMusic( noMusic ),
     m_noEffects( noEffects ),
     m_noDialogue( noDialogue ),

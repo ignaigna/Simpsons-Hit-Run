@@ -129,7 +129,7 @@ class radPlatform : public IRadPlatform
 
         rWarningMsg( m_pMainWindow != NULL, "hMainWindow set to NULL in platform component" );
 
-        #ifdef WIN32
+        #ifdef RAD_PC
             SDL_VERSION( &m_wmInfo.version );
             SDL_GetWindowWMInfo( pMainWindow, &m_wmInfo );
         #endif
@@ -146,6 +146,22 @@ class radPlatform : public IRadPlatform
 	virtual HWND GetMainWindowHandle( void )
     {   
         rWarningMsg( m_wmInfo.subsystem != SDL_SYSWM_WINDOWS, "WM info doesn't match the windows subsystem." );
+        
+        switch (m_wmInfo.subsystem)
+        {
+            case SDL_SYSWM_UNKNOWN:   rDebugPrintf("Detected subsystem: %d\n", m_wmInfo.subsystem); break;
+            case SDL_SYSWM_WINDOWS:   rDebugPrintf("Detected subsystem: WINDOWS\n"); break;
+            case SDL_SYSWM_X11:       rDebugPrintf("Detected subsystem: X11\n"); break;
+            case SDL_SYSWM_DIRECTFB:  rDebugPrintf("Detected subsystem: DIRECTFB\n"); break;
+            case SDL_SYSWM_COCOA:     rDebugPrintf("Detected subsystem: COCOA (macOS)\n"); break;
+            case SDL_SYSWM_UIKIT:     rDebugPrintf("Detected subsystem: UIKIT (iOS)\n"); break;
+            case SDL_SYSWM_WAYLAND:   rDebugPrintf("Detected subsystem: WAYLAND\n"); break;
+            case SDL_SYSWM_MIR:       rDebugPrintf("Detected subsystem: MIR\n"); break;
+            case SDL_SYSWM_WINRT:     rDebugPrintf("Detected subsystem: WINRT\n"); break;
+            case SDL_SYSWM_ANDROID:   rDebugPrintf("Detected subsystem: ANDROID\n"); break;
+            case SDL_SYSWM_VIVANTE:   rDebugPrintf("Detected subsystem: VIVANTE\n"); break;
+            default:                  rDebugPrintf("Detected subsystem: UNKNOWN ENUM\n"); break;
+        }
 
         return( m_wmInfo.info.win.window );
     }
