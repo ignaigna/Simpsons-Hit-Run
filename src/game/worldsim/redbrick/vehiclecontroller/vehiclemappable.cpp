@@ -95,7 +95,7 @@ void VehicleMappable::LoadControllerMappings( unsigned int controllerId )
 
     // MS7
     // #ifdef this for different platforms
-    #ifdef RAD_XBOX
+    #ifdef RAD_CONSOLE // RAD_XBOX
 
     ClearMap(0);
     Map( "LeftStickX", Steer, 0, controllerId );
@@ -186,7 +186,7 @@ void VehicleMappable::LoadControllerMappings( unsigned int controllerId )
 
     #endif
 
-    #ifdef RAD_WIN32
+    #ifdef RAD_PC
 
     ClearMap(0);
     if ( GetGameFlow()->GetCurrentContext() == CONTEXT_LOADING_SUPERSPRINT &&

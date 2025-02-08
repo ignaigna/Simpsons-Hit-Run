@@ -39,8 +39,7 @@ class radSoundHalVoiceWin
 		virtual void SetPlaybackPositionInSamples( unsigned int positionInSamples );
 		         
 		virtual void SetBuffer( IRadSoundHalBuffer * pIRadSoundHalBuffer );
-		virtual void QueueBuffer( IRadSoundHalBuffer * pIRadSoundHalBuffer );
-		virtual int GetQueuedBuffers( void );
+		virtual IRadSoundHalBuffer * GetBuffer( void );
 		virtual IRadSoundHalBuffer * GetBuffer( void );
 
 		virtual void  SetMuted( bool );
@@ -80,7 +79,6 @@ class radSoundHalVoiceWin
 		void SetPitchInternal( void );
 
 		unsigned int m_Priority;
-		unsigned int m_SourceSamplesPlayed;
 
 		float m_Pitch;
 		float m_Volume;

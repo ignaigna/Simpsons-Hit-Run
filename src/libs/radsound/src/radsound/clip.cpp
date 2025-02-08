@@ -40,8 +40,8 @@
 // Class Static Init
 //========================================================================
 
-template<> radSoundClip * radLinkedClass< radSoundClip >::s_pLinkedClassHead = NULL;
-template<> radSoundClip * radLinkedClass< radSoundClip >::s_pLinkedClassTail = NULL;
+radSoundClip * radLinkedClass< radSoundClip >::s_pLinkedClassHead = NULL;
+radSoundClip * radLinkedClass< radSoundClip >::s_pLinkedClassTail = NULL;
 
 //======================================================================
 // Component: radSoundClip
@@ -325,13 +325,9 @@ void radSoundClip::SetState( IRadSoundClip::State state )
 // radSoundClip::OnBufferLoadComplete
 //======================================================================
 
-/* virtual */ void radSoundClip::OnBufferLoadComplete(
-	IRadSoundHalBuffer* pBuffer,
-	unsigned int actualBytesRead
-)
+/* virtual */ void radSoundClip::OnBufferLoadComplete( unsigned framesLoaded )
 {
-	// TODO(3ur): why isnt framesLoaded not defined?
-	//rAssert( framesLoaded == m_xIRadSoundHalBuffer->GetSizeInFrames( ) );
+	rAssert( framesLoaded == m_xIRadSoundHalBuffer->GetSizeInFrames( ) );
 
 	SetState( IRadSoundClip::Initialized );
 }
@@ -340,7 +336,7 @@ void radSoundClip::SetState( IRadSoundClip::State state )
 // radSoundClip::OnBufferClearComplete
 //======================================================================
 
-/* virtual */ void radSoundClip::OnBufferClearComplete( IRadSoundHalBuffer* pBuffer )
+/* virtual */ void radSoundClip::OnBufferClearComplete( void )
 {
 	SetState( IRadSoundClip::Initialized );
 }

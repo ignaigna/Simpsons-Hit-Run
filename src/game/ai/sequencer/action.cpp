@@ -25,11 +25,7 @@
 #include <radtime.hpp>
 
 #include <input/inputmanager.h>
-#ifdef RAD_WIN32
-#include <input/usercontrollerWin32.h>
-#else
 #include <input/usercontroller.h>
-#endif
 
 #include <worldsim/character/charactermanager.h>
 #include <worldsim/coins/sparkle.h>

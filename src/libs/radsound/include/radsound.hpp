@@ -88,6 +88,9 @@ struct IRadSoundClip : public IRefCount
     virtual IRadSoundHalMemoryRegion * GetMemoryRegion( void ) = 0;
     virtual bool GetLooping( void ) = 0;
 
+    virtual void SetLowWaterMark(float lowWaterMark) = 0;
+    virtual float GetLowWaterMark(void) = 0;
+
     virtual IRadSoundHalAudioFormat * GetFormat( void ) = 0;
      
     virtual void  SetTrim( float trim ) = 0;
