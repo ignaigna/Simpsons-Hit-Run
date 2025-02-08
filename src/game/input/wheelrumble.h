@@ -35,11 +35,8 @@ public:
 
     void OnInit();
 
-#ifdef RAD_WIN32
     void SetMagDir( u16 mag, u16 dir );
-#else
-    void SetMagDir( u8 mag, u16 dir );
-#endif
+
     void SetPPO( u16 per, u16 phas, s16 offset );
 
     void SetRumbleType( u8 type );

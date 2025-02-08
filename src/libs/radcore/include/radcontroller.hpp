@@ -48,6 +48,8 @@ typedef struct lgDevForceEffect LGForceEffect;
 
 #ifdef RAD_WIN32
 struct DIEFFECT;
+#else
+union SDL_HapticEffect;
 #endif
 //=============================================================================
 // Functions
@@ -358,7 +360,11 @@ struct IRadControllerOutputPoint
     //
 #if defined( RAD_PC )
     virtual long GetOffset( void ) const = 0;
+#ifdef WIN32
     virtual void UpdateEffect( const DIEFFECT* effect ) = 0;
+#else
+    virtual void UpdateEffect(const SDL_HapticEffect* effect) = 0;
+#endif
     virtual void Start( void ) = 0;
     virtual void Stop( void ) = 0;
     virtual void ReleaseEffect( void ) = 0;
