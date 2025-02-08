@@ -11,7 +11,7 @@
 #include "../common/memoryregion.hpp"
 #include <radplatform.hpp>
 #include <AL/efx.h>
-#include <inprogext.h>
+#include "radinprogext.h"
 
 LPALBUFFERSTORAGESOFT alBufferStorageSOFT;
 LPALMAPBUFFERSOFT alMapBufferSOFT;

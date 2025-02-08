@@ -12,7 +12,7 @@
 #include "buffer.hpp"
 #include "bufferloader.hpp"
 #include "system.hpp"
-#include <inprogext.h>
+#include "radinprogext.h"
 
 const unsigned int RADSOUNDHAL_BUFFER_CHANNEL_ALIGNMENT = 1;
 
