@@ -1,0 +1,66 @@
+# pretty much all copied from game-engine
+
+# TODO(3ur): probably should use releases in the future, and if we cant bundle assets directly with the repo maybe do something else like provide them through mega and tell the user to drop them in over the build
+# also by the time uwp and some todo restructuring srr2 to be game_code are done this script will be broken so itll need to be upgraded along the way
+
+name: Build SRR2
+
+on:
+  workflow_dispatch:
+    inputs:
+      configuration:
+        description: 'Build configuration'
+        required: true
+        default: 'Release'
+        type: choice
+        options:
+          - Debug
+          - Release
+          - Tune
+      platform:
+        description: 'Build platform'
+        required: true
+        default: 'x86'
+        type: choice
+        options:
+          - x86
+
+jobs:      
+  build:
+    runs-on: windows-2022
+    #runs-on: self-hosted wont use self hosted for SRR2 because other people may not have a self hosted runner setup
+
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v3
+
+    - name: Setup MSBuild
+      uses: microsoft/setup-msbuild@v1.1
+      with:
+        vs-version: 'latest'
+        
+    - name: Setup VCPKG
+      uses: lukka/run-vcpkg@v10.0
+      with:
+        vcpkgDirectory: 'vcpkg'
+        vcpkgGitCommitId: '7e21420f775f72ae938bdeb5e6068f722088f06a' # just sync with vcpkg-configuration.json baseline
+        doNotCache: true
+
+    # TODO(3ur): in game-engine we only have x86-windows-static-md but in SRR2 we will also have x64 and x86 is vcpkg install by its self okay?
+    - run: |
+        .\vcpkg\vcpkg.exe install --triplet x86-windows
+    - run: |
+        .\vcpkg\vcpkg.exe integrate install
+
+    - name: Build SRR2
+      run: |
+        msbuild.exe src/game/SRR2.vcxproj /p:Configuration=${{ github.event.inputs.configuration }} /p:Platform=${{ github.event.inputs.platform }} /p:PlatformToolset=v143 /p:WindowsTargetPlatformVersion=10.0 /m /clp:PerformanceSummary /p:SolutionDir=${{ github.workspace }}
+
+    - name: Archive build
+      uses: actions/upload-artifact@v3
+      with:
+        name: SRR2-bin-${{ github.event.inputs.configuration }}-${{ github.event.inputs.platform }}
+        path: |
+          build/**
+
+# TODO(3ur): ^^^ build can have bin-Win32-Debug & obj-Win32-Debug do we care about obj? should we only archive bin with actions
