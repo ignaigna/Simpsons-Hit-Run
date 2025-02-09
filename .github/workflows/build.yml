@@ -77,10 +77,11 @@ jobs:
         
     - name: Generate Version
       id: version
+      shell: pwsh
       run: |
-        DATE=$(date +"%Y.%m.%d-%H.%M.%S")
-        VERSION="SRR2-${{ github.event.inputs.configuration }}-${{ github.event.inputs.platform }}-$DATE-$(echo $GITHUB_SHA | cut -c1-7)"
-        echo "version=$VERSION" >> $GITHUB_OUTPUT
+        $DATE = Get-Date -Format "yyyy.MM.dd-HH.mm.ss"
+        $VERSION = "SRR2-${{ github.event.inputs.configuration }}-${{ github.event.inputs.platform }}-$DATE-$(${env:GITHUB_SHA}.Substring(0,7))"
+        "version=$VERSION" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
         
     - name: Upload Build
       uses: actions/upload-artifact@v4
