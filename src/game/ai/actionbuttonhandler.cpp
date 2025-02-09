@@ -95,7 +95,12 @@
 #include <render/DSG/InstAnimDynaPhysDSG.h>
 
 #include <input/inputmanager.h>
+#include <input/inputmanager.h>
+#ifdef RAD_PC
+#include <input/usercontrollerWin32.h>
+#else
 #include <input/usercontroller.h>
+#endif
 
 #include <contexts/contextenum.h>
 

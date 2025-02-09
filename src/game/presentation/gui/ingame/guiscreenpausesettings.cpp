@@ -44,12 +44,12 @@ enum ePauseSettingsMenuItem
 {
     MENU_ITEM_CAMERA,
     MENU_ITEM_JUMP_CAMERAS,
-#ifndef RAD_WIN32
+#ifndef RAD_PC
     MENU_ITEM_INVERT_CAM_CONTROL,
 #endif
     MENU_ITEM_INTERSECT_NAV_SYSTEM,
     MENU_ITEM_RADAR,
-#ifndef RAD_WIN32
+#ifndef RAD_PC
     MENU_ITEM_VIBRATION,
 #endif
     MENU_ITEM_TUTORIAL,
@@ -357,7 +357,7 @@ void CGuiScreenPauseSettings::InitIntro()
     //
     bool isSettingOn = false;
 
-#ifndef RAD_WIN32
+#ifndef RAD_PC
     isSettingOn = GetSuperCamManager()->GetSCC( 0 )->IsInvertedCameraEnabled();
     m_pMenu->SetSelectionValue( MENU_ITEM_INVERT_CAM_CONTROL,
                                 isSettingOn ? 1 : 0 );

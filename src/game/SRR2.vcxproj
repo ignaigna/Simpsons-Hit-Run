@@ -480,7 +480,7 @@
     <ClCompile Include="presentation\gui\bootup\guiscreenlicense.cpp" />
     <ClCompile Include="presentation\gui\frontend\guimanagerfrontend.cpp" />
     <ClCompile Include="presentation\gui\frontend\guiscreencardgallery.cpp" />
-    <ClCompile Include="presentation\gui\frontend\guiscreencontroller.cpp" />
+    <ClCompile Include="presentation\gui\frontend\guiscreencontrollerWin32.cpp" />
     <ClCompile Include="presentation\gui\frontend\guiscreendisplay.cpp" />
     <ClCompile Include="presentation\gui\frontend\guiscreenloadgame.cpp" />
     <ClCompile Include="presentation\gui\frontend\guiscreenmainmenu.cpp" />
@@ -1081,7 +1081,7 @@
     <ClInclude Include="presentation\gui\bootup\guiscreenlicense.h" />
     <ClInclude Include="presentation\gui\frontend\guimanagerfrontend.h" />
     <ClInclude Include="presentation\gui\frontend\guiscreencardgallery.h" />
-    <ClInclude Include="presentation\gui\frontend\guiscreencontroller.h" />
+    <ClInclude Include="presentation\gui\frontend\guiscreencontrollerWin32.h" />
     <ClInclude Include="presentation\gui\frontend\guiscreendisplay.h" />
     <ClInclude Include="presentation\gui\frontend\guiscreenloadgame.h" />
     <ClInclude Include="presentation\gui\frontend\guiscreenmainmenu.h" />

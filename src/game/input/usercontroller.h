@@ -7,7 +7,7 @@
 #include <radcontroller.hpp>
 #include <radkey.hpp>
 
-#if defined(RAD_PS2)
+#if defined(RAD_PS2) || defined(RAD_PC)
 #include <input/steeringspring.h>
 #include <input/basedamper.h>
 #include <input/constanteffect.h>
@@ -107,7 +107,7 @@ protected:
     //
     int m_iPlayerIndex;
 
-	ref< IRadController > m_xIController2;
+	radRef< IRadController > m_xIController2;
 
 	int m_controllerId;
 
