@@ -55,9 +55,9 @@ jobs:
     - name: Build SRR2
       run: |
         msbuild.exe src/game/SRR2.vcxproj /p:Configuration=${{ github.event.inputs.configuration }} /p:Platform=${{ github.event.inputs.platform }} /p:PlatformToolset=v143 /p:WindowsTargetPlatformVersion=10.0 /m /clp:PerformanceSummary /p:SolutionDir=${{ github.workspace }}
-
+        
     - name: Archive build
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: SRR2-bin-${{ github.event.inputs.configuration }}-${{ github.event.inputs.platform }}
         path: |
