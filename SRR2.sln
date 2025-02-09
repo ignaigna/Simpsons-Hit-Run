@@ -36,6 +36,14 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "sim", "src\libs\sim\sim.vcx
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SRR2", "src\game\SRR2.vcxproj", "{4759F797-EA05-4642-832A-A8BB580C577B}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A2CAF4F9-FA97-4AFA-BDC3-30FBCB3ED4BB}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+		README.md = README.md
+		vcpkg-configuration.json = vcpkg-configuration.json
+		vcpkg.json = vcpkg.json
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86

@@ -2,7 +2,7 @@
 .vs/
 *.vcxproj.user
 
-# VCPkg files
+# VCPKG files
 vcpkg_installed/
 
 # Prerequisites

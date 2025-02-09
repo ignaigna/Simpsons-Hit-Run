@@ -1,12 +1,11 @@
 # SRR2
 
 > [!WARNING]  
-> This repository is far from finished.
-> Everything has been upgraded and is compileable but there is still a lot of TODOs to complete before this can even run on UWP or run normally
+> VERY UNSTABLE
+> This is yet to support UWP, It still needs to be able to run normally on Windows first (Lots of bugs as of 09/02/2025)
 
 # TODO
-- Better README when stuff.
+- Remove any references and code to things like RAB_XBOX, RAD_PS2 (These are for very old consols instead we will have RAD_UWP).
 - Split SRR2 project to just be like a library maybe name it "game_code" then have the projects "game" (windows). and "game_uwp" (uwp) containing the entrypoint and init logic for the platform.
-- Implement DirectX 11 for UWP.
-- Resolve all symbol errors with the SRR2 project.
-- Remove any references and code to things like RAB_XBOX, RAD_PS2
+- Figure out how to bundle assets with the repo (They are too big to add to the repo) & right now assets have to be manually put in the build output dir we can do a post build script to copy them.
+- README Explaining setup/installation.

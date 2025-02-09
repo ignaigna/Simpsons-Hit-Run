@@ -260,6 +260,9 @@
     <Filter Include="Source Files\supersprint">
       <UniqueIdentifier>{61259276-4a87-451c-9780-af0201c5019b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\sound\soundrenderer\scripts">
+      <UniqueIdentifier>{9774a0b6-4d5c-4154-938e-c965cb148082}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ai\actionbuttonhandler.cpp">
@@ -1845,6 +1848,45 @@
     </ClCompile>
     <ClCompile Include="presentation\gui\frontend\guiscreencontrollerWin32.cpp">
       <Filter>Source Files\presentation\gui\frontend</Filter>
+    </ClCompile>
+    <ClCompile Include="sound\soundrenderer\scripts\apu.cpp">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </ClCompile>
+    <ClCompile Include="sound\soundrenderer\scripts\bart.cpp">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </ClCompile>
+    <ClCompile Include="sound\soundrenderer\scripts\cars.cpp">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </ClCompile>
+    <ClCompile Include="sound\soundrenderer\scripts\effects.cpp">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </ClCompile>
+    <ClCompile Include="sound\soundrenderer\scripts\english.cpp">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </ClCompile>
+    <ClCompile Include="sound\soundrenderer\scripts\french.cpp">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </ClCompile>
+    <ClCompile Include="sound\soundrenderer\scripts\german.cpp">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </ClCompile>
+    <ClCompile Include="sound\soundrenderer\scripts\homer.cpp">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </ClCompile>
+    <ClCompile Include="sound\soundrenderer\scripts\levels.cpp">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </ClCompile>
+    <ClCompile Include="sound\soundrenderer\scripts\lisa.cpp">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </ClCompile>
+    <ClCompile Include="sound\soundrenderer\scripts\marge.cpp">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </ClCompile>
+    <ClCompile Include="sound\soundrenderer\scripts\spanish.cpp">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </ClCompile>
+    <ClCompile Include="sound\soundrenderer\scripts\tuning.cpp">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -3708,5 +3750,382 @@
     <ClInclude Include="presentation\gui\frontend\guiscreencontrollerWin32.h">
       <Filter>Source Files\presentation\gui\frontend</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="sound\soundrenderer\scripts\ambul.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\apu.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\apu_v.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\atv_v.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\bart.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\bart_v.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\bbman_v.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\bookb_v.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\burns_v.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\burnsarm.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\car_tune.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\carhom_v.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\carmor.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\carsound.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\cblbart.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\cbone.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\ccella.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\ccellb.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\ccellc.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\ccelld.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\ccola.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\ccube.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\ccurator.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\cdonut.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\cduff.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\cfire_v.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\chears.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\cklimo.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\cletu_v.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\climo.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\cmilk.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\cnerd.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\cnonup.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\coffin.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\collide.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\comic_v.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\compacta.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\cpolice.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\csedan.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\cvan.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\dialog.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\dialogfr.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\dialogge.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\dialogsp.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\downtown.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\dune_v.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\effects.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\elect_v.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\empty.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\famil_v.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\fishtruc.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\fone_v.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\frink_v.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\frontend.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\garbage.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\glastruc.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\global.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\gramp_v.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\gramr_v.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\hallo.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\hbike_v.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\homer.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\homer_v.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\honor_v.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\huska.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\hype_v.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\icecream.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\interactive_props.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\interactive_propsfr.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\interactive_propsge.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\interactive_propssp.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\istruck.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\knigh_v.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\krust_v.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\level1.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\level2.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\level3.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\level4.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\level5.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\level6.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\level7.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\lisa.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\lisa_v.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\marge.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\marge_v.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\minigame.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\minivana_v.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\moe_v.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\mono_v.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\mrplo_v.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\nis.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\nisfr.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\nisge.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\nissp.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\nuctruck.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\oblit_v.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\otto_v.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\pickupa.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\pizza.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\plowk_v.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\positionalsettings.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\positionalsounds.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\redbrick.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\rocke_v.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\schoolbu.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\scorp_v.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\seaside.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\sedana.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\sedanb.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\ship.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\skinn_v.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\smith_v.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\snake_v.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\sportsa.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\sportsb.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\suburbs.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\suva.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\taxia_v.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\votetruc.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\wagona.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\wiggu_v.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\willi_v.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\witchcar.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\world.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
+    <None Include="sound\soundrenderer\scripts\zombi_v.inl">
+      <Filter>Source Files\sound\soundrenderer\scripts</Filter>
+    </None>
   </ItemGroup>
 </Project>
