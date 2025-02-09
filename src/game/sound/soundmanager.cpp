@@ -49,6 +49,10 @@
 
 #include <string.h>
 
+#ifdef RAD_GAMECUBE
+#include <dolphin/os.h>
+#endif
+
 #ifdef RAD_WIN32
 #include <data/config/gameconfigmanager.h>
 #endif
@@ -77,6 +81,7 @@ const char* RADMUSIC_SCRIPT_FILE = "rms";
 // Doh.
 //
 static const int SOUND_MODE_STEREO_FLAG = 1;
+static const int SOUND_MODE_SURROUND_FLAG = 1 << 1;
 
 static unsigned int gLastServiceTime;
 static unsigned int gLastServiceOncePerFrameTime;
@@ -814,8 +819,13 @@ void SoundManager::LoadSoundFile( const char* filename, SoundFileHandler* callba
     if( filename[length - 4] == '.' )
     {
         strcpy( fileExtension, &(filename[strlen(filename) - 3]) );
-
-        if( strcmp( fileExtension, RADSCRIPT_TYPE_INFO_FILE ) == 0 )
+        
+        if( strcmp( fileExtension, RADMUSIC_SCRIPT_FILE ) == 0 )
+        {
+            m_musicPlayer->LoadRadmusicScript( filename, callbackObj );
+        }
+#ifdef AUDIO_ENABLE_SCRIPTING
+        else if( strcmp( fileExtension, RADSCRIPT_TYPE_INFO_FILE ) == 0 )
         {
             m_pSoundRenderMgr->LoadTypeInfoFile( filename, callbackObj );
         }
@@ -823,10 +833,7 @@ void SoundManager::LoadSoundFile( const char* filename, SoundFileHandler* callba
         {
             m_pSoundRenderMgr->LoadScriptFile( filename, callbackObj );
         }
-        else if( strcmp( fileExtension, RADMUSIC_SCRIPT_FILE ) == 0 )
-        {
-            m_musicPlayer->LoadRadmusicScript( filename, callbackObj );
-        }
+#endif
         else
         {
             //
@@ -1571,7 +1578,7 @@ void SoundManager::LoadData( const GameDataByte* dataBuffer, unsigned int numByt
     SoundMode loadedSoundMode;
     float calculatedAmbienceVolume;
 
-#ifdef RAD_WIN32 // temp
+#ifdef RAD_PC // temp
     return;
 #endif
 
@@ -1609,8 +1616,41 @@ void SoundManager::LoadData( const GameDataByte* dataBuffer, unsigned int numByt
     else
     {
         this->SetDialogueVolume( soundSettings.dialogVolume );
-        loadedSoundMode = (soundSettings.isSurround) ? SOUND_SURROUND : SOUND_STEREO;
+        if( soundSettings.isSurround )
+        {
+            loadedSoundMode = SOUND_SURROUND;
+        }
+        else
+        {
+            loadedSoundMode = SOUND_STEREO;
+        }
     }
+
+#ifdef RAD_GAMECUBE
+    //
+    // GameCube's IPL needs to override the loaded settings, sadly
+    //
+    u32 GCSoundMode = OSGetSoundMode();
+    if( GCSoundMode == OS_SOUND_MODE_MONO )
+    {
+        //
+        // IPL says mono, we go mono
+        //
+        loadedSoundMode = SOUND_MONO;
+    }
+    else
+    {
+        if( loadedSoundMode == SOUND_MONO )
+        {
+            //
+            // IPL says stereo, we go stereo.  Since the saved game had said
+            // mono, we need to choose a sub-sound mode.  We'll go with ProLogic.
+            //
+            loadedSoundMode = SOUND_SURROUND;
+        }
+    }
+
+#endif
 
     this->SetSoundMode( loadedSoundMode );
 }
@@ -1644,9 +1684,14 @@ void SoundManager::SaveData( GameDataByte* dataBuffer, unsigned int numBytes )
         soundSettings.dialogVolume += 100.0f;
         soundSettings.isSurround = false;
     }
-
-    // easier then the else if else crap
-    soundSettings.isSurround = (mode == SOUND_SURROUND) ? true : false;
+    else if( mode == SOUND_STEREO )
+    {
+        soundSettings.isSurround = false;
+    }
+    else
+    {
+        soundSettings.isSurround = true;
+    }
 
     memcpy( dataBuffer, &soundSettings, sizeof( soundSettings ) );
 }
@@ -1687,10 +1732,30 @@ void SoundManager::ResetData()
     SetAmbienceVolume( settings->GetAmbienceVolume() );
     SetDialogueVolume( settings->GetDialogueVolume() );
     SetCarVolume( settings->GetCarVolume() );
-    SetSoundMode(SOUND_SURROUND);
+
+    //
+    // Sound mode.  For GameCube, get it from the IPL (Initial Program
+    // Loader, the thingy you get when you start up a GameCube without
+    // a disc).  For PS2 and Xbox, default to stereo (RadSound ignores
+    // this stuff for Xbox anyway, since these settings are supposed
+    // to be changed from the dashboard).
+    //
+#ifdef RAD_GAMECUBE
+    u32 GCSoundMode = OSGetSoundMode();
+    if( GCSoundMode == OS_SOUND_MODE_MONO )
+    {
+        SetSoundMode( SOUND_MONO );
+    }
+    else
+    {
+        SetSoundMode( SOUND_SURROUND );
+    }
+#else
+    SetSoundMode( SOUND_SURROUND );
+#endif
 }
 
-#ifdef RAD_WIN32
+#ifdef RAD_PC
 //=============================================================================
 // SoundManager::GetConfigName
 //=============================================================================
@@ -1894,7 +1959,7 @@ SoundManager::SoundManager( bool noSound, bool noMusic,
     m_soundFXPlayer( NULL ),
     m_NISPlayer( NULL ),
     m_movingSoundManager( NULL ),
-    m_isMuted( true /*noSound*/ ), // TODO(3UR): FIX THE SOUND SYSTEM CODE!!!!!!!!!!!!!! IT SHOULDNT BE NULLPTR
+    m_isMuted( noSound ),
     m_noMusic( noMusic ),
     m_noEffects( noEffects ),
     m_noDialogue( noDialogue ),
@@ -2023,11 +2088,11 @@ void SoundManager::Initialize()
     //
     // Register a factory for creating the global settings object
     //
-    ::radFactoryRegister( "globalSettings", (radFactoryOutParamProc*) ::GlobalSettingsObjCreate );
-    ::radFactoryRegister( "reverbSettings", (radFactoryOutParamProc*) ::ReverbSettingsObjCreate );
-    ::radFactoryRegister( "positionalSoundSettings", (radFactoryOutParamProc*) ::PositionalSettingsObjCreate );
+    ::radFactoryRegister( "globalSettings", (radFactoryProc*) globalSettings::ObjCreate );
+    ::radFactoryRegister( "reverbSettings", (radFactoryProc*) reverbSettings::ObjCreate );
+    ::radFactoryRegister( "positionalSoundSettings", (radFactoryProc*) positionalSoundSettings::ObjCreate );
 
-#ifdef RAD_WIN32
+#ifdef RAD_PC
     //
     // Register with the game config manager
     //

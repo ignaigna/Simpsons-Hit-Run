@@ -203,6 +203,11 @@ void DecodeFrames( void* pBufferStart, void * pAdpcmStart, unsigned numAdpcmFram
         {
             channelState[ c ].index = *((short*)pSource); pSource += 2;
             channelState[ c ].prev = *((short*)pSource); pSource += 2;
+
+            #ifdef RAD_GAMECUBE
+                channelState[ c ].index = radSoundReverseEndian( channelState[ c ].index );          
+                channelState[ c ].prev = radSoundReverseEndian( channelState[ c ].prev );
+            #endif
         }
         
         while( pSource < pSourceFrameEnd )
@@ -316,7 +321,11 @@ void RadicalAdpcmDecodeStream::DoWork( void )
                     info.pHalAudioFormat = radSoundHalAudioFormatCreate( RADMEMORY_ALLOC_TEMP );
                     info.pHalAudioFormat->AddRef( );
                     info.pHalAudioFormat->Initialize(
-                        IRadSoundHalAudioFormat::PCM,
+                        #ifdef RAD_GAMECUBE
+                            IRadSoundHalAudioFormat::PCM_BIGENDIAN,
+                        #else
+                            IRadSoundHalAudioFormat::PCM,
+                        #endif
                         NULL,
                         pInFormat->GetSampleRate( ),
                         pInFormat->GetNumberOfChannels( ),

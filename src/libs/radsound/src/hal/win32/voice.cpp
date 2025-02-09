@@ -15,8 +15,8 @@
 // Static Initialization
 //============================================================================
 
-radSoundHalVoiceWin * radSoundHalVoiceWin::s_pLinkedClassHead = NULL;
-radSoundHalVoiceWin * radSoundHalVoiceWin::s_pLinkedClassTail = NULL;
+template<> radSoundHalVoiceWin * radLinkedClass<radSoundHalVoiceWin>::s_pLinkedClassHead = NULL;
+template<> radSoundHalVoiceWin * radLinkedClass<radSoundHalVoiceWin>::s_pLinkedClassTail = NULL;
 
 //========================================================================
 // radSoundHalVoiceWin::radSoundHalVoiceWin
@@ -54,7 +54,6 @@ radSoundHalVoiceWin::~radSoundHalVoiceWin
 	if ( m_xRadSoundHalPositionalGroup != NULL )
 	{
 		m_xRadSoundHalPositionalGroup->RemovePositionalEntity( this );
-		m_xRadSoundHalPositionalGroup;
 	}
 
     if (m_Source)
@@ -83,7 +82,7 @@ void radSoundHalVoiceWin::SetBuffer( IRadSoundHalBuffer * pIRadSoundHalBuffer )
 
     m_xRadSoundHalBufferWin = NULL;
 
-	ref< IRadSoundHalAudioFormat > pOldIRadSoundHalAudioFormat = m_xIRadSoundHalAudioFormat;
+	radRef< IRadSoundHalAudioFormat > pOldIRadSoundHalAudioFormat = m_xIRadSoundHalAudioFormat;
     m_xIRadSoundHalAudioFormat = NULL;
 
     if ( pIRadSoundHalBuffer != NULL )
@@ -91,7 +90,7 @@ void radSoundHalVoiceWin::SetBuffer( IRadSoundHalBuffer * pIRadSoundHalBuffer )
         m_xRadSoundHalBufferWin = static_cast< radSoundHalBufferWin * >( pIRadSoundHalBuffer );
         rAssert( m_xRadSoundHalBufferWin != NULL );
 
-        alSourcei(m_Source, AL_BUFFER, m_xRadSoundHalBufferWin->GetBuffer());
+        alSourcei( m_Source, AL_BUFFER, m_xRadSoundHalBufferWin->GetBuffer() );
 
         // Now get the format of the buffer, we'll just store it here
         m_xIRadSoundHalAudioFormat = m_xRadSoundHalBufferWin->GetFormat( );
@@ -107,6 +106,18 @@ void radSoundHalVoiceWin::SetBuffer( IRadSoundHalBuffer * pIRadSoundHalBuffer )
 			m_xIRadSoundHalAudioFormat->Matches( pOldIRadSoundHalAudioFormat ) :
 			true
 		);
+
+        alSourcei( m_Source, AL_LOOPING, m_xRadSoundHalBufferWin->IsLooping() );
+    }
+    else
+    {
+        alSourcei( m_Source, AL_BUFFER, 0 );
+        alSourcei( m_Source, AL_LOOPING, AL_FALSE );
+    }
+
+    if( m_xRadSoundHalPositionalGroup != NULL )
+    {
+        OnApplyPositionalInfo( 1.0f );
     }
 }
 
@@ -119,7 +130,6 @@ void radSoundHalVoiceWin::Play( )
 {
     if (IsHardwarePlaying( ) == false)
     {
-        alSourcei(m_Source, AL_LOOPING, m_xRadSoundHalBufferWin && m_xRadSoundHalBufferWin->IsLooping());
         alSourcePlay(m_Source);
         rWarningMsg(alGetError() == AL_NO_ERROR, "radSoundHalVoiceWin::Play failed");
     }
@@ -352,10 +362,17 @@ void radSoundHalVoiceWin::SetPitchInternal( void )
         {
             alSource3i( m_Source, AL_AUXILIARY_SEND_FILTER,
                 refSystem->GetOpenALAuxSlot( i ),
-                i, NULL );
+                i, 0 );
             rWarningMsg( alGetError() == AL_NO_ERROR, "Failed to set the source aux send filter" );
         }
+    }
 
+    if( m_xRadSoundHalPositionalGroup != NULL )
+    {
+        OnApplyPositionalInfo( 1.0f );
+    }
+    else
+    {
         alSource3f( m_Source, AL_POSITION, 0.0f, 0.0f, 0.0f );
         alSource3f( m_Source, AL_VELOCITY, 0.0f, 0.0f, 0.0f );
         alSource3f( m_Source, AL_DIRECTION, 0.0f, 0.0f, 0.0f );
@@ -365,8 +382,8 @@ void radSoundHalVoiceWin::SetPitchInternal( void )
         alSourcef( m_Source, AL_REFERENCE_DISTANCE, 1.0f );
         alSourcef( m_Source, AL_MAX_DISTANCE, 1000.0f );
         alSourcef( m_Source, AL_ROLLOFF_FACTOR, 0.0f );
-        alSourcei( m_Source, AL_SOURCE_RELATIVE, m_xRadSoundHalPositionalGroup == NULL );
-	}
+        alSourcef( m_Source, AL_SOURCE_RELATIVE, AL_TRUE );
+    }
 }
 
 //========================================================================
@@ -391,6 +408,7 @@ void radSoundHalVoiceWin::SetPitchInternal( void )
 	SetVolumeInternal( );
 
     radSoundHalPositionalGroup* p = m_xRadSoundHalPositionalGroup;
+    rAssert( p );
 
     alSource3f(m_Source, AL_POSITION, p->m_Position.m_x, p->m_Position.m_y, -p->m_Position.m_z);
     alSource3f(m_Source, AL_VELOCITY, p->m_Velocity.m_x, p->m_Velocity.m_y, -p->m_Velocity.m_z);
@@ -401,8 +419,9 @@ void radSoundHalVoiceWin::SetPitchInternal( void )
     alSourcef(m_Source, AL_REFERENCE_DISTANCE, p->m_ReferenceDistance);
     alSourcef(m_Source, AL_MAX_DISTANCE, p->m_MaxDistance);
     alSourcef(m_Source, AL_ROLLOFF_FACTOR, listenerRolloffFactor);
+    alSourcef(m_Source, AL_SOURCE_RELATIVE, AL_FALSE);
 
-	rWarningMsg(alGetError() == AL_NO_ERROR, "radSoundHalVoiceWin::OnApplyPositionalInfo Failed.\n");
+    rWarningMsg(alGetError() == AL_NO_ERROR, "radSoundHalVoiceWin::OnApplyPositionalInfo Failed.\n");
 }
 
 //========================================================================
@@ -414,3 +433,7 @@ IRadSoundHalVoice * radSoundHalVoiceCreate( radMemoryAllocator allocator )
 {
     return new ( "radSoundHalVoiceWin", allocator ) radSoundHalVoiceWin( );
 }
+
+
+
+

@@ -40,7 +40,6 @@ class radSoundHalVoiceWin
 		         
 		virtual void SetBuffer( IRadSoundHalBuffer * pIRadSoundHalBuffer );
 		virtual IRadSoundHalBuffer * GetBuffer( void );
-		virtual IRadSoundHalBuffer * GetBuffer( void );
 
 		virtual void  SetMuted( bool );
 		virtual bool  GetMuted( void );

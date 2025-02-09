@@ -435,6 +435,18 @@ unsigned int radSoundHalDataSourceReadMultipleGet( void )
 	{
     	mult = radMemorySpace_OptimalMultiple;
    	}
+   	
+    #ifdef RAD_GAMECUBE
 
+   	    const unsigned int minAdpcm = 32 * 2 * 2;
+   	    
+   	    if ( mult < minAdpcm )
+   	    {
+   		    mult = minAdpcm;
+   	    }
+
+    #endif
+
+   	
    	return mult;
 }

@@ -63,13 +63,14 @@ enum radSoundAuxMode
 
 // The global mode of the sound system.  XBox TRC says that this must be set
 // only from the dashboard, so this setting is ignored.  Windows DirectSound
-// doesn't allow control of this so it is igored.
+// doesn't allow control of this so it is igored.  Ps2 doesn't support surround
+// so _Surround is equivalent to _Stereo.  Game cube supports all modes.
 
 enum radSoundOutputMode
 {
-	radSoundOutputMode_Mono,    // radsound mixes to mono
-	radSoundOutputMode_Stereo,  // radsound mixes to stereo
-    radSoundOutputMode_Surround // radsound mixes to surround
+	radSoundOutputMode_Mono,    // radsound mixes to mono (GAMECUBE/PS2 only)
+	radSoundOutputMode_Stereo,  // radsound mixes to stereo (GAMECUBE/PS2 only)
+	radSoundOutputMode_Surround // GAMECUBE only
 };
 
 //============================================================================
@@ -227,7 +228,7 @@ struct IRadSoundHalDataSource : public IRefCount
 
 struct IRadSoundHalBufferLoadCallback :	public IRefCount
 {
-    virtual void OnBufferLoadComplete(unsigned int dataSourceFrames) = 0;
+	virtual void OnBufferLoadComplete( unsigned int dataSourceFrames ) = 0;
 };
 
 //============================================================================
@@ -239,7 +240,7 @@ struct IRadSoundHalBufferLoadCallback :	public IRefCount
 
 struct IRadSoundHalBufferClearCallback : public IRefCount
 {
-    virtual void OnBufferClearComplete(void) = 0;
+    virtual void OnBufferClearComplete( void ) = 0;
 };
 
 //======================================================================
@@ -298,6 +299,11 @@ struct IRadSoundHalBuffer : public IRefCount
     // This will cancel all outstaning load/clear operations.
 
     virtual void CancelAsyncOperations( void ) = 0;
+
+    // This solves GameCube ADPCM problems.  The audio formats must be the same
+    // except for the custom encoding info.
+
+    virtual void ReSetAudioFormat( IRadSoundHalAudioFormat * pIRadSoundHalAudioFormat ) = 0;
 };
 
 // Helper function for initialization of IRadSoundHalBuffer.  Rounds requested 
@@ -462,7 +468,7 @@ struct IRadSoundHalEffect : public IRefCount
         virtual unsigned int GetOutput( unsigned int index ) = 0;
     #endif
 
-    #if defined RAD_PS2 || defined RAD_XBOX
+    #if defined RAD_GAMECUBE || defined RAD_PS2 || defined RAD_XBOX
         virtual void SetMasterGain( float masterGain ) = 0;
         virtual float GetMasterGain( void ) = 0;
     #endif
@@ -487,18 +493,26 @@ struct IRadSoundHalSystem : public IRefCount
     // Sampling rate is only used by pc builds.  Set it equal to the maximum
     // sampling rate used by sounds in your game (e.g. 48000Hz).  Must be set
     // to 0 for other platforms, will assert.
+    //
+    // PC can optionally be initialized with StickyFocus flag.  This means that
+    // sound will continue to play if the game's window loses focus, otherwise
+    // the sounds will mute.
 
     struct SystemDescription
     {
         unsigned int m_MaxRootAllocations;
         unsigned int m_NumAuxSends;
 
-        #if defined RAD_WIN32 || defined RAD_XBOX
+        #if defined RAD_WIN32 || defined RAD_XBOX || defined RAD_GAMECUBE
         unsigned int m_ReservedSoundMemory;
         #endif 
 
         #ifdef RAD_WIN32
         unsigned int m_SamplingRate;
+        #endif
+        
+        #if defined RAD_GAMECUBE
+            radMemoryAllocator m_EffectsAllocator;
         #endif
     };
 

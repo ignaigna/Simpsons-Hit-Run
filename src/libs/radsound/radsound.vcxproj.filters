@@ -206,12 +206,6 @@
     <ClCompile Include="src\math\radsoundmath.cpp">
       <Filter>src\math</Filter>
     </ClCompile>
-    <ClCompile Include="src\hal\common\softwarelistener.cpp">
-      <Filter>src\hal\common</Filter>
-    </ClCompile>
-    <ClCompile Include="src\hal\common\softwarepositionalgroup.cpp">
-      <Filter>src\hal\common</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="releasenotes.txt" />

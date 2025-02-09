@@ -19,7 +19,7 @@
 #include <radobject.hpp>
 #include <raddebug.hpp>
 #include <radfile.hpp>
-
+#include <raddebugwatch.hpp>
 
 #include <radmusic/radmusic.hpp>
 #include <radsound.hpp>
@@ -40,7 +40,6 @@
 #include <sound/soundrenderer/playermanager.h>
 
 #include <sound/soundrenderer/soundsystem.h>
-#include <sound/soundrenderer/soundrenderingmanager.h>
 #include <sound/soundrenderer/soundrenderingmanager.h>
 #include <sound/soundrenderer/soundallocatedresource.h>
 #include <sound/soundrenderer/soundconstants.h>
@@ -216,6 +215,8 @@ struct DaSoundScriptData
 {
     const char*     m_Filename;
 };
+
+#ifdef AUDIO_ENABLE_SCRIPTING
 
 //
 // IMPORTANT CHANGE: The last script files listed will have its contents go
@@ -408,6 +409,8 @@ static SoundClusterName s_ScriptClusters[] =
 const unsigned int NumClusterNames = sizeof( s_ScriptClusters ) /
                                      sizeof( SoundClusterName );
 
+#endif
+
 
 //=============================================================================
 // Class Implementations
@@ -431,6 +434,7 @@ daSoundRenderingManager::daSoundRenderingManager( )
     m_IsInitialized( false ),
     m_pResourceNameSpace( NULL ),
     m_pTuningNameSpace( NULL ),
+    m_pCurrentNameSpace( NULL ),
     m_pDynaLoadManager( NULL ),
     m_pTuner( NULL ),
     m_pResourceManager( NULL ),
@@ -560,7 +564,7 @@ void daSoundRenderingManager::Initialize
     //
     ::radFactoryRegister(
         "daSoundResourceData",
-        (radFactoryProc*) daSoundResourceManager::CreateResourceData );
+        (radFactoryProc*) daSoundResourceData::ObjCreate );
     rAssert( GetSoundNamespace( ) != NULL );
     rAssert( GetTuningNamespace() != NULL );
 }
@@ -743,7 +747,7 @@ void daSoundRenderingManager::QueueCementFileRegistration()
         m_languageSelected = true;
     }
 
-#ifdef RAD_XBOX
+#if defined( RAD_XBOX ) || defined( RAD_WIN32 )
     //
     // Register the music rcfs -- no localization needed.
     //
@@ -840,7 +844,8 @@ void daSoundRenderingManager::SetLanguage( Scrooby::XLLanguage language )
 //=============================================================================
 void daSoundRenderingManager::QueueRadscriptFileLoads()
 {
-    HeapMgr()->PushHeap (GMA_AUDIO_PERSISTENT);
+#ifdef AUDIO_ENABLE_SCRIPTING
+    HeapMgr()->PushHeap( GMA_AUDIO_PERSISTENT );
 
     unsigned int i;
     char filename[100];
@@ -945,9 +950,59 @@ void daSoundRenderingManager::QueueRadscriptFileLoads()
         GetLoadingManager()->AddRequest( FILEHANDLER_SOUND, filename, GMA_AUDIO_PERSISTENT );
     }
 
-    HeapMgr()->PopHeap (GMA_AUDIO_PERSISTENT);
+    HeapMgr()->PopHeap( GMA_AUDIO_PERSISTENT );
+#else
+    // Character sound scripts
+    RunApuSoundScripts();
+    RunBartSoundScripts();
+    RunHomerSoundScripts();
+    RunLisaSoundScripts();
+    RunMargeSoundScripts();
+
+    // Level scripts
+    RunLevelSoundScripts();
+
+    // Sound effect resources
+    RunSoundEffectScripts();
+
+    // Dialog
+    switch( m_currentLanguage )
+    {
+    case DIALOGUE_LANGUAGE_ENGLISH:
+        RunEnglishSoundScripts();
+        break;
+
+#ifdef PAL
+    case DIALOGUE_LANGUAGE_FRENCH:
+        RunFrenchSoundScripts();
+        break;
+
+    case DIALOGUE_LANGUAGE_GERMAN:
+        RunGermanSoundScripts();
+        break;
+
+    case DIALOGUE_LANGUAGE_SPANISH:
+        RunSpanishSoundScripts();
+        break;
+#endif
+
+    default:
+        rAssert( false );
+        RunEnglishSoundScripts();
+        break;
+    }
+
+    // Cars
+    RunCarSoundScripts();
+
+    // Tuning
+    RunTuningSoundScripts();
+#endif
+
+    GetLoadingManager()->AddCallback( this );
 }
 
+#ifdef AUDIO_ENABLE_SCRIPTING
 //=============================================================================
 // daSoundRenderingManager::LoadTypeInfoFile
 //=============================================================================
@@ -1011,7 +1066,7 @@ void daSoundRenderingManager::LoadScriptFile( const char* filename, SoundFileHan
     //
     if( m_scriptLoadCount < NUM_CHARACTER_SCRIPTS )
     {
-        m_pScript->SetContext( GetCharacterNamespace( m_scriptLoadCount ) );
+        m_pScript->SetContext( GetCharacterNamespace( SC_CHAR_APU + m_scriptLoadCount ) );
     }
     else if( m_scriptLoadCount >= NumSoundScripts - NUM_TUNING_SCRIPTS )
     {
@@ -1040,6 +1095,7 @@ void daSoundRenderingManager::LoadScriptFile( const char* filename, SoundFileHan
         RADMEMORY_ALLOC_TEMP
     );
  }
+#endif
 
 //=============================================================================
 // Function:    daSoundRenderingManager::GetSoundNamespace
@@ -1078,16 +1134,16 @@ IRadNameSpace* daSoundRenderingManager::GetTuningNamespace( void )
 //=============================================================================
 // Description: Get the specified character namespace
 //
-// Parameters:  index - index into list of namespaces
+// Parameters:  index - cluster index into list of namespaces
 //
 // Return:      Pointer to the desired namespace
 //
 //=============================================================================
-IRadNameSpace* daSoundRenderingManager::GetCharacterNamespace( unsigned int index )
+IRadNameSpace* daSoundRenderingManager::GetCharacterNamespace( unsigned int clusterIndex )
 {
-    rAssert( index < NUM_CHARACTER_NAMESPACES );
+    rAssert( SC_CHAR_APU <= clusterIndex && clusterIndex <= SC_CHAR_MARGE );
 
-    return( m_pCharacterNameSpace[index] );
+    return( m_pCharacterNameSpace[clusterIndex - SC_CHAR_APU] );
 }
 
 //=============================================================================
@@ -1202,6 +1258,7 @@ daSoundPlayerManager* daSoundRenderingManager::GetPlayerManager( void )
     return m_pPlayerManager;
 }
 
+#ifdef AUDIO_ENABLE_SCRIPTING
 //=============================================================================
 // Function:    daSoundRenderingManager::TypeInfoComplete
 //=============================================================================
@@ -1249,22 +1306,7 @@ void daSoundRenderingManager::ScriptComplete( void* pUserData )
 //=============================================================================
 void daSoundRenderingManager::SoundObjectCreated( const char* objName, IRefCount* obj )
 {
-    bool added;
-    rAssert( NULL != dynamic_cast< daSoundResourceData*>( obj ) );
-    daSoundResourceData* resourceObj = static_cast<daSoundResourceData*>( obj );
-
-    //
-    // We only need to preload clips
-    //
-    if( resourceObj->GetStreaming() == false )
-    {
-        added = GetSoundManager()->GetSoundLoader()->AddResourceToCurrentCluster( objName );
-        rAssert( added );
-    }
-    else
-    {
-        volatile int x = 4;
-    }
+    rReleaseAssert( GetSoundManager()->GetSoundLoader()->AddResourceToCurrentCluster( objName ) );
 }
 
 //=============================================================================
@@ -1294,7 +1336,6 @@ void daSoundRenderingManager::ProcessTypeInfo( void* pUserData )
 //=============================================================================
 void daSoundRenderingManager::ProcessScript( void* pUserData )
 {
-    ScriptObjCreateCallback* callbackPtr = NULL;
     const bool* lastScript = reinterpret_cast<const bool*>( pUserData );
 
     rAssert( m_pScript != NULL );
@@ -1305,8 +1346,6 @@ void daSoundRenderingManager::ProcessScript( void* pUserData )
     //
     if( m_scriptLoadCount < NumSoundScripts - NUM_TUNING_SCRIPTS )
     {
-        callbackPtr = SoundObjectCreated;
-
         if( m_scriptLoadCount < NumClusterNames )
         {
             GetSoundManager()->GetSoundLoader()->SetCurrentCluster( s_ScriptClusters[m_scriptLoadCount] );
@@ -1316,11 +1355,15 @@ void daSoundRenderingManager::ProcessScript( void* pUserData )
             GetSoundManager()->GetSoundLoader()->SetCurrentCluster( static_cast<SoundClusterName>(SC_CAR_BASE + m_scriptLoadCount - NumClusterNames) );
         }
     }
+    else
+    {
+        GetSoundManager()->GetSoundLoader()->SetCurrentCluster( SC_NEVER_LOADED );
+    }
 
     // Execute script file
     
     unsigned int start = radTimeGetMicroseconds( );
-    m_pScript->Run( callbackPtr );
+    m_pScript->Run( SoundObjectCreated );
     unsigned int finished = radTimeGetMicroseconds( );
     unsigned int dif = finished - start;
     
@@ -1341,36 +1384,49 @@ void daSoundRenderingManager::ProcessScript( void* pUserData )
         rAssert( m_pScript != NULL );
         m_pScript->Release( );
         m_pScript = NULL;
-
-        //
-        // At this point the sound resources should be finalized, lets lock them down
-        // and then intialize some systems.
-        //
-
-        GetTuner( )->Initialize( );
-        
-        // Initialize the dialog system
-        
-        SoundManager::GetInstance( )->m_dialogCoordinator->Initialize( );
-            
-        Sound::daSoundResourceManager::GetInstance( )->SetResourceLockdown( true );
-        
-        m_pPlayerManager->Initialize( );
-
-        // We are now fully initialized
-        m_IsInitialized = true;
-        
-        if ( ! gTuneSound )
-        {
-            radScriptUnLoadAllTypeInfo( );        
-        }
     }
 
     ++m_scriptLoadCount;
 
     m_soundFileHandler->LoadCompleted();
 }
+#endif
 
+//=============================================================================
+// daSoundRenderingManager::OnProcessRequestsComplete
+//=============================================================================
+// Description: Asynchronous requests complete callback
+//
+// Parameters:  pUserData - some user data to pass on
+//
+// Return:      void 
+//
+//=============================================================================
+void daSoundRenderingManager::OnProcessRequestsComplete( void* pUserData )
+{
+    //
+    // At this point the sound resources should be finalized, lets lock them down
+    // and then intialize some systems.
+    //
+
+    GetTuner()->Initialize();
+
+    // Initialize the dialog system
+
+    SoundManager::GetInstance()->m_dialogCoordinator->Initialize();
+
+    Sound::daSoundResourceManager::GetInstance()->SetResourceLockdown( true );
+
+    m_pPlayerManager->Initialize();
+
+    // We are now fully initialized
+    m_IsInitialized = true;
+
+    if( !gTuneSound )
+    {
+        radScriptUnLoadAllTypeInfo();
+    }
+}
 
 //=============================================================================
 // Public Functions

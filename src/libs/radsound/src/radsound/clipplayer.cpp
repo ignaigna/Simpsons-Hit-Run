@@ -171,9 +171,7 @@ bool radSoundClipPlayer::IsPlaying( void )
 }
 
 void radSoundClipPlayer::SetPlaybackPosition(
-	unsigned int position, 
-	IRadSoundHalAudioFormat::SizeType st 
-)
+			unsigned int position, IRadSoundHalAudioFormat::SizeType st )
 {
 	IRadSoundHalBuffer * pIRshb = m_xIRadSoundHalVoice->GetBuffer( );
 
@@ -446,3 +444,4 @@ IRadSoundClipPlayer * radSoundClipPlayerCreate( radMemoryAllocator allocator )
 {
 	return new ( "radSoundClipPlayer", allocator ) radSoundClipPlayer( allocator );
 };
+

@@ -1840,11 +1840,11 @@
     <ClCompile Include="supersprint\supersprintmanager.cpp">
       <Filter>Source Files\supersprint</Filter>
     </ClCompile>
-    <ClCompile Include="input\usercontroller.cpp">
-      <Filter>Source Files\input</Filter>
-    </ClCompile>
     <ClCompile Include="presentation\gui\frontend\guiscreencontroller.cpp">
       <Filter>Source Files\presentation\gui\frontend</Filter>
+    </ClCompile>
+    <ClCompile Include="input\usercontrollerWin32.cpp">
+      <Filter>Source Files\input</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -3702,11 +3702,11 @@
     <ClInclude Include="supersprint\supersprintmanager.h">
       <Filter>Source Files\supersprint</Filter>
     </ClInclude>
-    <ClInclude Include="input\usercontroller.h">
-      <Filter>Source Files\input</Filter>
-    </ClInclude>
     <ClInclude Include="presentation\gui\frontend\guiscreencontroller.h">
       <Filter>Source Files\presentation\gui\frontend</Filter>
+    </ClInclude>
+    <ClInclude Include="input\usercontrollerWin32.h">
+      <Filter>Source Files\input</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

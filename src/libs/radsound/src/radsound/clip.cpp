@@ -30,7 +30,10 @@
 
 #define MIN_FRAMES 2
 
-#if defined RAD_WIN32 || defined RAD_XBOX
+#if defined RAD_GAMECUBE
+    #include <radsound_gcn.hpp>
+	#define PLATFORM_AUDIO_FORMAT IRadSoundHalAudioFormat::PCM_BIGENDIAN
+#elif defined RAD_WIN32 || defined RAD_XBOX
 	#define PLATFORM_AUDIO_FORMAT IRadSoundHalAudioFormat::PCM
 #elif defined RAD_PS2
 	#define PLATFORM_AUDIO_FORMAT IRadSoundHalAudioFormat::VAG
@@ -333,7 +336,7 @@ void radSoundClip::SetState( IRadSoundClip::State state )
 }
 
 //======================================================================
-// radSoundClip::OnBufferClearComplete
+// radSoundClip::OnBufferLoadComplete
 //======================================================================
 
 /* virtual */ void radSoundClip::OnBufferClearComplete( void )

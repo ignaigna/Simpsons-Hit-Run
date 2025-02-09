@@ -19,7 +19,7 @@
 // Included Files
 //=============================================================================
 
-#include <radobject.hpp>
+#include <map>
 
 #include <sound/soundrenderer/idasoundresource.h>
 #include <sound/soundrenderer/soundresource.h>
@@ -27,8 +27,6 @@
 //=============================================================================
 // Global namespace forward declarations
 //=============================================================================
-
-class radObjectBTree;
 
 //=============================================================================
 // Namespace
@@ -113,7 +111,7 @@ public:
     
     unsigned int GetNumResourceDatas( void );
     daSoundResourceData* GetResourceDataAt( unsigned int );
-    static daSoundResourceData* CreateResourceData( void );
+    daSoundResourceData* CreateResourceData( void );
     
 protected:
     //
@@ -133,9 +131,9 @@ private:
 
     //
     // Store all allocated resources (referenced by the resource's
-    // address cast to a radkey)
+    // address)
     //
-    radRef< radObjectBTree >                  m_xIOL_AllocatedResources;
+    std::map< IDaSoundResource*, radRef< daSoundAllocatedResource > > m_AllocatedResources;
 
     //
     // Are the resources locked down?
@@ -150,7 +148,7 @@ private:
     daSoundResourceData m_ResourceData[ MAX_SOUND_DATA_RESOURCES ];
     unsigned int m_NumResourceDatas;
     
-    radKey32 * m_pFileIdMemory;
+    daSoundResourceData::FileId* m_pFileIdMemory;
 };
 
 inline daSoundResourceManager* daSoundResourceManager::GetInstance( void )

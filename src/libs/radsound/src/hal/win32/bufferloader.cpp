@@ -16,7 +16,7 @@ template<> radSoundBufferLoaderWin * radLinkedClass< radSoundBufferLoaderWin >::
 radSoundBufferLoaderWin::radSoundBufferLoaderWin
 (
     IRefCount * pIRefCount_Owner,
-    void * pBuffer,
+    void * pBuffer,	
     IRadSoundHalDataSource * pIRadSoundHalDataSource,
     IRadSoundHalAudioFormat * pIRadSoundHalAudioFormat,
     unsigned int numberOfFrames,

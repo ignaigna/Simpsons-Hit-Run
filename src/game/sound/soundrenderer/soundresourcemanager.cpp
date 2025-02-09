@@ -57,6 +57,8 @@ const unsigned int MaxNumResourceFiles = 512;
     const IRadSoundHalAudioFormat::Encoding DEFAULT_ENCODING = IRadSoundHalAudioFormat::PCM;
 #elif defined RAD_PS2
     const IRadSoundHalAudioFormat::Encoding DEFAULT_ENCODING = IRadSoundHalAudioFormat::VAG;
+#elif defined RAD_GAMECUBE
+    const IRadSoundHalAudioFormat::Encoding DEFAULT_ENCODING = IRadSoundHalAudioFormat::PCM_BIGENDIAN;
 #else
     Uh oh.
 #endif
@@ -82,8 +84,8 @@ daSoundResourceManager::daSoundResourceManager( )
     radRefCount( 0 ),
     m_pSoundNamespace( NULL ),
     m_ResourceLockdown( false ),
-    m_secondaryNamespace( NULL )
-    
+    m_secondaryNamespace( NULL ),
+    m_AllocatedResources( )
 {
     m_pFileIdMemory = 0;
 
@@ -99,8 +101,6 @@ daSoundResourceManager::daSoundResourceManager( )
     {
         m_pSoundNamespace->AddRef( );
     }
-
-    m_xIOL_AllocatedResources = new ( GetThisAllocator( )) radObjectBTree( );
 }
 
 //=============================================================================
@@ -113,7 +113,7 @@ daSoundResourceManager::daSoundResourceManager( )
 daSoundResourceManager::~daSoundResourceManager( )
 {
     // Release the allocated sound resources
-    m_xIOL_AllocatedResources = NULL;
+    m_AllocatedResources.clear();
 
     // Release the sound namespace
     if( m_pSoundNamespace != NULL )
@@ -146,7 +146,6 @@ void daSoundResourceManager::AllocateResource
     //
     // Allocate this resource
     //
-    radKey32 soundKey = (radKey32) pResource;
 
     // Find out if it already exists...
     daSoundAllocatedResource* pAllocatedResource =
@@ -158,10 +157,7 @@ void daSoundResourceManager::AllocateResource
         pAllocatedResource->Initialize( pResource );
 
         // Add it to our allocated resource manager
-        m_xIOL_AllocatedResources->AddObject (
-            soundKey,
-            pAllocatedResource
-        );
+        m_AllocatedResources[pResource] = pAllocatedResource;
 
         // Release our version
         pAllocatedResource->Release( );
@@ -189,9 +185,7 @@ void daSoundResourceManager::DeallocateResource
     //
     // Deallocate the resource
     //
-    radKey32 soundKey = (radKey32) pResource;
-
-    bool result = m_xIOL_AllocatedResources->RemoveObject( soundKey );
+    bool result = m_AllocatedResources.erase( pResource ) > 0;
     rAssertMsg( result, "Resource deallocated prematurely?" );
 }
 
@@ -285,15 +279,8 @@ daSoundAllocatedResource* daSoundResourceManager::FindAllocatedResource
 {
     rAssert( pResource != NULL );
 
-    // Generate a key based on the resource
-    radKey32 soundKey = (radKey32) pResource;
-
     // Find the allocated resource for the resource
-    daSoundAllocatedResource* pAllocatedResource =
-        reinterpret_cast< daSoundAllocatedResource* >
-        (
-            m_xIOL_AllocatedResources->FindObject( soundKey )
-        );
+    daSoundAllocatedResource* pAllocatedResource = m_AllocatedResources[pResource];
 
     return pAllocatedResource;
 }
@@ -337,9 +324,9 @@ void daSoundResourceManager::SetResourceLockdown( bool lockdown )
         totalFiles += pRd->m_NumFiles;
     }
     
-    m_pFileIdMemory = (radKey32*) radMemoryAlloc( GMA_PERSISTENT, sizeof( radKey32 ) * totalFiles );
+    m_pFileIdMemory = (daSoundResourceData::FileId*) radMemoryAlloc( GMA_PERSISTENT, sizeof( daSoundResourceData::FileId ) * totalFiles );
    
-    radKey32* pCurrent = m_pFileIdMemory;
+    daSoundResourceData::FileId* pCurrent = m_pFileIdMemory;
     
     for( unsigned int r = 0; r < MAX_SOUND_DATA_RESOURCES; r ++ )
     {
@@ -349,7 +336,7 @@ void daSoundResourceManager::SetResourceLockdown( bool lockdown )
         {
             FlipSlashes( pRd->m_pFileIds[ f ].m_pName );
             
-            pCurrent[ f ] = ::radMakeCaseInsensitiveKey32( pRd->m_pFileIds[ f ].m_pName );
+            pCurrent[ f ].m_Key = ::radMakeCaseInsensitiveKey32( pRd->m_pFileIds[ f ].m_pName );
             radMemoryFree( pRd->m_pFileIds[ f ].m_pName );
         }
 
@@ -455,7 +442,7 @@ unsigned int daSoundResourceManager::GetNumResourceDatas( void )
 
 unsigned int daSoundResourceManager::GetNumAllocatedResources( void )
 {
-    return m_xIOL_AllocatedResources->GetSize( );
+    return m_AllocatedResources.size( );
 }
 
 //=============================================================================
@@ -508,15 +495,13 @@ daSoundResourceData * daSoundResourceManager::GetResourceDataAt( unsigned int i 
 
 daSoundResourceData * daSoundResourceManager::CreateResourceData( void )
 {
-    daSoundResourceManager * pThis = daSoundResourceManager::GetInstance( );
+    rAssert( false == m_ResourceLockdown );
     
-    rAssert( false == pThis->m_ResourceLockdown );
-    
-    rAssert( pThis->m_NumResourceDatas < MAX_SOUND_DATA_RESOURCES );
+    rAssert( m_NumResourceDatas < MAX_SOUND_DATA_RESOURCES );
      
-    daSoundResourceData * pRd = pThis->m_ResourceData + pThis->m_NumResourceDatas;
+    daSoundResourceData * pRd = m_ResourceData + m_NumResourceDatas;
         
-    pThis->m_NumResourceDatas++;
+    m_NumResourceDatas++;
     
     return pRd;
 }

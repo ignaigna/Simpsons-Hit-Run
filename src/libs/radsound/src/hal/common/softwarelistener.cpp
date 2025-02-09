@@ -49,6 +49,7 @@ radSoundHalListener::radSoundHalListener( radMemoryAllocator allocator )
     m_DistanceFactor( 1.0f ), // meters == meters
     m_DoppleFactor( 1.0f ),   // normal doppler
     m_RollOffFactor( 1.0f ),   // normal roll-off
+    m_SurroundSupported( false ),
     m_EnvEffectsEnabled( false ),
     m_EnvAuxSend( NULL_ENV_AUX )
 {
@@ -416,30 +417,31 @@ void radSoundHalListener::CalculatePositionalPanFactor
     //
     (*pLeftRightPan) = panFactor;
 
-    if (m_SurroundSupported == true)
-    {
+    if ( m_SurroundSupported == true )
+    {        
         //
         // Now, the front and back pan is done in the same way, but using the front vector
         // instead of the right ear.
         //
-        if (m_Position != pRsspi->m_Position)
+        if ( m_Position != pRsspi->m_Position )
         {
-            radSoundVector source = m_Position.GetVectorFrom(pRsspi->m_Position);
+            radSoundVector source = m_Position.GetVectorFrom( pRsspi->m_Position );
             float cosPanFactor =
-                -source.Dot(m_OrientationFront) / (source.GetLength() * m_OrientationFront.GetLength());
+                - source.Dot( m_OrientationFront ) / ( source.GetLength( ) * m_OrientationFront.GetLength( ) );
             // 
             // Don't need to convert to an angle, we want to pan based on
             // the cos, not the angle (we need the "circular") power curve
             //
-
+            
             // panFactor = 1.0f - ( radSoundACos( cosPanFactor ) * 2 / 3.141592655f );
-
-            panFactor = cosPanFactor;
+            
+            panFactor = cosPanFactor; 
         }
         else
         {
             panFactor = 0.0f;
         }
+
         //
         // Set the front and back pan
         //
@@ -449,8 +451,6 @@ void radSoundHalListener::CalculatePositionalPanFactor
     {
         *pFrontBackPan = 0.0f;
     }
-
-    *pFrontBackPan = 0.0f;
 
     ClampPan( pFrontBackPan );
     ClampPan( pLeftRightPan );
@@ -692,14 +692,17 @@ float radSoundHalListener::CalculatePositionalVolumeFactor
 //=========================================================================
 // radSoundHalListener::SetSupportSurround
 //=========================================================================
-/* virtual */ void radSoundHalListener::SetSupportSurround(bool support)
+
+/* virtual */ void radSoundHalListener::SetSupportSurround( bool support )
 {
     m_SurroundSupported = support;
 }
+
 //=========================================================================
 // radSoundHalListener::GetSupportSurround
 //=========================================================================
-/* virtual */ bool radSoundHalListener::GetSupportSurround(void)
+
+/* virtual */ bool radSoundHalListener::GetSupportSurround( void )
 {
     return m_SurroundSupported;
 }
