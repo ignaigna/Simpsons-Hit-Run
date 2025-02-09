@@ -105,12 +105,28 @@ jobs:
       run: |
         $LATEST_TAG = git describe --tags (git rev-list --tags --max-count=1)
         "previous_tag=$LATEST_TAG" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
-        
-        
+
+    # https://github.com/mikepenz/release-changelog-builder-action/issues/1303#issuecomment-1949897430
     - name: Build Changelog
       if: ${{ github.event.inputs.create_release == 'true' }}
-      id: github_release
+      id: changelog
       uses: mikepenz/release-changelog-builder-action@v5
+      with:
+        commitMode: true
+        configurationJson: |
+          {
+            "categories": [
+              {
+                "title": "## What's Changed since #{{FROM_TAG}}",
+                "labels": []
+              }
+            ],
+            "template": "#{{CHANGELOG}}",
+            "pr_template": "- #{{TITLE}}\n",
+            "empty_template": "#{{OWNER}}\n#{{REPO}}\n#{{FROM_TAG}}\n#{{TO_TAG}}",
+            "max_pull_requests": 1000,
+            "max_back_track_time_days": 1000
+          }
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         
@@ -123,7 +139,7 @@ jobs:
         prerelease: ${{ github.event.inputs.configuration != 'Release' }}
         release_name: ${{ steps.version.outputs.version }}
         tag_name: ${{ steps.version.outputs.version }}
-        body: ${{ steps.github_release.outputs.changelog }}
+        body: ${{ steps.changelog.outputs.changelog }}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # https://docs.github.com/en/actions/security-for-github-actions/security-guides/automatic-token-authentication#about-the-github_token-secret
 
