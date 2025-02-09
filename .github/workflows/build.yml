@@ -30,15 +30,27 @@ on:
         default: 'false'
         type: boolean
 
+env:
+  VCPKG_BINARY_SOURCES: "clear;x-gha,readwrite"
+  VCPKG_COMMIT_ID: "7e21420f775f72ae938bdeb5e6068f722088f06a" # just sync with vcpkg-configuration.json baseline
+
 jobs:     
   build:
     runs-on: windows-2022
     #runs-on: self-hosted wont use self hosted for SRR2 because other people may not have a self hosted runner setup
 
     steps:
-    - name: Checkout Repo
+    # https://learn.microsoft.com/en-us/vcpkg/consume/binary-caching-github-actions-cache
+    - name: Export GitHub Actions cache environment variables
+      uses: actions/github-script@v7
+      with:
+        script: |
+          core.exportVariable('ACTIONS_CACHE_URL', process.env.ACTIONS_CACHE_URL || '');
+          core.exportVariable('ACTIONS_RUNTIME_TOKEN', process.env.ACTIONS_RUNTIME_TOKEN || '');
+    
+    - name: Checkout Source Code 
       uses: actions/checkout@v3
-
+    
     - name: Setup MSBuild
       uses: microsoft/setup-msbuild@v1.1
       with:
@@ -48,8 +60,8 @@ jobs:
       uses: lukka/run-vcpkg@v10.0
       with:
         vcpkgDirectory: 'vcpkg'
-        vcpkgGitCommitId: '7e21420f775f72ae938bdeb5e6068f722088f06a' # just sync with vcpkg-configuration.json baseline
-        doNotCache: true
+        vcpkgGitCommitId: ${{ env.VCPKG_COMMIT_ID }}
+        doNotCache: false
 
     # TODO(3ur): in game-engine we only have x86-windows-static-md but in SRR2 we will also have x64 and x86 is vcpkg install by its self okay?
     - run: |
@@ -60,20 +72,21 @@ jobs:
     - name: Build SRR2
       run: |
         msbuild.exe src/game/SRR2.vcxproj /p:Configuration=${{ github.event.inputs.configuration }} /p:Platform=${{ github.event.inputs.platform }} /p:PlatformToolset=v143 /p:WindowsTargetPlatformVersion=10.0 /m /clp:PerformanceSummary /p:SolutionDir=${{ github.workspace }}
-        
-    - name: Upload Build
-      uses: actions/upload-artifact@v4
-      with:
-        name: SRR2-bin-${{ github.event.inputs.configuration }}-${{ github.event.inputs.platform }}
-        path: |
-          build/**
-        # TODO(3ur): ^^^ build can have bin-Win32-Debug & obj-Win32-Debug do we care about obj? should we only archive bin with action
 
     - id: version
       run: |
-        VERSION='SRR2-$(date +"%Y.%m.%d-%H.%M.%S")-${GITHUB_SHA::7}'
+        VERSION='SRR2-${{ github.event.inputs.configuration }}-${{ github.event.inputs.platform }}-$(date +"%Y.%m.%d-%H.%M.%S")-${GITHUB_SHA::7}'
         echo 'VERSION=$VERSION' >> $GITHUB_ENV
         echo '::set-output name=version::$VERSION'
+        
+    - name: Upload Build
+      uses: actions/upload-artifact@v4
+      if: ${{ github.event.inputs.create_release == 'false' }} # with releases we can just grab the build there so this is useless
+      with:
+        name: ${{ steps.version.outputs.version }}
+        path: |
+          build/**
+        # TODO(3ur): ^^^ build can have bin-Win32-Debug & obj-Win32-Debug do we care about obj? should we only archive bin with action
 
     # https://trstringer.com/github-actions-create-release-upload-artifacts/
     # NOTES: when generating a token I suggest using a fine grained PAT with only permission to do releases
@@ -84,8 +97,22 @@ jobs:
       with:
         draft: false
         prerelease: false
-        release_name: 'Release ${{ steps.version.outputs.version }}'
+        release_name: ${{ steps.version.outputs.version }}
         tag_name: ${{ github.ref }}
         body_path: CHANGELOG.md
       env:
         GITHUB_TOKEN: ${{ github.token }} # https://docs.github.com/en/actions/security-for-github-actions/security-guides/automatic-token-authentication#about-the-github_token-secret
+
+    # pretty much the upload build step but it makes a zip of build folder
+    - if: ${{ github.event.inputs.create_release == 'true' }}
+      run: |
+        tar -czf ${{ github.workspace }}/${{ steps.version.outputs.version }}.zip -C build .
+        
+    - name: Upload Build
+      if: ${{ github.event.inputs.create_release == 'true' }}
+      run: |
+        curl -X POST \
+          -H 'Authorization: token ${{ secrets.GITHUB_TOKEN }}' \
+          -H 'Content-Type: application/zip' \
+          --data-binary @${{ github.workspace }}/${{ steps.version.outputs.version }}.zip \
+          'https://uploads.github.com/repos/${{ github.repository }}/releases/${{ steps.create_release.outputs.id }}/assets?name=${{ steps.version.outputs.version }}.zip'
