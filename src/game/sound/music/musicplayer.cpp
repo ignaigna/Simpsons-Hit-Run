@@ -342,6 +342,10 @@ MusicPlayer::MusicPlayer( Sound::IDaSoundTuner& tuner ) :
     m_delayedMusicStart( false ),
     m_wasp( NULL )
 {
+    rWarning("/**************************************/");
+    rWarning("/*    MusicPlayer::MusicPlayer( )     */");
+    rWarning("/**************************************/");
+
     EventManager* eventMgr;
     unsigned int event;
 

@@ -114,6 +114,7 @@ SoundManager* SoundManager::CreateInstance( bool muteSound, bool noMusic,
     rAssert( spInstance == NULL );
 
     spInstance = new(GMA_PERSISTENT) SoundManager( muteSound, noMusic, noEffects, noDialogue );
+    spInstance->Initialize(); // TODO(3ur): should it be here? i dont know; does it fix a really annoying issue? yes
     rAssert( spInstance );
 
     MEMTRACK_POP_GROUP( "Sound" );
@@ -1959,7 +1960,7 @@ SoundManager::SoundManager( bool noSound, bool noMusic,
     m_soundFXPlayer( NULL ),
     m_NISPlayer( NULL ),
     m_movingSoundManager( NULL ),
-    m_isMuted( /* noSound */ true ), // TODO(3ur): FIX THIS IT CAUSES A READ ACCESS VIOLATION WHEN NOT FORCE MUTED
+    m_isMuted( /* noSound */ false ),
     m_noMusic( noMusic ),
     m_noEffects( noEffects ),
     m_noDialogue( noDialogue ),
@@ -2000,12 +2001,13 @@ SoundManager::SoundManager( bool noSound, bool noMusic,
 //==============================================================================
 SoundManager::~SoundManager()
 {
+    rWarning("/*****************************************/");
+    rWarning("/*    SoundManager::~SoundManager( )     */");
+    rWarning("/*****************************************/");
+
     GetEventManager()->RemoveAll( this );
 
-    if( m_isMuted )
-    {
-        return;
-    }
+    if( m_isMuted ) return;
 
     delete( GMA_PERSISTENT, m_soundFXPlayer);
     delete( GMA_PERSISTENT, m_movingSoundManager);
@@ -2032,6 +2034,10 @@ SoundManager::~SoundManager()
 //=============================================================================
 void SoundManager::Initialize()
 {
+    rWarning("/************************************/");
+    rWarning("/*    SoundManager->Initialize( )   */");
+    rWarning("/************************************/");
+
     if( m_isMuted )
     {
         //
@@ -2041,24 +2047,26 @@ void SoundManager::Initialize()
         GetEventManager()->AddListener( this, EVENT_CONVERSATION_SKIP );
         return;
     }
-    else
-    {
-        //
-        // Set up a few tuner-related events
-        //
-        GetEventManager()->AddListener( this, EVENT_CONVERSATION_START );
-        GetEventManager()->AddListener( this, EVENT_CONVERSATION_DONE );
-        GetEventManager()->AddListener( this, EVENT_GETINTOVEHICLE_END );
-        GetEventManager()->AddListener( this, EVENT_GETOUTOFVEHICLE_END );
-        GetEventManager()->AddListener( this, EVENT_ENTER_INTERIOR_START );
-        GetEventManager()->AddListener( this, EVENT_ENTER_INTERIOR_END );
-        GetEventManager()->AddListener( this, EVENT_EXIT_INTERIOR_START );
-        GetEventManager()->AddListener( this, EVENT_EXIT_INTERIOR_END );
-        GetEventManager()->AddListener( this, EVENT_MISSION_RESET );
-        GetEventManager()->AddListener( this, EVENT_CHARACTER_POS_RESET );
-        GetEventManager()->AddListener( this, EVENT_VEHICLE_DESTROYED_SYNC_SOUND );
-    }
-        
+
+    //
+    // Set up a few tuner-related events
+    //
+    GetEventManager()->AddListener( this, EVENT_CONVERSATION_START );
+    GetEventManager()->AddListener( this, EVENT_CONVERSATION_DONE );
+    GetEventManager()->AddListener( this, EVENT_GETINTOVEHICLE_END );
+    GetEventManager()->AddListener( this, EVENT_GETOUTOFVEHICLE_END );
+    GetEventManager()->AddListener( this, EVENT_ENTER_INTERIOR_START );
+    GetEventManager()->AddListener( this, EVENT_ENTER_INTERIOR_END );
+    GetEventManager()->AddListener( this, EVENT_EXIT_INTERIOR_START );
+    GetEventManager()->AddListener( this, EVENT_EXIT_INTERIOR_END );
+    GetEventManager()->AddListener( this, EVENT_MISSION_RESET );
+    GetEventManager()->AddListener( this, EVENT_CHARACTER_POS_RESET );
+    GetEventManager()->AddListener( this, EVENT_VEHICLE_DESTROYED_SYNC_SOUND );
+
+    //
+    // Initialize Shit
+    //
+
     m_debugDisplay = new( GMA_PERSISTENT ) SoundDebugDisplay( m_pSoundRenderMgr );
     m_soundLoader = new( GMA_PERSISTENT ) SoundLoader();
     m_musicPlayer = new( GMA_PERSISTENT ) MusicPlayer( *(m_pSoundRenderMgr->GetTuner()) );
@@ -2066,25 +2074,17 @@ void SoundManager::Initialize()
     m_NISPlayer = new( GMA_PERSISTENT ) NISSoundPlayer();
     m_movingSoundManager = new( GMA_PERSISTENT ) MovingSoundManager();
     m_soundFXPlayer = new( GMA_PERSISTENT ) SoundEffectPlayer();
+
     m_avatarSoundPlayer.Initialize();
     m_listener.Initialize( *m_pSoundRenderMgr );
 
     //
     // Apply the non-global mute options
     //
-    if( m_noMusic )
-    {
-        m_pSoundRenderMgr->GetTuner()->SetMusicVolume( 0.0f );
-    }
-    if( m_noEffects )
-    {
-        m_pSoundRenderMgr->GetTuner()->SetSfxVolume( 0.0f );
-    }
-    if( m_noDialogue )
-    {
-        m_pSoundRenderMgr->GetTuner()->SetDialogueVolume( 0.0f );
-    }
-    
+    if( m_noMusic ) m_pSoundRenderMgr->GetTuner()->SetMusicVolume( 0.0f );
+    if( m_noEffects ) m_pSoundRenderMgr->GetTuner()->SetSfxVolume( 0.0f );
+    if( m_noDialogue ) m_pSoundRenderMgr->GetTuner()->SetDialogueVolume( 0.0f );
+
     //
     // Register a factory for creating the global settings object
     //

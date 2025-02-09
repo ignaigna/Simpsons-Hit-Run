@@ -1,4 +1,4 @@
-//=============================================================================
+﻿//=============================================================================
 // Copyright (C) 2001 Radical Entertainment Ltd.  All rights reserved.
 //
 // File:        soundrenderingmanager.cpp
@@ -747,7 +747,7 @@ void daSoundRenderingManager::QueueCementFileRegistration()
         m_languageSelected = true;
     }
 
-#if defined( RAD_XBOX ) || defined( RAD_WIN32 )
+#if defined( RAD_XBOX ) //|| defined( RAD_WIN32 ) WHY DOES THIS EXIST??? MUSIC.RCF IS ON WINDOWS
     //
     // Register the music rcfs -- no localization needed.
     //
