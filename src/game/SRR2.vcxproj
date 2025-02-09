@@ -102,6 +102,7 @@
       <CompileAs>Default</CompileAs>
       <ForcedIncludeFiles>pchsrr2.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <AdditionalOptions>/MACHINE:I386
@@ -144,6 +145,7 @@
       <CompileAs>Default</CompileAs>
       <ForcedIncludeFiles>pchsrr2.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <AdditionalDependencies>odbc32.lib;odbccp32.lib;dsound.lib;dxguid.lib;winmm.lib;dinput8.lib;wsock32.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -179,6 +181,7 @@
       <CompileAs>Default</CompileAs>
       <ForcedIncludeFiles>pchsrr2.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <AdditionalDependencies>dsound.lib;dxguid.lib;winmm.lib;dinput8.lib;wsock32.lib;%(AdditionalDependencies)</AdditionalDependencies>
