@@ -3,7 +3,7 @@
 > [!WARNING]  
 > THIS DOES NOT YET SUPPORT UWP (ALL OF THE GUIDES BELOW ARE FOR WINDOWS ONLY AND WILL CHANGE WHENEVER UWP SUPPORT IS FINISHED)
 
-SRR2 is a cleaner version of *The Simpsons Hit & Run* with several changes, including C++ 17 support, x64 (WIP), adn VCPkg for easier third party library installation. This is based on the source code that leaked in 2021, the end goal is to add more feature, improvements, and UWP support.
+SRR2 is a cleaner version of *The Simpsons Hit & Run* with several changes, including C++ 17 support, x64 (WIP), and VCPkg for easier third party library installation. This is based on the source code that leaked in 2021, the end goal is to add more feature, improvements, and UWP support.
 
 ## Installation
 
