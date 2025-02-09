@@ -24,14 +24,19 @@ on:
         type: choice
         options:
           - x86
+      create_release:
+        description: 'Should a release be created?'
+        required: false
+        default: 'false'
+        type: boolean
 
-jobs:      
+jobs:     
   build:
     runs-on: windows-2022
     #runs-on: self-hosted wont use self hosted for SRR2 because other people may not have a self hosted runner setup
 
     steps:
-    - name: Checkout repo
+    - name: Checkout Repo
       uses: actions/checkout@v3
 
     - name: Setup MSBuild
@@ -56,11 +61,31 @@ jobs:
       run: |
         msbuild.exe src/game/SRR2.vcxproj /p:Configuration=${{ github.event.inputs.configuration }} /p:Platform=${{ github.event.inputs.platform }} /p:PlatformToolset=v143 /p:WindowsTargetPlatformVersion=10.0 /m /clp:PerformanceSummary /p:SolutionDir=${{ github.workspace }}
         
-    - name: Archive build
+    - name: Upload Build
       uses: actions/upload-artifact@v4
       with:
         name: SRR2-bin-${{ github.event.inputs.configuration }}-${{ github.event.inputs.platform }}
         path: |
           build/**
+        # TODO(3ur): ^^^ build can have bin-Win32-Debug & obj-Win32-Debug do we care about obj? should we only archive bin with action
 
-# TODO(3ur): ^^^ build can have bin-Win32-Debug & obj-Win32-Debug do we care about obj? should we only archive bin with actions
+    - id: version
+      run: |
+        VERSION='SRR2-$(date +"%Y.%m.%d-%H.%M.%S")-${GITHUB_SHA::7}'
+        echo 'VERSION=$VERSION' >> $GITHUB_ENV
+        echo '::set-output name=version::$VERSION'
+
+    # https://trstringer.com/github-actions-create-release-upload-artifacts/
+    # NOTES: when generating a token I suggest using a fine grained PAT with only permission to do releases
+    - name: Create Release
+      if: ${{ github.event.inputs.create_release == 'true' }}
+      uses: actions/create-release@v1
+      id: create_release
+      with:
+        draft: false
+        prerelease: false
+        release_name: 'Release ${{ steps.version.outputs.version }}'
+        tag_name: ${{ github.ref }}
+        body_path: CHANGELOG.md
+      env:
+        GITHUB_TOKEN: ${{ github.token }} # https://docs.github.com/en/actions/security-for-github-actions/security-guides/automatic-token-authentication#about-the-github_token-secret
