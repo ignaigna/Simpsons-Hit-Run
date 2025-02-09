@@ -2,7 +2,7 @@
 
 ## MORE IMPORTANT
 
-- Line 1962 soundmanager.cpp: when not forcing sound to be muted it will cause a read access violation (unknown needs debugging)
+- Line 1962 soundmanager.cpp: when not forcing sound to be muted it will cause a read access violation (unknown needs debugging) (MOVED TO ISSUES)
 
 ## LESS IMPORTANT
 - Remove any references and code to things like RAB_XBOX, RAD_PS2 (These are for very old consols instead we will have RAD_UWP).
