@@ -1959,7 +1959,7 @@ SoundManager::SoundManager( bool noSound, bool noMusic,
     m_soundFXPlayer( NULL ),
     m_NISPlayer( NULL ),
     m_movingSoundManager( NULL ),
-    m_isMuted( /* noSound */ true ), // TODO(3ur): FIX THIS IT CAUSES A READ ACCESS VIOLATION WHEN NOT FORCE MUTED
+    m_isMuted( noSound ),
     m_noMusic( noMusic ),
     m_noEffects( noEffects ),
     m_noDialogue( noDialogue ),
