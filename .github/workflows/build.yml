@@ -74,13 +74,13 @@ jobs:
     - name: Build SRR2
       run: |
         msbuild.exe src/game/SRR2.vcxproj /p:Configuration=${{ github.event.inputs.configuration }} /p:Platform=${{ github.event.inputs.platform }} /p:PlatformToolset=v143 /p:WindowsTargetPlatformVersion=10.0 /m /clp:PerformanceSummary /p:SolutionDir=${{ github.workspace }}
-
+        
     - name: Generate Version
       id: version
       run: |
-        $VERSION="SRR2-${{ github.event.inputs.configuration }}-${{ github.event.inputs.platform }}-$(Get-Date -Format "yyyy.MM.dd-HH.mm.ss")-${{ github.sha.substring(0,7) }}"
-        echo "VERSION=$VERSION" | Out-File -FilePath $env:GITHUB_ENV -Append
-        echo "::set-output name=version::$VERSION"
+        DATE=$(date +"%Y.%m.%d-%H.%M.%S")
+        VERSION="SRR2-${{ github.event.inputs.configuration }}-${{ github.event.inputs.platform }}-$DATE-$(echo $GITHUB_SHA | cut -c1-7)"
+        echo "version=$VERSION" >> $GITHUB_OUTPUT
         
     - name: Upload Build
       uses: actions/upload-artifact@v4
