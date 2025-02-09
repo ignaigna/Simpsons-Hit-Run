@@ -53,7 +53,9 @@ jobs:
     
     - name: Checkout Source Code 
       uses: actions/checkout@v3
-    
+      with:
+        fetch-depth: 0
+        
     - name: Setup MSBuild
       uses: microsoft/setup-msbuild@v1.1
       with:
@@ -95,15 +97,26 @@ jobs:
           build/**
         # TODO(3ur): ^^^ build can have bin-Win32-Debug & obj-Win32-Debug do we care about obj? should we only archive bin with action
 
+    # so we can get the tag before we do a new release and then we can use generate_release_notes
+    - name: Get Previous Tag
+      if: ${{ github.event.inputs.create_release == 'true' }}
+      id: get_previous_tag
+      shell: pwsh
+      run: |
+        $LATEST_TAG = git describe --tags (git rev-list --tags --max-count=1)
+        "previous_tag=$LATEST_TAG" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
+        
     - name: Create Release
       if: ${{ github.event.inputs.create_release == 'true' }}
       uses: actions/create-release@v1
       id: create_release
       with:
         draft: false
-        prerelease: false
+        prerelease: ${{ github.event.inputs.configuration != 'Release' }}
         release_name: ${{ steps.version.outputs.version }}
         tag_name: ${{ steps.version.outputs.version }}
+        previous_tag_name: ${{ steps.get_previous_tag.outputs.previous_tag }}
+        generate_release_notes: true
         #body_path: CHANGELOG.md
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # https://docs.github.com/en/actions/security-for-github-actions/security-guides/automatic-token-authentication#about-the-github_token-secret
