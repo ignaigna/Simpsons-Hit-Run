@@ -66,15 +66,15 @@ BaseDamper::BaseDamper()
     mForceEffect.lpvTypeSpecificParams   = &m_conditon;
     mForceEffect.dwStartDelay            = 0;
 #else
-    mForceEffect.type                = SDL_HAPTIC_DAMPER;
-    mForceEffect.condition.direction = SDL_HapticDirection{};
-    mForceEffect.condition.length    = SDL_HAPTIC_INFINITY;
-    mForceEffect.condition.delay     = 0;
-    mForceEffect.condition.button    = 0;
-    mForceEffect.condition.interval  = 0;
-    SetCenterPoint(0, 0);
-    SetDamperStrength(127);
-    SetDamperCoefficient(127);
+    mForceEffect.type                           = LG_TYPE_DAMPER;
+    mForceEffect.duration                       = LG_DURATION_INFINITE;
+    mForceEffect.startDelay                     = 0;
+    mForceEffect.p.condition[0].offset            = 0;
+    mForceEffect.p.condition[0].deadband          = 0;
+    mForceEffect.p.condition[0].saturationNeg     = 127;
+    mForceEffect.p.condition[0].saturationPos     = 127;
+    mForceEffect.p.condition[0].coefficientNeg    = 127;
+    mForceEffect.p.condition[0].coefficientPos    = 127;
 #endif
 }
 
@@ -122,12 +122,8 @@ void BaseDamper::SetCenterPoint( s8 point, u8 deadband  )
     m_conditon.lOffset                            = point;
     m_conditon.lDeadBand                          = deadband;
 #else
-    mForceEffect.condition.center[0]   = point;
-    mForceEffect.condition.center[1]   = point;
-    mForceEffect.condition.center[2]   = point;
-    mForceEffect.condition.deadband[0] = deadband;
-    mForceEffect.condition.deadband[1] = deadband;
-    mForceEffect.condition.deadband[2] = deadband;
+    mForceEffect.p.condition[0].offset            = point;
+    mForceEffect.p.condition[0].deadband          = deadband;
 #endif
 
     mEffectDirty = true;
@@ -143,18 +139,18 @@ void BaseDamper::SetCenterPoint( s8 point, u8 deadband  )
 // Return:      void 
 //
 //=============================================================================
+#ifdef RAD_WIN32
 void BaseDamper::SetDamperStrength( u16 strength )
+#else
+void BaseDamper::SetDamperStrength( u8 strength )
+#endif
 {
-#ifdef RAD_PC
+#ifdef RAD_WIN32
     m_conditon.dwPositiveSaturation               = strength;
     m_conditon.dwNegativeSaturation               = strength;
 #else
-    mForceEffect.condition.right_sat[0]           = strength;
-    mForceEffect.condition.right_sat[1]           = strength;
-    mForceEffect.condition.right_sat[2]           = strength;
-    mForceEffect.condition.left_sat[0]            = strength;
-    mForceEffect.condition.left_sat[1]            = strength;
-    mForceEffect.condition.left_sat[2]            = strength;
+    mForceEffect.p.condition[0].saturationNeg     = strength;
+    mForceEffect.p.condition[0].saturationPos     = strength;
 #endif
     mEffectDirty = true;
 }
@@ -175,12 +171,8 @@ void BaseDamper::SetDamperCoefficient( s16 coeff )
     m_conditon.lPositiveCoefficient               = coeff;
     m_conditon.lNegativeCoefficient               = coeff; 
 #else
-    mForceEffect.condition.right_coeff[0]         = coeff;
-    mForceEffect.condition.right_coeff[1]         = coeff;
-    mForceEffect.condition.right_coeff[2]         = coeff;
-    mForceEffect.condition.left_coeff[0]          = coeff;
-    mForceEffect.condition.left_coeff[1]          = coeff;
-    mForceEffect.condition.left_coeff[2]          = coeff;
+    mForceEffect.p.condition[0].coefficientNeg    = coeff;
+    mForceEffect.p.condition[0].coefficientPos    = coeff;
 #endif
 
     mEffectDirty = true;

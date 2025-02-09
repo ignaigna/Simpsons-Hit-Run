@@ -73,20 +73,18 @@ WheelRumble::WheelRumble()
     mForceEffect.lpvTypeSpecificParams   = &m_diPeriodic;
     mForceEffect.dwStartDelay            = 0;
 #else
-    mForceEffect.type                    = SDL_HAPTIC_TRIANGLE;
-    mForceEffect.periodic.direction      = SDL_HapticDirection{SDL_HAPTIC_POLAR, {90}};
-    mForceEffect.periodic.length         = 500;
-    mForceEffect.periodic.delay          = 0;
-    mForceEffect.periodic.button         = 0;
-    mForceEffect.periodic.interval       = 0;
-    mForceEffect.periodic.period         = 80;
-    mForceEffect.periodic.magnitude      = 0;
-    mForceEffect.periodic.offset         = 0;
-    mForceEffect.periodic.phase          = 0;
-    mForceEffect.periodic.attack_length = 0;
-    mForceEffect.periodic.attack_level  = 0;
-    mForceEffect.periodic.fade_length   = 0;
-    mForceEffect.periodic.fade_level    = 0;
+    mForceEffect.type                           = LG_TYPE_TRIANGLE;
+    mForceEffect.duration                       = 500;
+    mForceEffect.startDelay                     = 0;
+    mForceEffect.p.periodic.magnitude           = 0;
+    mForceEffect.p.periodic.direction           = 90;
+    mForceEffect.p.periodic.period              = 80;
+    mForceEffect.p.periodic.phase               = 0;
+    mForceEffect.p.periodic.offset              = 0;
+    mForceEffect.p.periodic.envelope.attackTime  = 0;
+    mForceEffect.p.periodic.envelope.fadeTime    = 0;
+    mForceEffect.p.periodic.envelope.attackLevel = 0;
+    mForceEffect.p.periodic.envelope.fadeLevel   = 0;
 #endif
 }
 
@@ -119,7 +117,7 @@ void WheelRumble::OnInit()
 #ifdef RAD_WIN32
     m_diPeriodic.dwMagnitude = 0;
 #else
-    mForceEffect.periodic.magnitude = 0;
+    mForceEffect.p.periodic.magnitude = 0;
 #endif
 }
 
@@ -133,15 +131,19 @@ void WheelRumble::OnInit()
 // Return:      void 
 //
 //=============================================================================
+#ifdef RAD_WIN32
 void WheelRumble::SetMagDir( u16 mag, u16 dir )
+#else
+void WheelRumble::SetMagDir( u8 mag, u16 dir )
+#endif
 {
 #ifdef RAD_WIN32
     LONG rglDirection[2]      = { dir, 0 };
     m_diPeriodic.dwMagnitude = mag;
     mForceEffect.rglDirection = rglDirection;
 #else
-    mForceEffect.periodic.magnitude = mag;
-    mForceEffect.periodic.direction = SDL_HapticDirection{ SDL_HAPTIC_POLAR, {dir} };
+    mForceEffect.p.periodic.magnitude = mag;
+    mForceEffect.p.periodic.direction = dir;
 #endif
 
     mEffectDirty = true;
@@ -164,9 +166,9 @@ void WheelRumble::SetPPO( u16 per, u16 phas, s16 offset )
     m_diPeriodic.dwPhase                 = phas;
     m_diPeriodic.lOffset                 = offset;
 #else
-    mForceEffect.periodic.period = per;
-    mForceEffect.periodic.phase = phas;
-    mForceEffect.periodic.offset = offset;
+    mForceEffect.p.periodic.period = per;
+    mForceEffect.p.periodic.phase = phas;
+    mForceEffect.p.periodic.offset = offset;
 #endif
 
     mEffectDirty = true;

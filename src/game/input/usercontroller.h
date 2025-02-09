@@ -9,7 +9,7 @@
 
 #if defined(RAD_PS2) || defined(RAD_PC)
 #include <input/steeringspring.h>
-#include <input/basedamper.h>
+#include <input/baseDamper.h>
 #include <input/constanteffect.h>
 #include <input/wheelrumble.h>
 #endif
@@ -81,7 +81,7 @@ public:
     // return the button id from the name.
     int GetIdByName( const char* pszName ) const;
 
-#if defined(RAD_PS2) || defined(RAD_PC)
+#if defined(RAD_PS2)
     SteeringSpring* GetSpring() { return mSteeringSpring.IsInit() ? &mSteeringSpring : NULL; };
     BaseDamper* GetDamper() { return mSteeringDamper.IsInit() ? &mSteeringDamper : NULL; };
     ConstantEffect* GetConstantEffect() { return mConstantEffect.IsInit() ? &mConstantEffect : NULL; };
@@ -123,7 +123,7 @@ protected:
 
     unsigned mGameState;
     
-#if defined(RAD_PS2) || defined(RAD_PC)
+#if defined(RAD_PS2)
     SteeringSpring mSteeringSpring;
     BaseDamper mSteeringDamper;
     ConstantEffect mConstantEffect;

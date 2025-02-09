@@ -15,8 +15,11 @@
 //========================================
 // Nested Includes
 //========================================
-#include <SDL2/SDL.h>
 #include <radcontroller.hpp>
+
+#ifdef RAD_PS2
+#include <liblgdev.h>
+#endif
 
 #ifdef RAD_WIN32
 #define DIRECTINPUT_VERSION 0x0800
@@ -77,7 +80,7 @@ protected:
     DWORD         m_currentTime;
     DWORD         m_effectTime;
 #else
-    SDL_HapticEffect mForceEffect;
+    LGForceEffect mForceEffect;
 #endif
     bool mEffectDirty;
 
