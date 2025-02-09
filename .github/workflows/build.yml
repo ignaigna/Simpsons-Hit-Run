@@ -108,7 +108,7 @@ jobs:
 
     # https://github.com/mikepenz/release-changelog-builder-action/issues/1303#issuecomment-1949897430
     - name: Build Changelog
-      if: ${{ github.event.inputs.create_release == 'true' }}
+      if: false #${{ github.event.inputs.create_release == 'true' }}
       id: changelog
       uses: mikepenz/release-changelog-builder-action@v5
       with:
@@ -139,7 +139,7 @@ jobs:
         prerelease: ${{ github.event.inputs.configuration != 'Release' }}
         release_name: ${{ steps.version.outputs.version }}
         tag_name: ${{ steps.version.outputs.version }}
-        body: ${{ steps.changelog.outputs.changelog }}
+        #body: ${{ steps.changelog.outputs.changelog }}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # https://docs.github.com/en/actions/security-for-github-actions/security-guides/automatic-token-authentication#about-the-github_token-secret
 
