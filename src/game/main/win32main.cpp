@@ -49,12 +49,9 @@ static void ProcessCommandLineArgumentsFromFile();
 // Returns:     win32 return.
 //
 //=============================================================================
+// needed because some very dumb symbol error
 #define SDL_MAIN_HANDLED
 #define main main
-
-#ifdef RAD_PC
-#pragma comment(linker, "/ENTRY:mainCRTStartup")
-#endif
 
 SDLMAIN_DECLSPEC int main( int argc, char *argv[] )
 {
