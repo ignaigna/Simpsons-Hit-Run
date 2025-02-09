@@ -30,6 +30,9 @@ on:
         default: 'false'
         type: boolean
 
+permissions:
+  contents: write
+
 env:
   VCPKG_BINARY_SOURCES: 'clear;x-gha,readwrite'
   VCPKG_COMMIT_ID: '7e21420f775f72ae938bdeb5e6068f722088f06a' # just sync with vcpkg-configuration.json baseline
@@ -92,8 +95,6 @@ jobs:
           build/**
         # TODO(3ur): ^^^ build can have bin-Win32-Debug & obj-Win32-Debug do we care about obj? should we only archive bin with action
 
-    # https://trstringer.com/github-actions-create-release-upload-artifacts/
-    # NOTES: when generating a token I suggest using a fine grained PAT with only permission to do releases
     - name: Create Release
       if: ${{ github.event.inputs.create_release == 'true' }}
       uses: actions/create-release@v1
@@ -105,7 +106,7 @@ jobs:
         tag_name: ${{ steps.version.outputs.version }}
         #body_path: CHANGELOG.md
       env:
-        GITHUB_TOKEN: ${{ github.token }} # https://docs.github.com/en/actions/security-for-github-actions/security-guides/automatic-token-authentication#about-the-github_token-secret
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # https://docs.github.com/en/actions/security-for-github-actions/security-guides/automatic-token-authentication#about-the-github_token-secret
 
     # pretty much the upload build step but it makes a zip of build folder
     - name: Zip Build
@@ -114,11 +115,12 @@ jobs:
         tar -czf ${{ github.workspace }}/${{ steps.version.outputs.version }}.zip -C build .
 
     - name: Upload Build
-      if: ${{ github.event.inputs.create_release == 'true' }}
-      shell: bash
-      run: |
-        curl -X POST \
-          -H "Authorization: token ${{ github.GITHUB_TOKEN }}" \
-          -H "Content-Type: application/zip" \
-          --data-binary @"${{ github.workspace }}/${{ steps.version.outputs.version }}.zip" \
-          "https://uploads.github.com/repos/${{ github.repository }}/releases/${{ steps.create_release.outputs.id }}/assets?name=${{ steps.version.outputs.version }}.zip"
+      id: upload-release-asset 
+      uses: actions/upload-release-asset@v1
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }} 
+        asset_path: ${{ github.workspace }}/${{ steps.version.outputs.version }}.zip
+        asset_name: ${{ steps.version.outputs.version }}.zip
+        asset_content_type: application/zip
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
