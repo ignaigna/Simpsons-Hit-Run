@@ -9,30 +9,30 @@ on:
   workflow_dispatch:
     inputs:
       configuration:
-        description: "Build configuration"
+        description: 'Build configuration'
         required: true
-        default: "Release"
+        default: 'Release'
         type: choice
         options:
           - Debug
           - Release
           - Tune
       platform:
-        description: "Build platform"
+        description: 'Build platform'
         required: true
-        default: "x86"
+        default: 'x86'
         type: choice
         options:
           - x86
       create_release:
-        description: "Should a release be created?"
+        description: 'Should a release be created?'
         required: false
-        default: "false"
+        default: 'false'
         type: boolean
 
 env:
-  VCPKG_BINARY_SOURCES: "clear;x-gha,readwrite"
-  VCPKG_COMMIT_ID: "7e21420f775f72ae938bdeb5e6068f722088f06a" # just sync with vcpkg-configuration.json baseline
+  VCPKG_BINARY_SOURCES: 'clear;x-gha,readwrite'
+  VCPKG_COMMIT_ID: '7e21420f775f72ae938bdeb5e6068f722088f06a' # just sync with vcpkg-configuration.json baseline
 
 jobs:     
   build:
@@ -45,8 +45,8 @@ jobs:
       uses: actions/github-script@v7
       with:
         script: |
-          core.exportVariable("ACTIONS_CACHE_URL", process.env.ACTIONS_CACHE_URL || "");
-          core.exportVariable("ACTIONS_RUNTIME_TOKEN", process.env.ACTIONS_RUNTIME_TOKEN || "");
+          core.exportVariable('ACTIONS_CACHE_URL', process.env.ACTIONS_CACHE_URL || '');
+          core.exportVariable('ACTIONS_RUNTIME_TOKEN', process.env.ACTIONS_RUNTIME_TOKEN || '');
     
     - name: Checkout Source Code 
       uses: actions/checkout@v3
@@ -54,12 +54,12 @@ jobs:
     - name: Setup MSBuild
       uses: microsoft/setup-msbuild@v1.1
       with:
-        vs-version: "latest"
+        vs-version: 'latest'
         
     - name: Setup VCPKG
       uses: lukka/run-vcpkg@v10.0
       with:
-        vcpkgDirectory: "vcpkg"
+        vcpkgDirectory: 'vcpkg'
         vcpkgGitCommitId: ${{ env.VCPKG_COMMIT_ID }}
         doNotCache: false
 
@@ -84,7 +84,7 @@ jobs:
         
     - name: Upload Build
       uses: actions/upload-artifact@v4
-      if: ${{ github.event.inputs.create_release == "false" }} # with releases we can just grab the build there so this is useless
+      if: ${{ github.event.inputs.create_release == 'false' }} # with releases we can just grab the build there so this is useless
       with:
         name: ${{ steps.version.outputs.version }}
         path: |
@@ -94,7 +94,7 @@ jobs:
     # https://trstringer.com/github-actions-create-release-upload-artifacts/
     # NOTES: when generating a token I suggest using a fine grained PAT with only permission to do releases
     - name: Create Release
-      if: ${{ github.event.inputs.create_release == "true" }}
+      if: ${{ github.event.inputs.create_release == 'true' }}
       uses: actions/create-release@v1
       id: create_release
       with:
@@ -108,15 +108,15 @@ jobs:
 
     # pretty much the upload build step but it makes a zip of build folder
     - name: Zip Build
-      if: ${{ github.event.inputs.create_release == "true" }}
+      if: ${{ github.event.inputs.create_release == 'true' }}
       run: |
         tar -czf ${{ github.workspace }}/${{ steps.version.outputs.version }}.zip -C build .
         
     - name: Upload Build
-      if: ${{ github.event.inputs.create_release == "true" }}
+      if: ${{ github.event.inputs.create_release == 'true' }}
       run: |
         curl -X POST \
-          -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
-          -H "Content-Type: application/zip" \
+          -H 'Authorization: token ${{ secrets.GITHUB_TOKEN }}' \
+          -H 'Content-Type: application/zip' \
           --data-binary @${{ github.workspace }}/${{ steps.version.outputs.version }}.zip \
-          "https://uploads.github.com/repos/${{ github.repository }}/releases/${{ steps.create_release.outputs.id }}/assets?name=${{ steps.version.outputs.version }}.zip"
+          'https://uploads.github.com/repos/${{ github.repository }}/releases/${{ steps.create_release.outputs.id }}/assets?name=${{ steps.version.outputs.version }}.zip'
