@@ -112,12 +112,13 @@ jobs:
       if: ${{ github.event.inputs.create_release == 'true' }}
       run: |
         tar -czf ${{ github.workspace }}/${{ steps.version.outputs.version }}.zip -C build .
-        
+
     - name: Upload Build
       if: ${{ github.event.inputs.create_release == 'true' }}
+      shell: bash
       run: |
         curl -X POST \
-          -H 'Authorization: token ${{ secrets.GITHUB_TOKEN }}' \
-          -H 'Content-Type: application/zip' \
-          --data-binary @${{ github.workspace }}/${{ steps.version.outputs.version }}.zip \
-          'https://uploads.github.com/repos/${{ github.repository }}/releases/${{ steps.create_release.outputs.id }}/assets?name=${{ steps.version.outputs.version }}.zip'
+          -H "Authorization: token ${{ github.GITHUB_TOKEN }}" \
+          -H "Content-Type: application/zip" \
+          --data-binary @"${{ github.workspace }}/${{ steps.version.outputs.version }}.zip" \
+          "https://uploads.github.com/repos/${{ github.repository }}/releases/${{ steps.create_release.outputs.id }}/assets?name=${{ steps.version.outputs.version }}.zip"
