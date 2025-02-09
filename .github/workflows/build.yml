@@ -106,18 +106,24 @@ jobs:
         $LATEST_TAG = git describe --tags (git rev-list --tags --max-count=1)
         "previous_tag=$LATEST_TAG" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
         
+        
+    - name: Build Changelog
+      if: ${{ github.event.inputs.create_release == 'true' }}
+      id: github_release
+      uses: mikepenz/release-changelog-builder-action@v5
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        
     - name: Create Release
       if: ${{ github.event.inputs.create_release == 'true' }}
-      uses: 3UR/create-release@v1
+      uses: actions/create-release@v1
       id: create_release
       with:
         draft: false
         prerelease: ${{ github.event.inputs.configuration != 'Release' }}
         release_name: ${{ steps.version.outputs.version }}
         tag_name: ${{ steps.version.outputs.version }}
-        previous_tag_name: ${{ steps.get_previous_tag.outputs.previous_tag }}
-        generate_release_notes: true
-        #body_path: CHANGELOG.md
+        body: ${{ steps.github_release.outputs.changelog }}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # https://docs.github.com/en/actions/security-for-github-actions/security-guides/automatic-token-authentication#about-the-github_token-secret
 
