@@ -106,7 +106,7 @@ void DebugCam::Update( unsigned int milliseconds  )
        
     bool cameraRelative = false;
 
-#ifdef RAD_PC
+#ifdef RAD_WIN32
     float left = mIm->GetValue( 0, InputManager::CameraLeft );
     float right = mIm->GetValue( 0, InputManager::CameraRight );
     float up = mIm->GetValue( 0, InputManager::CameraMoveIn );

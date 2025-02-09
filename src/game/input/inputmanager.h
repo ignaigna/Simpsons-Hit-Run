@@ -22,7 +22,7 @@
 //========================================
 #include <data/gamedata.h>
 #include <input/controller.h>
-#ifdef RAD_PC
+#ifdef RAD_WIN32
 #include <input/usercontrollerWin32.h>
 #include <input/FEMouse.h>
 #else
@@ -84,7 +84,7 @@ public:
         RightStickX,
         RightStickY
     };
-#elif defined(RAD_PC)  // Clumsy because of pc<->console differences
+#elif defined(RAD_WIN32)  // Clumsy because of pc<->console differences
     enum eButtonMap
     {
         MoveUp,                 // These are the real buttons names
@@ -214,7 +214,7 @@ public:
     void SetRumbleEnabled( bool isEnabled );
     bool IsRumbleEnabled() const;
 
-#ifdef RAD_PC
+#ifdef RAD_WIN32
     void StartRumbleEffects();
     void StopRumbleEffects();
 #endif
@@ -256,7 +256,7 @@ public:
 
     bool IsProScanButtonsPressed() const { return m_isProScanButtonsPressed; }
 
-#ifdef RAD_PC
+#ifdef RAD_WIN32
     FEMouse* GetFEMouse() const { return m_pFEMouse; }
 #endif
 
@@ -295,7 +295,7 @@ private:
 
     bool m_isProScanButtonsPressed : 1;
 
-#ifdef RAD_PC
+#ifdef RAD_WIN32
     FEMouse* m_pFEMouse;
 #endif
 #ifdef RAD_PS2

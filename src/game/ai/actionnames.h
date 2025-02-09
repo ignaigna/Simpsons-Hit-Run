@@ -50,7 +50,7 @@ namespace ActionButton
         "DPadDown",
         "DPadLeft",
         "DPadRight"
-#ifdef RAD_PC
+#ifdef RAD_WIN32
         ,"GetOutCar"
         ,"MouseLookLeft"
         ,"MouseLookRight"

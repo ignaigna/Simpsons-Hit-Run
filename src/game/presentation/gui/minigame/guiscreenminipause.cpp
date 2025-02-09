@@ -165,7 +165,7 @@ void CGuiScreenMiniPause::HandleMessage
             }
             case GUI_MSG_CONTROLLER_BACK:
             {
-#ifdef RAD_PC
+#ifdef RAD_WIN32
                     this->ResumeGame();
                     break;
 #else
@@ -228,7 +228,7 @@ void CGuiScreenMiniPause::InitIntro()
 
     GetSoundManager()->OnPauseStart();
 
-#ifdef RAD_PC
+#ifdef RAD_WIN32
     GetInputManager()->GetFEMouse()->SetInGameMode( false );
 #endif
 }
@@ -267,7 +267,7 @@ void CGuiScreenMiniPause::InitOutro()
 {
     GetSoundManager()->OnPauseEnd();
 
-#ifdef RAD_PC
+#ifdef RAD_WIN32
     GetInputManager()->GetFEMouse()->SetInGameMode( true );
 #endif
 }

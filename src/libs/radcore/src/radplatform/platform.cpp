@@ -129,7 +129,8 @@ class radPlatform : public IRadPlatform
 
         rWarningMsg( m_pMainWindow != NULL, "hMainWindow set to NULL in platform component" );
 
-        #ifdef RAD_PC
+        // why wasnt RAD_PC defined WTF
+        #ifdef RAD_WIN32
             SDL_VERSION( &m_wmInfo.version );
             SDL_GetWindowWMInfo( pMainWindow, &m_wmInfo );
         #endif
@@ -150,7 +151,6 @@ class radPlatform : public IRadPlatform
     }
     virtual HINSTANCE GetInstanceHandle( void )
     {
-        // TODO(3ur): returns a invalid handle
         return( m_wmInfo.info.win.hinstance );
     }
     #endif

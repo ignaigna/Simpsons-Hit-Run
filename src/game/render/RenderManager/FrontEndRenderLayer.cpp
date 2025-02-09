@@ -28,7 +28,7 @@
 #include <contexts/gameplay/gameplaycontext.h>
 #include <worldsim/coins/coinmanager.h>
 #include <worldsim/coins/sparkle.h>
-#ifdef RAD_PC
+#ifdef RAD_WIN32
 #include <input/inputmanager.h>
 #endif
 //************************************************************************
@@ -139,7 +139,7 @@ void FrontEndRenderLayer::Render()
         // display Scrooby screen (and updates all Pure3d objects)
         //
         mpScroobyApp->DrawFrame( static_cast<float>( g_scroobySimulationTime ) );
-#ifdef RAD_PC
+#ifdef RAD_WIN32
         // Update the frontend cursor.
         GetInputManager()->GetFEMouse()->Update();
 #endif

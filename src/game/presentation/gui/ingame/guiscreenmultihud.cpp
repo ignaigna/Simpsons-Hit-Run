@@ -310,7 +310,7 @@ void CGuiScreenMultiHud::HandleMessage
             break;
         }
 
-#ifdef RAD_PC
+#ifdef RAD_WIN32
         case GUI_MSG_CONTROLLER_BACK:
         {
             // This is our start button for PC.

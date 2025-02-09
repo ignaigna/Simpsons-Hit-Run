@@ -443,7 +443,7 @@ void TutorialManager::ProcessQueue()
         //
         this->SetTutorialSeen( event, true );
 
-#ifndef RAD_PC
+#ifndef RAD_WIN32
         switch( event )
         {
         case TUTORIAL_BREAK_CAMERA:
@@ -614,7 +614,7 @@ void TutorialManager::ProcessQueue()
         GetGuiSystem()->GotoScreen( CGuiWindow::GUI_SCREEN_ID_TUTORIAL, 0, 0,
                                     CLEAR_WINDOW_HISTORY | FORCE_WINDOW_CHANGE_IMMEDIATE );
 
-#ifdef RAD_PC
+#ifdef RAD_WIN32
         m_DialogCurrentlyPlaying = false;
 #endif
         GetGameFlow()->SetContext( CONTEXT_PAUSE );
@@ -681,14 +681,14 @@ TutorialManager::SaveData( GameDataByte* dataBuffer, unsigned int numBytes )
 void
 TutorialManager::ResetData()
 {
-#ifdef RAD_PC
+#ifdef RAD_WIN32
 
     if( !GetInputManager()->GetController(0)->IsTutorialDisabled() )
     {
 #endif       
         m_EnableTutorialEvents = true;
         m_tutorialsSeen = 0;
-#ifdef RAD_PC
+#ifdef RAD_WIN32
     }
 #endif 
 

@@ -186,7 +186,7 @@ void VehicleMappable::LoadControllerMappings( unsigned int controllerId )
 
     #endif
 
-    #ifdef RAD_PC
+    #ifdef RAD_WIN32
 
     ClearMap(0);
     if ( GetGameFlow()->GetCurrentContext() == CONTEXT_LOADING_SUPERSPRINT &&

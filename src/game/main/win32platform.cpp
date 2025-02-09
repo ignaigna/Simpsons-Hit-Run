@@ -1795,7 +1795,7 @@ int SDLCALL Win32Platform::WndProc( void * userdata, SDL_Event * event )
                     }
                     break;
 
-#ifdef RAD_PC
+#ifdef RAD_WIN32
                 case SDL_WINDOWEVENT_LEAVE:
                     GetInputManager()->GetFEMouse()->getCursor()->SetVisible( false );
                     break;
@@ -1825,7 +1825,7 @@ int SDLCALL Win32Platform::WndProc( void * userdata, SDL_Event * event )
 
     case SDL_MOUSEMOTION:  
         {
-#ifdef RAD_PC
+#ifdef RAD_WIN32
             // For some reason beyond my comprehension WM_MOUSEMOVE seems to be getting called regardless if the
             // mouse moved or not. So let the FEMouse determine if we moved.
             FEMouse* pFEMouse = GetInputManager()->GetFEMouse();
@@ -1842,7 +1842,7 @@ int SDLCALL Win32Platform::WndProc( void * userdata, SDL_Event * event )
             break;
         }
 
-#ifdef RAD_PC
+#ifdef RAD_WIN32
     case SDL_MOUSEBUTTONDOWN:
         if (event->button.button == SDL_BUTTON_LEFT)
             GetInputManager()->GetFEMouse()->ButtonDown(BUTTON_LEFT);

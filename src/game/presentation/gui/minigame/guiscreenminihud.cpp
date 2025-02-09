@@ -21,7 +21,7 @@
 #include <contexts/supersprint/supersprintcontext.h>
 #include <gameflow/gameflow.h>
 
-#ifdef RAD_PC
+#ifdef RAD_WIN32
 #include <input/inputmanager.h>
 #endif
 
@@ -97,7 +97,7 @@ void CGuiScreenMiniHud::HandleMessage
     {
         switch( message )
         {
-#ifdef RAD_PC
+#ifdef RAD_WIN32
             case GUI_MSG_CONTROLLER_BACK:
             {
                 if( GetInputManager()->GetValue( 0, InputManager::KeyboardEsc ) > 0.0f )
@@ -165,7 +165,7 @@ void CGuiScreenMiniHud::HandleMessage
 //===========================================================================
 void CGuiScreenMiniHud::InitIntro()
 {
-#ifdef RAD_PC
+#ifdef RAD_WIN32
     GetInputManager()->GetFEMouse()->SetInGameMode( true );
 #endif
 }

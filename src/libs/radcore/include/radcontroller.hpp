@@ -356,7 +356,7 @@ struct IRadControllerOutputPoint
     //
     // Force feedback effects for win32
     //
-#if defined( RAD_PC )
+#if defined( RAD_WIN32 )
     virtual long GetOffset( void ) const = 0;
     virtual void UpdateEffect( const DIEFFECT* effect ) = 0;
     virtual void Start( void ) = 0;

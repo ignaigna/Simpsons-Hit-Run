@@ -1578,7 +1578,7 @@ void SoundManager::LoadData( const GameDataByte* dataBuffer, unsigned int numByt
     SoundMode loadedSoundMode;
     float calculatedAmbienceVolume;
 
-#ifdef RAD_PC // temp
+#ifdef RAD_WIN32 // temp
     return;
 #endif
 
@@ -1755,7 +1755,7 @@ void SoundManager::ResetData()
 #endif
 }
 
-#ifdef RAD_PC
+#ifdef RAD_WIN32
 //=============================================================================
 // SoundManager::GetConfigName
 //=============================================================================
@@ -2092,7 +2092,7 @@ void SoundManager::Initialize()
     ::radFactoryRegister( "reverbSettings", (radFactoryProc*) reverbSettings::ObjCreate );
     ::radFactoryRegister( "positionalSoundSettings", (radFactoryProc*) positionalSoundSettings::ObjCreate );
 
-#ifdef RAD_PC
+#ifdef RAD_WIN32
     //
     // Register with the game config manager
     //
