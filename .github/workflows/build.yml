@@ -108,7 +108,7 @@ jobs:
         
     - name: Create Release
       if: ${{ github.event.inputs.create_release == 'true' }}
-      uses: actions/create-release@v1
+      uses: 3UR/create-release@v1
       id: create_release
       with:
         draft: false
