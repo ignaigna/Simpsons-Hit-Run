@@ -9,6 +9,9 @@
 //
 //=============================================================================
 
+// resolve annoying as hell "unresolved external symbol _main"
+#define SDL_MAIN_HANDLED
+
 //========================================
 // System Includes
 //========================================
@@ -37,6 +40,10 @@ static void ProcessCommandLineArguments( int argc, char *argv[] );
 
 static void ProcessCommandLineArgumentsFromFile();
 
+static void LogOutputFunction(void* userdata, int category, SDL_LogPriority priority, const char* message)
+{
+    rDebugPrintf("[SDL] %s\n", message);
+}
 
 //=============================================================================
 // Function:    WinMain
@@ -49,13 +56,7 @@ static void ProcessCommandLineArgumentsFromFile();
 // Returns:     win32 return.
 //
 //=============================================================================
-
-// needed
-#define SDL_MAIN_HANDLED
-#define main main
-#pragma comment(linker, "/ENTRY:mainCRTStartup")
-
-SDLMAIN_DECLSPEC int main( int argc, char *argv[] )
+int main( int argc, char *argv[] )
 {
     //
     // Pick out and store command line settings.
@@ -67,7 +68,9 @@ SDLMAIN_DECLSPEC int main( int argc, char *argv[] )
     //
     // Initialize SDL subsystems
     //
-    SDL_Init(SDL_INIT_EVENTS | SDL_INIT_VIDEO);
+    SDL_SetMainReady();
+    SDL_Init( SDL_INIT_EVENTS | SDL_INIT_VIDEO );
+    SDL_LogSetOutputFunction( LogOutputFunction, NULL );
 
     //
     // Have to get FTech setup first so that we can use all the memory services.
