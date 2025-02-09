@@ -129,4 +129,6 @@ src/libs/sim/[Dd]ebug/
 src/libs/sim/[Tt]une/
 src/libs/sim/lib/
 src/libs/sim/obj/
-/enc_temp_folder/ae50d2978623c680a493151ac05e42dc
+
+# annoying visual studio junk
+/enc_temp_folder/
