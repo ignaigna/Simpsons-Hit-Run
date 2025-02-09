@@ -3719,8 +3719,8 @@ static const struct { const char *name; const char *path; } dialogge[] = {
     { "P_NHitByC_Zm4_04", "Zombie4/P_NHitByC_Zm4_04.rsd" },
 };
 
-#pragma GCC push_options
-#pragma GCC optimize("O1")
+
+#pragma optimize("t", on)
 void daSoundRenderingManager::RunGermanSoundScripts( void )
 {
     SetCurrentNameSpace( GetSoundNamespace() );
@@ -3735,6 +3735,6 @@ void daSoundRenderingManager::RunGermanSoundScripts( void )
 #endif
     #include "nisge.inl"
 }
-#pragma GCC pop_options
+#pragma optimize("", on)
 
 }

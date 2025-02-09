@@ -2,14 +2,14 @@
 
 namespace Sound {
 
-#pragma GCC push_options
-#pragma GCC optimize("O1")
+
+#pragma optimize("t", on)
 void daSoundRenderingManager::RunApuSoundScripts( void )
 {
     SetCurrentNameSpace( GetCharacterNamespace( SC_CHAR_APU ) );
     GetSoundManager()->GetSoundLoader()->SetCurrentCluster( SC_CHAR_APU );
     #include "apu.inl"
 }
-#pragma GCC pop_options
+#pragma optimize("", on)
 
 }

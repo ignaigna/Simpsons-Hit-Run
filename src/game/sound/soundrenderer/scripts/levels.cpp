@@ -2,8 +2,8 @@
 
 namespace Sound {
 
-#pragma GCC push_options
-#pragma GCC optimize("O1")
+
+#pragma optimize("t", on)
 void daSoundRenderingManager::RunLevelSoundScripts( void )
 {
     SoundLoader* loader = GetSoundManager()->GetSoundLoader();
@@ -31,6 +31,6 @@ void daSoundRenderingManager::RunLevelSoundScripts( void )
     loader->SetCurrentCluster( SC_MINIGAME );
     #include "minigame.inl"
 }
-#pragma GCC pop_options
+#pragma optimize("", on)
 
 }

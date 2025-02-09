@@ -3890,8 +3890,8 @@ static const struct { const char *name; const char *path; } dialog[] = {
     { "P_NHitByC_Zm4_03", "Zombie4/P_NHitByC_Zm4_03.rsd" },
 };
 
-#pragma GCC push_options
-#pragma GCC optimize("O1")
+
+#pragma optimize("t", on)
 void daSoundRenderingManager::RunEnglishSoundScripts( void )
 {
     SetCurrentNameSpace( GetSoundNamespace() );
@@ -3906,6 +3906,6 @@ void daSoundRenderingManager::RunEnglishSoundScripts( void )
 #endif
     #include "nis.inl"
 }
-#pragma GCC pop_options
+#pragma optimize("", on)
 
 }
