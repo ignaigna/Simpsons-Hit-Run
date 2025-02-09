@@ -1959,7 +1959,7 @@ SoundManager::SoundManager( bool noSound, bool noMusic,
     m_soundFXPlayer( NULL ),
     m_NISPlayer( NULL ),
     m_movingSoundManager( NULL ),
-    m_isMuted( /*noSound*/ true ), // TODO(3ur): actually debug this crap more later because when its not force muted it just causes a crash
+    m_isMuted( /*noSound*/ true ), // TODO(3ur): actually debug this crap more later because when its not force muted it just causes a crash 
     m_noMusic( noMusic ),
     m_noEffects( noEffects ),
     m_noDialogue( noDialogue ),
