@@ -2595,6 +2595,7 @@ class radControllerSystemDirectInput
             }
         
             rAssertMsg( SUCCEEDED( hr ), "Couldn't Create Direct Input Object, this could be because of an invalid main window handle\n" );
+            rDebugPrintf("Code: 0x%x, Handle: %x\n", hr, xIWin32Platform->GetInstanceHandle());
 
             if ( m_xIDirectInput8 != NULL )
             {
