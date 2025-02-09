@@ -64,16 +64,19 @@ jobs:
         doNotCache: false
 
     # TODO(3ur): in game-engine we only have x86-windows-static-md but in SRR2 we will also have x64 and x86 is vcpkg install by its self okay?
-    - run: |
+    - name: Install Dependencies (VCPKG)
+      run: |
         .\vcpkg\vcpkg.exe install --triplet x86-windows
-    - run: |
+    - name: Integrate (VCPKG)
+      run: |
         .\vcpkg\vcpkg.exe integrate install
 
     - name: Build SRR2
       run: |
         msbuild.exe src/game/SRR2.vcxproj /p:Configuration=${{ github.event.inputs.configuration }} /p:Platform=${{ github.event.inputs.platform }} /p:PlatformToolset=v143 /p:WindowsTargetPlatformVersion=10.0 /m /clp:PerformanceSummary /p:SolutionDir=${{ github.workspace }}
 
-    - id: version
+    - name: Generate Version
+      id: version
       run: |
         VERSION='SRR2-${{ github.event.inputs.configuration }}-${{ github.event.inputs.platform }}-$(date +"%Y.%m.%d-%H.%M.%S")-${GITHUB_SHA::7}'
         echo 'VERSION=$VERSION' >> $GITHUB_ENV
@@ -104,7 +107,8 @@ jobs:
         GITHUB_TOKEN: ${{ github.token }} # https://docs.github.com/en/actions/security-for-github-actions/security-guides/automatic-token-authentication#about-the-github_token-secret
 
     # pretty much the upload build step but it makes a zip of build folder
-    - if: ${{ github.event.inputs.create_release == 'true' }}
+    - name: Zip Build
+      if: ${{ github.event.inputs.create_release == 'true' }}
       run: |
         tar -czf ${{ github.workspace }}/${{ steps.version.outputs.version }}.zip -C build .
         
