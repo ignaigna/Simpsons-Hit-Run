@@ -17,6 +17,8 @@ The latest build for Windows can be found in the [Releases](https://github.com/3
 So visit the releases page and download the latest build it will be named something like `SRR2-Debug-x86-2025.02.09-15.21.49-07cbce9.zip`, 
 The zip you downloaded will have one file inside it named something like `SRR2-Debug-x86-2025.02.09-15.21.49-07cbce9` you will have to open this inside 7zip (or something else) too (dont ask why the workflow is WIP) once opened you should see `bin-Win32-Debug` this is where the main binaries are this can be extracted anywhere just make sure that you extract assets wherever you extract this.
 
+tldr; download latest release, extract then extract assets over the build
+
 
 ### I want to work on the code and create my own builds
 
