@@ -1,8 +1,6 @@
 #include <sound/soundrenderer/soundrenderingmanager.h>
 
 namespace Sound {
-
-
 #pragma optimize("t", on)
 void daSoundRenderingManager::RunApuSoundScripts( void )
 {
@@ -11,5 +9,4 @@ void daSoundRenderingManager::RunApuSoundScripts( void )
     #include "apu.inl"
 }
 #pragma optimize("", on)
-
 }

@@ -1,8 +1,6 @@
 #include <sound/soundrenderer/soundrenderingmanager.h>
 
 namespace Sound {
-
-
 #pragma optimize("t", on)
 void daSoundRenderingManager::RunSoundEffectScripts( void )
 {
@@ -16,5 +14,4 @@ void daSoundRenderingManager::RunSoundEffectScripts( void )
     #include "positionalsounds.inl"
 }
 #pragma optimize("", on)
-
 }

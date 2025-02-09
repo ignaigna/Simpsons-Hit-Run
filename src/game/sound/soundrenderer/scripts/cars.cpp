@@ -2,9 +2,7 @@
 #include <sound/avatar/carsoundparameters.h>
 
 namespace Sound {
-
-
-#pragma GCC optimize("01")
+#pragma optimize("t", on)
 void daSoundRenderingManager::RunCarSoundScripts( void )
 {
     SoundLoader* loader = GetSoundManager()->GetSoundLoader();

@@ -1,8 +1,6 @@
 #include <sound/soundrenderer/soundrenderingmanager.h>
 
 namespace Sound {
-
-
 #pragma optimize("t", on)
 void daSoundRenderingManager::RunHomerSoundScripts( void )
 {
@@ -11,5 +9,4 @@ void daSoundRenderingManager::RunHomerSoundScripts( void )
     #include "homer.inl"
 }
 #pragma optimize("", on)
-
 }

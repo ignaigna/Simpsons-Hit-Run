@@ -1,8 +1,6 @@
 #include <sound/soundrenderer/soundrenderingmanager.h>
 
 namespace Sound {
-
-
 #pragma optimize("t", on)
 void daSoundRenderingManager::RunLevelSoundScripts( void )
 {
@@ -32,5 +30,4 @@ void daSoundRenderingManager::RunLevelSoundScripts( void )
     #include "minigame.inl"
 }
 #pragma optimize("", on)
-
 }

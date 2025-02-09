@@ -5,8 +5,6 @@
 #include <sound/tuning/globalsettings.h>
 
 namespace Sound {
-
-
 #pragma optimize("t", on)
 void daSoundRenderingManager::RunTuningSoundScripts( void )
 {
@@ -17,5 +15,4 @@ void daSoundRenderingManager::RunTuningSoundScripts( void )
     #include "global.inl"
 }
 #pragma optimize("", on)
-
 }

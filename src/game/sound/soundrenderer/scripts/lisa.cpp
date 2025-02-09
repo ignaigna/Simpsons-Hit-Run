@@ -1,8 +1,6 @@
 #include <sound/soundrenderer/soundrenderingmanager.h>
 
 namespace Sound {
-
-
 #pragma optimize("t", on)
 void daSoundRenderingManager::RunLisaSoundScripts( void )
 {
@@ -11,5 +9,4 @@ void daSoundRenderingManager::RunLisaSoundScripts( void )
     #include "lisa.inl"
 }
 #pragma optimize("", on)
-
 }

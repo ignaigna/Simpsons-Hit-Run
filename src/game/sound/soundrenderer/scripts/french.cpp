@@ -3718,7 +3718,6 @@ static const struct { const char *name; const char *path; } dialogfr[] = {
     { "P_NHitByC_Zm4_04", "Zombie4/P_NHitByC_Zm4_04.rsd" },
 };
 
-
 #pragma optimize("t", on)
 void daSoundRenderingManager::RunFrenchSoundScripts( void )
 {
@@ -3735,5 +3734,4 @@ void daSoundRenderingManager::RunFrenchSoundScripts( void )
     #include "nisfr.inl"
 }
 #pragma optimize("", on)
-
 }

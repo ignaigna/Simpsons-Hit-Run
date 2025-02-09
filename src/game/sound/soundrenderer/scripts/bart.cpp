@@ -1,8 +1,6 @@
 #include <sound/soundrenderer/soundrenderingmanager.h>
 
 namespace Sound {
-
-
 #pragma optimize("t", on)
 void daSoundRenderingManager::RunBartSoundScripts( void )
 {
@@ -11,5 +9,4 @@ void daSoundRenderingManager::RunBartSoundScripts( void )
     #include "bart.inl"
 }
 #pragma optimize("", on)
-
 }

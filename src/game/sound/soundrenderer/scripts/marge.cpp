@@ -1,8 +1,6 @@
 #include <sound/soundrenderer/soundrenderingmanager.h>
 
 namespace Sound {
-
-
 #pragma optimize("t", on)
 void daSoundRenderingManager::RunMargeSoundScripts( void )
 {
@@ -11,5 +9,4 @@ void daSoundRenderingManager::RunMargeSoundScripts( void )
     #include "marge.inl"
 }
 #pragma optimize("", on)
-
 }

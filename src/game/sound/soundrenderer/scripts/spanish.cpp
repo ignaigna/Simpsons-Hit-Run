@@ -3673,8 +3673,6 @@ static const struct { const char *name; const char *path; } dialogsp[] = {
     { "P_NHitByC_Zm4_02", "Zombie4/P_NHitByC_Zm4_02.rsd" },
     { "P_NHitByC_Zm4_03", "Zombie4/P_NHitByC_Zm4_03.rsd" },
 };
-
-
 #pragma optimize("t", on)
 void daSoundRenderingManager::RunSpanishSoundScripts( void )
 {
@@ -3691,5 +3689,4 @@ void daSoundRenderingManager::RunSpanishSoundScripts( void )
     #include "nissp.inl"
 }
 #pragma optimize("", on)
-
 }

@@ -3719,7 +3719,6 @@ static const struct { const char *name; const char *path; } dialogge[] = {
     { "P_NHitByC_Zm4_04", "Zombie4/P_NHitByC_Zm4_04.rsd" },
 };
 
-
 #pragma optimize("t", on)
 void daSoundRenderingManager::RunGermanSoundScripts( void )
 {
@@ -3736,5 +3735,4 @@ void daSoundRenderingManager::RunGermanSoundScripts( void )
     #include "nisge.inl"
 }
 #pragma optimize("", on)
-
 }
