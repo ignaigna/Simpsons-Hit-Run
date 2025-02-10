@@ -59,8 +59,8 @@ void MemoryHackCallback() { INIT_MEM() };
 #ifdef RAD_WIN32
 #include <main/win32platform.h>
 #define INIT_MEM()  Memory::InitializeMemoryUtilities();Win32Platform::InitializeMemory();
-void MemoryHackCallback() { INIT_MEM() };
 #define SHUTDOWN_MEM()  Win32Platform::ShutdownMemory();
+void MemoryHackCallback() { INIT_MEM() };
 #endif // RAD_WIN32
 
 //******************************************************************************
@@ -78,36 +78,40 @@ bool gMemorySystemInitialized = false;
 // 
 // Temporarily disable allocation routing (to avoid infinite loops)
 //
+#ifdef OVERRIDE_BUILTIN_NEW
+bool g_NoHeapRoute = true;
+#else
 bool g_NoHeapRoute = false;
+#endif
 
 const char* HeapNames[] =
 {
     "Default Heap",
-        "Temp Heap",
-        "Persistent Heap",
-        "Level Heap",
-        "Movie Heap",
-        "Frontend Heap",
-        "Zone and Rail Heap",
-        "Level Other Heap",
-        "HUD Heap",
-        "Mission Heap",
-        "Audio Heap",
-        "Debug Heap",
-        "Special Heap",
-        "Music Heap",
-        "Audio Persistent",
-        "Small Alloc Heap",
+    "Temp Heap",
+    "Persistent Heap",
+    "Level Heap",
+    "Movie Heap",
+    "Frontend Heap",
+    "Zone and Rail Heap",
+    "Level Other Heap",
+    "HUD Heap",
+    "Mission Heap",
+    "Audio Heap",
+    "Debug Heap",
+    "Special Heap",
+    "Music Heap",
+    "Audio Persistent",
+    "Small Alloc Heap",
 #ifdef RAD_XBOX
-        "Xbox Sound Heap",
+    "Xbox Sound Heap",
 #endif
 #ifdef USE_CHAR_GAG_HEAP
-        "Character and Gag Heap",
+    "Character and Gag Heap",
 #endif
-        "Anywhere in Level",
-        "Anywhere in FE",
-        "Either Other or Zone",
-        "Allocator Search"
+    "Anywhere in Level",
+    "Anywhere in FE",
+    "Either Other or Zone",
+    "Allocator Search"
 };
 
 
@@ -150,7 +154,7 @@ inline void* AllocateThis( GameMemoryAllocator allocator, size_t size )
     return pMemory;
 }
 
-#ifdef OVERLOAD_BUILTIN_NEW
+
 //==============================================================================
 // new
 //==============================================================================
@@ -195,7 +199,6 @@ throw( std::bad_alloc )
 
     return( pMemory );
 }
-#endif
 
 
 //==============================================================================
@@ -216,7 +219,7 @@ throw()
 #endif
 #endif
 {
-    radMemoryFree(pMemory);
+    radMemoryFree( pMemory );
 }
 
 
@@ -314,12 +317,9 @@ void* operator new( size_t size, GameMemoryAllocator allocator )
 
     void* pMemory = AllocateThis( allocator, size );
 
-    if (!g_NoHeapRoute)
-    {
 #ifdef MEMORYTRACKER_ENABLED
-        ::radMemoryMonitorIdentifyAllocation (pMemory, HeapMgr()->GetCurrentGroupID ());
+    ::radMemoryMonitorIdentifyAllocation (pMemory, HeapMgr()->GetCurrentGroupID ());
 #endif
-    }
 
     //MEMTRACK_ALLOC( pMemory, size, 0 );
 
@@ -371,12 +371,9 @@ void* operator new[]( size_t size, GameMemoryAllocator allocator )
 
     void* pMemory = AllocateThis( allocator, size );
 
-    if (!g_NoHeapRoute)
-    {
 #ifdef MEMORYTRACKER_ENABLED
-        ::radMemoryMonitorIdentifyAllocation (pMemory, HeapMgr()->GetCurrentGroupID ());
+    ::radMemoryMonitorIdentifyAllocation (pMemory, HeapMgr()->GetCurrentGroupID ());
 #endif
-    }
 
     //MEMTRACK_ALLOC( pMemory, size, ALLOC_ARRAY );
 
@@ -606,6 +603,8 @@ void PrintOutOfMemoryMessage( void* userData, radMemoryAllocator heap, const uns
 
     rReleaseBreak();
 
+    ::radMemoryMonitorSuspend();
+
     //Re-enable now that we're through
     ::radMemorySetOutOfMemoryCallback( PrintOutOfMemoryMessage, NULL );
 #endif
@@ -748,7 +747,9 @@ int HeapManager::s_NumInstances = 0;
 
 HeapManager* HeapManager::GetInstance ()
 {
+#ifdef OVERRIDE_BUILTIN_NEW
     g_NoHeapRoute = true;
+#endif
 
     // First check to see if the thread local storage object has been created
     //
@@ -776,7 +777,9 @@ HeapManager* HeapManager::GetInstance ()
 #endif
     }
 
+#ifdef OVERRIDE_BUILTIN_NEW
     g_NoHeapRoute = false;
+#endif
     g_HeapManagerCreated = true;
     return static_cast<HeapManager*>(p);
 }

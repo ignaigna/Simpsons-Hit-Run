@@ -19,6 +19,7 @@
 #include <radthread.hpp>
 #include <main/commandlineoptions.h>
 #include <stddef.h>
+#include <string.h>
 #include <vector>
 #include <stack>
 
@@ -44,9 +45,6 @@ extern bool gMemorySystemInitialized;
 #endif // TOOLS
 
 
-
-#ifdef OVERLOAD_BUILTIN_NEW
-
 //
 // Override built-in new.
 //
@@ -59,25 +57,23 @@ throw( std::bad_alloc )
 ;
 
 //
-// Override built-in array new.
-//
-void* operator new[]( size_t size )
-#ifdef RAD_PS2
-#ifndef RAD_MW
-throw( std::bad_alloc )
-#endif
-#endif
-;
-
-#endif
-
-//
 // Override built-in delete.
 //
 void  operator delete(void* pMemory)
 #ifdef RAD_PS2
 #ifndef RAD_MW
 throw()
+#endif
+#endif
+;
+
+//
+// Override built-in array new.
+//
+void* operator new[]( size_t size )
+#ifdef RAD_PS2
+#ifndef RAD_MW
+throw( std::bad_alloc )
 #endif
 #endif
 ;
@@ -105,7 +101,10 @@ throw()
 enum GameMemoryAllocator
 {                                              // 
     GMA_DEFAULT = RADMEMORY_ALLOC_DEFAULT,     //    0         
-    GMA_TEMP = RADMEMORY_ALLOC_TEMP,           //    1                                                               
+    GMA_TEMP = RADMEMORY_ALLOC_TEMP,           //    1         
+#ifdef RAD_GAMECUBE                                            
+    GMA_GC_VMM = RADMEMORY_ALLOC_VMM,          //    2         
+#endif                                                         
     GMA_PERSISTENT = 3,                        //    3         
     GMA_LEVEL,                                 //    4          
     GMA_LEVEL_MOVIE,                           //    5         
