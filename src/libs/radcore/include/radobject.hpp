@@ -60,6 +60,7 @@ struct IRefCount;
 extern const char * const g_nameFTech;
 
 typedef int radMemoryAllocator;
+extern radMemoryAllocator radMemoryGetCurrentAllocator(void);
 extern void* radMemoryAlloc( radMemoryAllocator allocator, unsigned int numberOfBytes );
 extern void  radMemoryFree( radMemoryAllocator allocator, void* pMemory );
 extern void  radMemoryFree( void* pMemory );
@@ -223,6 +224,7 @@ class radObject // This should be called radHeapObject
 
         inline virtual ~radObject ( void );
 
+        inline void* operator new(size_t size);
         inline void* operator new( size_t size, void* p );
       	inline void* operator new( size_t size, radMemoryAllocator allocator );
         inline void* operator new[]( size_t size, void* p );	
