@@ -227,6 +227,7 @@ class radObject // This should be called radHeapObject
         inline void* operator new(size_t size);
         inline void* operator new( size_t size, void* p );
       	inline void* operator new( size_t size, radMemoryAllocator allocator );
+        inline void* operator new[](size_t size);
         inline void* operator new[]( size_t size, void* p );	
       	inline void* operator new[]( size_t size, radMemoryAllocator allocator );
 		inline void operator delete( void * pMemory );
