@@ -85,7 +85,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>include;..\radcore\include;..\radsound\include;../../../sdks/win32/bink;..\pure3d\p3d;..\pure3d;..\radmath;..\radmath\radmath;..\radcontent\include;..\..\game;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>include;..\radcore\include;..\radsound\include;..\pure3d\p3d;..\pure3d;..\radmath;..\radmath\radmath;..\radcontent\include;..\..\game;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_DEBUG;RAD_DEBUG;WIN32;_LIB;RAD_WIN32;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <ExceptionHandling />
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
@@ -124,7 +124,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <OmitFramePointers>true</OmitFramePointers>
-      <AdditionalIncludeDirectories>include;..\radcore\include;..\radsound\include;../../../sdks/win32/bink;..\pure3d\p3d;..\pure3d;..\radmath;..\radmath\radmath;..\radcontent\include;..\..\game;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>include;..\radcore\include;..\radsound\include;..\pure3d\p3d;..\pure3d;..\radmath;..\radmath\radmath;..\radcontent\include;..\..\game;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>NDEBUG;TUNE;RAD_TUNE;WIN32;_LIB;RAD_WIN32;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <ExceptionHandling />
@@ -161,7 +161,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <OmitFramePointers>true</OmitFramePointers>
-      <AdditionalIncludeDirectories>include;..\radcore\include;..\radsound\include;../../../sdks/win32/bink;..\pure3d\p3d;..\pure3d;..\radmath;..\radmath\radmath;..\radcontent\include;..\..\game;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>include;..\radcore\include;..\radsound\include;..\pure3d\p3d;..\pure3d;..\radmath;..\radmath\radmath;..\radcontent\include;..\..\game;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>NDEBUG;RELEASE;RAD_RELEASE;WIN32;_LIB;RAD_WIN32;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <ExceptionHandling />
@@ -194,6 +194,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\common\audiodatasource.cpp" />
+    <ClCompile Include="src\common\binkrenderstrategy.cpp" />
     <ClCompile Include="src\common\ffmpegmovieplayer.cpp" />
     <ClCompile Include="src\pch\pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -204,6 +205,7 @@
   <ItemGroup>
     <ClInclude Include="include\radmovie2.hpp" />
     <ClInclude Include="src\common\audiodatasource.hpp" />
+    <ClInclude Include="src\common\binkrenderstrategy.hpp" />
     <ClInclude Include="src\common\ffmpegmovieplayer.hpp" />
     <ClInclude Include="src\common\radmoviefile.hpp" />
     <ClInclude Include="src\common\radmovieinterfaces.hpp" />

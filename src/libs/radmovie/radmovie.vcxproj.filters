@@ -20,10 +20,13 @@
     <ClCompile Include="src\pch\pch.cpp">
       <Filter>pch</Filter>
     </ClCompile>
+    <ClCompile Include="src\common\ffmpegmovieplayer.cpp">
+      <Filter>Source Files\common</Filter>
+    </ClCompile>
     <ClCompile Include="src\common\audiodatasource.cpp">
       <Filter>Source Files\common</Filter>
     </ClCompile>
-    <ClCompile Include="src\common\ffmpegmovieplayer.cpp">
+    <ClCompile Include="src\common\binkrenderstrategy.cpp">
       <Filter>Source Files\common</Filter>
     </ClCompile>
   </ItemGroup>
@@ -34,6 +37,9 @@
     <ClInclude Include="src\pch\pch.hpp">
       <Filter>pch</Filter>
     </ClInclude>
+    <ClInclude Include="src\common\ffmpegmovieplayer.hpp">
+      <Filter>Source Files\common</Filter>
+    </ClInclude>
     <ClInclude Include="src\common\audiodatasource.hpp">
       <Filter>Source Files\common</Filter>
     </ClInclude>
@@ -43,7 +49,7 @@
     <ClInclude Include="src\common\radmovieinterfaces.hpp">
       <Filter>Source Files\common</Filter>
     </ClInclude>
-    <ClInclude Include="src\common\ffmpegmovieplayer.hpp">
+    <ClInclude Include="src\common\binkrenderstrategy.hpp">
       <Filter>Source Files\common</Filter>
     </ClInclude>
   </ItemGroup>

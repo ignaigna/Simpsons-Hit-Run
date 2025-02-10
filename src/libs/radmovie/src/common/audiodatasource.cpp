@@ -2,7 +2,7 @@
 // Copyright (c) 2002 Radical Games Ltd.  All rights reserved.
 //=============================================================================
 
-#include <pch.hpp>
+#include "pch.hpp"
 #include <radoptions.hpp>
 #include <radmovie2.hpp>
 #include <radmemorymonitor.hpp>

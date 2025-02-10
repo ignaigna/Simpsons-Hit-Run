@@ -43,6 +43,10 @@
 #include <radmemory.hpp>
 #include <radsound_hal.hpp>
 
+#if defined RAD_XBOX && ! defined RAD_MOVIEPLAYER_USE_BINK
+#include <d3d8.h>
+#endif // RAD_XBOX && ! RAD_MOVIEPLAYER_USE_BINK
+
 //=============================================================================
 // Forward Declarations and typedefs
 //=============================================================================
@@ -134,7 +138,7 @@ struct IRadMoviePlayer2 : public IRefCount
     //      * Audio Secondary Buffer:   This can be quite small (you'll hear skips if it's too small)
     //
 
-    #if ( defined RAD_XBOX || defined RAD_WIN32 )
+    #if ( defined RAD_XBOX || defined RAD_WIN32 || defined RAD_MOVIEPLAYER_USE_BINK )
 
     virtual void Initialize( 
         IRadMovieRenderLoop * pIRadMovieRenderLoop, 
@@ -245,7 +249,7 @@ struct IRadMovieRenderLoop : public IRefCount
 
 struct IRadMovieRenderStrategy : public IRefCount
 {
-    #if defined RAD_WIN32
+    #if defined RAD_WIN32 || defined RAD_MOVIEPLAYER_USE_BINK
 
         struct LockedDestination
         {
@@ -301,7 +305,7 @@ struct IRadMovieRenderStrategy : public IRefCount
 
         #endif 
 
-    #endif
+    #endif // RAD_MOVIEPLAYER_USE_BINK
 };
 
 #endif // RADMOVIE_HPP
