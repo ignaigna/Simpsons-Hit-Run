@@ -968,7 +968,7 @@ void HitnRunManager::Update( int elapsedMS )
             {
                 Vehicle* playerVehicle = player->GetVehicle();
                 playerVehicle->SetDisableGasAndBrake(false);
-                GetGuiSystem()->HandleMessage( GUI_MSG_MANUAL_RESET, reinterpret_cast< unsigned int >(playerVehicle) );
+                GetGuiSystem()->HandleMessage( GUI_MSG_MANUAL_RESET, GetVehicleCentral()->GetVehicleId( playerVehicle ) );
                 GameplayManager* gameplayManager = GetGameplayManager();
                 if ( gameplayManager != NULL )
                 {
