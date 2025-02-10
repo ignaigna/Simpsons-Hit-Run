@@ -28,7 +28,7 @@
 #include <worldsim/character/character.h>
 #include <worldsim/avatarmanager.h>
 #include <worldsim/redbrick/vehicle.h>
-#include <worldsim/coins/coinmanager.h>
+#include <worldsim/vehiclecentral.h>
 #include <memory/srrmemory.h>
 #include <events/eventmanager.h>
 #include <render/intersectmanager/intersectmanager.h>
@@ -53,6 +53,7 @@
 #include <raddebug.hpp>
 #include <raddebugwatch.hpp>
 #endif
+
 //******************************************************************************
 //
 // Global Data, Local Data, Local Classes
