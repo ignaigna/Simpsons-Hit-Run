@@ -23,14 +23,14 @@ public:
         //this is to make sure pairs that are otherwise the same (just
         //passed in a different order) evaluate to the same physical pair.
         if(newSimStateA < newSimStateB) {
-            mSimStateA = (unsigned)newSimStateA;
-            mSimStateB = (unsigned)newSimStateB;
+            mSimStateA = (uintptr_t)newSimStateA;
+            mSimStateB = (uintptr_t)newSimStateB;
             mIndexA = (unsigned)newIndexA;
             mIndexB = (unsigned)newIndexB;
         }
         else {
-            mSimStateA = (unsigned)newSimStateB;
-            mSimStateB = (unsigned)newSimStateA;
+            mSimStateA = (uintptr_t)newSimStateB;
+            mSimStateB = (uintptr_t)newSimStateA;
             mIndexA = (unsigned)newIndexB;
             mIndexB = (unsigned)newIndexA;
         }
@@ -87,7 +87,7 @@ public:
         return true;
     }
 
-    unsigned mSimStateA, mIndexA;
+    uintptr_t mSimStateA, mIndexA;
     unsigned mSimStateB, mIndexB;
 };
 
