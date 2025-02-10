@@ -17,7 +17,7 @@ int InvokeVf( void * pThat, unsigned int vtbloffset, void * pParams, int numPara
 {
 #if defined(_WIN64)
     #pragma message("NOTE: InvokeVf is unsupported on x64")
-    return;
+    return 0;
 #endif
 
     __asm
