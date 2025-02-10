@@ -6492,7 +6492,7 @@ public radRefCount
 
         rReleasePrintf("DLHeap %s StartMem:0x%x, EndMem:0x%x\n", pName, m_StartOfMemory, m_EndOfMemory );
 
-        m_MallocState = create_mspace_with_base( (void*)m_StartOfMemory, size, 0 );
+        m_MallocState = create_mspace_with_base( (void*)m_StartOfMemory, m_SizeOfMemory, 0 );
 
 #ifdef RADMEMORYMONITOR
         {
@@ -6517,13 +6517,14 @@ public radRefCount
 		m_StartOfMemory = (uintptr_t)pMem;
 		m_EndOfMemory = m_StartOfMemory + m_SizeOfMemory;
 
-        m_MallocState = create_mspace_with_base( pMem, size, 0 );
+        m_MallocState = create_mspace_with_base( (void*)m_StartOfMemory, m_SizeOfMemory, 0 );
 
 #ifdef RADMEMORYMONITOR
         radMemoryMonitorIdentifyAllocation( (void*)m_StartOfMemory, g_nameFTech, "radMemoryDlAllocator::m_StartOfMemory" );
 
         radMemoryMonitorDeclareSection( (void*)m_StartOfMemory, m_SizeOfMemory, IRadMemoryMonitor::MemorySectionType_DynamicData );
-        char szName[ 128 ];
+        char szName[ 128 ];    virtual ~radMemoryDlAllocator(void)
+
         sprintf( szName, "%s[radMemoryDlAllocator]", pName );
         radMemoryMonitorIdentifySection( (void*)m_StartOfMemory, szName );
 #endif // RADMEMORYMONITOR
@@ -6534,8 +6535,9 @@ public radRefCount
     {
         radMemoryMonitorRescindSection( (void*)m_StartOfMemory );
         ::radMemoryFree( (void*) m_StartOfMemory );
+        destroy_mspace( m_MallocState );
     }
-	
+    	
     uintptr_t m_StartOfMemory;
     uintptr_t m_HighWaterMark;
     uintptr_t m_EndOfMemory;
