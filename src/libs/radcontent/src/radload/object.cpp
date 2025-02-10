@@ -173,7 +173,7 @@ void* radLoadObject::operator new( size_t size )
 
 void* radLoadObject::operator new( size_t size, radMemoryAllocator alloc )
 {
-    void* mem = radMemoryAlloc( radMemoryGetCurrentAllocator(), size );
+    void* mem = radMemoryAlloc( alloc, size );
 
 #ifdef RADLOAD_USE_RADMEMORYMONITOR
     radMemoryMonitorIdentifyAllocation( mem, "radLoad", "radLoadObject" );
@@ -199,7 +199,7 @@ void* radLoadObject::operator new[]( size_t size )
 
 void* radLoadObject::operator new[]( size_t size, radMemoryAllocator alloc )
 {
-    void* mem = radMemoryAlloc( radMemoryGetCurrentAllocator(), size );
+    void* mem = radMemoryAlloc( alloc, size );
 
 #ifdef RADLOAD_USE_RADMEMORYMONITOR
     radMemoryMonitorIdentifyAllocation( mem, "radLoad", "radLoadObject" );
@@ -218,7 +218,6 @@ void radLoadObject::operator delete( void* ptr )
 #ifdef RADLOAD_HEAP_DEBUGGING
     rAssertMsg( !ValidAddress( ptr ), "Failed to verify address in radLoadObject::delete.\nObject was probably directly deleted\n");
 #endif
-
     radMemoryFree( ptr );
 }
 
