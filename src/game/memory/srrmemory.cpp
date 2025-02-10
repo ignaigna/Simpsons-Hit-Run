@@ -150,6 +150,7 @@ inline void* AllocateThis( GameMemoryAllocator allocator, size_t size )
     return pMemory;
 }
 
+#ifdef SRR_OVERLOAD_BUILTIN_NEW
 //==============================================================================
 // new
 //==============================================================================
@@ -194,6 +195,7 @@ throw( std::bad_alloc )
 
     return( pMemory );
 }
+#endif
 
 
 //==============================================================================
@@ -207,14 +209,14 @@ throw( std::bad_alloc )
 // Return:      
 //
 //==============================================================================
-void operator delete( void* pMemory )
+void operator delete(void* pMemory)
 #ifdef RAD_PS2
 #ifndef RAD_MW
 throw()
 #endif
 #endif
 {
-    radMemoryFree( pMemory );
+    radMemoryFree(pMemory);
 }
 
 
