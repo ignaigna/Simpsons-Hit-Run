@@ -377,6 +377,11 @@ class radRefCount : public radObject
 template < class T > class radRef
 {
 	public:
+        
+        void * operator new[]( size_t size )
+        {
+            return ::radMemoryAlloc( radMemoryGetCurrentAllocator(), size);
+        }
 
         void * operator new[]( size_t size, radMemoryAllocator allocator )
         {
@@ -388,14 +393,14 @@ template < class T > class radRef
             ::radMemoryFree( pMemory );
         }
         
+        void * operator new( size_t size )
+        {
+            return ::radMemoryAlloc( radMemoryGetCurrentAllocator(), size);
+        }
+        
         void * operator new( size_t size, radMemoryAllocator allocator )
         {
             return ::radMemoryAlloc( allocator, size );
-        }
-
-        void operator delete( void * pMemory )
-        {
-            ::radMemoryFree( pMemory );
         }
 
         radRef( )
@@ -622,6 +627,11 @@ class radRef< IRefCount >
         {
             return ( m_pInterface == pInterface );
         }
+        
+        void * operator new[]( size_t size )
+        {
+            return ::radMemoryAlloc( radMemoryGetCurrentAllocator(), size);
+        }
 
         void * operator new[]( size_t size, radMemoryAllocator allocator )
         {
@@ -632,10 +642,20 @@ class radRef< IRefCount >
         {
             ::radMemoryFree( pMemory );
         }
-        
+       
+        void * operator new( size_t size )
+        {
+            return ::radMemoryAlloc( radMemoryGetCurrentAllocator(), size);
+        }
+
         void * operator new( size_t size, radMemoryAllocator allocator )
         {
             return ::radMemoryAlloc( allocator, size );
+        }
+
+        void operator delete( void* pMemory )
+        {
+            ::radMemoryFree( pMemory );
         }
 
 		IRefCount * m_pInterface;
