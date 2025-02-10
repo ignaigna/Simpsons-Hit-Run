@@ -9,6 +9,7 @@
 
 #include "pch.hpp"
 #include "platalloc.hpp"
+#include <stddef.h>
 #include <radobject.hpp>
 #include <radmemory.hpp>
 #include <raddebug.hpp>
@@ -53,6 +54,7 @@
 // in which case we want to fail rather than resize the heap.
 //
 #define HAVE_MMAP 0 
+#define f 0
 #define ONLY_MSPACES 1
 
 //----------------------------------------------------------------------------
