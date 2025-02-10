@@ -246,6 +246,17 @@ class radObject // This should be called radHeapObject
         static radMemoryAllocator s_Allocator;
 };
 
+inline void* radObject::operator new(size_t size)
+{
+    s_Allocator = radMemoryGetCurrentAllocator();
+    return radMemoryAlloc(s_Allocator, size);
+}
+inline void* radObject::operator new[](size_t size)
+{
+    s_Allocator = radMemoryGetCurrentAllocator();
+    return radMemoryAlloc(s_Allocator, size);
+}
+
 inline void* radObject::operator new( size_t size, void* p )
 {
     (void) size;
