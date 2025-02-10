@@ -94,7 +94,8 @@ const ControlMap FMV_CONTROL_MAP[] =
     { "RightTrigger",   FMVInput::Skip },
     #endif
 #endif // RAD_XBOX
-
+    
+    // TODO(3ur): what is space bar? I wanna allow space to skip too in the future
 #ifdef RAD_WIN32
     { "feStart",         FMVInput::Skip },
     { "feBack",          FMVInput::Skip },
