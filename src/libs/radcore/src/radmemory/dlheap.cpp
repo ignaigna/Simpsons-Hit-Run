@@ -4,11 +4,11 @@
 
 
 // This is Doug Lea's malloc (http://g.oswego.edu/dl/html/malloc.html)
-// There are some defines but otherwise it is unmodified.
+// There are some defines and an implementation of fake_sbrk(), 
+// but otherwise it is unmodified.
 
 #include "pch.hpp"
 #include "platalloc.hpp"
-#include <stddef.h>
 #include <radobject.hpp>
 #include <radmemory.hpp>
 #include <raddebug.hpp>
@@ -53,7 +53,6 @@
 // in which case we want to fail rather than resize the heap.
 //
 #define HAVE_MMAP 0 
-#define HAVE_MREMAP 0
 #define ONLY_MSPACES 1
 
 //----------------------------------------------------------------------------
@@ -6486,14 +6485,14 @@ public radRefCount
 		m_NumAllocations( 0 )
 	{
         radMemoryMonitorIdentifyAllocation( this, g_nameFTech, "radMemoryDlAllocator" );
-        m_SizeOfMemory = radMemoryRoundUp( size, MALLOC_ALIGNMENT );
-		m_StartOfMemory = (uintptr_t)::radMemoryAlloc( allocator, m_SizeOfMemory );
+        m_SizeOfMemory = size;
+		m_StartOfMemory = (uintptr_t)::radMemoryAlloc( allocator, size );
 		m_EndOfMemory = m_StartOfMemory + m_SizeOfMemory;
         m_HighWaterMark = 0;
 
         rReleasePrintf("DLHeap %s StartMem:0x%x, EndMem:0x%x\n", pName, m_StartOfMemory, m_EndOfMemory );
 
-        m_MallocState = create_mspace_with_base( (void*)m_StartOfMemory, m_SizeOfMemory, 0 );
+        m_MallocState = create_mspace_with_base( (void*)m_StartOfMemory, size, 0 );
 
 #ifdef RADMEMORYMONITOR
         {
@@ -6518,7 +6517,7 @@ public radRefCount
 		m_StartOfMemory = (uintptr_t)pMem;
 		m_EndOfMemory = m_StartOfMemory + m_SizeOfMemory;
 
-        m_MallocState = create_mspace_with_base( (void*)m_StartOfMemory, m_SizeOfMemory, 0 );
+        m_MallocState = create_mspace_with_base( pMem, size, 0 );
 
 #ifdef RADMEMORYMONITOR
         radMemoryMonitorIdentifyAllocation( (void*)m_StartOfMemory, g_nameFTech, "radMemoryDlAllocator::m_StartOfMemory" );
@@ -6534,7 +6533,6 @@ public radRefCount
     virtual ~radMemoryDlAllocator( void )
     {
         radMemoryMonitorRescindSection( (void*)m_StartOfMemory );
-        destroy_mspace( m_MallocState );
         ::radMemoryFree( (void*) m_StartOfMemory );
     }
 	
@@ -6559,5 +6557,3 @@ IRadMemoryHeap * radMemoryCreateDougLeaHeap( void *pMem, unsigned int size, radM
     IRadMemoryHeap * pHeap = new ( allocator ) radMemoryDlAllocator( pMem, size, pName );
     return pHeap;
 }
-
-
