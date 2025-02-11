@@ -995,6 +995,7 @@
     <ClCompile Include="worldsim\worldphysicsmanager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\resources\win\afxres.h" />
     <ClInclude Include="ai\actionbuttonhandler.h" />
     <ClInclude Include="ai\actionbuttonmanager.h" />
     <ClInclude Include="ai\actionlist.h" />
@@ -1611,14 +1612,14 @@
     <ClInclude Include="worldsim\worldcollisionsolveragent.h" />
     <ClInclude Include="worldsim\worldobject.h" />
     <ClInclude Include="worldsim\worldphysicsmanager.h" />
-    <!--<ClInclude Include="..\resources\win\resource.h" />-->
+    <ClInclude Include="..\resources\win\resource.h" />
   </ItemGroup>
-  <!--<ItemGroup>
+  <ItemGroup>
     <ResourceCompile Include="..\resources\win\SRR2.rc" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\resources\win\Simpsons.ico" />
-  </ItemGroup>-->
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\libs\choreo\choreo.vcxproj">
       <Project>{d3d85ef1-6e12-478e-85f8-95974c430774}</Project>
