@@ -1,0 +1,21 @@
+BasedOnStyle: LLVM
+
+# Indentation Style
+IndentWidth: 4
+TabWidth: 4
+UseTab: Always
+
+SpaceBeforeParens: Never
+
+# Line wrapping
+ColumnLimit: 80
+BreakBeforeBraces: Allman
+
+# Space management
+SpacesBeforeTrailingComments: 2
+AlignConsecutiveAssignments: true
+AlignConsecutiveDeclarations: true
+
+# Function formatting
+AllowAllParametersOfDeclarationOnNextLine: true
+AllowShortFunctionsOnASingleLine: false

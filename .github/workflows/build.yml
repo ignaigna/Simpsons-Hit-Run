@@ -1,8 +1,4 @@
 # pretty much all copied from game-engine
-
-# TODO(3ur): probably should use releases in the future, and if we cant bundle assets directly with the repo maybe do something else like provide them through mega and tell the user to drop them in over the build
-# also by the time uwp and some todo restructuring srr2 to be game_code are done this script will be broken so itll need to be upgraded along the way
-
 name: Build SRR2
 
 on:
@@ -41,7 +37,8 @@ env:
 jobs:     
   build:
     runs-on: windows-2022
-    #runs-on: self-hosted wont use self hosted for SRR2 because other people may not have a self hosted runner setup
+    # wont use self hosted for SRR2 because other people may not have a self hosted runner setup
+    #runs-on: self-hosted
 
     steps:
     # https://learn.microsoft.com/en-us/vcpkg/consume/binary-caching-github-actions-cache
@@ -69,7 +66,6 @@ jobs:
         vcpkgGitCommitId: ${{ env.VCPKG_COMMIT_ID }}
         doNotCache: false
 
-    # TODO(3ur): in game-engine we only have x86-windows-static-md but in SRR2 we will also have x64 and x86 is vcpkg install by its self okay? - we will see if its not then thats sad
     - name: Install Dependencies (VCPKG)
       run: |
         .\vcpkg\vcpkg.exe install
@@ -96,7 +92,7 @@ jobs:
         name: ${{ steps.version.outputs.version }}
         path: |
           build/**
-        # TODO(3ur): ^^^ build can have bin-Win32-Debug & obj-Win32-Debug do we care about obj? should we only archive bin with action
+        # 3ur: ^ dont care, we arent distributing it through a release so keep the obj and bin
 
     # so we can get the tag before we do a new release and then we can use generate_release_notes
     - name: Get Previous Tag
@@ -108,8 +104,10 @@ jobs:
         "previous_tag=$LATEST_TAG" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
 
     # https://github.com/mikepenz/release-changelog-builder-action/issues/1303#issuecomment-1949897430
+    # TODO(3ur): work on this
     - name: Build Changelog
-      if: false #${{ github.event.inputs.create_release == 'true' }}
+      if: false 
+      # TODO(3ur): disabled this ${{ github.event.inputs.create_release == 'true' }}
       id: changelog
       uses: mikepenz/release-changelog-builder-action@v5
       with:
@@ -140,11 +138,11 @@ jobs:
         prerelease: ${{ github.event.inputs.configuration != 'Release' }}
         release_name: ${{ steps.version.outputs.version }}
         tag_name: ${{ steps.version.outputs.version }}
-        #body: ${{ steps.changelog.outputs.changelog }}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # https://docs.github.com/en/actions/security-for-github-actions/security-guides/automatic-token-authentication#about-the-github_token-secret
 
     # pretty much the upload build step but it makes a zip of build folder
+    # TODO(3ur): jank jank jank why the hell does this have the version inside the zip but no extension ? instead of just a zip with bin and obj folders
     - name: Zip Build
       if: ${{ github.event.inputs.create_release == 'true' }}
       run: |

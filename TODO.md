@@ -1,5 +1,7 @@
 # TODO
 
+TODO: MOVE THESE TO ISSUES AND DELETE FILE ITS JUST BLOAT (ironic im using this file for this)
+
 ## LESS IMPORTANT
 - Remove any references and code to things like RAB_XBOX, RAD_PS2 (These are for very old consols instead we will have RAD_UWP).
 

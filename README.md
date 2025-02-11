@@ -3,7 +3,7 @@
 > [!WARNING]  
 > THIS DOES NOT YET SUPPORT UWP
 
-SRR2 is a cleaner version of *The Simpsons Hit & Run* with several changes, including C++ 17 support, x64 (WIP), and VCPkg for easier third party library installation. This is based on the source code that leaked in 2021, the end goal is to add more feature, improvements, and UWP support.
+SRR2 is a cleaner version of *The Simpsons Hit & Run* with several changes, including C++ 17 support, x64, and VCPkg for easier third party library installation. This is based on the source code that leaked in 2021, the end goal is to add more feature, improvements, and UWP support.
 
 ## Installation
 
@@ -17,8 +17,7 @@ SRR2 is a cleaner version of *The Simpsons Hit & Run* with several changes, incl
 3. Open the zip and then open the file named the same with no extension (this is also a zip the workflow for releases is still WIP so its structured bad) extract it anywhere you want.
 4. Go to where you extracted the zip and find `SRR2.exe`.
 5. Download the assets from above and drag and drop them where `SRR2.exe` is.
-6. You can run the game now. It may crash often though as it is unstable as of `2/11/2025`.
-
+6. You can run the game now. (it will crash without assets)
 
 ### I want to work on the code and create my own builds
 
