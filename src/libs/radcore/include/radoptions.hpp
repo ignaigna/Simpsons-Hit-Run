@@ -39,11 +39,11 @@
 
 	// Enable the watcher
 
-	//#define DEBUGWATCH
+	#define DEBUGWATCH
 
     // Enable the memory monitor
 
-    #define RADMEMORYMONITOR
+    //#define RADMEMORYMONITOR
 
 
 #endif // RAD_RELEASE
@@ -51,7 +51,7 @@
 //
 // Enable general purpose profiling system
 //
-#define RADPROFILER
+//#define RADPROFILER
 
 //
 // Enable bin-allocator debuging and stats information

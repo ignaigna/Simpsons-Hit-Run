@@ -175,7 +175,8 @@
       <GenerateMapFile>true</GenerateMapFile>
       <SubSystem>Console</SubSystem>
       <TargetMachine>MachineX86</TargetMachine>
-      <ForceFileOutput>Enabled</ForceFileOutput>
+      <ForceFileOutput>
+      </ForceFileOutput>
       <EntryPointSymbol>
       </EntryPointSymbol>
     </Link>
@@ -216,7 +217,8 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <GenerateMapFile>true</GenerateMapFile>
       <SubSystem>Console</SubSystem>
-      <ForceFileOutput>Enabled</ForceFileOutput>
+      <ForceFileOutput>
+      </ForceFileOutput>
       <EntryPointSymbol>
       </EntryPointSymbol>
     </Link>
@@ -261,7 +263,8 @@
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <TargetMachine>MachineX86</TargetMachine>
-      <ForceFileOutput>Enabled</ForceFileOutput>
+      <ForceFileOutput>
+      </ForceFileOutput>
       <EntryPointSymbol>
       </EntryPointSymbol>
     </Link>
@@ -298,7 +301,8 @@
       <SubSystem>Console</SubSystem>
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
-      <ForceFileOutput>Enabled</ForceFileOutput>
+      <ForceFileOutput>
+      </ForceFileOutput>
       <EntryPointSymbol>
       </EntryPointSymbol>
       <AdditionalOptions>/machine:X64</AdditionalOptions>
@@ -337,7 +341,8 @@
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <TargetMachine>MachineX86</TargetMachine>
-      <ForceFileOutput>Enabled</ForceFileOutput>
+      <ForceFileOutput>
+      </ForceFileOutput>
       <EntryPointSymbol>
       </EntryPointSymbol>
     </Link>
@@ -382,7 +387,8 @@
       <SubSystem>Console</SubSystem>
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
-      <ForceFileOutput>Enabled</ForceFileOutput>
+      <ForceFileOutput>
+      </ForceFileOutput>
       <EntryPointSymbol>
       </EntryPointSymbol>
     </Link>
