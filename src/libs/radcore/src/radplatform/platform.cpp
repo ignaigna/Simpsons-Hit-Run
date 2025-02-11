@@ -145,7 +145,7 @@ class radPlatform : public IRadPlatform
     #ifdef RAD_WIN32
 	virtual HWND GetMainWindowHandle( void )
     {   
-        //rWarningMsg( m_wmInfo.subsystem != SDL_SYSWM_WINDOWS, "WM info doesn't match the windows subsystem." ); spamming for no reason rn?
+        rWarningMsg( m_wmInfo.subsystem == SDL_SYSWM_WINDOWS, "WM info doesn't match the windows subsystem." );
         return( m_wmInfo.info.win.window );
     }
     virtual HINSTANCE GetInstanceHandle( void )
