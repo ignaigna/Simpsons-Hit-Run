@@ -68,12 +68,6 @@
     <Filter Include="Source Files\main">
       <UniqueIdentifier>{4de9c114-e6b7-42ab-8e4d-0bfd1b050a70}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\main\ps2">
-      <UniqueIdentifier>{186e6622-6ee7-4634-915a-fe3f89329ab8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\main\xbox">
-      <UniqueIdentifier>{00f50b69-2d09-4913-88af-f8eedaf6628e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\memory">
       <UniqueIdentifier>{d9e6a08b-7770-46d1-bb14-a238fa21954f}</UniqueIdentifier>
     </Filter>
@@ -672,18 +666,6 @@
     </ClCompile>
     <ClCompile Include="main\win32platform.cpp">
       <Filter>Source Files\main</Filter>
-    </ClCompile>
-    <ClCompile Include="main\ps2main.cpp">
-      <Filter>Source Files\main\ps2</Filter>
-    </ClCompile>
-    <ClCompile Include="main\ps2platform.cpp">
-      <Filter>Source Files\main\ps2</Filter>
-    </ClCompile>
-    <ClCompile Include="main\xboxmain.cpp">
-      <Filter>Source Files\main\xbox</Filter>
-    </ClCompile>
-    <ClCompile Include="main\xboxplatform.cpp">
-      <Filter>Source Files\main\xbox</Filter>
     </ClCompile>
     <ClCompile Include="memory\classsizetracker.cpp">
       <Filter>Source Files\memory</Filter>
@@ -2402,18 +2384,6 @@
     </ClInclude>
     <ClInclude Include="main\win32platform.h">
       <Filter>Source Files\main</Filter>
-    </ClInclude>
-    <ClInclude Include="main\errorsPS2.h">
-      <Filter>Source Files\main\ps2</Filter>
-    </ClInclude>
-    <ClInclude Include="main\ps2platform.h">
-      <Filter>Source Files\main\ps2</Filter>
-    </ClInclude>
-    <ClInclude Include="main\errorsXBOX.h">
-      <Filter>Source Files\main\xbox</Filter>
-    </ClInclude>
-    <ClInclude Include="main\xboxplatform.h">
-      <Filter>Source Files\main\xbox</Filter>
     </ClInclude>
     <ClInclude Include="memory\allocpool.h">
       <Filter>Source Files\memory</Filter>

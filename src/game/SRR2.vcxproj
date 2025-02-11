@@ -160,7 +160,7 @@
       <PrecompiledHeaderFile>pchsrr2.h</PrecompiledHeaderFile>
       <BrowseInformation>true</BrowseInformation>
       <WarningLevel>Level3</WarningLevel>
-      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <CompileAs>Default</CompileAs>
       <ForcedIncludeFiles>pchsrr2.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
       <LanguageStandard>stdcpp17</LanguageStandard>
@@ -203,7 +203,7 @@
       <PrecompiledHeaderFile>pchsrr2.h</PrecompiledHeaderFile>
       <BrowseInformation>true</BrowseInformation>
       <WarningLevel>Level3</WarningLevel>
-      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <CompileAs>Default</CompileAs>
       <ForcedIncludeFiles>pchsrr2.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
       <LanguageStandard>stdcpp17</LanguageStandard>
@@ -247,7 +247,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pchsrr2.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
-      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <CompileAs>Default</CompileAs>
       <ForcedIncludeFiles>pchsrr2.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
       <LanguageStandard>stdcpp17</LanguageStandard>
@@ -285,7 +285,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pchsrr2.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
-      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <CompileAs>Default</CompileAs>
       <ForcedIncludeFiles>pchsrr2.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
       <LanguageStandard>stdcpp17</LanguageStandard>
@@ -325,7 +325,7 @@
       <PrecompiledHeaderFile>pchsrr2.h</PrecompiledHeaderFile>
       <BrowseInformation>true</BrowseInformation>
       <WarningLevel>Level3</WarningLevel>
-      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <CompileAs>Default</CompileAs>
       <ForcedIncludeFiles>pchsrr2.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
       <LanguageStandard>stdcpp17</LanguageStandard>
@@ -372,7 +372,7 @@
       <PrecompiledHeaderFile>pchsrr2.h</PrecompiledHeaderFile>
       <BrowseInformation>true</BrowseInformation>
       <WarningLevel>Level3</WarningLevel>
-      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <CompileAs>Default</CompileAs>
       <ForcedIncludeFiles>pchsrr2.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
       <LanguageStandard>stdcpp17</LanguageStandard>
@@ -566,42 +566,10 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Tune|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Tune|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="main\ps2main.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Tune|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Tune|x64'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="main\ps2platform.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Tune|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Tune|x64'">true</ExcludedFromBuild>
-    </ClCompile>
     <ClCompile Include="main\singletons.cpp" />
     <ClCompile Include="main\tuidunaligned.cpp" />
     <ClCompile Include="main\win32main.cpp" />
     <ClCompile Include="main\win32platform.cpp" />
-    <ClCompile Include="main\xboxmain.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Tune|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Tune|x64'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="main\xboxplatform.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Tune|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Tune|x64'">true</ExcludedFromBuild>
-    </ClCompile>
     <ClCompile Include="memory\classsizetracker.cpp" />
     <ClCompile Include="memory\createheap.cpp" />
     <ClCompile Include="memory\leakdetection.cpp" />
@@ -1205,18 +1173,14 @@
     <ClInclude Include="loading\scroobyfilehandler.h" />
     <ClInclude Include="loading\soundfilehandler.h" />
     <ClInclude Include="main\commandlineoptions.h" />
-    <ClInclude Include="main\errorsPS2.h" />
     <ClInclude Include="main\errorsWIN32.h" />
-    <ClInclude Include="main\errorsXBOX.h" />
     <ClInclude Include="main\game.h" />
     <ClInclude Include="main\globaltypes.h" />
     <ClInclude Include="main\pchsrr2.h" />
     <ClInclude Include="main\platform.h" />
-    <ClInclude Include="main\ps2platform.h" />
     <ClInclude Include="main\singletons.h" />
     <ClInclude Include="main\tuidunaligned.h" />
     <ClInclude Include="main\win32platform.h" />
-    <ClInclude Include="main\xboxplatform.h" />
     <ClInclude Include="memory\allocpool.h" />
     <ClInclude Include="memory\classsizetracker.h" />
     <ClInclude Include="memory\createheap.h" />
