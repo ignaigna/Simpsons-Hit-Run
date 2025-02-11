@@ -1,21 +1,23 @@
 BasedOnStyle: LLVM
 
-# Indentation Style
 IndentWidth: 4
 TabWidth: 4
 UseTab: Always
-
 SpaceBeforeParens: Never
-
-# Line wrapping
-ColumnLimit: 80
+ColumnLimit: 120
 BreakBeforeBraces: Allman
-
-# Space management
 SpacesBeforeTrailingComments: 2
-AlignConsecutiveAssignments: true
+AlignConsecutiveAssignments: false
 AlignConsecutiveDeclarations: true
-
-# Function formatting
 AllowAllParametersOfDeclarationOnNextLine: true
-AllowShortFunctionsOnASingleLine: false
+AllowShortFunctionsOnASingleLine: true
+BinPackParameters: false
+BinPackArguments: false
+AlwaysBreakBeforeMultilineStrings: true
+AlwaysBreakTemplateDeclarations: true
+AllowShortBlocksOnASingleLine: Never
+AllowShortCaseLabelsOnASingleLine: false
+BreakBeforeTernaryOperators: true
+BreakConstructorInitializersBeforeComma: true
+DerivePointerAlignment: false
+PointerAlignment: Left
