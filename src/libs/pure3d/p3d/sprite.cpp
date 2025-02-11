@@ -658,10 +658,11 @@ tEntity* tSpriteLoader::LoadObject(tChunkFile* f, tEntityStore* store)
     imageHeight = f->GetLong();
     imageCount = f->GetLong();
     blitBorder = f->GetLong();
+
     int count = 0;
     if ((imageCount>1) || blitBorder)
     {
-         images = new tTexture*[imageCount];
+        images = new tTexture*[imageCount]();
     }
 
     while(f->ChunksRemaining())
@@ -677,9 +678,11 @@ tEntity* tSpriteLoader::LoadObject(tChunkFile* f, tEntityStore* store)
                  {
                       if (images)
                       {
-                            images[count] = LoadTexture(f,32);
-                            images[count]->AddRef();
-                            count++;
+                          tTexture* texture = LoadTexture(f, 32);
+                          
+                          images[count] = texture;
+                          images[count]->AddRef();
+                          count++;
                       }
                       else
                       {

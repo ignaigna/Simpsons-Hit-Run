@@ -51,7 +51,7 @@
 //
 // Enable general purpose profiling system
 //
-#define RADPROFILER
+//#define RADPROFILER
 
 //
 // Enable bin-allocator debuging and stats information

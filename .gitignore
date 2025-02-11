@@ -132,3 +132,6 @@ src/libs/sim/obj/
 
 # annoying visual studio junk
 /enc_temp_folder/
+
+# stuff that isnt really needed in repo (detect it easy etc.)
+/tools/

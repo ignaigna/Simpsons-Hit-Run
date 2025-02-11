@@ -24,6 +24,7 @@
 #ifndef	RADOBJECT_HPP
 #define RADOBJECT_HPP
 
+#include <cstdint>
 #include <memory/classsizetracker.h>
 
 //=============================================================================
@@ -59,6 +60,7 @@ struct IRefCount;
 extern const char * const g_nameFTech;
 
 typedef int radMemoryAllocator;
+extern radMemoryAllocator radMemoryGetCurrentAllocator( void );
 extern void* radMemoryAlloc( radMemoryAllocator allocator, unsigned int numberOfBytes );
 extern void  radMemoryFree( radMemoryAllocator allocator, void* pMemory );
 extern void  radMemoryFree( void* pMemory );
@@ -222,8 +224,11 @@ class radObject // This should be called radHeapObject
 
         inline virtual ~radObject ( void );
 
+        inline void* operator new( size_t size );
         inline void* operator new( size_t size, void* p );
       	inline void* operator new( size_t size, radMemoryAllocator allocator );
+        
+        inline void* operator new[]( size_t size );
         inline void* operator new[]( size_t size, void* p );	
       	inline void* operator new[]( size_t size, radMemoryAllocator allocator );
 		inline void operator delete( void * pMemory );
@@ -242,6 +247,18 @@ class radObject // This should be called radHeapObject
 
         static radMemoryAllocator s_Allocator;
 };
+
+inline void* radObject::operator new( size_t size )
+{
+    s_Allocator = radMemoryGetCurrentAllocator( );
+	return radMemoryAlloc( s_Allocator, size );
+}
+
+inline void* radObject::operator new[ ]( size_t size )
+{
+    s_Allocator = radMemoryGetCurrentAllocator( );
+	return radMemoryAlloc( s_Allocator, size );
+}
 
 inline void* radObject::operator new( size_t size, void* p )
 {
@@ -363,6 +380,11 @@ template < class T > class radRef
 {
 	public:
 
+        void * operator new[]( size_t size )
+        {
+            return ::radMemoryAlloc( radMemoryGetCurrentAllocator(), size);
+        }
+
         void * operator new[]( size_t size, radMemoryAllocator allocator )
         {
             return ::radMemoryAlloc( allocator, size );
@@ -371,6 +393,11 @@ template < class T > class radRef
         void operator delete[]( void * pMemory )
         {
             ::radMemoryFree( pMemory );
+        }
+
+        void * operator new( size_t size )
+        {
+            return ::radMemoryAlloc( radMemoryGetCurrentAllocator(), size);
         }
         
         void * operator new( size_t size, radMemoryAllocator allocator )
@@ -507,12 +534,7 @@ class radRef< IRefCount >
 			m_pInterface = NULL;
 		}
 
-        void operator delete( void * pMemory )
-        {
-            ::radMemoryFree( pMemory );
-        }
-
-		radRef( IRefCount * pInterface )
+        radRef( IRefCount * pInterface )
 		{
 			m_pInterface = pInterface;
 
@@ -608,6 +630,11 @@ class radRef< IRefCount >
             return ( m_pInterface == pInterface );
         }
 
+        void * operator new[]( size_t size )
+        {
+            return ::radMemoryAlloc( radMemoryGetCurrentAllocator(), size);
+        }
+
         void * operator new[]( size_t size, radMemoryAllocator allocator )
         {
             return ::radMemoryAlloc( allocator, size );
@@ -617,10 +644,20 @@ class radRef< IRefCount >
         {
             ::radMemoryFree( pMemory );
         }
+
+        void * operator new( size_t size )
+        {
+            return ::radMemoryAlloc( radMemoryGetCurrentAllocator(), size);
+        }
         
         void * operator new( size_t size, radMemoryAllocator allocator )
         {
             return ::radMemoryAlloc( allocator, size );
+        }
+
+        void operator delete( void * pMemory )
+        {
+            ::radMemoryFree( pMemory );
         }
 
 		IRefCount * m_pInterface;

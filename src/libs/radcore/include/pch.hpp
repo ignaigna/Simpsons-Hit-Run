@@ -13,7 +13,7 @@
 //
 // Microsoft header files
 //
-#ifdef WIN32
+#if defined WIN32 || WIN64
 #define WINVER 0x0501
 #define _WIN32_WINNT 0x400
 #include <windows.h>
