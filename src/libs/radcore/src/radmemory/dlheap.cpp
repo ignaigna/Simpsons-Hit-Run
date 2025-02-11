@@ -6525,8 +6525,8 @@ public radRefCount
         radMemoryMonitorIdentifyAllocation( (void*)m_StartOfMemory, g_nameFTech, "radMemoryDlAllocator::m_StartOfMemory" );
 
         radMemoryMonitorDeclareSection( (void*)m_StartOfMemory, m_SizeOfMemory, IRadMemoryMonitor::MemorySectionType_DynamicData );
-        char szName[ 128 ];    virtual ~radMemoryDlAllocator(void)
-
+        
+        char szName[ 128 ];
         sprintf( szName, "%s[radMemoryDlAllocator]", pName );
         radMemoryMonitorIdentifySection( (void*)m_StartOfMemory, szName );
 #endif // RADMEMORYMONITOR
