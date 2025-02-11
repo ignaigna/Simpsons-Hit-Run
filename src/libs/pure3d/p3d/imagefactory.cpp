@@ -600,7 +600,7 @@ tImageFactory::tImageFactory() :
     AddHandler(new tBMPHandler);
     AddHandler(new tTargaHandler); 
     AddHandler(new tRawImageHandler);
-#if defined(WIN32)
+#if defined(WIN32) || defined(WIN64)
     AddHandler( new tDXTNHandler );
 #endif
 }
