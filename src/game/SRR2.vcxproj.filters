@@ -1879,6 +1879,9 @@
     <ClCompile Include="sound\soundrenderer\scripts\tuning.cpp">
       <Filter>Source Files\sound\soundrenderer\scripts</Filter>
     </ClCompile>
+    <ClCompile Include="font\defaultfont.cpp">
+      <Filter>Source Files\font</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ai\actionbuttonhandler.h">

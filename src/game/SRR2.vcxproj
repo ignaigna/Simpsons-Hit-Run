@@ -503,6 +503,7 @@
     <ClCompile Include="debug\section.cpp" />
     <ClCompile Include="events\eventlistener.cpp" />
     <ClCompile Include="events\eventmanager.cpp" />
+    <ClCompile Include="font\defaultfont.cpp" />
     <ClCompile Include="gameflow\gameflow.cpp" />
     <ClCompile Include="input\basedamper.cpp" />
     <ClCompile Include="input\button.cpp" />

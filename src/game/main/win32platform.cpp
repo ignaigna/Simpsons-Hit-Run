@@ -144,10 +144,6 @@ SDL_Window* Win32Platform::mWnd = NULL;
 void* Win32Platform::mhMutex = NULL;
 bool Win32Platform::mShowCursor = true;
 
-//The Adlib font.  <sigh>
-unsigned char gFont[] = 
-#include <font/defaultfont.h>
-
 //
 // Define the starting resolution.
 //
@@ -632,8 +628,7 @@ void Win32Platform::DisplaySplashScreen( SplashScreen screenID,
     tTextureFont* thisFont = NULL;
 
     // Convert memory buffer into a texturefont.
-    //
-    //p3d::load(gFont, DEFAULTFONT_SIZE, GMA_TEMP);
+    #include <font/defaultfont.h>
     LoadMemP3DFile( gFont, DEFAULTFONT_SIZE, p3d::inventory );
 
     thisFont = p3d::find<tTextureFont>("adlibn_20");
@@ -1046,6 +1041,26 @@ void Win32Platform::LoadConfig( ConfigString& config )
             {
                 mResolution = Res_1600x1200;
             }
+            else if( strcmp( value, "1920x1080" ) == 0 )
+            {
+                mResolution = Res_1920x1080;
+            }
+            else if( strcmp( value, "2560x1440" ) == 0 )
+            {
+                mResolution = Res_2560x1440;
+            }
+            else if( strcmp( value, "3840x2160" ) == 0 )
+            {
+                mResolution = Res_3840x2160;
+            }
+            else if( strcmp( value, "5120x2880" ) == 0 )
+            {
+                mResolution = Res_5120x2880;
+            }
+            else if( strcmp( value, "7680x4320" ) == 0 )
+            {
+                mResolution = Res_7680x4320;
+            }
         }
         else if( _stricmp( property, "bpp" ) == 0 )
         {
@@ -1123,6 +1138,31 @@ void Win32Platform::SaveConfig( ConfigString& config )
         case Res_1600x1200:
         {
             res = "1600x1200";
+            break;
+        }
+        case Res_1920x1080:
+        {
+            res = "1920x1080";
+            break;
+        }
+        case Res_2560x1440:
+        {
+            res = "2560x1440";
+            break;
+        }
+        case Res_3840x2160:
+        {
+            res = "3840x2160";
+            break;
+        }
+        case Res_5120x2880:
+        {
+            res = "5120x2880";
+            break;
+        }
+        case Res_7680x4320:
+        {
+            res = "7680x4320";
             break;
         }
         default:
@@ -1638,6 +1678,37 @@ void Win32Platform::TranslateResolution( Resolution res, int&x, int&y )
         {
             x = 1600;
             y = 1200;
+            break;
+        }
+        // cant believe im adding onto this slop the way this is handled needs a refactor
+        case Res_1920x1080:
+        {
+            x = 1920;
+            y = 1080;
+            break;
+        }
+        case Res_2560x1440:
+        {
+            x = 2560;
+            y = 1440;
+            break;
+        }
+        case Res_3840x2160:
+        {
+            x = 3840;
+            y = 2160;
+            break;
+        }
+        case Res_5120x2880:
+        {
+            x = 5120;
+            y = 2880;
+            break;
+        }
+        case Res_7680x4320:
+        {
+            x = 7680;
+            y = 4320;
             break;
         }
         default:

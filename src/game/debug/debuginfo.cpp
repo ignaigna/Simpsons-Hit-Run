@@ -40,10 +40,6 @@
 //
 //******************************************************************************
 
-//The Adlib font.  <sigh>
-static unsigned char gFont[] = 
-#include <font/defaultfont.h>
-
 // Static pointer to instance of singleton.
 DebugInfo* DebugInfo::_Instance = NULL;
 
@@ -181,7 +177,7 @@ void DebugInfo::CreateNewSection( const char* section )
             if( _pDebugFont == NULL )
             {
                 // Convert memory buffer into a texturefont.
-                //
+                #include <font/defaultfont.h>
                 p3d::load(gFont, DEFAULTFONT_SIZE, GMA_DEBUG);
                 _pDebugFont = p3d::find<tTextureFont>("adlibn_20");
                 rAssertMsg(_pDebugFont, ("ERROR - debug font not found."));
