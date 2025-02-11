@@ -1,4 +1,4 @@
-//=============================================================================
+, //=============================================================================
 // Copyright (C) 2002 Radical Entertainment Ltd.  All rights reserved.
 //
 // File:        followcam.cpp
@@ -951,7 +951,7 @@ void FollowCam::GetTargetPosition( rmt::Vector* position,
 #endif
 
 #ifdef TURN_LOOK       
-        if ( GetCharacterSheetManager()->QueryInvertedCameraSetting() )
+        if ( GetSuperCamManager()->GetSCC( GetPlayerID() )->IsInvertedCameraEnabled() )
         {
             //Invert this!
             lookLeftRight *= -1.0f;

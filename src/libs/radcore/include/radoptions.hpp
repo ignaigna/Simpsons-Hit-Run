@@ -35,15 +35,15 @@
 
     // Enable Debug Communication
 
-    #define RADDEBUGCOMMUNICATION
+    //#define RADDEBUGCOMMUNICATION
 
 	// Enable the watcher
 
-	#define DEBUGWATCH
+	//#define DEBUGWATCH
 
     // Enable the memory monitor
 
-    #define RADMEMORYMONITOR
+    //#define RADMEMORYMONITOR
 
 
 #endif // RAD_RELEASE
