@@ -580,6 +580,12 @@
     <ClInclude Include="include\microprofile.h">
       <Filter>inc</Filter>
     </ClInclude>
+    <ClInclude Include="src\radprofiler\microprofile_html.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="src\radprofiler\stb\stb_sprintf.h">
+      <Filter>inc</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\..\releasenotes.txt" />

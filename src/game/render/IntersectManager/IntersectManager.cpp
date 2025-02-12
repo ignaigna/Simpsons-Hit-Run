@@ -745,7 +745,7 @@ void IntersectManager::FindTrigVolElems
     ReserveArray<TriggerVolume*>& orList 
 )
 {
-#ifndef RAD_RELEASE
+#if defined(PROFILER_ENABLED) && !defined(RAD_RELEASE)
     char temp[100];
     sprintf(temp, "::FindTrigVolElems %f", iRadius);
 #endif

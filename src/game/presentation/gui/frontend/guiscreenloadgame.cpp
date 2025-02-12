@@ -812,7 +812,7 @@ void CGuiScreenLoadGame::LoadGame()
 #endif
 
 #ifdef RAD_WIN32
-    m_guiManager->DisplayMessage( CGuiScreenMessage::MSG_ID_LOADING_GAME_XBOX, this );
+    m_guiManager->DisplayMessage( CGuiScreenMessage::MSG_ID_LOADING_GAME_PC, this );
 #endif
 }
 
