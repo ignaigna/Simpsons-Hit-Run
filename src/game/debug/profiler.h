@@ -17,8 +17,8 @@
 //========================================
 
 #if !defined( RAD_RELEASE ) && !defined( WORLD_BUILDER ) && !defined( RAD_MW )
-#define PROFILER_ENABLED
-//TODO(3ur): too many symbol errors bruhhhhh
+//#define PROFILER_ENABLED
+//TODO(3ur)
 //#define MICROPROFILE_ENABLED 1
 #endif // RAD_RELEASE
 
