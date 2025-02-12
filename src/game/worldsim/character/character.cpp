@@ -3388,6 +3388,7 @@ BEGIN_PROFILE("Character::UpdateGroundHeight")
 
     if(mpSimStateObj->GetControl() == sim::simSimulationCtrl)
     {
+        END_PROFILE("Character::UpdateGroundHeight")
         return;
     }
 
