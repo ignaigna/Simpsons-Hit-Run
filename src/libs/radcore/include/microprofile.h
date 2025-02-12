@@ -26,9 +26,6 @@
 #include "microprofile.config.h"
 #endif
 
-// TODO(3ur): HACK HACK HACK HACK HACK SHOULDNT DO A CIRCULAR INCLUDE WHEN WE GET RID OF OLD PROFILER WE DONT NEED TO!
-#include "../../src/game/debug/profiler.h"
-
 #ifndef MICROPROFILE_ENABLED
 #define MICROPROFILE_ENABLED 0
 #endif
