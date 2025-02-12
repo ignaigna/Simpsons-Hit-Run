@@ -812,7 +812,7 @@ void CGuiScreenLoadGame::LoadGame()
 #endif
 
 #ifdef RAD_WIN32
-    m_guiManager->DisplayMessage( CGuiScreenMessage::MSG_ID_LOADING_GAME_PC, this );
+    m_guiManager->DisplayMessage( CGuiScreenMessage::MSG_ID_LOADING_GAME_XBOX, this );
 #endif
 }
 
@@ -946,7 +946,7 @@ CGuiScreenAutoLoad::LoadGame()
 
 #ifdef RAD_WIN32
     rAssert( m_currentDriveIndex == 0 );
-    m_guiManager->DisplayMessage( CGuiScreenMessage::MSG_ID_AUTO_LOADING_GAME_PC, this );
+    m_guiManager->DisplayMessage( CGuiScreenMessage::MSG_ID_AUTO_LOADING_GAME_XBOX, this );
 #endif
 }
 
