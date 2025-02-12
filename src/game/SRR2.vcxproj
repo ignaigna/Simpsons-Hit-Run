@@ -519,14 +519,6 @@
     <ClCompile Include="input\MouseCursor.cpp" />
     <ClCompile Include="input\RealController.cpp" />
     <ClCompile Include="input\rumbleeffect.cpp" />
-    <ClCompile Include="input\rumbleps2.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Tune|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Tune|x64'">true</ExcludedFromBuild>
-    </ClCompile>
     <ClCompile Include="input\rumblewin32.cpp" />
     <ClCompile Include="input\rumblexbox.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>

@@ -583,9 +583,6 @@
     <ClCompile Include="input\rumbleeffect.cpp">
       <Filter>Source Files\input</Filter>
     </ClCompile>
-    <ClCompile Include="input\rumbleps2.cpp">
-      <Filter>Source Files\input</Filter>
-    </ClCompile>
     <ClCompile Include="input\rumblewin32.cpp">
       <Filter>Source Files\input</Filter>
     </ClCompile>
