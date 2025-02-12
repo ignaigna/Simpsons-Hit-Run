@@ -1531,7 +1531,7 @@ void Character::PreSimUpdate( float timeins )
     //////////////////////////////////////////////////////
     // Sense and think.
     //
-    rmt::Vector direction;
+    rmt::Vector direction( 0.0f, 0.0f, 0.0f ); 
     UpdateController( direction, timeins );
     if ( IsMovementLocked() == false )
     {
@@ -1601,11 +1601,6 @@ void Character::PreSimUpdate( float timeins )
     ResetCollisions( );
 
     mpPuppet->UpdateBegin();
-
-    // Zero out the prophandler.  If it is still valid it will get set 
-    // during CollisioDetect.
-    //
-//    mpPropHandler->SetProp( 0 );
 }
 
 /*
