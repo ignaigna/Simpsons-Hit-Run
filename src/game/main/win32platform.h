@@ -77,7 +77,6 @@ public:
 
     virtual void LaunchDashboard();
     virtual void ResetMachine();
-
     virtual void DisplaySplashScreen( SplashScreen screenID, 
         const char* overlayText = NULL, 
         float fontScale = 1.0f, 

@@ -1881,6 +1881,18 @@
     <ClCompile Include="..\game\worldsim\skidmarks\skidmarkmanager.cpp">
       <Filter>Source Files\worldsim\skidmarks</Filter>
     </ClCompile>
+    <ClCompile Include="..\game\main\ps2main.cpp">
+      <Filter>Source Files\main</Filter>
+    </ClCompile>
+    <ClCompile Include="..\game\main\ps2platform.cpp">
+      <Filter>Source Files\main</Filter>
+    </ClCompile>
+    <ClCompile Include="..\game\main\xboxmain.cpp">
+      <Filter>Source Files\main</Filter>
+    </ClCompile>
+    <ClCompile Include="..\game\main\xboxplatform.cpp">
+      <Filter>Source Files\main</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\game\ai\actionbuttonhandler.h">
@@ -3727,6 +3739,15 @@
     </ClInclude>
     <ClInclude Include="..\game\worldsim\skidmarks\skidmarkmanager.h">
       <Filter>Source Files\worldsim\skidmarks</Filter>
+    </ClInclude>
+    <ClInclude Include="..\game\main\ps2platform.h">
+      <Filter>Source Files\main</Filter>
+    </ClInclude>
+    <ClInclude Include="..\game\main\xboxplatform.h">
+      <Filter>Source Files\main</Filter>
+    </ClInclude>
+    <ClInclude Include="..\game\main\uwpplatform.h">
+      <Filter>Source Files\main</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
