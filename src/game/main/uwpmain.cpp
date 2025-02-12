@@ -13,6 +13,7 @@
 // System Includes
 //========================================
 // Standard Library
+#include <Windows.h>
 #include <string.h>
 // Foundation Tech
 #include <raddebug.hpp>
@@ -45,14 +46,14 @@ static void LogOutputFunction(void* userdata, int category, SDL_LogPriority prio
 // Function:    main
 //=============================================================================
 //
-// Description: Main entry point.
+// Description: Main SDL entry point.
 // 
-// Parameters:  None.
+// Parameters:  Arguments
 //
-// Returns:     None.
+// Returns:     Error code
 //
 //=============================================================================
-int main(int argc, char* argv[])
+int SDL_main(int argc, char* argv[])
 {
     //
     // Pick out and store command line settings.
@@ -144,6 +145,21 @@ int main(int argc, char* argv[])
     DestroySingletons();
 }
 
+//=============================================================================
+// Function:    WinMain
+//=============================================================================
+//
+// Description: Main UWP entry point. Based off https://github.com/worleydl/uwp_gl_sample/blob/master/uwp/main.cpp#L72C1-L73C1
+// 
+// Parameters:  win32 parameters
+//
+// Returns:     win32 return.
+//
+//=============================================================================
+int CALLBACK WinMain(HINSTANCE, HINSTANCE, LPSTR argv, int argc)
+{
+    return SDL_WinRTRunApp(SDL_main, NULL);
+}
 
 //=============================================================================
 // Function:    ProcessCommandLineArguments
