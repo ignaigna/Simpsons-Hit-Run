@@ -36,6 +36,10 @@
 // TODO(3ur): IMPLEMENT ME
 //static void ProcessCommandLineArguments();
 
+static void LogOutputFunction(void* userdata, int category, SDL_LogPriority priority, const char* message)
+{
+    rDebugPrintf("[SDL] %s\n", message);
+}
 
 //=============================================================================
 // Function:    main
@@ -48,32 +52,38 @@
 // Returns:     None.
 //
 //=============================================================================
-void main()
+int main(int argc, char* argv[])
 {
     //
     // Pick out and store command line settings.
     //
-    CommandLineOptions::InitDefaults();
-    ProcessCommandLineArguments();
+    // TODO(3UR): IMPLEMENT ME OR DONT CAUSE ITS UWP (DEBUG ONLY MOST LIKELY)
+    //CommandLineOptions::InitDefaults();
+    //ProcessCommandLineArguments();
+
+    //
+    // Initialize SDL subsystems
+    //
+    SDL_SetMainReady();
+    SDL_Init(SDL_INIT_VIDEO | SDL_INIT_GAMECONTROLLER); // TODO(3UR): Add both SDLInput and DirectInput in the filters for radcore but have a if guard to stop symbol errors and issues between windows and uwp
+    SDL_LogSetOutputFunction(LogOutputFunction, NULL);
 
     //
     // Have to get FTech setup first so that we can use all the memory services.
     //
+    UwpPlatform::InitializeWindow();
     UwpPlatform::InitializeFoundation();
     
-    srand (Game::GetRandomSeed ());
+    srand(Game::GetRandomSeed());
 
 
     // Now disable the default heap
     //
 #ifndef RAD_RELEASE
-    tName::SetAllocator (GMA_DEBUG);
-
-    //g_HeapActivityTracker.EnableHeapAllocs (GMA_DEFAULT, false);
-    //g_HeapActivityTracker.EnableHeapFrees (GMA_DEFAULT, false);
+    tName::SetAllocator(GMA_DEBUG);
 #endif
 
-    HeapMgr()->PushHeap (GMA_PERSISTENT);
+    HeapMgr()->PushHeap(GMA_PERSISTENT);
 
     //
     // Instantiate all the singletons before doing anything else.
@@ -84,13 +94,13 @@ void main()
     // Construct the platform object.
     //
     UwpPlatform* pPlatform = UwpPlatform::CreateInstance();
-    rAssert( pPlatform != NULL );
+    rAssert(pPlatform != NULL);
     
     //
     // Create the game object.
     //
-    Game* pGame = Game::CreateInstance( pPlatform );
-    rAssert( pGame != NULL );
+    Game* pGame = Game::CreateInstance(pPlatform);
+    rAssert(pGame != NULL);
     
      
     //
@@ -98,7 +108,7 @@ void main()
     //
     pGame->Initialize();
 
-    HeapMgr()->PopHeap (GMA_PERSISTENT);
+    HeapMgr()->PopHeap(GMA_PERSISTENT);
 
     //
     // Run it!  Control will not return from here until the game is stopped.

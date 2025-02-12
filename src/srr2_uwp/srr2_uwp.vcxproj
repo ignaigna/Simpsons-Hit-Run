@@ -330,8 +330,6 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Tune|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="..\game\main\ps2main.cpp" />
-    <ClCompile Include="..\game\main\ps2platform.cpp" />
     <ClCompile Include="..\game\main\singletons.cpp" />
     <ClCompile Include="..\game\main\tuidunaligned.cpp" />
     <ClCompile Include="..\game\main\uwpmain.cpp" />
@@ -907,7 +905,6 @@
     <ClInclude Include="..\game\main\globaltypes.h" />
     <ClInclude Include="..\game\main\pchsrr2.h" />
     <ClInclude Include="..\game\main\platform.h" />
-    <ClInclude Include="..\game\main\ps2platform.h" />
     <ClInclude Include="..\game\main\singletons.h" />
     <ClInclude Include="..\game\main\tuidunaligned.h" />
     <ClInclude Include="..\game\main\uwpplatform.h" />
