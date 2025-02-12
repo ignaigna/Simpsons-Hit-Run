@@ -26,6 +26,13 @@ on:
         required: false
         default: false
         type: boolean
+      # TODO(3ur): if true add UWP to version string & build src/srr2_uwp not src/srr2
+      # maybe version can be SRR2 or SRR2_UWP dynamically
+      uwp_build:
+        description: 'Is this a UWP build?'
+        required: false
+        default: false
+        type: boolean
 
 permissions:
   contents: write
@@ -75,7 +82,7 @@ jobs:
 
     - name: Build SRR2
       run: |
-        msbuild.exe src/game/SRR2.vcxproj /p:Configuration=${{ github.event.inputs.configuration }} /p:Platform=${{ github.event.inputs.platform }} /p:PlatformToolset=v143 /p:WindowsTargetPlatformVersion=10.0 /m /clp:PerformanceSummary /p:SolutionDir=${{ github.workspace }}
+        msbuild.exe src/srr2/SRR2.vcxproj /p:Configuration=${{ github.event.inputs.configuration }} /p:Platform=${{ github.event.inputs.platform }} /p:PlatformToolset=v143 /p:WindowsTargetPlatformVersion=10.0 /m /clp:PerformanceSummary /p:SolutionDir=${{ github.workspace }}
         
     - name: Generate Version
       id: version
