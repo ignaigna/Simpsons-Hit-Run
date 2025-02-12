@@ -720,12 +720,6 @@
     <ClCompile Include="..\game\main\tuidunaligned.cpp">
       <Filter>Source Files\main</Filter>
     </ClCompile>
-    <ClCompile Include="..\game\main\win32main.cpp">
-      <Filter>Source Files\main</Filter>
-    </ClCompile>
-    <ClCompile Include="..\game\main\win32platform.cpp">
-      <Filter>Source Files\main</Filter>
-    </ClCompile>
     <ClCompile Include="..\game\main\pchsrr2.cpp">
       <Filter>Source Files\main</Filter>
     </ClCompile>
@@ -1887,10 +1881,10 @@
     <ClCompile Include="..\game\main\ps2platform.cpp">
       <Filter>Source Files\main</Filter>
     </ClCompile>
-    <ClCompile Include="..\game\main\xboxmain.cpp">
+    <ClCompile Include="..\game\main\uwpplatform.cpp">
       <Filter>Source Files\main</Filter>
     </ClCompile>
-    <ClCompile Include="..\game\main\xboxplatform.cpp">
+    <ClCompile Include="..\game\main\uwpmain.cpp">
       <Filter>Source Files\main</Filter>
     </ClCompile>
   </ItemGroup>
@@ -2431,9 +2425,6 @@
     </ClInclude>
     <ClInclude Include="..\game\loading\soundfilehandler.h">
       <Filter>Source Files\loading</Filter>
-    </ClInclude>
-    <ClInclude Include="..\game\main\win32platform.h">
-      <Filter>Source Files\main</Filter>
     </ClInclude>
     <ClInclude Include="..\game\main\commandlineoptions.h">
       <Filter>Source Files\main</Filter>
@@ -3741,9 +3732,6 @@
       <Filter>Source Files\worldsim\skidmarks</Filter>
     </ClInclude>
     <ClInclude Include="..\game\main\ps2platform.h">
-      <Filter>Source Files\main</Filter>
-    </ClInclude>
-    <ClInclude Include="..\game\main\xboxplatform.h">
       <Filter>Source Files\main</Filter>
     </ClInclude>
     <ClInclude Include="..\game\main\uwpplatform.h">

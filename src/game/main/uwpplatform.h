@@ -42,6 +42,7 @@ public:
 
     // Had to workaround our nice clean design cause FTech must be init'ed
     // before anything else is done.
+    static void InitializeWindow();
     static void InitializeFoundation();
     static void InitializeMemory();
 
@@ -91,6 +92,10 @@ private:
 
     // Pointer to the one and only instance of this singleton.
     static UwpPlatform* spInstance;
+
+    // Private Attributes
+    // Had to make these static because of the initialization order problem.
+    static SDL_Window* mWnd;
 
     // Pure 3D attributes
     tPlatform* mpPlatform;

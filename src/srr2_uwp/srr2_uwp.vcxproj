@@ -334,10 +334,8 @@
     <ClCompile Include="..\game\main\ps2platform.cpp" />
     <ClCompile Include="..\game\main\singletons.cpp" />
     <ClCompile Include="..\game\main\tuidunaligned.cpp" />
-    <ClCompile Include="..\game\main\win32main.cpp" />
-    <ClCompile Include="..\game\main\win32platform.cpp" />
-    <ClCompile Include="..\game\main\xboxmain.cpp" />
-    <ClCompile Include="..\game\main\xboxplatform.cpp" />
+    <ClCompile Include="..\game\main\uwpmain.cpp" />
+    <ClCompile Include="..\game\main\uwpplatform.cpp" />
     <ClCompile Include="..\game\memory\classsizetracker.cpp" />
     <ClCompile Include="..\game\memory\createheap.cpp" />
     <ClCompile Include="..\game\memory\leakdetection.cpp" />
@@ -913,8 +911,6 @@
     <ClInclude Include="..\game\main\singletons.h" />
     <ClInclude Include="..\game\main\tuidunaligned.h" />
     <ClInclude Include="..\game\main\uwpplatform.h" />
-    <ClInclude Include="..\game\main\win32platform.h" />
-    <ClInclude Include="..\game\main\xboxplatform.h" />
     <ClInclude Include="..\game\memory\allocpool.h" />
     <ClInclude Include="..\game\memory\classsizetracker.h" />
     <ClInclude Include="..\game\memory\createheap.h" />
