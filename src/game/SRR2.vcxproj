@@ -884,14 +884,6 @@
     <ClCompile Include="sound\sounddebug\sounddebugdisplay.cpp" />
     <ClCompile Include="sound\sounddebug\sounddebugpage.cpp" />
     <ClCompile Include="sound\soundfx\positionalsoundsettings.cpp" />
-    <ClCompile Include="sound\soundfx\ps2reverbcontroller.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Tune|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Tune|x64'">true</ExcludedFromBuild>
-    </ClCompile>
     <ClCompile Include="sound\soundfx\reverbcontroller.cpp" />
     <ClCompile Include="sound\soundfx\reverbsettings.cpp" />
     <ClCompile Include="sound\soundfx\soundeffectplayer.cpp" />
@@ -900,14 +892,6 @@
     <ClCompile Include="sound\soundfx\soundfxlogic.cpp" />
     <ClCompile Include="sound\soundfx\soundfxpauselogic.cpp" />
     <ClCompile Include="sound\soundfx\win32reverbcontroller.cpp" />
-    <ClCompile Include="sound\soundfx\xboxreverbcontroller.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Tune|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Tune|x64'">true</ExcludedFromBuild>
-    </ClCompile>
     <ClCompile Include="sound\soundloader.cpp" />
     <ClCompile Include="sound\soundmanager.cpp" />
     <ClCompile Include="sound\soundrenderercallback.cpp" />
@@ -1120,7 +1104,6 @@
     <ClInclude Include="data\savegameinfo.h" />
     <ClInclude Include="debug\debuginfo.h" />
     <ClInclude Include="debug\profiler.h" />
-    <ClInclude Include="debug\ps2perf.hpp" />
     <ClInclude Include="debug\section.h" />
     <ClInclude Include="events\eventdata.h" />
     <ClInclude Include="events\eventenum.h" />
@@ -1519,7 +1502,6 @@
     <ClInclude Include="sound\soundfx\ipositionalsoundsettings.h" />
     <ClInclude Include="sound\soundfx\ireverbsettings.h" />
     <ClInclude Include="sound\soundfx\positionalsoundsettings.h" />
-    <ClInclude Include="sound\soundfx\ps2reverbcontroller.h" />
     <ClInclude Include="sound\soundfx\reverbcontroller.h" />
     <ClInclude Include="sound\soundfx\reverbsettings.h" />
     <ClInclude Include="sound\soundfx\soundeffectplayer.h" />
@@ -1528,7 +1510,6 @@
     <ClInclude Include="sound\soundfx\soundfxlogic.h" />
     <ClInclude Include="sound\soundfx\soundfxpauselogic.h" />
     <ClInclude Include="sound\soundfx\win32reverbcontroller.h" />
-    <ClInclude Include="sound\soundfx\xboxreverbcontroller.h" />
     <ClInclude Include="sound\soundloader.h" />
     <ClInclude Include="sound\soundmanager.h" />
     <ClInclude Include="sound\soundrenderercallback.h" />

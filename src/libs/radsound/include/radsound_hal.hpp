@@ -68,9 +68,9 @@ enum radSoundAuxMode
 
 enum radSoundOutputMode
 {
-	radSoundOutputMode_Mono,    // radsound mixes to mono (GAMECUBE/PS2 only)
-	radSoundOutputMode_Stereo,  // radsound mixes to stereo (GAMECUBE/PS2 only)
-	radSoundOutputMode_Surround // GAMECUBE only
+	radSoundOutputMode_Mono,    // radsound mixes to mono (PS2 only)
+	radSoundOutputMode_Stereo,  // radsound mixes to stereo (PS2 only)
+	radSoundOutputMode_Surround
 };
 
 //============================================================================
@@ -300,9 +300,9 @@ struct IRadSoundHalBuffer : public IRefCount
 
     virtual void CancelAsyncOperations( void ) = 0;
 
-    // This solves GameCube ADPCM problems.  The audio formats must be the same
-    // except for the custom encoding info.
-
+    //
+    // The audio formats must be the same except for the custom encoding info.
+    //
     virtual void ReSetAudioFormat( IRadSoundHalAudioFormat * pIRadSoundHalAudioFormat ) = 0;
 };
 
@@ -468,7 +468,7 @@ struct IRadSoundHalEffect : public IRefCount
         virtual unsigned int GetOutput( unsigned int index ) = 0;
     #endif
 
-    #if defined RAD_GAMECUBE || defined RAD_PS2 || defined RAD_XBOX
+    #if defined RAD_PS2 || defined RAD_XBOX
         virtual void SetMasterGain( float masterGain ) = 0;
         virtual float GetMasterGain( void ) = 0;
     #endif
@@ -503,16 +503,12 @@ struct IRadSoundHalSystem : public IRefCount
         unsigned int m_MaxRootAllocations;
         unsigned int m_NumAuxSends;
 
-        #if defined RAD_WIN32 || defined RAD_XBOX || defined RAD_GAMECUBE
+        #if defined RAD_WIN32 || defined RAD_XBOX
         unsigned int m_ReservedSoundMemory;
         #endif 
 
         #ifdef RAD_WIN32
         unsigned int m_SamplingRate;
-        #endif
-        
-        #if defined RAD_GAMECUBE
-            radMemoryAllocator m_EffectsAllocator;
         #endif
     };
 
