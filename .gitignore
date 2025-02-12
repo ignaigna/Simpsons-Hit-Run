@@ -1,6 +1,7 @@
 # Visual Studio files
 .vs/
 *.vcxproj.user
+enc_temp_folder/
 
 # VCPKG files
 vcpkg_installed/
@@ -10,6 +11,7 @@ vcpkg_installed/
 *.log
 *.tlog
 *.pdb
+*.APS
 
 # Compiled Object files
 *.slo
@@ -45,6 +47,9 @@ vcpkg_installed/
 
 # Game
 build/
+
+# Game UWP
+src/srr2_uwp/Generated Files/
 
 # Choreo
 src/libs/choreo/[Rr]elease/
@@ -129,6 +134,3 @@ src/libs/sim/[Dd]ebug/
 src/libs/sim/[Tt]une/
 src/libs/sim/lib/
 src/libs/sim/obj/
-
-# annoying visual studio junk
-/enc_temp_folder/
