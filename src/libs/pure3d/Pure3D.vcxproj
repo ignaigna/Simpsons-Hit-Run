@@ -41,12 +41,12 @@
       <Configuration>TuneUwp</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
-    <ProjectConfiguration Include="Tune|Win32">
-      <Configuration>Tune</Configuration>
+    <ProjectConfiguration Include="TuneWindows|Win32">
+      <Configuration>TuneWindows</Configuration>
       <Platform>Win32</Platform>
     </ProjectConfiguration>
-    <ProjectConfiguration Include="Tune|x64">
-      <Configuration>Tune</Configuration>
+    <ProjectConfiguration Include="TuneWindows|x64">
+      <Configuration>TuneWindows</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
@@ -84,7 +84,7 @@
     <UseOfMfc>false</UseOfMfc>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Tune|Win32'" Label="Configuration">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='TuneWindows|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <PlatformToolset>v143</PlatformToolset>
     <UseOfMfc>false</UseOfMfc>
@@ -96,7 +96,7 @@
     <UseOfMfc>false</UseOfMfc>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Tune|x64'" Label="Configuration">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='TuneWindows|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <PlatformToolset>v143</PlatformToolset>
     <UseOfMfc>false</UseOfMfc>
@@ -147,13 +147,13 @@
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseUwp|x64'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Tune|Win32'" Label="PropertySheets">
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='TuneWindows|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='TuneUwp|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Tune|x64'" Label="PropertySheets">
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='TuneWindows|x64'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='TuneUwp|x64'" Label="PropertySheets">
@@ -193,17 +193,17 @@
     <ExecutablePath>$(DXSDK_DIR)\Utilities\bin\x86;$(ExecutablePath)</ExecutablePath>
     <IncludePath>$(DXSDK_DIR)\Include;$(IncludePath)</IncludePath>
     <LibraryPath>$(DXSDK_DIR)\Lib\x86;$(LibraryPath)</LibraryPath>
-    <OutDir>.\lib\$(Platform)\</OutDir>
+    <OutDir>.\lib\$(Configuration)\$(Platform)\</OutDir>
     <IntDir>.\obj\$(Configuration)\$(Platform)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugUwp|x64'">
     <ExecutablePath>$(DXSDK_DIR)\Utilities\bin\x86;$(ExecutablePath)</ExecutablePath>
     <IncludePath>$(DXSDK_DIR)\Include;$(IncludePath)</IncludePath>
     <LibraryPath>$(DXSDK_DIR)\Lib\x86;$(LibraryPath)</LibraryPath>
-    <OutDir>.\lib\$(Platform)\</OutDir>
+    <OutDir>.\lib\$(Configuration)\$(Platform)\</OutDir>
     <IntDir>.\obj\$(Configuration)\$(Platform)\</IntDir>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Tune|Win32'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='TuneWindows|Win32'">
     <OutDir>.\lib\$(Platform)\</OutDir>
     <IntDir>.\obj\$(Configuration)\$(Platform)\</IntDir>
     <ExecutablePath>$(DXSDK_DIR)\Utilities\bin\x86;$(ExecutablePath)</ExecutablePath>
@@ -217,18 +217,18 @@
     <IncludePath>$(DXSDK_DIR)\Include;$(IncludePath)</IncludePath>
     <LibraryPath>$(DXSDK_DIR)\Lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Tune|x64'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='TuneWindows|x64'">
     <ExecutablePath>$(DXSDK_DIR)\Utilities\bin\x86;$(ExecutablePath)</ExecutablePath>
     <IncludePath>$(DXSDK_DIR)\Include;$(IncludePath)</IncludePath>
     <LibraryPath>$(DXSDK_DIR)\Lib\x86;$(LibraryPath)</LibraryPath>
-    <OutDir>.\lib\$(Platform)\</OutDir>
+    <OutDir>.\lib\$(Configuration)\$(Platform)\</OutDir>
     <IntDir>.\obj\$(Configuration)\$(Platform)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='TuneUwp|x64'">
     <ExecutablePath>$(DXSDK_DIR)\Utilities\bin\x86;$(ExecutablePath)</ExecutablePath>
     <IncludePath>$(DXSDK_DIR)\Include;$(IncludePath)</IncludePath>
     <LibraryPath>$(DXSDK_DIR)\Lib\x86;$(LibraryPath)</LibraryPath>
-    <OutDir>.\lib\$(Platform)\</OutDir>
+    <OutDir>.\lib\$(Configuration)\$(Platform)\</OutDir>
     <IntDir>.\obj\$(Configuration)\$(Platform)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseWindows|Win32'">
@@ -249,14 +249,14 @@
     <ExecutablePath>$(DXSDK_DIR)\Utilities\bin\x86;$(ExecutablePath)</ExecutablePath>
     <IncludePath>$(DXSDK_DIR)\Include;$(IncludePath)</IncludePath>
     <LibraryPath>$(DXSDK_DIR)\Lib\x86;$(LibraryPath)</LibraryPath>
-    <OutDir>.\lib\$(Platform)\</OutDir>
+    <OutDir>.\lib\$(Configuration)\$(Platform)\</OutDir>
     <IntDir>.\obj\$(Configuration)\$(Platform)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseUwp|x64'">
     <ExecutablePath>$(DXSDK_DIR)\Utilities\bin\x86;$(ExecutablePath)</ExecutablePath>
     <IncludePath>$(DXSDK_DIR)\Include;$(IncludePath)</IncludePath>
     <LibraryPath>$(DXSDK_DIR)\Lib\x86;$(LibraryPath)</LibraryPath>
-    <OutDir>.\lib\$(Platform)\</OutDir>
+    <OutDir>.\lib\$(Configuration)\$(Platform)\</OutDir>
     <IntDir>.\obj\$(Configuration)\$(Platform)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Label="Vcpkg">
@@ -291,13 +291,13 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugUwp|x64'" Label="Vcpkg">
     <VcpkgTriplet>x64-windows</VcpkgTriplet>
   </PropertyGroup>
-  <PropertyGroup Label="Vcpkg" Condition="'$(Configuration)|$(Platform)'=='Tune|Win32'">
+  <PropertyGroup Label="Vcpkg" Condition="'$(Configuration)|$(Platform)'=='TuneWindows|Win32'">
     <VcpkgTriplet>x86-windows</VcpkgTriplet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='TuneUwp|Win32'" Label="Vcpkg">
     <VcpkgTriplet>x86-windows</VcpkgTriplet>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Tune|x64'" Label="Vcpkg">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='TuneWindows|x64'" Label="Vcpkg">
     <VcpkgTriplet>x64-windows</VcpkgTriplet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='TuneUwp|x64'" Label="Vcpkg">
@@ -397,7 +397,7 @@
     <ClCompile>
       <Optimization>Disabled</Optimization>
       <AdditionalIncludeDirectories>.\;..\radcontent;..\radcore\include;..\radmath;..\radcontent\include;..\..\game;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>_DEBUG;_LIB;WIN64;PNG_USER_MEM_SUPPORTED;RAD_DEBUG;RAD_WIN32;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_LIB;WIN64;PNG_USER_MEM_SUPPORTED;RAD_DEBUG;RAD_UWP;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
@@ -423,7 +423,7 @@
       <Culture>0x1009</Culture>
     </ResourceCompile>
   </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Tune|Win32'">
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='TuneWindows|Win32'">
     <ClCompile>
       <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
       <AdditionalIncludeDirectories>.\;..\radcontent;..\radcore\include;..\radmath;..\radcontent\include;..\..\game;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -483,7 +483,7 @@
       <Culture>0x1009</Culture>
     </ResourceCompile>
   </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Tune|x64'">
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='TuneWindows|x64'">
     <ClCompile>
       <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
       <AdditionalIncludeDirectories>.\;..\radcontent;..\radcore\include;..\radmath;..\radcontent\include;..\..\game;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -517,7 +517,7 @@
     <ClCompile>
       <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
       <AdditionalIncludeDirectories>.\;..\radcontent;..\radcore\include;..\radmath;..\radcontent\include;..\..\game;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>NDEBUG;_LIB;WIN64;PNG_USER_MEM_SUPPORTED;RAD_TUNE;RAD_WIN32;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;_LIB;WIN64;PNG_USER_MEM_SUPPORTED;RAD_TUNE;RAD_UWP;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -637,7 +637,7 @@
     <ClCompile>
       <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
       <AdditionalIncludeDirectories>.\;..\radcontent;..\radcore\include;..\radmath;..\radcontent\include;..\..\game;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>NDEBUG;_LIB;WIN64;PNG_USER_MEM_SUPPORTED;RAD_RELEASE;RAD_WIN32;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;_LIB;WIN64;PNG_USER_MEM_SUPPORTED;RAD_RELEASE;RAD_UWP;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>

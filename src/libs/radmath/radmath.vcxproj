@@ -184,11 +184,11 @@
     <IntDir>.\obj\$(Configuration)\$(Platform)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugWindows|x64'">
-    <OutDir>.\lib\$(Platform)\</OutDir>
+    <OutDir>.\lib\$(Configuration)\$(Platform)\</OutDir>
     <IntDir>.\obj\$(Configuration)\$(Platform)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugUwp|x64'">
-    <OutDir>.\lib\$(Platform)\</OutDir>
+    <OutDir>.\lib\$(Configuration)\$(Platform)\</OutDir>
     <IntDir>.\obj\$(Configuration)\$(Platform)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='TuneWindows|Win32'">
@@ -208,19 +208,19 @@
     <IntDir>.\obj\$(Configuration)\$(Platform)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseWindows|x64'">
-    <OutDir>.\lib\$(Platform)\</OutDir>
+    <OutDir>.\lib\$(Configuration)\$(Platform)\</OutDir>
     <IntDir>.\obj\$(Configuration)\$(Platform)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseUwp|x64'">
-    <OutDir>.\lib\$(Platform)\</OutDir>
+    <OutDir>.\lib\$(Configuration)\$(Platform)\</OutDir>
     <IntDir>.\obj\$(Configuration)\$(Platform)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='TuneWindows|x64'">
-    <OutDir>.\lib\$(Platform)\</OutDir>
+    <OutDir>.\lib\$(Configuration)\$(Platform)\</OutDir>
     <IntDir>.\obj\$(Configuration)\$(Platform)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='TuneUwp|x64'">
-    <OutDir>.\lib\$(Platform)\</OutDir>
+    <OutDir>.\lib\$(Configuration)\$(Platform)\</OutDir>
     <IntDir>.\obj\$(Configuration)\$(Platform)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Label="Vcpkg">
@@ -350,7 +350,7 @@
     <ClCompile>
       <Optimization>Disabled</Optimization>
       <AdditionalIncludeDirectories>.\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>_LIB;RAD_DEBUG;_DEBUG;WIN64;RAD_WIN32;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_LIB;RAD_DEBUG;_DEBUG;WIN64;RAD_UWP;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <PrecompiledHeaderOutputFile>.\obj\$(Configuration)\$(Platform)\radmath.pch</PrecompiledHeaderOutputFile>
@@ -468,7 +468,7 @@
     <ClCompile>
       <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
       <AdditionalIncludeDirectories>.\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>_LIB;RAD_TUNE;NDEBUG;WIN64;RAD_WIN32;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_LIB;RAD_TUNE;NDEBUG;WIN64;RAD_UWP;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -585,7 +585,7 @@
     <ClCompile>
       <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
       <AdditionalIncludeDirectories>.\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>NDEBUG;_LIB;RAD_RELEASE;WIN64;RAD_WIN32;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;_LIB;RAD_RELEASE;WIN64;RAD_UWP;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>

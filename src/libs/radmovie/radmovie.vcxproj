@@ -184,11 +184,11 @@
     <IntDir>.\obj\$(Configuration)\$(Platform)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugWindows|x64'">
-    <OutDir>.\lib\$(Platform)\</OutDir>
+    <OutDir>.\lib\$(Configuration)\$(Platform)\</OutDir>
     <IntDir>.\obj\$(Configuration)\$(Platform)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugUwp|x64'">
-    <OutDir>.\lib\$(Platform)\</OutDir>
+    <OutDir>.\lib\$(Configuration)\$(Platform)\</OutDir>
     <IntDir>.\obj\$(Configuration)\$(Platform)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='TuneWindows|Win32'">
@@ -208,19 +208,19 @@
     <IntDir>.\obj\$(Configuration)\$(Platform)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseWindows|x64'">
-    <OutDir>.\lib\$(Platform)\</OutDir>
+    <OutDir>.\lib\$(Configuration)\$(Platform)\</OutDir>
     <IntDir>.\obj\$(Configuration)\$(Platform)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseUwp|x64'">
-    <OutDir>.\lib\$(Platform)\</OutDir>
+    <OutDir>.\lib\$(Configuration)\$(Platform)\</OutDir>
     <IntDir>.\obj\$(Configuration)\$(Platform)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='TuneWindows|x64'">
-    <OutDir>.\lib\$(Platform)\</OutDir>
+    <OutDir>.\lib\$(Configuration)\$(Platform)\</OutDir>
     <IntDir>.\obj\$(Configuration)\$(Platform)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='TuneUwp|x64'">
-    <OutDir>.\lib\$(Platform)\</OutDir>
+    <OutDir>.\lib\$(Configuration)\$(Platform)\</OutDir>
     <IntDir>.\obj\$(Configuration)\$(Platform)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Label="Vcpkg">
@@ -379,7 +379,7 @@
     <ClCompile>
       <Optimization>Disabled</Optimization>
       <AdditionalIncludeDirectories>include;..\radcore\include;..\radsound\include;..\pure3d\p3d;..\pure3d;..\radmath;..\radmath\radmath;..\radcontent\include;..\..\game;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>_DEBUG;RAD_DEBUG;WIN64;_LIB;RAD_WIN32;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;RAD_DEBUG;WIN64;_LIB;RAD_UWP;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <ExceptionHandling>
       </ExceptionHandling>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
@@ -536,7 +536,7 @@
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <OmitFramePointers>true</OmitFramePointers>
       <AdditionalIncludeDirectories>include;..\radcore\include;..\radsound\include;..\pure3d\p3d;..\pure3d;..\radmath;..\radmath\radmath;..\radcontent\include;..\..\game;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>NDEBUG;TUNE;RAD_TUNE;WIN64;_LIB;RAD_WIN32;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;TUNE;RAD_TUNE;WIN64;_LIB;RAD_UWP;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <ExceptionHandling>
       </ExceptionHandling>
@@ -691,7 +691,7 @@
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <OmitFramePointers>true</OmitFramePointers>
       <AdditionalIncludeDirectories>include;..\radcore\include;..\radsound\include;..\pure3d\p3d;..\pure3d;..\radmath;..\radmath\radmath;..\radcontent\include;..\..\game;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>NDEBUG;RELEASE;RAD_RELEASE;WIN64;_LIB;RAD_WIN32;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;RELEASE;RAD_RELEASE;WIN64;_LIB;RAD_UWP;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <ExceptionHandling>
       </ExceptionHandling>

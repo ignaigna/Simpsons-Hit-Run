@@ -19,32 +19,15 @@
       <Configuration>DebugUwp</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
-    <ProjectConfiguration Include="DebugWindows|x64">
-      <Configuration>DebugWindows</Configuration>
-      <Platform>x64</Platform>
-    </ProjectConfiguration>
     <ProjectConfiguration Include="ReleaseUwp|x64">
       <Configuration>ReleaseUwp</Configuration>
-      <Platform>x64</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="ReleaseWindows|x64">
-      <Configuration>ReleaseWindows</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
     <ProjectConfiguration Include="TuneUwp|x64">
       <Configuration>TuneUwp</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
-    <ProjectConfiguration Include="TuneWindows|x64">
-      <Configuration>TuneWindows</Configuration>
-      <Platform>x64</Platform>
-    </ProjectConfiguration>
   </ItemGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugWindows|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
-    <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v143</PlatformToolset>
-  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='TuneUwp|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
@@ -54,18 +37,6 @@
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='TuneWindows|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
-    <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v143</PlatformToolset>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseWindows|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
-    <UseDebugLibraries>false</UseDebugLibraries>
-    <WholeProgramOptimization>true</WholeProgramOptimization>
-    <PlatformToolset>v143</PlatformToolset>
-    <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseUwp|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -77,19 +48,10 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
   </ImportGroup>
-  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='DebugWindows|x64'">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='TuneUwp|x64'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='DebugUwp|x64'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='TuneWindows|x64'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
-  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='ReleaseWindows|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseUwp|x64'" Label="PropertySheets">
@@ -99,22 +61,8 @@
     <PackageCertificateThumbprint>A73979F3BD39A6028C23943EC0069D88C1587522</PackageCertificateThumbprint>
     <PackageCertificateKeyFile>SRR2_UWP_TemporaryKey.pfx</PackageCertificateKeyFile>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='TuneWindows|x64'">
-    <LinkIncremental>false</LinkIncremental>
-    <OutDir>..\..\build\UWP-bin-$(Platform)-$(Configuration)\</OutDir>
-    <IntDir>..\..\build\UWP-obj-$(Platform)-$(Configuration)\</IntDir>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseWindows|x64'">
-    <LinkIncremental>false</LinkIncremental>
-    <OutDir>..\..\build\UWP-bin-$(Platform)-$(Configuration)\</OutDir>
-    <IntDir>..\..\build\UWP-obj-$(Platform)-$(Configuration)\</IntDir>
-  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseUwp|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>..\..\build\UWP-bin-$(Platform)-$(Configuration)\</OutDir>
-    <IntDir>..\..\build\UWP-obj-$(Platform)-$(Configuration)\</IntDir>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugWindows|x64'">
     <OutDir>..\..\build\UWP-bin-$(Platform)-$(Configuration)\</OutDir>
     <IntDir>..\..\build\UWP-obj-$(Platform)-$(Configuration)\</IntDir>
   </PropertyGroup>
@@ -126,10 +74,6 @@
     <OutDir>..\..\build\UWP-bin-$(Platform)-$(Configuration)\</OutDir>
     <IntDir>..\..\build\UWP-obj-$(Platform)-$(Configuration)\</IntDir>
   </PropertyGroup>
-  <PropertyGroup Label="Vcpkg" Condition="'$(Configuration)|$(Platform)'=='DebugWindows|x64'">
-    <VcpkgTriplet>x64-windows</VcpkgTriplet>
-    <VcpkgConfiguration>Release</VcpkgConfiguration>
-  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='TuneUwp|x64'" Label="Vcpkg">
     <VcpkgTriplet>x64-windows</VcpkgTriplet>
     <VcpkgConfiguration>Release</VcpkgConfiguration>
@@ -138,42 +82,12 @@
     <VcpkgTriplet>x64-windows</VcpkgTriplet>
     <VcpkgConfiguration>Release</VcpkgConfiguration>
   </PropertyGroup>
-  <PropertyGroup Label="Vcpkg" Condition="'$(Configuration)|$(Platform)'=='ReleaseWindows|x64'">
-    <VcpkgTriplet>x64-windows</VcpkgTriplet>
-  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseUwp|x64'" Label="Vcpkg">
     <VcpkgTriplet>x64-windows</VcpkgTriplet>
-  </PropertyGroup>
-  <PropertyGroup Label="Vcpkg" Condition="'$(Configuration)|$(Platform)'=='TuneWindows|x64'">
-    <VcpkgTriplet>x64-windows</VcpkgTriplet>
-    <VcpkgConfiguration>Release</VcpkgConfiguration>
   </PropertyGroup>
   <PropertyGroup Label="Vcpkg">
     <VcpkgEnableManifest>true</VcpkgEnableManifest>
   </PropertyGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugWindows|x64'">
-    <ClCompile>
-      <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
-      <DisableSpecificWarnings>4453;28204</DisableSpecificWarnings>
-      <AdditionalIncludeDirectories>.;..\game;..\libs\radcore\include;..\libs\radmovie\include;..\libs\radsound\include;..\libs\radscript\include;..\libs\radmusic\include;..\libs\pure3d;..\libs\scrooby\include;..\libs\scrooby\src;..\libs\radmath;..\libs\sim;..\libs\poser\include;..\libs\choreo\include;..\libs\radcontent\include;..\libs\radcontent;$(ProjectDir);$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <SupportJustMyCode>false</SupportJustMyCode>
-      <SDLCheck />
-      <PreprocessorDefinitions>_DEBUG;RAD_DEBUG;WIN64;_WINDOWS;RAD_WIN32;_CRT_SECURE_NO_WARNINGS;WIN32_EXTRA_LEAN;WIN32_LEAN_AND_MEAN;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <LanguageStandard>stdcpp17</LanguageStandard>
-      <RuntimeTypeInfo>true</RuntimeTypeInfo>
-      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
-      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
-      <PrecompiledHeaderFile>pchsrr2.h</PrecompiledHeaderFile>
-      <BrowseInformation>true</BrowseInformation>
-      <ForcedIncludeFiles>pchsrr2.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
-    </ClCompile>
-    <Link>
-      <OutputFile>$(OutDir)SRR2.exe</OutputFile>
-      <AdditionalDependencies>odbc32.lib;odbccp32.lib;dsound.lib;dxguid.lib;winmm.lib;dinput8.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-      <GenerateMapFile>true</GenerateMapFile>
-    </Link>
-  </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='TuneUwp|x64'">
     <ClCompile>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
@@ -186,7 +100,7 @@
       <LanguageStandard>stdcpp17</LanguageStandard>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
-      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <PrecompiledHeaderFile>pchsrr2.h</PrecompiledHeaderFile>
       <BrowseInformation>true</BrowseInformation>
       <ForcedIncludeFiles>pchsrr2.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
@@ -222,60 +136,6 @@
       <GenerateMapFile>true</GenerateMapFile>
     </Link>
   </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='TuneWindows|x64'">
-    <ClCompile>
-      <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
-      <DisableSpecificWarnings>4453;28204</DisableSpecificWarnings>
-      <AdditionalIncludeDirectories>.;..\game;..\libs\radcore\include;..\libs\radmovie\include;..\libs\radsound\include;..\libs\radscript\include;..\libs\radmusic\include;..\libs\pure3d;..\libs\scrooby\include;..\libs\scrooby\src;..\libs\radmath;..\libs\sim;..\libs\poser\include;..\libs\choreo\include;..\libs\radcontent\include;..\libs\radcontent;$(ProjectDir);$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <SupportJustMyCode>false</SupportJustMyCode>
-      <SDLCheck>
-      </SDLCheck>
-      <PreprocessorDefinitions>RAD_TUNE;WIN64;_WINDOWS;RAD_WIN32;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS;WIN32_EXTRA_LEAN;WIN32_LEAN_AND_MEAN</PreprocessorDefinitions>
-      <Optimization>Full</Optimization>
-      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
-      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
-      <OmitFramePointers />
-      <EnableFiberSafeOptimizations>true</EnableFiberSafeOptimizations>
-      <WholeProgramOptimization>true</WholeProgramOptimization>
-      <StringPooling>true</StringPooling>
-      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
-      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <FunctionLevelLinking>true</FunctionLevelLinking>
-      <RuntimeTypeInfo>true</RuntimeTypeInfo>
-      <LanguageStandard>stdcpp17</LanguageStandard>
-      <PrecompiledHeaderFile>pchsrr2.h</PrecompiledHeaderFile>
-      <BrowseInformation>true</BrowseInformation>
-      <ForcedIncludeFiles>pchsrr2.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
-    </ClCompile>
-    <Link>
-      <OutputFile>$(OutDir)SRR2.exe</OutputFile>
-      <AdditionalDependencies>dsound.lib;dxguid.lib;winmm.lib;dinput8.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-      <GenerateMapFile>true</GenerateMapFile>
-    </Link>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseWindows|x64'">
-    <ClCompile>
-      <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
-      <DisableSpecificWarnings>4453;28204</DisableSpecificWarnings>
-      <AdditionalIncludeDirectories>.;..\game;..\libs\radcore\include;..\libs\radmovie\include;..\libs\radsound\include;..\libs\radscript\include;..\libs\radmusic\include;..\libs\pure3d;..\libs\scrooby\include;..\libs\scrooby\src;..\libs\radmath;..\libs\sim;..\libs\poser\include;..\libs\choreo\include;..\libs\radcontent\include;..\libs\radcontent;$(ProjectDir);$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
-      <SDLCheck />
-      <PreprocessorDefinitions>NDEBUG;RAD_RELEASE;WIN64;_WINDOWS;RAD_WIN32;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS;WIN32_EXTRA_LEAN;WIN32_LEAN_AND_MEAN</PreprocessorDefinitions>
-      <LanguageStandard>stdcpp17</LanguageStandard>
-      <RuntimeTypeInfo>true</RuntimeTypeInfo>
-      <StringPooling>true</StringPooling>
-      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <PrecompiledHeaderFile>pchsrr2.h</PrecompiledHeaderFile>
-      <ForcedIncludeFiles>pchsrr2.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
-    </ClCompile>
-    <Link>
-      <OutputFile>$(OutDir)SRR2.exe</OutputFile>
-      <AdditionalDependencies>odbc32.lib;odbccp32.lib;dsound.lib;dxguid.lib;winmm.lib;dinput8.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <GenerateMapFile>true</GenerateMapFile>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-    </Link>
-  </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseUwp|x64'">
     <ClCompile>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
@@ -288,7 +148,7 @@
       <LanguageStandard>stdcpp17</LanguageStandard>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <StringPooling>true</StringPooling>
-      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <PrecompiledHeaderFile>pchsrr2.h</PrecompiledHeaderFile>
       <ForcedIncludeFiles>pchsrr2.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
     </ClCompile>
@@ -459,11 +319,8 @@
     <ClCompile Include="..\game\main\commandlineoptions.cpp" />
     <ClCompile Include="..\game\main\game.cpp" />
     <ClCompile Include="..\game\main\pchsrr2.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='DebugWindows|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='TuneUwp|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='DebugUwp|x64'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='TuneWindows|x64'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='ReleaseWindows|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='ReleaseUwp|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="..\game\main\singletons.cpp" />

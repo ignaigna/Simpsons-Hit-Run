@@ -184,11 +184,11 @@
     <IntDir>.\obj\$(Configuration)\$(Platform)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='TuneWindows|x64'">
-    <OutDir>.\lib\$(Platform)\</OutDir>
+    <OutDir>.\lib\$(Configuration)\$(Platform)\</OutDir>
     <IntDir>.\obj\$(Configuration)\$(Platform)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='TuneUwp|x64'">
-    <OutDir>.\lib\$(Platform)\</OutDir>
+    <OutDir>.\lib\$(Configuration)\$(Platform)\</OutDir>
     <IntDir>.\obj\$(Configuration)\$(Platform)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugWindows|Win32'">
@@ -208,19 +208,19 @@
     <IntDir>.\obj\$(Configuration)\$(Platform)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugWindows|x64'">
-    <OutDir>.\lib\$(Platform)\</OutDir>
+    <OutDir>.\lib\$(Configuration)\$(Platform)\</OutDir>
     <IntDir>.\obj\$(Configuration)\$(Platform)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugUwp|x64'">
-    <OutDir>.\lib\$(Platform)\</OutDir>
+    <OutDir>.\lib\$(Configuration)\$(Platform)\</OutDir>
     <IntDir>.\obj\$(Configuration)\$(Platform)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseWindows|x64'">
-    <OutDir>.\lib\$(Platform)\</OutDir>
+    <OutDir>.\lib\$(Configuration)\$(Platform)\</OutDir>
     <IntDir>.\obj\$(Configuration)\$(Platform)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseUwp|x64'">
-    <OutDir>.\lib\$(Platform)\</OutDir>
+    <OutDir>.\lib\$(Configuration)\$(Platform)\</OutDir>
     <IntDir>.\obj\$(Configuration)\$(Platform)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Label="Vcpkg">
@@ -359,7 +359,7 @@
     <ClCompile>
       <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
       <AdditionalIncludeDirectories>..\radmath;..\pure3d;..\radcore\include;.\include;.\src;..\radcontent\include;..\..\game;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN64;_LIB;SCROOBY_RUNTIME;RAD_WIN32;RAD_TUNE;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN64;_LIB;SCROOBY_RUNTIME;RAD_UWP;RAD_TUNE;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -480,7 +480,7 @@
     <ClCompile>
       <Optimization>Disabled</Optimization>
       <AdditionalIncludeDirectories>..\radmath;..\pure3d;..\radcore\include;.\include;.\src;..\radcontent\include;..\..\game;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN64;_LIB;SCROOBY_RUNTIME;RAD_WIN32;RAD_DEBUG;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN64;_LIB;SCROOBY_RUNTIME;RAD_UWP;RAD_DEBUG;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
@@ -597,7 +597,7 @@
     <ClCompile>
       <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
       <AdditionalIncludeDirectories>..\radmath;..\pure3d;..\radcore\include;.\include;.\src;..\radcontent\include;..\..\game;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>NDEBUG;WIN64;_LIB;SCROOBY_RUNTIME;RAD_WIN32;RAD_RELEASE;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;WIN64;_LIB;SCROOBY_RUNTIME;RAD_UWP;RAD_RELEASE;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>

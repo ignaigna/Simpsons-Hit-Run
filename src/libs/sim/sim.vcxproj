@@ -184,11 +184,11 @@
     <IntDir>.\obj\$(Configuration)\$(Platform)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseWindows|x64'">
-    <OutDir>.\lib\$(Platform)\</OutDir>
+    <OutDir>.\lib\$(Configuration)\$(Platform)\</OutDir>
     <IntDir>.\obj\$(Configuration)\$(Platform)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseUwp|x64'">
-    <OutDir>.\lib\$(Platform)\</OutDir>
+    <OutDir>.\lib\$(Configuration)\$(Platform)\</OutDir>
     <IntDir>.\obj\$(Configuration)\$(Platform)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='TuneWindows|Win32'">
@@ -208,19 +208,19 @@
     <IntDir>.\obj\$(Configuration)\$(Platform)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugWindows|x64'">
-    <OutDir>.\lib\$(Platform)\</OutDir>
+    <OutDir>.\lib\$(Configuration)\$(Platform)\</OutDir>
     <IntDir>.\obj\$(Configuration)\$(Platform)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugUwp|x64'">
-    <OutDir>.\lib\$(Platform)\</OutDir>
+    <OutDir>.\lib\$(Configuration)\$(Platform)\</OutDir>
     <IntDir>.\obj\$(Configuration)\$(Platform)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='TuneWindows|x64'">
-    <OutDir>.\lib\$(Platform)\</OutDir>
+    <OutDir>.\lib\$(Configuration)\$(Platform)\</OutDir>
     <IntDir>.\obj\$(Configuration)\$(Platform)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='TuneUwp|x64'">
-    <OutDir>.\lib\$(Platform)\</OutDir>
+    <OutDir>.\lib\$(Configuration)\$(Platform)\</OutDir>
     <IntDir>.\obj\$(Configuration)\$(Platform)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Label="Vcpkg">
@@ -353,7 +353,7 @@
     <ClCompile>
       <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
       <AdditionalIncludeDirectories>.\;..\pure3d;..\radmath;..\radcontent\include;..\poser\include;..\radcore\include;..\..\game;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>NDEBUG;_LIB;WIN64;PNG_USER_MEM_SUPPORTED;RAD_RELEASE;RAD_WIN32;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;_LIB;WIN64;PNG_USER_MEM_SUPPORTED;RAD_RELEASE;RAD_UWP;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -472,7 +472,7 @@
     <ClCompile>
       <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
       <AdditionalIncludeDirectories>.\;..\pure3d;..\radmath;..\radcontent\include;..\poser\include;..\radcore\include;..\..\game;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>NDEBUG;_LIB;WIN64;PNG_USER_MEM_SUPPORTED;RAD_TUNE;RAD_WIN32;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;_LIB;WIN64;PNG_USER_MEM_SUPPORTED;RAD_TUNE;RAD_UWP;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -592,7 +592,7 @@
     <ClCompile>
       <Optimization>Disabled</Optimization>
       <AdditionalIncludeDirectories>.\;..\pure3d;..\radmath;..\radcontent\include;..\poser\include;..\radcore\include;..\..\game;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>_DEBUG;_LIB;WIN64;PNG_USER_MEM_SUPPORTED;RAD_DEBUG;RAD_WIN32;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_LIB;WIN64;PNG_USER_MEM_SUPPORTED;RAD_DEBUG;RAD_UWP;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
