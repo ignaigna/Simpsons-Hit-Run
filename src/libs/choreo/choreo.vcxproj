@@ -355,7 +355,7 @@
       <AdditionalIncludeDirectories>.\include;..\pure3d;..\poser\include;..\sim;..\radmath;..\radcore\include;..\radcontent\include;..\..\game;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>NDEBUG;RAD_RELEASE;WIN64;_LIB;RAD_UWP;RAD_CONSOLE;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
-      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <PrecompiledHeaderOutputFile>.\obj\$(Configuration)\$(Platform)\choreo.pch</PrecompiledHeaderOutputFile>
@@ -474,7 +474,7 @@
       <AdditionalIncludeDirectories>.\include;..\pure3d;..\poser\include;..\sim;..\radmath;..\radcore\include;..\radcontent\include;..\..\game;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>NDEBUG;RAD_TUNE;WIN64;_LIB;RAD_UWP;RAD_CONSOLE;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
-      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <PrecompiledHeaderOutputFile>.\obj\$(Configuration)\$(Platform)\choreo.pch</PrecompiledHeaderOutputFile>
@@ -591,7 +591,7 @@
       <AdditionalIncludeDirectories>.\include;..\pure3d;..\poser\include;..\sim;..\radmath;..\radcore\include;..\radcontent\include;..\..\game;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_DEBUG;RAD_DEBUG;WIN64;_LIB;RAD_UWP;RAD_CONSOLE;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
-      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <PrecompiledHeaderOutputFile>.\obj\$(Configuration)\$(Platform)\choreo.pch</PrecompiledHeaderOutputFile>
       <AssemblerListingLocation>.\obj\$(Configuration)\$(Platform)\asm\

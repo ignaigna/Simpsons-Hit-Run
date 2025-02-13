@@ -361,7 +361,7 @@
       <AdditionalIncludeDirectories>..\radmath;..\pure3d;..\radcore\include;.\include;.\src;..\radcontent\include;..\..\game;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN64;_LIB;SCROOBY_RUNTIME;RAD_UWP;RAD_CONSOLE;RAD_TUNE;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
-      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <PrecompiledHeaderOutputFile>.\obj\$(Configuration)\$(Platform)\ScroobyLib.pch</PrecompiledHeaderOutputFile>
@@ -482,7 +482,7 @@
       <AdditionalIncludeDirectories>..\radmath;..\pure3d;..\radcore\include;.\include;.\src;..\radcontent\include;..\..\game;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN64;_LIB;SCROOBY_RUNTIME;RAD_UWP;RAD_CONSOLE;RAD_DEBUG;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
-      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <PrecompiledHeaderOutputFile>.\obj\$(Configuration)\$(Platform)\ScroobyLib.pch</PrecompiledHeaderOutputFile>
       <AssemblerListingLocation>.\obj\$(Configuration)\$(Platform)\asm\
@@ -599,7 +599,7 @@
       <AdditionalIncludeDirectories>..\radmath;..\pure3d;..\radcore\include;.\include;.\src;..\radcontent\include;..\..\game;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>NDEBUG;WIN64;_LIB;SCROOBY_RUNTIME;RAD_UWP;RAD_CONSOLE;RAD_RELEASE;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
-      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <PrecompiledHeaderOutputFile>.\obj\$(Configuration)\$(Platform)\ScroobyLib.pch</PrecompiledHeaderOutputFile>
