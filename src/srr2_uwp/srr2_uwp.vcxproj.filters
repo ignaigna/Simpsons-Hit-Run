@@ -1041,9 +1041,6 @@
     <ClCompile Include="..\game\presentation\gui\frontend\guiscreencardgallery.cpp">
       <Filter>Source Files\presentation\gui\frontend</Filter>
     </ClCompile>
-    <ClCompile Include="..\game\presentation\gui\frontend\guiscreendisplay.cpp">
-      <Filter>Source Files\presentation\gui\frontend</Filter>
-    </ClCompile>
     <ClCompile Include="..\game\presentation\gui\frontend\guiscreenloadgame.cpp">
       <Filter>Source Files\presentation\gui\frontend</Filter>
     </ClCompile>
@@ -2763,9 +2760,6 @@
       <Filter>Source Files\presentation\gui\frontend</Filter>
     </ClInclude>
     <ClInclude Include="..\game\presentation\gui\frontend\guiscreencardgallery.h">
-      <Filter>Source Files\presentation\gui\frontend</Filter>
-    </ClInclude>
-    <ClInclude Include="..\game\presentation\gui\frontend\guiscreendisplay.h">
       <Filter>Source Files\presentation\gui\frontend</Filter>
     </ClInclude>
     <ClInclude Include="..\game\presentation\gui\frontend\guiscreenloadgame.h">

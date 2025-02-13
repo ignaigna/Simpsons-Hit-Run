@@ -48,7 +48,9 @@
 #include <presentation/gui/frontend/guiscreenviewcredits.h>
 #include <presentation/gui/frontend/guiscreenviewmovies.h>
 #include <presentation/gui/frontend/guiscreenplaymovie.h>
+#ifdef RAD_WIN32
 #include <presentation/gui/frontend/guiscreendisplay.h>
+#endif
 
 #include <presentation/presentation.h>
 #include <presentation/fmvplayer/fmvplayer.h>
