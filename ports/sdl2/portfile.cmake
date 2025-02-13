@@ -4,9 +4,6 @@ vcpkg_from_github(
     REF "release-${VERSION}"
     SHA512 389801fb9c4015397206241c6cb283bb72d23d557e71a78aa480c3b35a2b5a72676f6b08d8023dcbd67656029795c2c7731610ac862f5f017b1eef812547ef9e
     HEAD_REF main
-    PATCHES
-        deps.patch
-        alsa-dep-fix.patch
 )
 
 string(COMPARE EQUAL "${VCPKG_LIBRARY_LINKAGE}" "static" SDL_STATIC)
