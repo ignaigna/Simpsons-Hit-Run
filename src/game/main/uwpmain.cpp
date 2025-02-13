@@ -143,6 +143,8 @@ int SDL_main(int argc, char* argv[])
     // Dump all the singletons.
     //
     DestroySingletons();
+
+    return 0;
 }
 
 //=============================================================================
