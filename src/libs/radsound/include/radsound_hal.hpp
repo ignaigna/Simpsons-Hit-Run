@@ -506,7 +506,7 @@ struct IRadSoundHalSystem : public IRefCount
         unsigned int m_ReservedSoundMemory;
         #endif 
 
-        #ifdef RAD_WIN32
+        #if defined RAD_WIN32 || defined RAD_UWP
         unsigned int m_SamplingRate;
         #endif
     };
