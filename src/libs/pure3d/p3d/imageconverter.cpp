@@ -435,20 +435,14 @@ void tImageConverter::FillLockRGB32(tImage* image, pddiLockInfo* lock)
 
 tImage* tImageConverter::LockToImage(pddiLockInfo* lock)
 {
-    #ifdef RAD_PS2
-        rAssert( false );
-        return NULL;
-    #else
-        tImage32* image = new tImage32;
-        image->SetSize(lock->width, lock->height);
-        UpdateImage(lock, image);
-        return image;
-    #endif
+    tImage32* image = new tImage32;
+    image->SetSize(lock->width, lock->height);
+    UpdateImage(lock, image);
+    return image;
 }
 
 void tImageConverter::UpdateImage(pddiLockInfo* lock, tImage* image)
 {
-#ifndef RAD_PS2
     P3DASSERT(dynamic_cast<tImage32*>(image));
     P3DASSERT((lock->depth == 16) || (lock->depth == 32));
 
@@ -511,7 +505,6 @@ void tImageConverter::UpdateImage(pddiLockInfo* lock, tImage* image)
         default:
             break;
     }
-#endif
 }
 
 /*

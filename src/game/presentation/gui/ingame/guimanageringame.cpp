@@ -722,12 +722,6 @@ void CGuiManagerInGame::HandleMessage
             {
                 if( param2 == CGuiMenuPrompt::RESPONSE_YES )
                 {
-#ifdef RAD_XBOX
-                    // Xbox TCR Requirement: always prompt user to select memory
-                    // device before loading/saving
-                    //
-                    CGuiScreenLoadSave::s_forceGotoMemoryCardScreen = true;
-#endif
 //                    this->PushScreenHistory( GetGameplayManager()->IsSundayDrive() ?
 //                                             CGuiWindow::GUI_SCREEN_ID_PAUSE_SUNDAY :
 //                                             CGuiWindow::GUI_SCREEN_ID_PAUSE_MISSION );
@@ -1444,7 +1438,7 @@ CGuiManagerInGame::OnControllerConnected( int controllerID )
         && GetInputManager()->GetControllerIDforPlayer( 0 ) == controllerID )
     {
 
-#ifdef RAD_XBOX
+#ifdef RAD_UWP
 // go to pause screen after disconnection      
         rAssert(s_currentHUD);
         if( s_currentHUD && s_currentHUD->IsActive() )

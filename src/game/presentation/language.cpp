@@ -10,26 +10,10 @@
 //=============================================================================
 
 //========================================
-// System Includes
-//========================================
-#ifdef RAD_PS2
-    #include <libscf.h>
-#endif
-
-#ifdef RAD_XBOX
-    #include <xtl.h>
-#endif
-//========================================
 // Project Includes
 //========================================
 
 #include <presentation/language.h>
-
-//*****************************************************************************
-//
-// Global Data, Local Data, Local Classes
-//
-//*****************************************************************************
 
 //*****************************************************************************
 //
@@ -50,52 +34,8 @@ namespace Language{
 //=============================================================================
 Language GetHardwareLanguage()
 {
-    #ifdef RAD_PS2
-    ////////////////////////////////////////////////////////////
-    // PS2
-    ////////////////////////////////////////////////////////////
-    switch ( sceScfGetLanguage() )
-    {
-        case SCE_DUTCH_LANGUAGE : 
-        {
-            return DUTCH;
-        }
-        case SCE_ENGLISH_LANGUAGE : 
-        {
-            return ENGLISH;
-        }
-        case SCE_FRENCH_LANGUAGE : 
-        {
-            return FRENCH;
-        }
-        case SCE_GERMAN_LANGUAGE : 
-        {
-            return GERMAN;
-        }
-        case SCE_ITALIAN_LANGUAGE : 
-        {
-            return ITALIAN;
-        }
-        case SCE_JAPANESE_LANGUAGE : 
-        {
-            return JAPANESE;
-        }
-        case SCE_PORTUGUESE_LANGUAGE : 
-        {
-            return PORTUGUESE;
-        }
-        case SCE_SPANISH_LANGUAGE : 
-        {
-            return SPANISH;
-        }
-        default : 
-        {
-            return UNKNOWN;
-        }
-    }
-    #endif
-
-    #ifdef RAD_XBOX
+    // TODO(3ur): Keeping this here for ref. UWP should support this?
+    #if 0
     ////////////////////////////////////////////////////////////
     // XBOX
     ////////////////////////////////////////////////////////////
@@ -132,7 +72,8 @@ Language GetHardwareLanguage()
     }
     #endif
     
-    #ifdef RAD_WIN32
+    // TODO(3ur): above. adding uwp here for temp
+    #if defined(RAD_WIN32) || defined(RAD_UWP)
     ////////////////////////////////////////////////////////////
     // WIN32
     ////////////////////////////////////////////////////////////

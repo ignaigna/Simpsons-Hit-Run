@@ -6,13 +6,9 @@
 #ifndef _BASE_PLAT_TYPES_HPP
 #define _BASE_PLAT_TYPES_HPP
 
-#if defined(RAD_PS2)
-    #include <p3d/platform/ps2/plat_types.hpp>
-#elif defined(RAD_LINUX)
+#if defined(RAD_LINUX)
     #include <p3d/platform/linux/plat_types.hpp>
-#elif defined(RAD_XBOX)
-    #include <p3d/platform/xbox/plat_types.hpp>
-#elif defined(RAD_WIN32)
+#elif defined(RAD_WIN32) || defined(RAD_UWP)
     #include <p3d/platform/win32/plat_types.hpp>
 #endif
 

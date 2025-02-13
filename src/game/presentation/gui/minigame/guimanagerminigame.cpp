@@ -399,7 +399,7 @@ CGuiManagerMiniGame::OnControllerConnected( int controllerID )
 
             if ( GetGameFlow()->GetCurrentContext()==CONTEXT_SUPERSPRINT )
             {
-#ifdef RAD_XBOX
+#ifdef RAD_UWP
                 CGuiScreenMiniHud::s_pausedControllerID  = controllerID;
 
                 if( GetSSM()->GetState() != SuperSprintManager::IDLE )

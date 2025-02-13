@@ -17,16 +17,12 @@
 //========================================
 #include <radcontroller.hpp>
 
-#ifdef RAD_PS2
-#include <liblgdev.h>
-#endif
-
 #ifdef RAD_WIN32
 #define DIRECTINPUT_VERSION 0x0800
 #include <dinput.h>
 #endif
 
-#if defined(RAD_PS2) || defined(RAD_WIN32)
+#if defined(RAD_WIN32)
 typedef char s8;
 typedef unsigned char u8;
 typedef short s16;

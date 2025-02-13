@@ -111,7 +111,6 @@ protected:
 //-------------------------------------------------------------------
 class tMipmapFilter;
 
-#ifndef RAD_PS2
 class tImage32 : public tImage
 {
 public:
@@ -135,7 +134,6 @@ protected:
     virtual ~tImage32();
 
 };
-#endif
 
 //-----------------------------------------------------------------
 class tImageLoader : public tSimpleChunkHandler

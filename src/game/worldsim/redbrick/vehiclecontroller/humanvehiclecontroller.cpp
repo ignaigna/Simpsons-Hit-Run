@@ -11,7 +11,7 @@
 
 #include <main/commandlineoptions.h>
 
-#if defined(RAD_PS2) || defined(RAD_WIN32)
+#if defined(RAD_WIN32)
 #include <input/basedamper.h>
 #include <input/steeringspring.h>
 #include <input/constanteffect.h>
@@ -69,7 +69,7 @@ HumanVehicleController::HumanVehicleController( void )
 :
 mpMappable( 0 ),
 mControllerId( -1 ),
-#if defined(RAD_PS2) || defined(RAD_WIN32)
+#if defined(RAD_WIN32)
 mSpring( NULL ),
 mDamper( NULL ),
 mConstantEffect( NULL ),
@@ -78,13 +78,6 @@ mHeavyWheelRumble( NULL ),
 #endif
 mDisableReset( false )
 {
-#ifdef RAD_PS2
-    unsigned int i;
-    for ( i = 0; i < Input::MaxUSB; ++i )
-    {
-        mpWheel[ i ] = NULL;
-    }
-#endif
 }
 
 void HumanVehicleController::Create( Vehicle* pVehicle, VehicleMappable* pMappable, int controllerId )
@@ -94,30 +87,9 @@ void HumanVehicleController::Create( Vehicle* pVehicle, VehicleMappable* pMappab
     mControllerId = controllerId;
 }
 
-#ifdef RAD_PS2
-void HumanVehicleController::SetWheel( VehicleMappable* pMappable, unsigned int wheelNum )
-{
-    rAssert( wheelNum < Input::MaxUSB );
-
-    tRefCounted::Assign( mpWheel[ wheelNum ], pMappable );
-}
-#endif
-
 HumanVehicleController::~HumanVehicleController( void )
 {
     ReleaseVehicleMappable();
-
-#ifdef RAD_PS2
-    unsigned int i;
-    for ( i = 0; i < Input::MaxUSB; ++i )
-    {
-        if ( mpWheel[ i ] )
-        {
-            mpWheel[ i ]->Release();
-            mpWheel[ i ] = NULL;
-        }
-    }
-#endif
 }
 
 void HumanVehicleController::ReleaseVehicleMappable( void )
@@ -132,32 +104,7 @@ void HumanVehicleController::ReleaseVehicleMappable( void )
 
 float HumanVehicleController::GetGas( void ) const
 {
-#ifdef RAD_PS2
-    float value = mpMappable->GetButton( VehicleMappable::Gas )->GetValue();
-
-    if ( mControllerId >= Input::USB0 )
-    {
-        return value;
-    }
-
-    unsigned int i;
-    for ( i = 0; i < Input::MaxUSB; ++i )
-    {
-        if ( mpWheel[ i ] )
-        {
-            float tempVal = mpWheel[ i ]->GetButton( VehicleMappable::Gas )->GetValue();
-            if ( rmt::Fabs( tempVal ) > rmt::Fabs( value ) )
-            {
-                value = tempVal;
-                break;
-            }
-        }
-    }
-
-    return value;
-#else
 	return mpMappable->GetButton( VehicleMappable::Gas )->GetValue();
-#endif
 }
 
 float HumanVehicleController::GetThrottle( void ) const
@@ -169,71 +116,15 @@ float HumanVehicleController::GetThrottle( void ) const
 
 float HumanVehicleController::GetBrake( void ) const
 {
-#ifdef RAD_PS2
-    float value = mpMappable->GetButton( VehicleMappable::Brake )->GetValue();
-
-    if ( mControllerId >= Input::USB0 )
-    {
-        return value;
-    }
-
-    unsigned int i;
-    for ( i = 0; i < Input::MaxUSB; ++i )
-    {
-        if ( mpWheel[ i ] )
-        {
-            float tempVal = mpWheel[ i ]->GetButton( VehicleMappable::Brake )->GetValue();
-            if ( rmt::Fabs( tempVal ) > rmt::Fabs( value ) )
-            {
-                value = tempVal;
-                break;
-            }
-        }
-    }
-
-    return value;
-#else
 	return mpMappable->GetButton( VehicleMappable::Brake )->GetValue();
-#endif
 }
 
 float HumanVehicleController::GetSteering( bool& isWheel ) const
 {
-#ifdef RAD_PS2
-    isWheel = false;
-
-    float value = mpMappable->GetButton( VehicleMappable::Steer )->GetValue();
-
-    if ( mControllerId >= Input::USB0 )
-    {
-        isWheel = true;
-        return value;
-    }
-
-    unsigned int i;
-    for ( i = 0; i < Input::MaxUSB; ++i )
-    {
-        if ( mpWheel[ i ] )
-        {
-            float tempVal = mpWheel[ i ]->GetButton( VehicleMappable::Steer )->GetValue();
-            if ( rmt::Fabs( tempVal ) > rmt::Fabs( value ) )
-            {
-                value = tempVal;
-                isWheel = true;
-                break;
-            }
-        }
-    }
-
-    return value;
-#else
-    //How do I tell if this is from a wheel or a stick?
 #ifdef RAD_WIN32
     isWheel = GetInputManager()->GetController(mControllerId)->IsWheel();
 #endif
 	return mpMappable->GetButton( VehicleMappable::Steer )->GetValue();
-
-#endif
 }
 
 float HumanVehicleController::GetSteerLeft( void ) const
@@ -257,62 +148,12 @@ float HumanVehicleController::GetReverse( void ) const
 
 float HumanVehicleController::GetHandBrake( void ) const
 {
-#ifdef RAD_PS2
-    float value = mpMappable->GetButton( VehicleMappable::HandBrake )->GetValue();
-
-    if ( mControllerId >= Input::USB0 )
-    {
-        return value;
-    }
-
-    unsigned int i;
-    for ( i = 0; i < Input::MaxUSB; ++i )
-    {
-        if ( mpWheel[ i ] )
-        {
-            float tempVal = mpWheel[ i ]->GetButton( VehicleMappable::HandBrake )->GetValue();
-            if ( rmt::Fabs( tempVal ) > rmt::Fabs( value ) )
-            {
-                value = tempVal;
-                break;
-            }
-        }
-    }
-
-    return value;
-#else
 	return mpMappable->GetButton( VehicleMappable::HandBrake )->GetValue();
-#endif
 }
 
 float HumanVehicleController::GetHorn( void ) const
 {
-#ifdef RAD_PS2
-    float value = mpMappable->GetButton( VehicleMappable::Horn )->GetValue();
-
-    if ( mControllerId >= Input::USB0 )
-    {
-        return value;
-    }
-
-    unsigned int i;
-    for ( i = 0; i < Input::MaxUSB; ++i )
-    {
-        if ( mpWheel[ i ] )
-        {
-            float tempVal = mpWheel[ i ]->GetButton( VehicleMappable::Horn )->GetValue();
-            if ( rmt::Fabs( tempVal ) > rmt::Fabs( value ) )
-            {
-                value = tempVal;
-                break;
-            }
-        }
-    }
-
-    return value;
-#else
 	return mpMappable->GetButton( VehicleMappable::Horn )->GetValue();
-#endif
 }
 
 void HumanVehicleController::Reset( void )
@@ -358,27 +199,11 @@ void HumanVehicleController::Update( float timeins )
     Vehicle* vehicle = GetVehicle();
     float speed = vehicle->GetSpeedKmh();
 
-#if defined(RAD_PS2) || defined(RAD_WIN32)
+#if defined(RAD_WIN32)
     UserController* uc = NULL;
 
     //Set up the output points to default settings.
-#ifdef RAD_PS2
-    //TODO: Make this only set up the active wheel.
-    if ( mpWheel[ 0 ] != NULL )
-    {
-        uc = GetInputManager()->GetController( Input::USB0 );
-    }
-    else if ( mpWheel[ 1 ] != NULL )
-    {
-        uc = GetInputManager()->GetController( Input::USB1 );
-    }
-    else
-    {
-        uc = GetInputManager()->GetController( mControllerId );
-    }
-#elif defined(RAD_WIN32)
     uc = GetInputManager()->GetController( mControllerId );
-#endif
 
     SetupRumbleFeatures( uc );
 
@@ -465,7 +290,7 @@ void HumanVehicleController::Update( float timeins )
             {
                 GetInputManager()->GetController( mControllerId )->ApplyEffect( RumbleEffect::GROUND2, 250 );
 
-#if defined(RAD_PS2) || defined(RAD_WIN32)
+#if defined(RAD_WIN32)
                 if ( mWheelRumble )
                 {
 //                    mWheelRumble->SetMagDir( 200, 90 );
@@ -481,7 +306,7 @@ void HumanVehicleController::Update( float timeins )
             {
                 GetInputManager()->GetController( mControllerId )->ApplyEffect( RumbleEffect::GROUND4, 250 );
 
-#if defined(RAD_PS2) || defined(RAD_WIN32)
+#if defined(RAD_WIN32)
                 if ( mWheelRumble )
                 {
 //                    mWheelRumble->SetMagDir( 200, 90 );
@@ -502,7 +327,7 @@ void HumanVehicleController::Update( float timeins )
             if ( speed > 40.0f ) //Hmmmm...  TODO: allow this to be modified
             {
                 GetInputManager()->GetController( mControllerId )->ApplyEffect( RumbleEffect::GROUND2, 250 );
-#if defined(RAD_PS2) || defined(RAD_WIN32)
+#if defined(RAD_WIN32)
                 if ( mWheelRumble )
                 {
 //                    mWheelRumble->SetMagDir( 255, 90 );
@@ -515,13 +340,6 @@ void HumanVehicleController::Update( float timeins )
     case TT_Wood:
     default:
         {
-#if defined(RAD_PS2) //|| defined(RAD_WIN32)
-            if ( mWheelRumble )
-            {
-                mWheelRumble->SetMagDir( 0, 0 );
-                mWheelRumble->SetPPO( 0, 0, 0 );
-            }
-#endif
             break;
         }
     }
@@ -551,30 +369,10 @@ void HumanVehicleController::Init()
 
     UserController* uc = NULL;
 
-#if defined(RAD_PS2) || defined(RAD_WIN32)
+#if defined(RAD_WIN32)
     //Set up the output points to default settings.
-#ifdef RAD_PS2
-    //TODO: Make this only set up the active wheel.
-    if ( mpWheel[ 0 ] != NULL )
-    {
-        uc = GetInputManager()->GetController( Input::USB0 );
-    }
-    else if ( mpWheel[ 1 ] != NULL )
-    {
-        uc = GetInputManager()->GetController( Input::USB1 );
-    }
-    else
-    {
-        uc = GetInputManager()->GetController( mControllerId );
-    }
-#elif defined(RAD_WIN32)
     uc = GetInputManager()->GetController( mControllerId );
-#endif
-
-    if ( uc )
-    {
-        SetupRumbleFeatures( uc );
-    }
+    if ( uc ) SetupRumbleFeatures( uc );
 #endif
 
     GetEventManager()->AddListener( this, EVENT_BIG_CRASH );
@@ -596,7 +394,7 @@ void HumanVehicleController::Init()
 //=============================================================================
 void HumanVehicleController::Shutdown()
 {
-#if defined(RAD_PS2) || defined(RAD_WIN32)
+#if defined(RAD_WIN32)
     //Stop the vehicle output point settings
 
     if ( mSpring )
@@ -638,7 +436,7 @@ void HumanVehicleController::HandleEvent( EventEnum id, void* pEventData )
     case EVENT_BIG_CRASH:
     case EVENT_BIG_VEHICLE_CRASH:
         {
-#if defined(RAD_PS2) || defined(RAD_WIN32)
+#if defined(RAD_WIN32)
             if ( mHeavyWheelRumble )
             {
 #ifdef RAD_WIN32
@@ -681,7 +479,7 @@ void HumanVehicleController::HandleEvent( EventEnum id, void* pEventData )
                 GetInputManager()->GetController( mControllerId )->ApplyDynaEffect( RumbleEffect::COLLISION1, 333, rc->normalizedForce );
                 GetInputManager()->GetController( mControllerId )->ApplyDynaEffect( RumbleEffect::COLLISION2, 333, rc->normalizedForce );
 
-#if defined(RAD_PS2) || defined(RAD_WIN32)
+#if defined(RAD_WIN32)
                 if ( mConstantEffect )
                 {
                     if ( mWheelRumble && rc->normalizedForce > 0.02f )
@@ -727,7 +525,7 @@ void HumanVehicleController::HandleEvent( EventEnum id, void* pEventData )
 }
 
 
-#if defined(RAD_PS2) || defined(RAD_WIN32)
+#if defined(RAD_WIN32)
 //=============================================================================
 // HumanVehicleController::SetupRumbleFeatures
 //=============================================================================

@@ -13,14 +13,9 @@
 #error No build target define (one of RAD_DEBUG, RAD_TUNE or RAD_RELEASE)
 #endif
 
-// check that we're not tring to build somewhere we can't
-#if defined(RAD_PS2IOP)
-#error Radmath cannot be built for the PS2 IOP
-#endif
-
 // check that we have a valid platform define
-#if !defined(RAD_PS2) && !defined(RAD_XBOX) && !defined(RAD_WIN32)
-#error No platform define, define one of RAD_PS2, RAD_XBOX, RAD_WIN32 or RAD_LINUX 
+#if !defined(RAD_UWP) && !defined(RAD_WIN32) && !defined(RAD_LINUX)
+#error No platform define, define one of RAD_UWP, RAD_WIN32 or RAD_LINUX 
 #endif
 
 // ---------- Set legacy defines -------------

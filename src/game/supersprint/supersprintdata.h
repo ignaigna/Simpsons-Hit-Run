@@ -36,11 +36,7 @@ namespace SuperSprintData
 {
     enum 
     {
-#ifdef RAD_PS2
         NUM_PLAYERS = 4,
-#else
-        NUM_PLAYERS = 4,
-#endif
         DEFAULT_TURBO_NUM = 3,
         DEFAULT_NUM_LAPS = 3,
         MIN_NUM_LAPS = 1,

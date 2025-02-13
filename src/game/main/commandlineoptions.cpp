@@ -71,14 +71,6 @@ void CommandLineOptions::InitDefaults()
     orValue <<= CLO_CD_FILES_ONLY;
     sOptions |= orValue;
 #endif
-
-#if defined( RAD_GC ) || defined( RAD_PS2 )
-    // enable CLO_NO_HEAPS for GC and PS2 only
-    //
-    orValue = 1;
-    orValue <<= CLO_NO_HEAPS;
-    sOptions |= orValue;
-#endif
 }
 
 //==============================================================================

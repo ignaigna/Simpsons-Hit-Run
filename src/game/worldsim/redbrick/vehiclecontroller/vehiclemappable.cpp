@@ -95,7 +95,7 @@ void VehicleMappable::LoadControllerMappings( unsigned int controllerId )
 
     // MS7
     // #ifdef this for different platforms
-    #ifdef RAD_CONSOLE // RAD_XBOX
+    #ifdef RAD_CONSOLE // RAD_CONSOLE
 
     ClearMap(0);
     Map( "LeftStickX", Steer, 0, controllerId );
@@ -118,72 +118,6 @@ void VehicleMappable::LoadControllerMappings( unsigned int controllerId )
     Map( "LeftThumb", Horn, 0, controllerId );
 
 	Map( "Back", Reset, 0, controllerId );
-    #endif
-
-
-    #ifdef RAD_PS2
-
-    ClearMap(0);
-   
-    if ( controllerId >= Input::MaxControllers - Input::MaxUSB )
-    {
-        mIsWheel = true;
-
-        //This is a wheel!
-        //And for the wheels!
-        Map( "Wheel", Steer, 0, controllerId );
-        Map( "Gas", Gas, 0, controllerId );
-        Map( "Brake", Brake, 0, controllerId );
-
-        if ( !Map( "R2", Gas, 0, controllerId ) )
-        {
-            mIsWheelA = true;
-
-            //This is the GT wheel.
-            Map( "LGR1", Gas, 0, controllerId );
-            Map( "LGA", Brake, 0, controllerId );
-            Map( "LGL1", HandBrake, 0, controllerId );
-            Map( "LGX", Horn, 0, controllerId );
-            Map( "LGB", Reset, 0, controllerId );
-        }
-        else
-        {
-            //This is the DPad Wheel
-            Map( "X", Gas, 0, controllerId );
-            Map( "R1", Brake, 0, controllerId );
-            Map( "Circle", Brake, 0, controllerId );
-            Map( "Square", HandBrake, 0, controllerId );
-            Map( "L1", HandBrake, 0, controllerId );
-            Map( "DPadUp", Horn, 0, controllerId );
-            Map( "DPadDown", Horn, 0, controllerId );
-            Map( "DPadLeft", Horn, 0, controllerId );
-            Map( "DPadRight", Horn, 0, controllerId );
-            Map( "Select", Reset, 0, controllerId );
-        }
-    }
-    else
-    {
-        //This is a DUALSHOCK!
-        Map( "LeftStickX", Steer, 0, controllerId );
-	    Map( "DPadLeft", SteerLeft, 0, controllerId );
-	    Map( "DPadRight", SteerRight, 0, controllerId );
-
-        // The misnamed "Throttle" controls gas (up) and brake (down).
-        //
-	    Map( "RightStickY", Throttle, 0, controllerId );
-
-        Map( "X", Gas, 0, controllerId );
-
-        Map( "Circle", Brake, 0, controllerId );
-
-        Map( "R1", HandBrake, 0, controllerId );
-	    Map( "Square", HandBrake, 0, controllerId );
-
-        Map( "L3", Horn, 0, controllerId );
-
-	    Map( "Select", Reset, 0, controllerId );
-    }
-
     #endif
 
     #ifdef RAD_WIN32

@@ -213,59 +213,6 @@ void IntersectDSG::IntoTheVoid_WithGoFastaStripes()
     mspIndexData      = mTriIndices.mpData;
     mspTerrainData    = mTerrainType.mpData;
     msbInScratchPad   = false;
-#ifdef RAD_PS2
-   static pddiExtPS2Control* ps2Control = (pddiExtPS2Control*)p3d::pddi->GetExtension(PDDI_EXT_PS2_CONTROL);
-
-   //////////////////////////////////////////////////////////////////////////
-   // If we can fit on the scratchpad used by the mFIFO
-   //////////////////////////////////////////////////////////////////////////
-   if( ( sizeof(*mTriPts.mpData)*mTriPts.mUseSize 
-       + sizeof(*mTriNorms.mpData)*mTriNorms.mUseSize 
-       + sizeof(*mTriIndices.mpData)*mTriIndices.mUseSize 
-       + sizeof(*mTerrainType.mpData)*mTerrainType.mUseSize ) < 8192 ) 
-   {
-      msbInScratchPad = true;
-      ps2Control->SyncScratchPad();
-
-
-      char* pScratchPad = (char*)0x70000000;
-
-      if(mTriPts.mUseSize>0)
-      {
-         memcpy(pScratchPad, mTriPts.mpData, mTriPts.mUseSize*sizeof(*mTriPts.mpData) );
-         mTriPts.mpData = (rmt::Vector*)pScratchPad;
-         pScratchPad+=mTriPts.mUseSize*sizeof(*mTriPts.mpData);
-         for(int i=mTriPts.mUseSize-1; i>-1; i--)
-         {
-             ((int&)(mTriPts[i].y)) = IntersectDSG::UNINIT_PT;
-         }
-      }
-
-      if(mTriNorms.mUseSize>0)
-      {
-         memcpy(pScratchPad, mTriNorms.mpData, mTriNorms.mUseSize*sizeof(*mTriNorms.mpData) );
-         mTriNorms.mpData = (rmt::Vector*)pScratchPad;
-         pScratchPad+=mTriNorms.mUseSize*sizeof(*mTriNorms.mpData);
-      }
-
-      if(mTriIndices.mUseSize>0)
-      {
-         memcpy(pScratchPad, mTriIndices.mpData, mTriIndices.mUseSize*sizeof(*mTriIndices.mpData) );
-         mTriIndices.mpData = (int*)pScratchPad;
-         pScratchPad+=mTriIndices.mUseSize*sizeof(*mTriIndices.mpData);
-      }
-
-      if(mTerrainType.mUseSize>0)
-      {
-         memcpy(pScratchPad, mTerrainType.mpData, mTerrainType.mUseSize*sizeof(*mTerrainType.mpData) );
-         mTerrainType.mpData = (unsigned char*)pScratchPad;
-         pScratchPad+=mTerrainType.mUseSize*sizeof(*mTerrainType.mpData);
-      }
-
-      //if(((int)pScratchPad)-0x70000000 > 8192)
-      //    rReleasePrintf("***ack! Overwriting ScratchPad memory for something non mFIFO\n" );
-   }
-#endif
 }
 //========================================================================
 // intersectdsg::

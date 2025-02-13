@@ -16,15 +16,6 @@
 //
 // Revisions:  	Mar 2, 2001 Creation
 //
-// Note:        There is support for date and time. To set the date and time on
-//              each platform:
-//              * Xbox: use the dashboard.
-//              * PS2 test/commercial: start the machine without a disk to get to
-//                    system configuration.
-//              * PS2 tool: log into the web interface (http://[ip address]). If
-//                    don't know the username/password they are both `Administrator'
-//                    by default (case sensitive). Go to `Playstation2 RTC' not
-//                    `Date & Time' to set the clock.
 //=============================================================================
 
 #ifndef	RADTIME_HPP
@@ -34,8 +25,8 @@
 // Build Configuration Check
 //=============================================================================
 
-#if !defined(RAD_PS2) && !defined(RAD_XBOX) && !defined(RAD_WIN32)
-    #error 'FTech requires definition of RAD_PS2, RAD_XBOX, or RAD_WIN32'
+#if !defined(RAD_UWP) && !defined(RAD_WIN32)
+    #error 'FTech requires definition of RAD_UWP, or RAD_WIN32'
 #endif
 
 //=============================================================================
@@ -94,15 +85,7 @@ unsigned int radTimeGetMicroseconds( void );
 //
 // define 64 bit integer radTime64 for all platform
 //
-#ifdef RAD_PS2
-typedef unsigned long radTime64;
-#endif
-
-#if defined ( RAD_XBOX )
-typedef unsigned __int64 radTime64;
-#endif
-
-#if defined ( RAD_WIN32 )
+#if defined (RAD_WIN32) || defined(RAD_UWP)
 #include <cstdint>
 typedef uint64_t radTime64;
 #endif

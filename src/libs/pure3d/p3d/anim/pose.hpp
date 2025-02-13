@@ -44,11 +44,8 @@ public:
         void ConcatMatrix(const rmt::Matrix* m) { worldMatrix.Mult(objectMatrix, *m); }
 
         friend class tPose;
-#ifdef RAD_PS2
-    } __attribute__((aligned(16)));
-#else
 	};
-#endif
+
     //----------------------------------------------------------------
 
     void SetSkeleton(tSkeleton* skeleton);

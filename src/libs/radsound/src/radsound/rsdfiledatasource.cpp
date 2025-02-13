@@ -191,10 +191,6 @@ void radSoundRsdFileDataSource::GetFramesAsync
     
     Log( true, this->fileName, bytes );
     
-#ifdef RAD_PS2    
-    //bytes = radMemoryRoundUp( bytes, 2048 );
-#endif
-    
 	m_refIRadFile->ReadAsync(pFrameBuffer, bytes, destinationMemorySpace );
 	m_refIRadFile->AddCompletionCallback( this, NULL );
 

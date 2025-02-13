@@ -59,14 +59,12 @@ bool ImageBuilder::BeginImage(int width, int height, int bpp, tImageHandler::Bui
 {
     int pixelWidth = 1;
 
-#ifndef RAD_PS2
     if((desiredDepth > 8) || (bpp > 8))
     {
         image = new tImage32;
         pixelWidth = 4;
     }
     else
-#endif
     {
         image = new tImage8;
         ((tImage8*)image)->SetPalette((unsigned int*)p, 1 << bpp);

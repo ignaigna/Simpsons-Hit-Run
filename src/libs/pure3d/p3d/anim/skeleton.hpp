@@ -43,11 +43,8 @@ public:
         // Need for applying animation from skeletons of different 
         // Hierarchys
         bool preserveBoneLengths;
-#ifdef RAD_PS2
-    } __attribute__((aligned(16)));
-#else
 	};
-#endif
+
     //----------------------------------------------------------------
 
     int GetNumJoint() const                     { return joint.Size(); }

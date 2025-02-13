@@ -30,25 +30,7 @@
 #include <input/inputmanager.h>
 #include <memory/srrmemory.h>
 
-#ifdef RAD_PS2
-    #include <main/ps2platform.h>
-#endif
-
 #include <raddebug.hpp>
-
-//===========================================================================
-// Global Data, Local Data, Local Classes
-//===========================================================================
-
-#ifdef RAD_PS2
-  #ifndef PAL
-    #define ENABLE_PROGRESSIVE_SCAN_PROMPT
-  #endif
-#endif
-
-#ifdef RAD_PS2
-    #define ENABLE_MEMCARD_CHECK_DURING_BOOTUP
-#endif
 
 //===========================================================================
 // Public Member Functions
@@ -128,15 +110,6 @@ void CGuiManagerBootUp::Populate()
 MEMTRACK_PUSH_GROUP( "CGuiManagerBootUp" );
     Scrooby::Screen* pScroobyScreen;
     CGuiScreen* pScreen;
-
-#ifdef RAD_PS2
-    pScroobyScreen = m_pScroobyProject->GetScreen( "BootupLoad" );
-    if( pScroobyScreen != NULL )
-    {
-        pScreen = new CGuiScreenBootupLoad( pScroobyScreen, this );
-        this->AddWindow( CGuiWindow::GUI_SCREEN_ID_BOOTUP_LOAD, pScreen );
-    }
-#endif
 
     pScroobyScreen = m_pScroobyProject->GetScreen( "License" );
     if( pScroobyScreen != NULL )
@@ -219,12 +192,6 @@ CGuiManagerBootUp::Start( CGuiWindow::eGuiWindowID initialWindow )
     {
         m_bootupScreenQueue.push( CGuiWindow::GUI_SCREEN_ID_MEMORY_CARD_CHECK );
     }
-#endif
-
-#ifdef RAD_PS2
-    // for PS2 only, start off w/ a loading screen
-    //
-    m_bootupScreenQueue.push( CGuiWindow::GUI_SCREEN_ID_BOOTUP_LOAD );
 #endif
 
     // add license screen to bootup screen queue
@@ -315,22 +282,6 @@ void CGuiManagerBootUp::HandleMessage
             }
 
             break;
-        }
-        case GUI_MSG_MENU_PROMPT_RESPONSE:
-        {
-            rAssert( param1 == PROMPT_DISPLAY_PROGRESSIVE_SCAN );
-
-            if( param2 == CGuiMenuPrompt::RESPONSE_YES )
-            {
-                // enable progressive scan
-                //
-#ifdef RAD_PS2
-                PS2Platform::GetInstance()->SetProgressiveMode( true );
-#endif
-            }
-
-            // follow-thru
-            //
         }
         case GUI_MSG_BOOTUP_LOAD_COMPLETED:
         case GUI_MSG_LANGUAGE_SELECTION_DONE:

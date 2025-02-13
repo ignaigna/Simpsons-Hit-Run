@@ -99,9 +99,6 @@ void Vector::Rotate(const Vector& v, const Matrix& m)
 
 }
 
-#ifdef RAD_PS2
-#define fabs(x) ffabs(x)
-#endif
 
 void Vector::ConvertToEulerYZX(const Matrix& matrix)
 {
@@ -357,10 +354,6 @@ void Vector::ConvertToEulerYZX(const Matrix& matrix)
 
 
 }
-
-#ifdef RAD_PS2
-#undef fabs
-#endif
 
 
 //-------------------------------------------------------------------

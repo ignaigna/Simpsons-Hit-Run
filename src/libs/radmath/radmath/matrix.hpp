@@ -84,89 +84,8 @@ public:
     void Mult(const Matrix& a, const Matrix& b);
     inline void Mult(const Matrix& i) { Matrix t; t.Mult(*this, i); *this = t; }
 
-#ifdef RAD_PS2
-#ifdef PS2MW
-    inline void MultAligned(const Matrix& a, const Matrix& b)
-    {
-
-        register float *pma = (register float *)a.m;
-        register float *pmb = (register float *)b.m;
-
-        assert((((int)&m) & 0x0F) == 0);
-        assert((((int)&a.m) & 0x0F) == 0);
-        assert((((int)&b.m) & 0x0F) == 0);
-
-        asm
-        {
-            // Load Matrix A into VF1-VF4
-
-            lqc2 vf24, 0x00(pmb)
-            lqc2 vf25, 0x10(pmb)
-            lqc2 vf26, 0x20(pmb)
-            lqc2 vf27, 0x30(pmb)
-
-            lqc2 vf28, 0x00(pma)
-            lqc2 vf29, 0x10(pma)
-            lqc2 vf30, 0x20(pma)
-            lqc2 vf31, 0x30(pma)
-
-            .set noreorder
-            vcallms vu0_mulmatrix
-            qmtc2.i  $0, vf0
-            .set reorder
-
-            // aligned save
-            sqc2 vf28,  0(this)
-            sqc2 vf29, 16(this)  
-            sqc2 vf30, 32(this) 
-            sqc2 vf31, 48(this) 
-        }
-    }
-#else
-    inline void MultAligned(const Matrix& a, const Matrix& b)
-    {
-        assert((((int)&m) & 0x0F) == 0);
-        assert((((int)&a.m) & 0x0F) == 0);
-        assert((((int)&b.m) & 0x0F) == 0);
-
-        asm __volatile__(R"(
-            # Load Matrix A into VF1-VF4
-
-            lqc2 vf24, 0x00(%0)
-            lqc2 vf25, 0x10(%0)
-            lqc2 vf26, 0x20(%0)
-            lqc2 vf27, 0x30(%0)
-
-            lqc2 vf28, 0x00(%1)
-            lqc2 vf29, 0x10(%1)
-            lqc2 vf30, 0x20(%1)
-            lqc2 vf31, 0x30(%1)
-
-            .set noreorder
-            vcallms vu0_mulmatrix
-            qmtc2.i  $0, vf0
-            .set reorder
-
-            # aligned save
-            sqc2 vf28,  0(%2)
-            sqc2 vf29, 16(%2)  
-            sqc2 vf30, 32(%2) 
-            sqc2 vf31, 48(%2) 
-
-        )": // Outputs
-         : "r" (&b), "r" (&a), "r" (&m)  // Inputs
-         : "memory" ); // Clobber list
-    }
-#endif
-#endif
-
-#ifdef RAD_PS2
-    inline void MultFull(const Matrix& a, const Matrix& b) { Mult(a, b); }
-    inline void MultFull(const Matrix& i)                  { Mult(i); }
-#else
     void MultFull(const Matrix& a, const Matrix& b);
     void MultFull(const Matrix& i) { Matrix t; t.MultFull(*this, i); *this = t; }
-#endif
 
     // transform vector(s) through a matrix
     void Transform(const Vector& src, Vector* dest) const;

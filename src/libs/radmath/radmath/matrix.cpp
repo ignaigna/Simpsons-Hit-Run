@@ -123,12 +123,8 @@ void Matrix::FillRotation(const Vector& vector, float theta)
 void Matrix::FillRotateXYZ(float anglex, float angley, float anglez)
 {
     float sx, cx, sy, cy, sz, cz;
-#ifdef RAD_PS2
-    SinCos2(anglex, angley, &sx, &cx,&sy, &cy);
-#else
     SinCos(anglex, &sx, &cx);
     SinCos(angley, &sy, &cy);
-#endif
     SinCos(anglez, &sz, &cz);
     float sxsy = sx*sy;
     float cxsy = cx*sy;
@@ -147,12 +143,8 @@ void Matrix::FillRotateXYZ(float anglex, float angley, float anglez)
 void Matrix::FillRotateYZX(float anglex, float angley, float anglez)
 {
     float cx, sx, cy, sy, cz, sz;
-#ifdef RAD_PS2
-    SinCos2(anglex, angley, &sx, &cx,&sy, &cy);
-#else
     SinCos(anglex, &sx, &cx);
     SinCos(angley, &sy, &cy);
-#endif
     SinCos(anglez, &sz, &cz);
     float cxcy = cx*cy;
     float sxsy = sx*sy;
@@ -453,7 +445,6 @@ void Matrix::Transform(int n, const Vector4* src, Vector4* dest) const
         Transform(*src++, dest++);
 }
 
-#ifndef RAD_PS2 // these functions are implemented in ps2/matrix_ps2.cpp
 void Matrix::Mult(const Matrix& a, const Matrix& b)
 {
     assert(a.m[0][3] == 0.0f);
@@ -503,20 +494,5 @@ void Matrix::MultFull(const Matrix& a, const Matrix& b)
     }
 
 }
-
-#endif //P3D_PS2
-
-// keep moving folks, nothing to see here
-#ifndef RAD_PS2
-#ifdef RAD_PS2
-#endif
-#else
-
-void Matrix::ThereIsNoSpoon(void)
-{
-    // ps2 took the blue pill
-
-}
-#endif
 }
 

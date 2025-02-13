@@ -460,7 +460,7 @@ struct IRadSoundHalEffect : public IRefCount
     virtual void Detach( void ) = 0;
     virtual void Update( void ) = 0;
 
-    #ifdef RAD_XBOX
+    #if defined(RAD_UWP)
         virtual unsigned long GetIndex( void ) = 0;
         virtual unsigned int GetNumInputs( void ) = 0;
         virtual unsigned int GetNumOutputs( void ) = 0;
@@ -468,7 +468,7 @@ struct IRadSoundHalEffect : public IRefCount
         virtual unsigned int GetOutput( unsigned int index ) = 0;
     #endif
 
-    #if defined RAD_PS2 || defined RAD_XBOX
+    #if defined(RAD_UWP)
         virtual void SetMasterGain( float masterGain ) = 0;
         virtual float GetMasterGain( void ) = 0;
     #endif
@@ -483,8 +483,7 @@ struct IRadSoundHalEffect : public IRefCount
 
 struct IRadSoundHalSystem : public IRefCount
 {
-	// Set up the root memory region, on the PS2 the reserved sound memory must
-	// be zero because it is physically dedicated hardware.
+	// Set up the root memory region.
     //
     // Because sound memory is managed externally, we need local memory to
     // manage it.  You are required to set an upper limit on the number of
@@ -503,7 +502,7 @@ struct IRadSoundHalSystem : public IRefCount
         unsigned int m_MaxRootAllocations;
         unsigned int m_NumAuxSends;
 
-        #if defined RAD_WIN32 || defined RAD_XBOX
+        #if defined RAD_WIN32 || defined RAD_UWP
         unsigned int m_ReservedSoundMemory;
         #endif 
 

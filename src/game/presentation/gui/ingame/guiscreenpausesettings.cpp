@@ -271,21 +271,8 @@ void CGuiScreenPauseSettings::HandleMessage
                         // send vibration pulse to controller
                         //
                         int controllerID = GetInputManager()->GetControllerIDforPlayer( 0 );
-#ifdef RAD_PS2
-                        if ( GetInputManager()->IsControllerInPort( Input::USB0 ) )
-                        {
-                            GetInputManager()->TriggerRumblePulse( Input::USB0 );
-                        }
-                        else if ( GetInputManager()->IsControllerInPort( Input::USB1 ) )
-                        {
-                            GetInputManager()->TriggerRumblePulse( Input::USB1 );
-                        }
-                        else
-#endif
-                        {
-                            GetInputManager()->TriggerRumblePulse( controllerID );
-                        }
-
+                        
+                        GetInputManager()->TriggerRumblePulse( controllerID );
                     }
                 }
 #endif

@@ -65,24 +65,12 @@ struct AvatarInputManager
     AvatarInputManager( void )
         :
     mVehicleMappableHandle( -1 ),
-#ifdef RAD_PS2
-    mVehicleMappableHandleWheel0( -1 ),
-    mVehicleMappableHandleWheel1( -1 ),
-#endif
     mCharacterMappableHandle( -1 )
     {
         HeapMgr()->PushHeap (GMA_LEVEL_OTHER);
 
         mpVehicleMappable = new VehicleMappable;
         mpVehicleMappable->AddRef();
-
-#ifdef RAD_PS2
-        mpVehicleMappableUSB0 = new VehicleMappable;
-        mpVehicleMappableUSB0->AddRef();
-
-        mpVehicleMappableUSB1 = new VehicleMappable;
-        mpVehicleMappableUSB1->AddRef();
-#endif
         
         mpHumanVehicleController = new HumanVehicleController;
         mpHumanVehicleController->AddRef();
@@ -102,11 +90,6 @@ struct AvatarInputManager
     {
         mpVehicleMappable->ReleaseController();
         mpVehicleMappable->Release();
-
-#ifdef RAD_PS2
-        mpVehicleMappableUSB0->Release();
-        mpVehicleMappableUSB1->Release();
-#endif
 
         mpHumanVehicleController->ReleaseVehicleMappable();
         mpHumanVehicleController->Release();
@@ -228,17 +211,7 @@ void Avatar::Destroy( void )
     }
     UnRegisterMappableHandle( mControllerId, mpAvatarInputManager->mCharacterMappableHandle );
     UnRegisterMappableHandle( mControllerId, mpAvatarInputManager->mVehicleMappableHandle );
-#ifdef RAD_PS2
-    if ( mpAvatarInputManager->mVehicleMappableHandleWheel0 != -1 )
-    {
-        UnRegisterMappableHandle( Input::USB0, mpAvatarInputManager->mVehicleMappableHandleWheel0 );
-    }
 
-    if ( mpAvatarInputManager->mVehicleMappableHandleWheel1 != -1 )
-    {
-        UnRegisterMappableHandle( Input::USB1, mpAvatarInputManager->mVehicleMappableHandleWheel1 );
-    }
-#endif
     mControllerId = INVALID_CONTROLLER;
 }
 
@@ -427,37 +400,6 @@ void Avatar::SetInCarController( void )
     mpAvatarInputManager->mVehicleMappableHandle = InputManager::GetInstance( )->RegisterMappable( mControllerId, pVehicleMappable );
 
     bool wheelAttached = false;
-#ifdef RAD_PS2
-    if ( GetGameplayManager()->GetGameType() != GameplayManager::GT_SUPERSPRINT )
-    {
-        if ( mControllerId == Input::USB0 ||
-            ( mControllerId != Input::USB0 && 
-              mControllerId != Input::USB1 && 
-              GetInputManager()->IsControllerInPort( Input::USB0 )
-            ) 
-           )
-        {
-            mpAvatarInputManager->mVehicleMappableHandleWheel0 = InputManager::GetInstance( )->RegisterMappable( Input::USB0, mpAvatarInputManager->mpVehicleMappableUSB0 );
-            pVehicleController->SetWheel( mpAvatarInputManager->mpVehicleMappableUSB0, 0 );
-            mpAvatarInputManager->mpVehicleMappableUSB0->SetController( pVehicleController );
-            GetInputManager()->SetRumbleForDevice( Input::USB0, GetInputManager()->IsRumbleEnabled() );
-            wheelAttached = true;
-        }
-        else if ( mControllerId == Input::USB1 ||
-                  ( mControllerId != Input::USB0 && 
-                    mControllerId != Input::USB1 && 
-                    GetInputManager()->IsControllerInPort( Input::USB1 ) 
-                  ) 
-                ) 
-        {
-            mpAvatarInputManager->mVehicleMappableHandleWheel1 = InputManager::GetInstance( )->RegisterMappable( Input::USB1, mpAvatarInputManager->mpVehicleMappableUSB1 );
-            pVehicleController->SetWheel( mpAvatarInputManager->mpVehicleMappableUSB1, 1 );
-            mpAvatarInputManager->mpVehicleMappableUSB1->SetController( pVehicleController );
-            GetInputManager()->SetRumbleForDevice( Input::USB1, GetInputManager()->IsRumbleEnabled() );
-            wheelAttached = true;
-        }
-    }
-#endif
 
     if ( !wheelAttached )
     {
@@ -563,19 +505,6 @@ void Avatar::GetOutOfVehicleStart( Vehicle* pVehicle)
     
     // Detach the vehicle controller.
     UnRegisterMappableHandle( mControllerId, mpAvatarInputManager->mVehicleMappableHandle );
-#ifdef RAD_PS2
-    if ( mpAvatarInputManager->mVehicleMappableHandleWheel0 != -1 )
-    {
-        UnRegisterMappableHandle( Input::USB0, mpAvatarInputManager->mVehicleMappableHandleWheel0 );
-        GetInputManager()->SetRumbleForDevice( Input::USB0, false );
-    }
-
-    if ( mpAvatarInputManager->mVehicleMappableHandleWheel1 != -1 )
-    {
-        UnRegisterMappableHandle( Input::USB1, mpAvatarInputManager->mVehicleMappableHandleWheel1 );
-        GetInputManager()->SetRumbleForDevice( Input::USB1, false );
-    }
-#endif
 
     // attach the on-foot controller 
     // we do this early (don't wait for end of get out of car) so that we can abort \

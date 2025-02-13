@@ -1417,7 +1417,7 @@ void SuperSprintManager::LoadControllerMappings( unsigned int controllerId )
 {
     if ( GetInputManager()->GetController( controllerId )->IsConnected() )
     {
-#ifdef RAD_XBOX
+#ifdef RAD_UWP
         ClearMap(0);
         Map( "Start", Start, 0, controllerId );
         Map( "A", Select, 0, controllerId );
@@ -1428,19 +1428,6 @@ void SuperSprintManager::LoadControllerMappings( unsigned int controllerId )
         Map( "LeftTrigger", L1, 0, controllerId );
         Map( "Black", CamSelect, 0, controllerId );
         Map( "Y", ShowPositions, 0, controllerId );
-#endif
-
-#ifdef RAD_PS2
-        ClearMap(0);
-        Map( "Start", Start, 0, controllerId );
-        Map( "X", Select, 0, controllerId );
-        Map( "Triangle", Back, 0, controllerId );
-        Map( "DPadRight", Right, 0, controllerId );
-        Map( "DPadLeft", Left, 0, controllerId );
-        Map( "LeftStickX", StickX, 0, controllerId );
-        Map( "L1", L1, 0, controllerId );
-        Map( "Select", CamSelect, 0, controllerId );
-        Map( "Triangle", ShowPositions, 0, controllerId );
 #endif
 
 #ifdef RAD_WIN32

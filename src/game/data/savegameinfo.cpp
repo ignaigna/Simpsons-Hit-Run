@@ -255,18 +255,13 @@ SaveGameInfo::FormatDisplay( char* displayBuffer,
     // format time and date display
     //
 	sprintf( dateBuffer, "%02d/%02d/%02d %02d:%02d:%02d",
-#if defined( PAL ) && defined( RAD_PS2 )    // English date format
-             m_data.m_timeStamp.m_Day,
-             m_data.m_timeStamp.m_Month,
-#else                                       // American date format
              m_data.m_timeStamp.m_Month,
              m_data.m_timeStamp.m_Day,
-#endif
              m_data.m_timeStamp.m_Year % 100,
              m_data.m_timeStamp.m_Hour,
 			 m_data.m_timeStamp.m_Minute,
 			 m_data.m_timeStamp.m_Second
-			 );
+    );
 
     // format level and mission display
     //

@@ -567,7 +567,7 @@ void CGuiUserInputHandler::OnButtonDown( int controllerId, int buttonId, const I
 #ifdef RAD_CONSOLE
             if( m_isStartToSelectMappingEnabled )
             {
-                // for Xbox only, START is mapped to same functionality as SELECT
+                // for UWP only, START is mapped to same functionality as SELECT
                 this->Select( controllerId );
             }
 #endif

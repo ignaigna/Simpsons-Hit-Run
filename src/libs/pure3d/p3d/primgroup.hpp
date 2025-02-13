@@ -175,7 +175,6 @@ protected:
 //-------------------------------------------------------------------
 //		skin with software blending but buffered rendering
 //-------------------------------------------------------------------
-#ifndef RAD_PS2
 class tPrimGroupSkinnedPC : public tPrimGroupSkinnedOptimised
 {
     tPrimGroupSkinnedPC(int nVertex, unsigned format, int nIndex, bool allocate = false);
@@ -216,10 +215,7 @@ public:
 
 private:
     virtual tPrimGroup*          LoadStreamed(tChunkFile* f, tEntityStore* store, rmt::Matrix* bones);
-
-    #ifndef RAD_PS2
-	    virtual tPrimGroup*          LoadPCSkin(tChunkFile* f, tEntityStore* store, rmt::Matrix* bones);
-    #endif
+	virtual tPrimGroup*          LoadPCSkin(tChunkFile* f, tEntityStore* store, rmt::Matrix* bones);
 
     bool Load(tChunkFile *f, tEntityStore *store);
 
@@ -235,6 +231,3 @@ private:
     unsigned mVertexFormatMask;
 
 };
-
-#endif
-

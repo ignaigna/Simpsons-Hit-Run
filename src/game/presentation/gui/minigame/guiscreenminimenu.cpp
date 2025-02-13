@@ -722,14 +722,14 @@ void CGuiScreenMiniMenu::HandleMessage(	eGuiMessage message,
                 }
                 else // not in track selection state
                 {
-#ifdef RAD_XBOX
+#ifdef RAD_UWP
                     // re-enable Start-to-Select button mapping
                     //
                     for( int i = 0; i < GetGuiSystem()->GetNumUserInputHandlers(); i++ )
                     {
                         GetGuiSystem()->GetUserInputHandler( i )->EnableStartToSelectMapping( true );
                     }
-#endif // RAD_XBOX
+#endif // RAD_UWP
 
                     for( int p = 0; p < SuperSprintData::NUM_PLAYERS; p++ )
                     {
@@ -851,12 +851,12 @@ void CGuiScreenMiniMenu::HandleMessage(	eGuiMessage message,
                 //
                 if( playerMenuID == -1 ) // means this player's not active yet
                 {
-#ifdef RAD_XBOX
+#ifdef RAD_UWP
                     // disable Start-to-Select button mapping to prevent duplicate SELECT inputs;
                     // it will be re-enabled in the next update
                     //
                     GetGuiSystem()->GetUserInputHandler( controllerID )->EnableStartToSelectMapping( false );
-#endif // RAD_XBOX
+#endif // RAD_UWP
 
                     this->ActivateNewPlayer( controllerID );
 
@@ -1423,11 +1423,8 @@ CGuiScreenMiniMenu::ActivateNewPlayer( int controllerID )
     }
 
     int player_slot = 0;
-#ifdef RAD_XBOX
     player_slot = controllerID;
-#elif defined ( RAD_WIN32 )
-    player_slot = controllerID;
-#else
+
     // look for non empty slot
     for( int i = 0; i < SuperSprintData::NUM_PLAYERS; i++ )
     {
@@ -1439,7 +1436,6 @@ CGuiScreenMiniMenu::ActivateNewPlayer( int controllerID )
             break;
         }
     }
-#endif
 
     // ok, found it!
     //

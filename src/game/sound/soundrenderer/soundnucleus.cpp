@@ -20,48 +20,26 @@ const unsigned int MUSIC_NUM_CLIP_PLAYERS = 2;
 const unsigned int MUSIC_NUM_CHANNELS = 2;
 const unsigned int MUSIC_SAMPLING_RATE = 24000;
 
-const unsigned int TOTAL_PS2_FREE_UNCOMPRESSED_CLIP_BYTES = ( 1624 * 1024 * 7 ) / 2;
-
-#if defined RAD_XBOX || defined RAD_WIN32
+const unsigned int TOTAL_FREE_UNCOMPRESSED_CLIP_BYTES = ( 1624 * 1024 * 7 ) / 2;
     
-    const int PLAYBACK_RATE = 0;
+const int PLAYBACK_RATE = 0;
 
 #ifdef PAL
-    AudioFormat gCompressedStreamAudioFormat =   { 1, & gXAdpcmEncoding, 24000 };
+AudioFormat gCompressedStreamAudioFormat =   { 1, & gXAdpcmEncoding, 24000 };
 #else
-    AudioFormat gCompressedStreamAudioFormat =   { 1, & gPcmEncoding, 24000 };
+AudioFormat gCompressedStreamAudioFormat =   { 1, & gPcmEncoding, 24000 };
 #endif
-    AudioFormat gUnCompressedStreamAudioFormat = { 1, & gPcmEncoding, 24000 };
-    AudioFormat gClipFileAudioFormat =     { 1, & gPcmEncoding, 24000 };
-    AudioFormat gMusicAudioFormat =        { 2, & gPcmEncoding, 24000 };    
+AudioFormat gUnCompressedStreamAudioFormat = { 1, & gPcmEncoding, 24000 };
+AudioFormat gClipFileAudioFormat =     { 1, & gPcmEncoding, 24000 };
+AudioFormat gMusicAudioFormat =        { 2, & gPcmEncoding, 24000 };    
     
-    const unsigned int STREAM_BUFFER_SIZE_MS = 6000;    
-    const bool STREAM_USE_BUFFERED_DATA_SOURCES = false;
-    const unsigned int STREAM_BUFFERED_DATA_SOURCE_SIZE_MS = 0;
-    const radMemorySpace STREAM_BUFFERED_DATA_SOURCE_MEMORY_SPACE = radMemorySpace_Local;  
+const unsigned int STREAM_BUFFER_SIZE_MS = 6000;    
+const bool STREAM_USE_BUFFERED_DATA_SOURCES = false;
+const unsigned int STREAM_BUFFERED_DATA_SOURCE_SIZE_MS = 0;
+const radMemorySpace STREAM_BUFFERED_DATA_SOURCE_MEMORY_SPACE = radMemorySpace_Local;  
     
-    const unsigned int CLIP_BUFFERED_DATA_SOURCE_SIZE_MS = 0;
-    const radMemorySpace CLIP_BUFFERED_DATA_SOURCE_MEMORY_SPACE = radMemorySpace_Local; 
-
-             
-#elif defined RAD_PS2
-
-    const int PLAYBACK_RATE = 0;
-    
-    AudioFormat gCompressedStreamAudioFormat =   { 1, & gVagEncoding, 24000 };
-    AudioFormat gUnCompressedStreamAudioFormat = { 1, & gVagEncoding, 24000 };
-    AudioFormat gClipFileAudioFormat =     { 1, & gVagEncoding, 24000 };
-    AudioFormat gMusicAudioFormat =        { 2, & gVagEncoding, 24000 };    
-        
-    const unsigned int STREAM_BUFFER_SIZE_MS = 1000;
-    const bool STREAM_USE_BUFFERED_DATA_SOURCES = true;
-    const unsigned int STREAM_BUFFERED_DATA_SOURCE_SIZE_MS = 4100;
-    const radMemorySpace STREAM_BUFFERED_DATA_SOURCE_MEMORY_SPACE = radMemorySpace_Iop; 
-
-    const unsigned int CLIP_BUFFERED_DATA_SOURCE_SIZE_MS = 5000;
-    const radMemorySpace CLIP_BUFFERED_DATA_SOURCE_MEMORY_SPACE = radMemorySpace_Ee;  
-              
-#endif   
+const unsigned int CLIP_BUFFERED_DATA_SOURCE_SIZE_MS = 0;
+const radMemorySpace CLIP_BUFFERED_DATA_SOURCE_MEMORY_SPACE = radMemorySpace_Local; 
 
 enum ClipLoadState
 {
@@ -92,7 +70,7 @@ StreamerResources gStreamers[ SOUND_NUM_STREAM_PLAYERS ] =
     { NULL, NULL, NULL, & gUnCompressedStreamAudioFormat, false, 0  },
     { NULL, NULL, NULL, & gUnCompressedStreamAudioFormat, false, 0  },
     { NULL, NULL, NULL, & gUnCompressedStreamAudioFormat, false, 0  },
-#ifdef RAD_XBOX
+#ifdef RAD_UWP
     { NULL, NULL, NULL, & gUnCompressedStreamAudioFormat, false, 0  },
 #endif
     { NULL, NULL, NULL, & gUnCompressedStreamAudioFormat, false, 0  }
@@ -280,7 +258,7 @@ void SoundNucleusInitialize( radMemoryAllocator alloc )
     }
 
     unsigned int totalClipMemoryNeeded =
-        ( TOTAL_PS2_FREE_UNCOMPRESSED_CLIP_BYTES * gClipFileAudioFormat.m_pEncoding->m_CompressionNumerator ) /
+        ( TOTAL_FREE_UNCOMPRESSED_CLIP_BYTES * gClipFileAudioFormat.m_pEncoding->m_CompressionNumerator ) /
             gClipFileAudioFormat.m_pEncoding->m_CompressionDenominator;
     
     rTunePrintf(
@@ -303,9 +281,7 @@ void SoundNucleusInitialize( radMemoryAllocator alloc )
     desc.m_SamplingRate = 48000;
 #endif  
     
-#ifndef RAD_PS2
     desc.m_ReservedSoundMemory = ( totalStreamSoundMemoryNeeded + totalClipMemoryNeeded ) * ( sizeof( void* ) / 4 );
-#endif
 
     ::radSoundHalSystemGet( )->Initialize( desc );    
     ::radSoundHalSystemGet()->SetOutputMode(radSoundOutputMode_Surround);
@@ -361,7 +337,7 @@ void SoundNucleusTerminate( void )
 
 IRadSoundHalAudioFormat * SoundNucleusGetStreamFileAudioFormat( void )
 {
-#if ( defined( RAD_XBOX ) && defined( PAL ) )
+#if ( defined( RAD_UWP ) && defined( PAL ) )
         return NULL;
     #else
         return gUnCompressedStreamAudioFormat.m_pAudioFormat;

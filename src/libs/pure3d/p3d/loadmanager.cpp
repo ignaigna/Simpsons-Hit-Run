@@ -20,10 +20,7 @@
 
 #ifdef P3D_TRACK_LOAD_STATS
 #include <radmemory.hpp>
-#ifdef RAD_WIN32
 #pragma warning(disable:4786)
-#endif
-#ifdef RAD_XBOX
 #pragma warning(disable:4530)
 #endif
 

@@ -302,7 +302,7 @@ CharacterManager::CharacterManager( void )
     radDbgWatchAddFloat(&CharacterTune::sfSlamForce, "Stomping Force", debugName, NULL, 0, 0.0f, 4000.0f );
     radDbgWatchAddFloat(&CharacterTune::sfShockTime, "Time(sec) to be shocked",debugName , NULL, NULL ,0 , 10.0f);
 
-#ifdef RAD_XBOX
+#ifdef RAD_UWP
     extern float g_XBoxMipmapBias;
     radDbgWatchAddFloat(&g_XBoxMipmapBias, "Mipmap Bias", "XBox", NULL, NULL , -10.0f , 10.0f);
 #endif

@@ -164,18 +164,6 @@ static const char s_CharacterNamespace[] = "CharSounds";
 //
 // Dialog cement file names
 //
-#if defined( RAD_XBOX )
-
-static const unsigned int s_NumDialogCementFiles = 3;
-
-static const char s_EnglishDialogue[] = "dialog0?.rcf";
-static const char s_FrenchDialogue[] = "dialogf0?.rcf";
-static const char s_GermanDialogue[] = "dialogg0?.rcf";
-static const char s_SpanishDialogue[] = "dialogs0?.rcf";
-static const char s_ItalianDialogue[] = "dialogi0?.rcf";
-
-#else
-
 static const unsigned int s_NumDialogCementFiles = 1;
 
 static const char s_EnglishDialogue[] = "dialog.rcf";
@@ -183,8 +171,6 @@ static const char s_FrenchDialogue[] = "dialogf.rcf";
 static const char s_GermanDialogue[] = "dialogg.rcf";
 static const char s_SpanishDialogue[] = "dialogs.rcf";
 static const char s_ItalianDialogue[] = "dialogi.rcf";
-
-#endif
 
 //
 // Cement libraries associated with the Dark Angel sound system
@@ -747,18 +733,7 @@ void daSoundRenderingManager::QueueCementFileRegistration()
         m_languageSelected = true;
     }
 
-#if defined( RAD_XBOX ) //|| defined( RAD_WIN32 ) WHY DOES THIS EXIST??? MUSIC.RCF IS ON WINDOWS
-    //
-    // Register the music rcfs -- no localization needed.
-    //
-    m_soundCementFileHandles[i++] = GetLoadingManager()->RegisterCementLibrary( "music00.rcf" );
-    m_soundCementFileHandles[i++] = GetLoadingManager()->RegisterCementLibrary( "music01.rcf" );
-    m_soundCementFileHandles[i++] = GetLoadingManager()->RegisterCementLibrary( "music02.rcf" );
-    m_soundCementFileHandles[i++] = GetLoadingManager()->RegisterCementLibrary( "music03.rcf" );
-#else
     m_soundCementFileHandles[i++] = GetLoadingManager()->RegisterCementLibrary( "music.rcf" );
-#endif
-
     m_soundCementFileHandles[i++] = GetLoadingManager()->RegisterCementLibrary( "carsound.rcf" );
     m_soundCementFileHandles[i++] = GetLoadingManager()->RegisterCementLibrary( "ambience.rcf" );
     m_soundCementFileHandles[i++] = GetLoadingManager()->RegisterCementLibrary( "nis.rcf" );
@@ -1580,21 +1555,8 @@ void daSoundRenderingManagerTerminate( void )
 //=============================================================================
 void daSoundRenderingManager::registerDialogueCementFiles( const char* cementFilename )
 {
-#if defined( RAD_XBOX )
-    char dialogNameBuffer[ 16 ];
-    int i = 0;
-
-    strcpy( dialogNameBuffer, cementFilename );
-    char* numberPosition = strchr( dialogNameBuffer, '?' );
-    for ( unsigned int j = 0; j < s_NumDialogCementFiles; j++ )
-    {
-        *numberPosition = j + '0';
-        m_soundCementFileHandles[i++] = GetLoadingManager()->RegisterCementLibrary( dialogNameBuffer );
-    }
-#else
     rAssert( s_NumDialogCementFiles == 1 );
     m_soundCementFileHandles[0] = GetLoadingManager()->RegisterCementLibrary( cementFilename );
-#endif
 }
 
 } // Sound Namespace

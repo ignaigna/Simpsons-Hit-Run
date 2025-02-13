@@ -436,13 +436,8 @@ CGuiManagerFrontEnd::Start( CGuiWindow::eGuiWindowID initialWindow )
 void
 CGuiManagerFrontEnd::OnControllerConnected( int controllerID )
 {
-#ifdef RAD_PS2 
-    if( m_controllerPromptShown 
-        && m_disconnectedController == controllerID )
-#else
     if( m_controllerPromptShown 
         && GetGuiSystem()->GetPrimaryController() == controllerID )
-#endif
     {
         m_isControllerReconnected = true;
         m_disconnectedController = -1;
@@ -712,22 +707,6 @@ void CGuiManagerFrontEnd::HandleMessage
 
         case GUI_MSG_CONTROLLER_DISCONNECT:
         {
-#ifdef RAD_PS2
-            if( !m_controllerPromptShown )
-            {
-                // show controller disconnected message on PS2 only if:
-                //
-                // - primary controller hasn't been established yet and ANY controller is disconnected; OR
-                // - the controller disconnected is the primary controller
-                //
-                int primaryControllerID = GetGuiSystem()->GetPrimaryController();
-                if( primaryControllerID == -1 || primaryControllerID == static_cast<int>( param1 ) )
-                {
-                    m_disconnectedController = static_cast<int>( param1 );
-                }
-            }
-#endif // RAD_PS2
-
             break;
         }
 
@@ -768,11 +747,7 @@ void CGuiManagerFrontEnd::HandleMessage
 
             if( message == GUI_MSG_UPDATE )
             {
-                #ifdef RAD_PS2 
-                int controllerID = m_disconnectedController;
-                #else
                 int controllerID = GetGuiSystem()->GetPrimaryController();
-                #endif
                 if( controllerID >=0 && !GetInputManager()->GetController( controllerID )->IsConnected() )
                 {
                     this->OnControllerDisconnected( controllerID );

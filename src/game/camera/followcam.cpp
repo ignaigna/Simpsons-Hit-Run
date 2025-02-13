@@ -169,7 +169,7 @@ void FollowCam::Update( unsigned int milliseconds )
     float leftRight = mController->GetValue( SuperCamController::r2 ) - mController->GetValue( SuperCamController::l2 );
 #endif
 
-#if defined(RAD_PS2) || defined(RAD_WIN32)
+#if defined(RAD_WIN32)
     if ( mController->IsWheel() )
     {
         //This is a wheel.  No left right on wheels.
@@ -1050,7 +1050,7 @@ void FollowCam::CalculateRod( rmt::Vector* rod,
         SetFlag( (Flag)LOS_CORRECTED, false );
     }
 
-#if defined(RAD_PS2) || defined(RAD_WIN32)
+#if defined(RAD_WIN32)
     if ( mController->IsWheel() )
     {
         //This is a wheel.  No left right on wheels.

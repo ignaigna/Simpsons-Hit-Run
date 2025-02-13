@@ -45,7 +45,7 @@
 
 const char* REWARDS_INVENTORY_SECTION = "FE_RewardsScreen";
 
-#ifdef RAD_XBOX
+#ifdef RAD_UWP
     const float PHONE_BOOTH_BGD_CORRECTION_SCALE = 8.0f;
 #else
     const float PHONE_BOOTH_BGD_CORRECTION_SCALE = 8.8f;

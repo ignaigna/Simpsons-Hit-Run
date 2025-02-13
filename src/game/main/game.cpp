@@ -72,10 +72,6 @@ bool g_inDemoMode = false;
 
 #ifdef DEMO_MODE_PROFILER
 
-#ifdef RAD_PS2
-#include <libgraph.h>
-#endif
-
 DemoProfiler::DemoProfiler(unsigned mf) :
     recording(false), maxFrames(mf), nChannel(0), currentFrame(0),
     alertStatus(PROFILER_ALERT_GREEN),
@@ -234,9 +230,6 @@ void DemoProfiler::Dump()
         if( !(i % 10) )
         {
             rmt::Sin(0.0f);
-#ifdef RAD_PS2
-            sceGsSyncV(0);
-#endif
         }
     }
 

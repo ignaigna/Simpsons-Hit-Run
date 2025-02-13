@@ -650,13 +650,7 @@ void MusicPlayer::HandleEvent( EventEnum id, void* pEventData )
                     startMusic();
                 }
 
-#if defined( RAD_XBOX )
-                // XBox seems to like this syntax better.
-                bool jumpStage = reinterpret_cast<bool>( pEventData );
-#else
                 bool jumpStage = (bool)( pEventData );
-#endif
-
                 if( jumpStage )
                 {
                     //

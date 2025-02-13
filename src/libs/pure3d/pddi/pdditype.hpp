@@ -98,24 +98,12 @@ public:
 };
 
 // system-dependent includes
-#ifdef RAD_WIN32
+#if defined(RAD_WIN32) || defined(RAD_UWP)
     #include <pddi/pddiwin32.hpp>
-#endif
-
-#ifdef RAD_XBOX
-    #include <pddi/pddixbox.hpp>
-#endif
-
-#ifdef RAD_PS2
-    #include <pddi/pddips2.hpp>
 #endif
 
 #ifdef RAD_LINUX
     #include <pddi/pddilinux.hpp>
-#endif
-
-#ifdef RAD_GAMECUBE
-    #include <pddi/pddigc.hpp>
 #endif
 
 #endif /* _PDDITYPE_HPP */

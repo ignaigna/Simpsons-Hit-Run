@@ -15,10 +15,6 @@
 #include <p3d/anim/vertexanimkey.hpp>
 #include <pddi/base/baseshader.hpp>
 
-#ifdef RAD_PS2
-    #include <pddi/ps2/shaders/ps2refractionshader.hpp>
-#endif
-
 #include <string.h>
 
 
@@ -130,28 +126,7 @@ void tPrimGroupOptimised::Display()
 {
     P3DASSERT(mBuffer);
     pddiShader* shader = mShader->GetShader();
-
-#ifdef RAD_PS2
-    bool refractionShadersInUse = ps2RefractionShader::RefractionShadersLoaded();
-    if( refractionShadersInUse )
-    {
-        pddiBaseShader* clone = shader->CloneSimple();
-        if( clone != NULL )
-        {
-            p3d::pddi->DrawPrimBuffer( clone, mBuffer );
-        }
-        else
-        {
-            p3d::pddi->DrawPrimBuffer( shader, mBuffer );
-        }
-    }
-    else
-    {
-        p3d::pddi->DrawPrimBuffer( shader, mBuffer );
-    }
-#else
     p3d::pddi->DrawPrimBuffer( shader, mBuffer );
-#endif
 }
 
 
@@ -269,12 +244,7 @@ void tPrimGroupStreamed::Display()
 
     pddiBaseShader* pShader = (pddiBaseShader *) mShader->GetShader( );
 
-#ifdef RAD_PS2
-    const int numPasses = 1;
-#else
     const int numPasses = pShader->GetPasses();
-#endif
-
     for( int i = 0; i < numPasses;  ++i ){     
         pddiPrimStream* stream = p3d::pddi->BeginPrims(mShader->GetShader(), mPrimType, vertexFormat, (mIndexCount > 0) ? mIndexCount : mVertexList->GetNumVertices(), i );
 
@@ -472,7 +442,6 @@ bool tPrimGroupSkinnedStreamed::SetVertices(unsigned start, unsigned count, rmt:
     return true;
 }
 //--------------------------------pure3d skin for PC--------------------------------
-#ifndef RAD_PS2
 tPrimGroupSkinnedPC::tPrimGroupSkinnedPC(int nVertex, unsigned format, int nIndex, bool allocate)  :
     tPrimGroupSkinnedOptimised(nVertex), mVertices( NULL )
 {
@@ -621,7 +590,6 @@ void tPrimGroupSkinnedPC::DisplayInstanced(unsigned count)
 {
     Display();
 }
-#endif
 //---------------------------------------------------------------
 template<class T> inline static void IndexedDisplayInternal(tVertexList* vertexList, T* stream, unsigned short* indices, int nIndex)
 {
@@ -1089,7 +1057,6 @@ bool tPrimGroupLoader::ParseHeader(tChunkFile *f, tEntityStore *store)
 }
 
 
-#ifndef RAD_PS2
 tPrimGroup* tPrimGroupLoader::LoadPCSkin(tChunkFile* f, tEntityStore* store, rmt::Matrix* bones)
 {
 	//don't create a primBuffer whose vertex contains weights and matrices indices 
@@ -1349,7 +1316,6 @@ tPrimGroup* tPrimGroupLoader::LoadPCSkin(tChunkFile* f, tEntityStore* store, rmt
 
     return primGroup;
 }
-#endif //RAD_PS2
 
 tPrimGroup* tPrimGroupLoader::LoadStreamed(tChunkFile* f, tEntityStore* store, rmt::Matrix* bones)
 {
@@ -1575,24 +1541,12 @@ tPrimGroup*  tPrimGroupLoader::Load(tChunkFile *f, tEntityStore *store, rmt::Mat
 */
     if( bones && !hwSkin )
     {
-        #ifdef RAD_PS2
-            rAssert( false );
-            return NULL;
-        #else
-            return LoadPCSkin(f, store, bones);
-        #endif
+        return LoadPCSkin(f, store, bones);
     }
 	else if( !optimise )
     {
 		return LoadStreamed(f, store, bones);
     }
-
-#ifdef RAD_PS2
-    if (mIndexCount > 0)
-    {
-        return LoadStreamed(f, store, bones);
-    }
-#endif
     
     rmt::Vector* tmpPositions = NULL;
     if(deform)
@@ -1704,11 +1658,7 @@ tPrimGroup*  tPrimGroupLoader::Load(tChunkFile *f, tEntityStore *store, rmt::Mat
             break;
         }
 
-#ifdef RAD_PS2
-        if(primBufferInitialized && !memoryImaged)
-#else
         if(primBufferInitialized)
-#endif
         {
             stream = primBuffer->Lock();
         }

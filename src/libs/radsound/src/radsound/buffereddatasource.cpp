@@ -7,21 +7,6 @@
 #include <radsoundfile.hpp>
 #include "buffereddatasource.hpp"
 
-#ifndef FINAL
-#ifdef RAD_PS2
-#include <radtextdisplay.hpp>
-#include <eekernel.h>
-#include <eeregs.h>
-
-//
-// Simpsons 2 hack, see AllocateResources() below -- Esan
-//
-#ifdef RAD_RELEASE
-extern void Simpsons2MFIFODisable();
-#endif
-#endif
-#endif
-
 //============================================================================
 // radSoundBufferedDataSource::radSoundBufferedDataSource
 //============================================================================
@@ -556,36 +541,6 @@ void radSoundBufferedDataSource::AllocateResources( void )
 		radSoundHalDataSourceReadAlignmentGet( ) );
 
     rAssert( m_pFrameBuffer != NULL );
-#ifndef FINAL
-#ifdef RAD_PS2
-#ifdef RAD_RELEASE
-    //IRadTextDisplay* textDisplay;
-
-    //if( m_pFrameBuffer == NULL )
-    //{
-    //    //
-    //    // HAAAAAAAAAACCCCCCCKKKKKKKKKK!!!!!!!!!!!!!
-    //    //
-    //    // Need to shut down the MFIFO for this to work properly.  Instead of dragging
-    //    // P3D dependencies in here, I'm going to call an external function for it which
-    //    // I'll define in the game code.  I'll also submit a feature request so that
-    //    // future generations don't have to do horrible things like this. -- Esan
-    //    //
-    //    Simpsons2MFIFODisable();
-
-    //    ::radTextDisplayGet( &textDisplay );
-
-    //    textDisplay->SetBackgroundColor( 0 );
-    //    textDisplay->SetTextColor( 0xffffffff );
-    //    textDisplay->Clear();
-    //    textDisplay->TextOutAt( "Out of IOP memory.  Bah.", 15, 7 );
-    //    textDisplay->TextOutAt( ":-(", 15, 9 );
-    //    textDisplay->SwapBuffers();
-    //    textDisplay->Release();
-    //}
-#endif
-#endif
-#endif
 
     ::radMemoryMonitorIdentifyAllocation(
         m_pFrameBuffer, radSoundDebugChannel,

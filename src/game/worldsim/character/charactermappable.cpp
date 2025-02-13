@@ -106,7 +106,7 @@ void CharacterMappable::OnButtonDown( int controllerId, int buttonId, const IBut
 //
 void CharacterMappable::LoadControllerMappings( unsigned int controllerId )
 {
-#ifdef RAD_CONSOLE // RAD_XBOX
+#if defined(RAD_CONSOLE)
 
     ClearMap(0);
     Map("LeftStickX", CharacterController::LeftStickX, 0, controllerId);
@@ -119,21 +119,6 @@ void CharacterMappable::LoadControllerMappings( unsigned int controllerId )
     Map("A", CharacterController::Jump, 0, controllerId);
     Map("B", CharacterController::Dash, 0, controllerId);
     Map("X", CharacterController::Attack, 0, controllerId);
-
-#endif
-
-#if defined( RAD_PS2 )
-	ClearMap( 0 );
-	Map( "LeftStickX", CharacterController::LeftStickX, 0, controllerId );
-    Map( "LeftStickY", CharacterController::LeftStickY, 0, controllerId );
-    Map( "DPadUp", CharacterController::DPadUp, 0, controllerId );
-    Map( "DPadDown", CharacterController::DPadDown, 0, controllerId );
-    Map( "DPadLeft", CharacterController::DPadLeft, 0, controllerId );
-    Map( "DPadRight", CharacterController::DPadRight, 0, controllerId );
-    Map( "Triangle", CharacterController::DoAction, 0, controllerId );
-    Map( "X", CharacterController::Jump, 0, controllerId );
-    Map( "Circle", CharacterController::Dash, 0, controllerId );
-    Map( "Square", CharacterController::Attack, 0, controllerId );
 
 #elif defined( RAD_WIN32 )
 

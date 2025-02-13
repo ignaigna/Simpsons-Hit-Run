@@ -24,11 +24,7 @@
 
 using namespace RadicalMathLibrary;
 
-static rmt::Matrix s_SkinMatrices[256]
-#ifdef RAD_PS2
-__attribute__((aligned(16)))
-#endif
-;
+static rmt::Matrix s_SkinMatrices[256];
 
 tPolySkin::tPolySkin(int npg) :
     boneMatrix(NULL),
@@ -74,14 +70,8 @@ void tPolySkin::Display(tPose* p)
     // space where the animation is applied, and then back into camera space.
     for(int i = 0; i < p->GetNumJoint(); i++)
     {
-#ifndef RAD_PS2
         boneMatrix[i].Mult(skeleton->GetJoint(i)->inverseWorldMatrix, p->GetJoint(i)->worldMatrix);
-#else
-        boneMatrix[i].MultAligned(skeleton->GetJoint(i)->inverseWorldMatrix, p->GetJoint(i)->worldMatrix);
-#endif
-
         boneMatrix[i].Mult(skeleton->GetJoint(i)->inverseWorldMatrix, p->GetJoint(i)->worldMatrix);
-
     }
 
     boneMatrix[skeleton->GetNumJoint()].Identity();
@@ -239,7 +229,7 @@ tEntity* tPolySkinLoader::LoadObject(tChunkFile* f, tEntityStore* store)
         }
     }
 
-#if defined(RAD_WIN32) || defined(RAD_XBOX)
+#if defined(RAD_WIN32) || defined(RAD_UWP)
     if( skin->primGroup[0]->GetInstanceCount())
     {
         tInstancedGeometry* inst = new tInstancedGeometry(skin);

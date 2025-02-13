@@ -36,17 +36,6 @@
 #include <text.h>
 
 //===========================================================================
-// Global Data, Local Data, Local Classes
-//===========================================================================
-
-//===========================================================================
-// Public Member Functions
-//===========================================================================
-
-#ifdef RAD_XBOX
-extern char gGameFileName[NUM_GAME_SLOTS][radFileFilenameMax+1];
-#endif
-//===========================================================================
 // CGuiScreenSaveGame::CGuiScreenSaveGame
 //===========================================================================
 // Description: Constructor.
@@ -99,7 +88,7 @@ MEMTRACK_PUSH_GROUP( "CGUIScreenSaveGame" );
         m_pMenu->AddMenuItem( menu->GetText( objectName ) );
     }
 
-#ifdef RAD_WIN32
+#if defined(RAD_WIN32) || defined(RAD_UWP)
     Scrooby::Text* pText = pPage->GetText( "LoadSaveMessage" );
     if( pText != NULL )
     {
@@ -176,12 +165,7 @@ void CGuiScreenSaveGame::HandleMessage
 
 				if( m_formatResult == Success )
 				{
-#ifdef RAD_PS2
-                    m_currentSlot = 0; // on ps2 continue to save
-                    this->SaveGame();
-#else
                     m_guiManager->DisplayPrompt(PROMPT_FORMAT_SUCCESS_GC + PLATFORM_TEXT_INDEX, this, PROMPT_TYPE_CONTINUE); // format success
-#endif
                 }
 				else 
 				{
@@ -208,32 +192,15 @@ void CGuiScreenSaveGame::HandleMessage
 			// start the save game process
 			//
 			rAssert( m_currentSlot != -1 );
-#ifdef RAD_XBOX
-			// has existing filename
-			radFileError err = Success;
-			if (gGameFileName[m_currentSlot][0]!=0) // delete existing file if overwriting (on xbox each filename is unique)
-			{
-				err = GetGameDataManager()->DeleteGame(gGameFileName[m_currentSlot]);
-			}
-			if (err!=Success)
-                OnSaveGameComplete(err);
-            else
-                GetGameDataManager()->SaveGame( m_currentSlot, this );
-#else
             GetGameDataManager()->SaveGame( m_currentSlot, this );
-#endif
 		}
         else if( m_operation == DELETE_GAME )
         {
             // get the filename
             char filename[ radFileFilenameMax + 1 ];
-#ifdef RAD_XBOX
-            strcpy(filename, gGameFileName[m_currentSlot]);
-#else
             GetGameDataManager()->FormatSavedGameFilename( filename,
                 sizeof( filename ),
                 m_currentSlot );
-#endif
             radFileError err = GetGameDataManager()->DeleteGame( filename, true, this );
         }
 		else 
@@ -292,22 +259,13 @@ void CGuiScreenSaveGame::HandleMessage
                 }
                 else if (param2==CGuiMenuPrompt::RESPONSE_YES)
                 {
-#ifdef RAD_PS2
-                    m_operation = DELETE_GAME;
-                    m_guiManager->DisplayMessage( CGuiScreenMessage::MSG_ID_DELETING_GC + PLATFORM_TEXT_INDEX, this );
-#else
                     // get the filename
                     char filename[ radFileFilenameMax + 1 ];
-    #ifdef RAD_XBOX
-                    strcpy(filename, gGameFileName[m_currentSlot]);
-    #else
                     GetGameDataManager()->FormatSavedGameFilename( filename,
                         sizeof( filename ),
                         m_currentSlot );
-    #endif
                     radFileError err = GetGameDataManager()->DeleteGame(filename);
                     this->OnDeleteGameComplete( err );
-#endif // RAD_PS2
                 }
                 else
                 {
@@ -414,15 +372,6 @@ void CGuiScreenSaveGame::HandleMessage
 
         switch( message )
         {
-#ifdef RAD_PS2
-            case GUI_MSG_CONTROLLER_START:
-            {
-                if ( GetGameFlow()->GetCurrentContext() == CONTEXT_PAUSE )
-                    m_pParent->HandleMessage( GUI_MSG_UNPAUSE_INGAME );
-
-                break;
-            }
-#endif
             case GUI_MSG_MENU_SELECTION_MADE:
             {
                 m_currentSlot = param1; //  // param1 = slot
@@ -435,10 +384,6 @@ void CGuiScreenSaveGame::HandleMessage
                 if (corrupt)
                 {
                     int plat_index = PLATFORM_TEXT_INDEX;
-#ifdef RAD_XBOX
-                    if (GetMemoryCardManager()->GetCurrentDriveIndex()==0)
-                        plat_index++;
-#endif
                     m_guiManager->DisplayPrompt( PROMPT_LOAD_DELETE_CORRUPT_GC + plat_index, this );
                 }
                 else if( (m_nonEmptySlots & (1 << m_currentSlot)) > 0 )
@@ -446,42 +391,17 @@ void CGuiScreenSaveGame::HandleMessage
                     // saved game exists in current slot; prompt w/ overwrite
                     // confirmation message
                     //
-
-#ifdef RAD_PS2
-                    m_guiManager->DisplayPrompt( PROMPT_SAVE_CONFIRM_OVERWRITE_PS2, this );
-#endif
-
-#ifdef RAD_XBOX
                     m_guiManager->DisplayPrompt( PROMPT_SAVE_CONFIRM_OVERWRITE_XBOX, this );
-#endif
-
-#ifdef RAD_WIN32
-                    m_guiManager->DisplayPrompt( PROMPT_SAVE_CONFIRM_OVERWRITE_XBOX, this );
-#endif
                 }
                 else
                 {
-#ifdef RAD_PS2
-                    m_guiManager->DisplayPrompt( PROMPT_SAVE_CONFIRM_PS2, this );
-#endif
-
-#ifdef RAD_XBOX
                     m_guiManager->DisplayPrompt( PROMPT_SAVE_CONFIRM_XBOX, this );
-#endif
-
-#ifdef RAD_WIN32
-                    m_guiManager->DisplayPrompt( PROMPT_SAVE_CONFIRM_XBOX, this );
-#endif
                 }
 
                 break;
             }
             case GUI_MSG_CONTROLLER_BACK:
             {
-#ifdef RAD_XBOX
-                s_forceGotoMemoryCardScreen = true;
-                this->GotoMemoryCardScreen();
-#endif
                 break;
             }
             default:
@@ -518,43 +438,6 @@ CGuiScreenSaveGame::OnSaveGameComplete( radFileError errorCode )
     {
         int errorMessage = GetErrorMessageIndex( errorCode, ERROR_DURING_SAVING );
 
-#ifdef RAD_PS2
-        switch( errorCode )
-        {
-            case Success:
-            {
-                rAssert( false );
-                break;
-            }
-            default:
-            {
-                m_guiManager->DisplayErrorPrompt( errorMessage, this,
-                                                  ERROR_RESPONSE_CONTINUE );
-
-                break;
-            }
-        }
-#endif // RAD_PS2
-
-#ifdef RAD_XBOX
-        switch( errorCode )
-        {
-            case Success:
-            {
-                rAssert( false );
-                break;
-            }
-            default:
-            {
-                m_guiManager->DisplayErrorPrompt( errorMessage, this,
-                                                  ERROR_RESPONSE_CONTINUE );
-
-                break;
-            }
-        }
-#endif // RAD_XBOX
-
-#ifdef RAD_WIN32
         switch( errorCode )
         {
             case Success:
@@ -569,7 +452,6 @@ CGuiScreenSaveGame::OnSaveGameComplete( radFileError errorCode )
                 break;
             }
         }
-#endif // RAD_WIN32
     }
 }
 
@@ -720,34 +602,17 @@ void CGuiScreenSaveGame::InitIntro()
         rAssert( slotText != NULL );
 
         HeapMgr()->PushHeap( GMA_LEVEL_HUD );
-#ifdef RAD_XBOX
-		gGameFileName[i][0] = 0;
-#endif
        if( saveGameExists )
         {
             if (corrupt)
             {
                 UnicodeString corruptSlot;
-#ifdef RAD_XBOX
                 corruptSlot.ReadUnicode( GetTextBibleString( "CORRUPT_SLOT_(XBOX)" ) );
-#endif
-#ifdef RAD_WIN32
-                corruptSlot.ReadUnicode( GetTextBibleString( "CORRUPT_SLOT_(XBOX)" ) );
-#endif
-#ifdef RAD_PS2
-                corruptSlot.ReadUnicode( GetTextBibleString( "CORRUPT_SLOT_(PS2)" ) );
-#endif
                 slotText->SetString(0,corruptSlot);
-#ifdef RAD_XBOX
-                strcpy(gGameFileName[i], saveGameInfo.m_displayFilename); // cache filename in the slot
-#endif
             }
             else
             {
                 slotText->SetString( 0, saveGameInfo.m_displayFilename );
-            #ifdef RAD_XBOX
-			    strcpy(gGameFileName[i], saveGameInfo.m_displayFilename); // cache filename in the slot
-            #endif
             }
 
             // default to slot with most recent saved game file
@@ -773,10 +638,6 @@ void CGuiScreenSaveGame::InitIntro()
             else
                 emptySlot.ReadUnicode( GetTextBibleString( "FULL_SLOT" ) );
 
-#ifdef RAD_XBOX
-			if (num_empty_slots) // blank out extra empty slot item
-				emptySlot.ReadUnicode( GetTextBibleString ("SPACE") );
-#endif
             slotText->SetString( 0, emptySlot );
 			num_empty_slots++;
         }
@@ -786,10 +647,6 @@ void CGuiScreenSaveGame::InitIntro()
         // free space to save a new game
         //
         m_pMenu->SetMenuItemEnabled( i, saveGameExists || enoughFreeSpace );
-#ifdef RAD_XBOX
-	if (num_empty_slots > 1) // disable extra empty slot for xbox
-		m_pMenu->SetMenuItemEnabled( i, false );
-#endif
     }
 
 	/* display/hide full message */
@@ -800,7 +657,7 @@ void CGuiScreenSaveGame::InitIntro()
 			message_index = 1; // has existing slot
 		// we have 2 group of per platform messages, gc,ps2,xbox_mu, xbox_hd
 		message_index = message_index * 4 + PLATFORM_TEXT_INDEX;
-#ifdef RAD_XBOX
+#ifdef RAD_UWP
 		if (currentDriveIndex==0)
 		{
 			message_index++; // xbox hard disk
@@ -859,7 +716,7 @@ void CGuiScreenSaveGame::InitOutro()
 void
 CGuiScreenSaveGame::GotoMemoryCardScreen( bool isFromPrompt )
 {
-#ifdef RAD_WIN32
+#if defined(RAD_WIN32) || defined(RAD_UWP)
     m_pParent->HandleMessage( GUI_MSG_BACK_SCREEN );
 #else
     if( isFromPrompt )
@@ -871,7 +728,7 @@ CGuiScreenSaveGame::GotoMemoryCardScreen( bool isFromPrompt )
     {
         m_pParent->HandleMessage( GUI_MSG_GOTO_SCREEN, GUI_SCREEN_ID_MEMORY_CARD );
     }
-#endif // RAD_WIN32
+#endif // RAD_WIN32 || RAD_UWP
 }
 
 
@@ -883,24 +740,5 @@ void
 CGuiScreenSaveGame::SaveGame()
 {
 	m_operation = SAVE;
-
-#ifdef RAD_PS2
-    m_guiManager->DisplayMessage( CGuiScreenMessage::MSG_ID_SAVING_GAME_PS2, this );
-#endif
-
-#ifdef RAD_XBOX
-    if( m_currentDriveIndex == 0 ) // xbox hard disk
-    {
-        m_guiManager->DisplayMessage( CGuiScreenMessage::MSG_ID_SAVING_GAME_XBOX_HD, this );
-    }
-    else // xbox memory unit
-    {
-        m_guiManager->DisplayMessage( CGuiScreenMessage::MSG_ID_SAVING_GAME_XBOX, this );
-    }
-#endif
-
-#ifdef RAD_WIN32
-    m_guiManager->DisplayMessage( CGuiScreenMessage::MSG_ID_SAVING_GAME_PC, this );
-#endif
+    m_guiManager->DisplayMessage( CGuiScreenMessage::MSG_ID_SAVING_GAME_XBOX, this );
 }
-

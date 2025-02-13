@@ -292,12 +292,7 @@ void CGuiScreenTutorial::InitIntro()
 
     // check for platform-specific text; if found, override default text
     //
-#ifdef RAD_PS2
-    strcat( textBibleID, "_(PS2)" );
-#endif
-#ifdef RAD_XBOX
     strcat( textBibleID, "_(XBOX)" );
-#endif
     P3D_UNICODE* platformText = GetTextBibleString( textBibleID );
     if( platformText != NULL )
     {

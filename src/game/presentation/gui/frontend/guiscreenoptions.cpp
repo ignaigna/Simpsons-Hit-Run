@@ -34,10 +34,6 @@
 #include <group.h>
 #include <text.h>
 
-#ifdef RAD_PS2
-    #include <main/ps2platform.h>
-#endif
-
 //===========================================================================
 // Global Data, Local Data, Local Classes
 //===========================================================================
@@ -134,7 +130,6 @@ MEMTRACK_PUSH_GROUP( "CGUIScreenOptions" );
     // TC: no more display mode menu item on PS2, this is now done during bootup
     //     w/ specific button combo pressed and a display prompt
     //
-//#ifndef RAD_PS2
     // hide display mode menu item for non-PS2 platforms
     //
     m_pMenu->SetMenuItemEnabled( MENU_ITEM_DISPLAY_MODE, false, true );
@@ -145,7 +140,6 @@ MEMTRACK_PUSH_GROUP( "CGUIScreenOptions" );
     pGroup->ResetTransformation();
     pGroup->Translate( 0, -30 );
     #endif
-//#endif // !RAD_PS2
 
     // get cheats page, if included
     //
@@ -274,9 +268,6 @@ void CGuiScreenOptions::HandleMessage
         {
             if( param2 == CGuiMenuPrompt::RESPONSE_YES )
             {
-#ifdef RAD_PS2
-                PS2Platform::GetInstance()->SetProgressiveMode( true );
-#endif
                 rTunePrintf( "Current display mode confirmed: PROGRESSIVE.\n" );
             }
             else
@@ -323,12 +314,6 @@ void CGuiScreenOptions::HandleMessage
                         // display confirmation prompt
                         //
                         m_guiManager->DisplayPrompt( PROMPT_DISPLAY_PROGRESSIVE_SCAN_PS2, this );
-                    }
-                    else // interlaced mode
-                    {
-#ifdef RAD_PS2
-                        PS2Platform::GetInstance()->SetProgressiveMode( false );
-#endif
                     }
                 }
 
@@ -469,13 +454,6 @@ void CGuiScreenOptions::InitIntro()
     {
         this->SetButtonVisible( BUTTON_ICON_ACCEPT, false );
     }
-
-#ifdef RAD_PS2
-    // update current display mode
-    //
-    m_pMenu->SetSelectionValue( MENU_ITEM_DISPLAY_MODE,
-                                PS2Platform::GetInstance()->GetProgressiveMode() ? 1 : 0 );
-#endif
 }
 
 
@@ -588,10 +566,6 @@ CGuiScreenOptions::ProgressiveModeTestBegin()
     m_elapsedProgressiveModeTestTime = 0;
 
     rTunePrintf( "Testing progressive scan display ... ...\n" );
-
-#ifdef RAD_PS2
-    PS2Platform::GetInstance()->SetProgressiveMode( true );
-#endif
 }
 
 void
@@ -601,9 +575,5 @@ CGuiScreenOptions::OnProgressiveModeTestEnd()
     m_elapsedProgressiveModeTestTime = -1;
 
     rTunePrintf( "Progressive scan test completed.\n" );
-
-#ifdef RAD_PS2
-    PS2Platform::GetInstance()->SetProgressiveMode( false );
-#endif
 }
 
