@@ -16,7 +16,7 @@
 //========================================
 // Nested Includes
 //========================================
-#include "platform.h" // base class
+#include <main/platform.h> // base class
 #include <SDL2/SDL.h>
 
 //========================================

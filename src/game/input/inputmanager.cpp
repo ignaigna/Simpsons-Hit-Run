@@ -22,7 +22,7 @@
 // Project Includes
 //========================================
 #include <input/inputmanager.h>
-#if defined(RAD_WIN32)
+#ifdef RAD_WIN32
 #include <input/usercontrollerWin32.h>
 #else
 #include <input/usercontroller.h>

@@ -329,7 +329,7 @@ CGuiScreenSplash::StartDemoInRuntime()
 void
 CGuiScreenSplash::StartDemoAsMovie()
 {
-#ifndef RAD_WIN32
+#if !defined(RAD_WIN32) && !defined(RAD_UWP)
     // Play demo movie.
     //
     rAssert( m_guiManager );

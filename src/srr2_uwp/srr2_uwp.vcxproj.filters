@@ -426,9 +426,6 @@
     <ClCompile Include="..\game\camera\kullcam.cpp">
       <Filter>Source Files\camera</Filter>
     </ClCompile>
-    <ClCompile Include="..\game\camera\pccam.cpp">
-      <Filter>Source Files\camera</Filter>
-    </ClCompile>
     <ClCompile Include="..\game\camera\railcam.cpp">
       <Filter>Source Files\camera</Filter>
     </ClCompile>
@@ -622,9 +619,6 @@
       <Filter>Source Files\input</Filter>
     </ClCompile>
     <ClCompile Include="..\game\input\rumblewin32.cpp">
-      <Filter>Source Files\input</Filter>
-    </ClCompile>
-    <ClCompile Include="..\game\input\SteeringWheel.cpp">
       <Filter>Source Files\input</Filter>
     </ClCompile>
     <ClCompile Include="..\game\interiors\interiormanager.cpp">
@@ -2027,9 +2021,6 @@
     <ClInclude Include="..\game\camera\kullcam.h">
       <Filter>Source Files\camera</Filter>
     </ClInclude>
-    <ClInclude Include="..\game\camera\pccam.h">
-      <Filter>Source Files\camera</Filter>
-    </ClInclude>
     <ClInclude Include="..\game\camera\railcam.h">
       <Filter>Source Files\camera</Filter>
     </ClInclude>
@@ -2301,9 +2292,6 @@
       <Filter>Source Files\input</Filter>
     </ClInclude>
     <ClInclude Include="..\game\input\rumbleeffect.h">
-      <Filter>Source Files\input</Filter>
-    </ClInclude>
-    <ClInclude Include="..\game\input\SteeringWheel.h">
       <Filter>Source Files\input</Filter>
     </ClInclude>
     <ClInclude Include="..\game\interiors\interiormanager.h">

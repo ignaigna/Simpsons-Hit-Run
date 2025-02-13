@@ -4,7 +4,11 @@
 #include <p3d/camera.hpp>
 
 #include <input/inputmanager.h>
-#include <input/usercontrollerwin32.h>
+#ifdef RAD_WIN32
+#include <input/usercontrollerWin32.h>
+#else
+#include <input/usercontroller.h>
+#endif
 
 //
 // Temp

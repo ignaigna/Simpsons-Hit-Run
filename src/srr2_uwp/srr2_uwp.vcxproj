@@ -222,7 +222,6 @@
     <ClCompile Include="..\game\camera\firstpersoncam.cpp" />
     <ClCompile Include="..\game\camera\followcam.cpp" />
     <ClCompile Include="..\game\camera\kullcam.cpp" />
-    <ClCompile Include="..\game\camera\pccam.cpp" />
     <ClCompile Include="..\game\camera\railcam.cpp" />
     <ClCompile Include="..\game\camera\relativeanimatedcam.cpp" />
     <ClCompile Include="..\game\camera\reversecam.cpp" />
@@ -288,7 +287,6 @@
     <ClCompile Include="..\game\input\RealController.cpp" />
     <ClCompile Include="..\game\input\rumbleeffect.cpp" />
     <ClCompile Include="..\game\input\rumblewin32.cpp" />
-    <ClCompile Include="..\game\input\SteeringWheel.cpp" />
     <ClCompile Include="..\game\input\usercontroller.cpp" />
     <ClCompile Include="..\game\interiors\interiormanager.cpp" />
     <ClCompile Include="..\game\loading\cameradataloader.cpp" />
@@ -760,7 +758,6 @@
     <ClInclude Include="..\game\camera\icamerashaker.h" />
     <ClInclude Include="..\game\camera\isupercamtarget.h" />
     <ClInclude Include="..\game\camera\kullcam.h" />
-    <ClInclude Include="..\game\camera\pccam.h" />
     <ClInclude Include="..\game\camera\railcam.h" />
     <ClInclude Include="..\game\camera\relativeanimatedcam.h" />
     <ClInclude Include="..\game\camera\reversecam.h" />
@@ -852,7 +849,6 @@
     <ClInclude Include="..\game\input\MouseCursor.h" />
     <ClInclude Include="..\game\input\RealController.h" />
     <ClInclude Include="..\game\input\rumbleeffect.h" />
-    <ClInclude Include="..\game\input\SteeringWheel.h" />
     <ClInclude Include="..\game\input\usercontroller.h" />
     <ClInclude Include="..\game\input\wheeldefines.h" />
     <ClInclude Include="..\game\interiors\interiormanager.h" />
