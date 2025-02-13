@@ -86,8 +86,9 @@ static DWORD WINAPI rAssertThreadProc(LPVOID lpParameter)
 #ifdef RAD_WIN32
     return MessageBox( NULL, (char*)lpParameter, "Internal Error", MB_ABORTRETRYIGNORE | MB_ICONEXCLAMATION | MB_SETFOREGROUND | MB_TASKMODAL);
 #else
-    __debugbreak(); // TODO(3UR): UWP popup or something?
+    //__debugbreak(); // TODO(3UR): UWP popup or something? - i am so tired of the break here it is annoying when getting loads of assert lets just leave it to the debug logging
 #endif
+    return 0;
 }
 
 //=============================================================================

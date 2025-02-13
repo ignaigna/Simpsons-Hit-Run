@@ -133,7 +133,7 @@ class radPlatform : public IRadPlatform
         m_Initialized = false;
     }
 
-    #if defined(RAD_WIN32) || defined(RAD_UWP)
+    #if defined(RAD_WIN32)
 	virtual HWND GetMainWindowHandle( void )
     {   
         rWarningMsg( m_wmInfo.subsystem == SDL_SYSWM_WINDOWS, "WM info doesn't match the windows subsystem." );

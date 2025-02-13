@@ -97,8 +97,10 @@ void rDebugSetOutputHandler     ( radDebugOutputHandler * pOutputProc );
 // in release.
 //
 
-#if defined (RAD_WIN32) || defined (RAD_UWP)
+#if defined (RAD_WIN32)
 	#define rReleaseBreak() { __debugbreak(); }
+#else
+    #define rReleaseBreak() { }
 #endif
 
 //#define rReleaseString( x )( rDebugString_Implementation( x ) )

@@ -1353,6 +1353,19 @@
     <Image Include="Assets\StoreLogo.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
-  <ImportGroup Label="ExtensionTargets">
+    <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
+  <!-- Mesa and SDL deps -->
+  <ItemGroup>
+    <Content Include="$(SolutionDir)/third_party/bin/*.dll">
+      <Link>%(Filename)%(Extension)</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <!-- Redist provided by ms / required by mesa gallium -->
+  <ItemGroup>
+    <Content Include="C:\Program Files (x86)\Windows Kits\10\Redist\D3D\x64\dxil.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
 </Project>
