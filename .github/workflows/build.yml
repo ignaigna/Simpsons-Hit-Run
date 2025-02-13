@@ -1,6 +1,8 @@
 # pretty much all copied from game-engine
 name: Build SRR2
 
+# TODO: 3ur uwp somehow asset stuff too but we cant get them on the repo rn 
+
 on:
   workflow_dispatch:
     inputs:
@@ -10,9 +12,12 @@ on:
         default: 'Release'
         type: choice
         options:
-          - Debug
-          - Release
-          - Tune
+          - DebugWindows
+          - ReleaseWindows
+          - TuneWindows
+          - DebugUwp
+          - ReleaseUwp
+          - TuneUwp
       platform:
         description: 'Build platform'
         required: true
@@ -23,13 +28,6 @@ on:
           - x64
       create_release:
         description: 'Should a release be created?'
-        required: false
-        default: false
-        type: boolean
-      # TODO(3ur): if true add UWP to version string & build src/srr2_uwp not src/srr2
-      # maybe version can be SRR2 or SRR2_UWP dynamically
-      uwp_build:
-        description: 'Is this a UWP build?'
         required: false
         default: false
         type: boolean

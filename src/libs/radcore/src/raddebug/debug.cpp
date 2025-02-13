@@ -67,7 +67,8 @@ int rDebugSnPrintf( char *buffer, size_t count, const char *format ... )
 	return retval;
 }
 
-#ifdef WIN32
+#if defined(RAD_WIN32) || defined(RAD_UWP)
+
 //=============================================================================
 // Function:    rAssertThreadProc
 //=============================================================================
@@ -82,7 +83,11 @@ int rDebugSnPrintf( char *buffer, size_t count, const char *format ... )
 //------------------------------------------------------------------------------
 static DWORD WINAPI rAssertThreadProc(LPVOID lpParameter)
 {
+#ifdef RAD_WIN32
     return MessageBox( NULL, (char*)lpParameter, "Internal Error", MB_ABORTRETRYIGNORE | MB_ICONEXCLAMATION | MB_SETFOREGROUND | MB_TASKMODAL);
+#else
+    __debugbreak(); // TODO(3UR): UWP popup or something?
+#endif
 }
 
 //=============================================================================
@@ -186,7 +191,7 @@ bool rDebugAssertFail_Implementation
     //
     // Windows implementation display message box
     //
-#ifdef WIN32
+#if defined(RAD_WIN32)
     {
         int retval = rErrorMessageBox(text);
 
@@ -203,7 +208,7 @@ bool rDebugAssertFail_Implementation
     }
 #else
 	return true;
-#endif // WIN32
+#endif // RAD_WIN32
 }
 
 //=============================================================================
@@ -285,7 +290,7 @@ void rDebugValidFail_Implementation
     //
     // Display message box and check for response
     //
-    #ifdef WIN32
+    #if defined(RAD_WIN32)
     {
         int retval = rErrorMessageBox(text);
 
@@ -302,7 +307,7 @@ void rDebugValidFail_Implementation
          // (retval == IDIGNORE) continues.
         }
     }
-    #endif // WIN32
+    #endif // RAD_WIN32
 }
 
 //=============================================================================
@@ -352,7 +357,7 @@ void rDebuggerString_Implementation( const char* string )
         return;
     }
 
-   #if defined( WIN32 ) || defined( RAD_UWP )
+   #if defined( RAD_WIN32 ) || defined( RAD_UWP )
     {
  
         //

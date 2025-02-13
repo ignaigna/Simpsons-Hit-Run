@@ -590,7 +590,7 @@
       <AdditionalIncludeDirectories>.\include;..\pure3d;..\radmath;..\radcore\include;..\radcontent\include;..\..\game;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>NDEBUG;RAD_TUNE;WIN64;_LIB;RAD_UWP;RAD_CONSOLE;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
-      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <PrecompiledHeaderOutputFile>.\obj\$(Configuration)\$(Platform)\poser.pch</PrecompiledHeaderOutputFile>

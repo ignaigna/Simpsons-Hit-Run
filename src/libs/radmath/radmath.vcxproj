@@ -470,7 +470,7 @@
       <AdditionalIncludeDirectories>.\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_LIB;RAD_TUNE;NDEBUG;WIN64;RAD_UWP;RAD_CONSOLE;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
-      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <PrecompiledHeaderOutputFile>.\obj\$(Configuration)\$(Platform)\radmath.pch</PrecompiledHeaderOutputFile>
       <AssemblerListingLocation>.\obj\$(Configuration)\$(Platform)\asm\

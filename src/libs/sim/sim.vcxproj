@@ -474,7 +474,7 @@
       <AdditionalIncludeDirectories>.\;..\pure3d;..\radmath;..\radcontent\include;..\poser\include;..\radcore\include;..\..\game;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>NDEBUG;_LIB;WIN64;PNG_USER_MEM_SUPPORTED;RAD_TUNE;RAD_UWP;RAD_CONSOLE;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
-      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <PrecompiledHeaderOutputFile>.\obj\$(Configuration)\$(Platform)\sim.pch</PrecompiledHeaderOutputFile>
