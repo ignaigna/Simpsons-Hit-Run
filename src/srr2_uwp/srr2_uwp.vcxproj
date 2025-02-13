@@ -133,7 +133,7 @@
       <ForcedIncludeFiles>pchsrr2.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
     </ClCompile>
     <Link>
-      <OutputFile>$(OutDir)SRR2.exe</OutputFile>
+      <OutputFile>$(OutDir)$(ProjectName).exe</OutputFile>
       <AdditionalDependencies>odbc32.lib;odbccp32.lib;dsound.lib;dxguid.lib;winmm.lib;dinput8.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <GenerateMapFile>true</GenerateMapFile>
