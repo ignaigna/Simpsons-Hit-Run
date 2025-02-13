@@ -18,10 +18,8 @@
 /// Do checking on AddRef's and Releases on objects to make sure they are valid
 #ifdef RAD_DEBUG
 #ifndef TOOLS
-#ifndef RAD_PS2  // SIMPSONS: PS2 debug is already stinky slow, this isn't helping
 //#define RADLOAD_HEAP_DEBUGGING
 //#define RADLOAD_HEAP_DEBUGGING_PARANOID
-#endif
 #endif
 #endif
 

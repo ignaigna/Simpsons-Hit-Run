@@ -41,11 +41,6 @@ struct IRadControllerOutputPoint;
 struct IRadController;
 struct IRadControllerConnectionChangeCallback;
 
-#ifdef RAD_PS2
-struct lgDevForceEffect;
-typedef struct lgDevForceEffect LGForceEffect;
-#endif
-
 #ifdef RAD_WIN32
 struct DIEFFECT;
 #endif
@@ -108,7 +103,6 @@ struct IRadControllerSystem
     // If there is no controller connected at the requested location
     // during time of request, NULL is returned through ppIController2.
     //
-    // Ps2 : "Port0\Slot0"  --> "Port1\Slot3"
     // XBox :"Port0\Slot0"  --> "Port3\Slot2"
     // PC  : "Joystick0"    --> "Joystick[n]" | "Mouse0" | "Keyboard0"
     //
@@ -341,17 +335,6 @@ struct IRadControllerOutputPoint
     // 0.0 or 1.0.
     //
     virtual void SetGain( float value ) = 0;
-
-    //
-    // Force feedback effects for ps2 and gc
-    //
-#if defined(RAD_PS2)
-    virtual const LGForceEffect* GetEffect() const { return NULL; };
-    virtual void UpdateEffect( const LGForceEffect* effect ) {};
-    virtual void Start() {};
-    virtual void Stop() {};
-    virtual void Update( unsigned int device ) {};
-#endif
 
     //
     // Force feedback effects for win32

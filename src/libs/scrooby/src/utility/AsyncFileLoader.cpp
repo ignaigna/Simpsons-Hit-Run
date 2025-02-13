@@ -18,12 +18,8 @@
 #include <raddebug.hpp>
 #include <string.h>
 
-#ifdef P3D_PS2
-    #include <malloc.h>
-#endif
-
 // needed to get access to the getcwd command
-#ifdef _WINDOWS
+#if defined(RAD_WIN32) || defined(RAD_UWP)
     #include <direct.h>
 #endif
 
@@ -37,12 +33,8 @@ bool AsyncFileLoader::g_UseBackSlashes = true;
 //
 // This is the name of a drive we are using
 //
-#if defined( _XBOX ) 
-const char MyDrive[ ] = "D:";               //xbox
-#elif defined( WIN32 )
+#if defined(RAD_WIN32) || defined(RAD_UWP)
 static char MyDrive[ ] = "C:";               //windows
-#elif defined( PS2EE )
-const char MyDrive[ ] = "HOSTDRIVE:";       //ps2
 #endif
 
 //===========================================================================
@@ -211,13 +203,11 @@ void AsyncFileLoader::LoadFile
         }
     #endif
 
-    //although this code segment checks if filenames are valid on the ps2, 
-    //we run the check even on the PC build.  XBOX checks will be coming
-    bool filenameValid = AsyncFileLoader::ValidFilenamePS2( filename );
+    bool filenameValid = AsyncFileLoader::ValidFilename( filename );
     if( filenameValid == false )
     {
         char message[ 256 ] = "";
-        sprintf( message, "NON 8.3 file on PS2 \"%s\"", filename );
+        sprintf( message, "NON 8.3 file on Device \"%s\"", filename );
         Scrooby::ScroobyWarning( 1, message );
     }
 
@@ -435,7 +425,7 @@ void AsyncFileLoader::Release( void )
 // Return:      Nothing
 //
 //===========================================================================
-bool AsyncFileLoader::ValidFilenamePS2( const char* filename )
+bool AsyncFileLoader::ValidFilename( const char* filename )
 {
     //directory size =    11
     //filename size =    8

@@ -29,8 +29,8 @@
 // Build Configuration Check
 //=============================================================================
 
-#if !defined(RAD_PS2) && !defined(RAD_XBOX) && !defined(RAD_WIN32)
-    #error 'FTech requires definition of RAD_PS2, RAD_XBOX, or RAD_WIN32'
+#if !defined(RAD_UWP) && !defined(RAD_WIN32)
+    #error 'FTech requires definition of RAD_UWP or RAD_WIN32'
 #endif
 
 //=============================================================================
@@ -63,15 +63,9 @@ const unsigned short radDbgComMaxProtocol = 0xEFFF;
 //
 enum radDbgComType
 {
-  #if defined (RAD_WIN32) || defined (RAD_XBOX)
+  #if defined (RAD_WIN32) || defined (RAD_UWP)
     WinSocket,                          // Sockets
     FileSockets                         // Socket emulation using files (obsolete)
-  #endif
-  #ifdef RAD_PS2      
-    Deci,                               // Use Deci for communication
-    UsbTcpIp,                           // Use TcpIp via USB
-    FileSockets,                        // Socket emulation using files (obsolete)
-    FireWire                            // Socket emulation using 1394 Firewire
   #endif
 };
 
@@ -112,7 +106,7 @@ struct IRadDbgComChannelReceiveCallback;
 // the second function to obtain a communincaiton channel for communication with
 // the 
 //
-#if defined (RAD_WIN32) || defined (RAD_XBOX)
+#if defined (RAD_WIN32) || defined (RAD_UWP)
 
 void radDbgComHostGetTargetTable( IRadDbgComTargetTable** pIRadDbgComTargetTable );
 void radDbgComHostCreateChannel( const radDbgComTargetName pName, unsigned short protocol, 

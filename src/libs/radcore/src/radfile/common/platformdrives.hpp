@@ -31,28 +31,11 @@ class radDrive;
 // Typedefs
 //=============================================================================
 
-#if defined( RAD_WIN32 ) || defined( RAD_XBOX )
+#if defined( RAD_WIN32 ) || defined( RAD_UWP )
 #include <fstream>
 #include <filesystem>
 typedef std::fstream* radFileHandle;
 typedef std::filesystem::directory_iterator radFileDirHandle;
-#endif
-
-#ifdef RAD_PS2
-typedef unsigned int radFileHandle;
-
-//
-// When we have thread safe allocation, make this dynamic, since it's a lot of
-// stuff to just carry around when you don't use it.
-//
-#define RAD_PS2_SPEC_LEN    31 // length of wildcard part of search spec
-struct radFileDirHandle
-{
-    char m_pSpec[ RAD_PS2_SPEC_LEN + 1 ]; // search spec
-    unsigned int m_Lsn;                   // lsn and offset are the location of current one
-    unsigned int m_Offset;
-    unsigned int m_RemSect;               // number of entries left to search
-};
 #endif
 
 //=============================================================================

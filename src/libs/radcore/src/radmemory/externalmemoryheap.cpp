@@ -29,10 +29,6 @@
 #include "externalmemoryobject.hpp"
 #include "externalmemoryheap.hpp"
 
-#if defined RAD_PS2 && ! defined RAD_MW
-            extern "C" double fptodp( float );
-#endif
-
 //=============================================================================
 // Function:    radMemoryExternalHeapCreate
 //=============================================================================
@@ -396,41 +392,15 @@ void ExternalMemoryHeap::Map( void )
     ExternalMemoryObject * pSearch = m_pEmo_First;
 
     rDebugPrintf( "External Dump:\n" );
-
-    //
-    // all those #ifdef are there for get ride off "software math library call" warning in PS2 
-    //
-#if defined RAD_PS2 && ! defined RAD_MW
-    rDebugPrintf( "    Size: Space:[%d]Size:[0x%x]B[%d]B[%.2f]K[%.2f]Meg\n",
-            m_RadMemorySpace,
-            m_HeapSize,
-            m_HeapSize,
-            fptodp( (float) m_HeapSize / 1024.0f ),
-            fptodp( (float) m_HeapSize / ( 1024.0f * 1024.0f ) ) );
-#else
     rDebugPrintf( "    Size: Space:[%d]Size:[0x%x]B[%d]B[%.2f]K[%.2f]Meg\n",
             m_RadMemorySpace,
             m_HeapSize,
             m_HeapSize,
             (float) m_HeapSize / 1024.0f,
             (float) m_HeapSize / ( 1024.0f * 1024.0f ) );
-#endif
-
     
     while( pSearch )
     {
-    //
-    // all those #ifdef are there for get ride off "software math library call" warning in PS2 
-    //
-#if defined RAD_PS2 && ! defined RAD_MW
-        rDebugPrintf( "    [%s][%20s]Addr:[0x%6x]Size:[0x%6x]B[%6d]B[%6.2f]K[%6.2f]M\n",
-            pSearch->m_ReferenceCount == 0 ? "-" : "*",
-            pSearch->GetName( ),
-            pSearch->m_Address, pSearch->m_Size,
-            pSearch->m_Size,
-            fptodp( (float) pSearch->m_Size / 1024.0f ),
-            fptodp( (float) pSearch->m_Size / ( 1024.0f * 1024.0f ) ) );
-#else
         rDebugPrintf( "    [%s][%20s]Addr:[0x%6x]Size:[0x%6x]B[%6d]B[%6.2f]K[%6.2f]M\n",
             pSearch->m_ReferenceCount == 0 ? "-" : "*",
             pSearch->GetName( ),
@@ -438,7 +408,6 @@ void ExternalMemoryHeap::Map( void )
             pSearch->m_Size,
             (float) pSearch->m_Size / 1024.0f,
             (float) pSearch->m_Size / ( 1024.0f * 1024.0f ) );
-#endif
         pSearch = pSearch->m_pEmo_Next;
     }
 }
@@ -583,28 +552,6 @@ ExternalMemoryObject * ExternalMemoryHeap::Allocate
 
             rDebugPrintf( "\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n" );
 
-#if defined RAD_PS2 && ! defined RAD_MW
-            
-            rDebugPrintf( "Out of memory or external nodes allocating: [%s][0x%x]B[%d]B[%.2f]K[%.2f]M\n",
-                radMemoryGetAllocationName( ),
-                size,
-                size,
-                fptodp( (float) size / 1024.0f ),
-                fptodp( ( (float) size / ( 1024.0f * 1024.0f ) ) ) );
-
-            rDebugPrintf( "    totalFreeMemory:         [0x%x]B[%d]B[%.2f]K[%.2f]M\n",
-                totalFreeMemory,
-                totalFreeMemory,
-                fptodp( (float) totalFreeMemory / 1024.0f ),
-                fptodp( (float) totalFreeMemory / ( 1024.0f * 1024.0f ) ) );
-
-            rDebugPrintf( "    largestBlock:      [0x%x]B[%d]B[%.2f]K[%.2f]M\n",
-                largestBlock,
-                largestBlock,
-                fptodp( (float) largestBlock / 1024.0f ),
-                fptodp( (float) largestBlock / ( 1024.0f * 1024.0f ) ) );
-
-#else
             rDebugPrintf( "Out of memory or external nodes allocating: [%s][0x%x]B[%d]B[%.2f]K[%.2f]M\n",
                 radMemoryGetAllocationName( ),
                 size,
@@ -623,7 +570,6 @@ ExternalMemoryObject * ExternalMemoryHeap::Allocate
                 largestBlock,
                 (float) largestBlock / 1024.0f,
                 (float) largestBlock / ( 1024.0f * 1024.0f ) );
-#endif
 
             rDebugPrintf( "    numberOfObjects (allocated): [%d]\n", numberOfObjects );
 

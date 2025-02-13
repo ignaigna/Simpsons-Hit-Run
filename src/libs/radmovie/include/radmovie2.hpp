@@ -9,9 +9,7 @@
 //
 // Subsystem:   Foundation Technologies - Movie Player Services
 //
-// Description: <!NEW INTERFACE.  PS2 ONLY!!! OTHER PLATFORMS PENDING!>
-//
-//              This file contains all definitions and interfaces required to
+// Description: This file contains all definitions and interfaces required to
 //              interact with the Foundation Technologies Movie Player Services.
 //
 //              The new movieplayer handles decoding of compressed video data

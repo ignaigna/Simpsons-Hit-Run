@@ -424,7 +424,7 @@ void FePure3dObject::Render()
     bool oldZBufferEnabled = p3d::pddi->IsZBufferEnabled();
     p3d::pddi->EnableZBuffer( m_zbufferEnabled );
 
-#ifdef RAD_XBOX
+#ifdef RAD_UWP
     // save cull mode setting
     //
     pddiCullMode oldCullMode = p3d::pddi->GetCullMode();
@@ -513,7 +513,7 @@ void FePure3dObject::Render()
 
     p3d::stack->Pop();
 
-#ifdef RAD_XBOX
+#ifdef RAD_UWP
 	// restore cull mode
     //
     p3d::pddi->SetCullMode( oldCullMode );

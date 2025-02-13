@@ -21,16 +21,6 @@
 #ifndef RADOPTIONS_HPP
 #define RADOPTIONS_HPP
 
-#ifdef RAD_PS2
-
-	// This represents the name of the currently supported IOP img file,
-	// this define will change as our company migrates to new sony
-	// libraries.
-
-	#define RADPLATFORM_IOP_IMG_FILENAME "ioprp254.img"
-
-#endif // RAD_PS2
-
 #if defined RAD_DEBUG || defined RAD_TUNE
 
     // Enable Debug Communication
@@ -76,7 +66,7 @@
     #define RADMEMORY_EXTERNAL_HEAP_TRACK_NAMES
 #endif
 
-#if ( defined RAD_WIN32 || defined RAD_XBOX ) && ( defined RAD_DEBUG || defined RAD_TUNE )
+#if ( defined RAD_WIN32 || defined RAD_UWP ) && ( defined RAD_DEBUG || defined RAD_TUNE )
     #define MALLOC_DEBUG // use debug heap
 #endif
 

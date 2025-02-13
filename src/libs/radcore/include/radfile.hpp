@@ -160,7 +160,7 @@ struct radMemcardInfo
 // one time. Used to preallocate internal data structures to prevent memory fragmentation.
 // The maximum number of files objects that can be constructed at any one time is also
 // specified here. There is no inhererent limitation of the file system as to the number
-// of open files. However some operating systems, like the PS2 limit the number of 
+// of open files. However some operating systems limit the number of 
 // open files. If this limit is exceeded, the file system asserts and displays all open files.
 //
 void radFileInitialize( unsigned int maxOutstandingRequests = 50, 
@@ -593,7 +593,7 @@ struct IRadDrive : public IRefCount
         unsigned int  m_FreeFiles;              // Free files
         unsigned int  m_SectorSize;             // Sector size for read/write alignments
         char          m_VolumeName[ 64 + 1];    // Volume name of media
-                                                // needs to be at least 64 + 1 for ps2 cd
+                                                // needs to be at least 64 + 1
     };
 
     struct DirectoryInfo

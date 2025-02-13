@@ -309,18 +309,7 @@ void* StaticHeap::GetMemory ( unsigned int size )
 //
 //=============================================================================
 void* StaticHeap::GetMemoryAligned( unsigned int size, unsigned int align )
-{
-    //
-    // it's trouble if we let the MFIFO get allocated out of this type of heap, 
-    // and the heap wasn't already aligned properly
-    //
-    #if ( defined RAD_PS2 )
-    if( align > 1024 * 16 )
-    {
-        return radMemoryPlatAllocAligned( size, align );
-    }
-    #endif
-        
+{  
     static unsigned int biggestEverAlignment = align;
     if( align > biggestEverAlignment )
     {

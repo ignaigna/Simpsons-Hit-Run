@@ -540,7 +540,7 @@ int radThread::InternalThreadEntry( void* param )
     //
     // Under windows, convert this thread to a fiber.
     //
-#if defined(RAD_WIN32) || defined(RAD_XBOX)
+#if defined(RAD_WIN32) || defined(RAD_UWP)
     //pThread->m_Fiber.m_Win32Fiber = ConvertThreadToFiber( NULL );
 #endif
 
@@ -1203,7 +1203,7 @@ radThreadFiber::radThreadFiber
     radMemoryMonitorIdentifyAllocation( this, g_nameFTech, "radThreadFiber" );
     rAssert( stackSize != 0 );   
 
-#if defined(RAD_WIN32) || defined(RAD_XBOX)
+#if defined(RAD_WIN32) || defined(RAD_UWP)
 
     m_Win32Fiber = CreateFiber( stackSize, FiberEntry, this );
 
@@ -1232,7 +1232,7 @@ radThreadFiber::~radThreadFiber( void )
     //
     if( m_StackSize != 0 )
     {
-#if defined(RAD_WIN32) || defined(RAD_XBOX)
+#if defined(RAD_WIN32) || defined(RAD_UWP)
         //
         // Under windows, delete the fiber.
         //
@@ -1264,7 +1264,7 @@ void radThreadFiber::SwitchTo( void )
     //
     // Perform OS specific switch.
     //
-#if defined(RAD_WIN32) || defined(RAD_XBOX)
+#if defined(RAD_WIN32) || defined(RAD_UWP)
     
     // 
     // Set this fiber as the calling threads active fiber and switch,

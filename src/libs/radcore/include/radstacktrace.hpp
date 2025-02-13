@@ -21,22 +21,6 @@ extern "C" void radStackTraceGet( uintptr_t * results, int numResults );
 
 
 //=============================================================================
-// ::radStackTracePs2Get
-//=============================================================================
-
-//
-// This stack trace function allows the caller to specify the stack pointer and
-// return address of another context
-//
-
-#ifdef RAD_PS2
-
-extern "C" void radStackTracePs2Get( uintptr_t * results, 
-    int numResults, const void * stackPointer, const void * returnAddress );
-
-#endif  // RAD_PS2
-
-//=============================================================================
 // ::radStackTraceWin32Get
 //=============================================================================
 
@@ -45,11 +29,11 @@ extern "C" void radStackTracePs2Get( uintptr_t * results,
 // of another context
 //
 
-#if defined RAD_WIN32 || RAD_XBOX
+#if defined RAD_WIN32 || RAD_UWP
 
 extern "C" void radStackTraceWin32Get( uintptr_t * results, 
     int numResults, const void * basePointer );
 
-#endif // RAD_WIN32 || RAD_XBOX
+#endif // RAD_WIN32 || RAD_UWP
 
 #endif RADSTACKTRACE_HPP

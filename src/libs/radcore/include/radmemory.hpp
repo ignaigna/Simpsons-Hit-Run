@@ -254,7 +254,7 @@ struct IRadMemorySpaceCopyRequest;
 //
 // This enumeration is used to control memory-to-memory copy operations 
 // involving memory that is not addressable by the CPU running the program,
-// for example a RAD_PS2 program wanting to manipulate IOP memory. The enum
+// for example a program wanting to manipulate IOP memory. The enum
 // values can be used to identify source and destination memory types.
 //
 enum radMemorySpace

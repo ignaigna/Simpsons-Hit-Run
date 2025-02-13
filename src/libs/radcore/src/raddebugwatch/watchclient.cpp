@@ -788,7 +788,7 @@ void DebugWatchClient::AddEnumeration
     }
     
     //
-    // Make sure we keep things aligned to 4 bytes. Needed on the PS2
+    // Make sure we keep things aligned to 4 bytes.
     //
     if(( enumInfoLength & 0x03 ) != 0 )
     {
@@ -1311,7 +1311,7 @@ void DebugWatchClient::OnReceiveComplete
                             unsigned int length = strlen((const char*) pCommand->m_Address) + 1;
                             
                             //
-                            // Lets keep things align to 4 to prevent problems of ps2
+                            // Lets keep things align to 4
                             //
                             if(( length & 0x03 ) != 0 )
                             {

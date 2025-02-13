@@ -136,10 +136,7 @@ void radMemoryMonitorClient::InitiateTransmission( )
 
 void radMemoryMonitorClient::SendStackUsageData( radMemorySpace memSpace, uintptr_t uAddress )
 {
-#if defined RAD_PS2
-    rAssert( memSpace == radMemorySpace_Ee || memSpace == radMemorySpace_Iop || memSpace == radMemorySpace_Sound );
-#endif
-#if defined RAD_WIN32 || defined RAD_XBOX
+#if defined RAD_WIN32 || defined RAD_UWP
     rAssert( memSpace == radMemorySpace_Main );
 #endif
 
@@ -294,10 +291,7 @@ void radMemoryMonitorClient::SendMemoryBlock128Byte( radMemorySpace memorySpace,
 {
     rAssert( memLength <= 128 );
 
-#if defined RAD_PS2
-    rAssert( memorySpace == radMemorySpace_Ee || memorySpace == radMemorySpace_Iop || memorySpace == radMemorySpace_Sound );
-#endif
-#if defined RAD_WIN32 || defined RAD_XBOX
+#if defined RAD_WIN32 || defined RAD_UWP
     rAssert( memorySpace == radMemorySpace_Main );
 #endif
 
@@ -372,13 +366,7 @@ void radMemoryMonitorClient::SendMemoryBlock( radMemorySpace memorySpace, uintpt
 //------------------------------------------------------------------------------
 void radMemoryMonitorClient::SendObjectRefount( radMemorySpace memorySpace, void * pObjectPtr, unsigned int * pRefCount )
 {
-    //
-    // must be in main memory space or EE for PS2
-    //
-#ifdef RAD_PS2
-    rAssert( memorySpace == radMemorySpace_Ee );
-#endif
-#if defined RAD_WIN32 || defined RAD_XBOX
+#if defined RAD_WIN32 || defined RAD_UWP
     rAssert( memorySpace == radMemorySpace_Main );
 #endif
 
@@ -789,23 +777,7 @@ MM_ClientMemorySpace radMemoryMonitorClient::ConvertMemSpc2ClientMemSpc( radMemo
 {
 	switch( memorySpace )
 	{
-#if defined RAD_PS2
-		case radMemorySpace_Ee:
-		{
-			return MM_PS2_EE;
-		}
-		break;
-		case radMemorySpace_Iop:
-		{
-			return MM_PS2_IOP;
-		}
-		break;
-		case radMemorySpace_Sound:
-		{
-			return MM_PS2_SOUND;
-		}
-		break;
-#elif defined RAD_WIN32 || defined RAD_XBOX
+#if defined RAD_WIN32 || defined RAD_UWP
 		case radMemorySpace_Main:
 		{
 			return MM_WIN_MAIN;
@@ -825,23 +797,7 @@ radMemorySpace radMemoryMonitorClient::ConvertClientMemSpc2MemSpc( MM_ClientMemo
 {
 	switch( memorySpace )
 	{
-#if defined RAD_PS2
-		case MM_PS2_EE:
-		{
-			return radMemorySpace_Ee;
-		}
-		break;
-		case MM_PS2_IOP:
-		{
-			return radMemorySpace_Iop;
-		}
-		break;
-		case MM_PS2_SOUND:
-		{
-			return radMemorySpace_Sound;
-		}
-		break;
-#elif defined RAD_WIN32 || defined RAD_XBOX
+#if defined RAD_WIN32 || defined RAD_UWP
 		case MM_WIN_MAIN:
 		{
 			return radMemorySpace_Main;

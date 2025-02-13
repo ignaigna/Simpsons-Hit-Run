@@ -170,21 +170,10 @@ void FeDrawable::InverseNormalizeCoord( float x, float y, int& ix, int& iy ) con
 {    
     float yRes = FeApp::GetInstance()->GetScreenHeight();
     float xRes = FeApp::GetInstance()->GetScreenWidth();
-
-    // MIKE IMPROVE : does this still need to be here?
-    #ifdef RAD_PS2
-        float loc = (float )( y * yRes ) + 0.5f;
-        iy = static_cast< int >( loc * xRes / yRes );       //fix for the aspect ratio
-        ix = static_cast< int >( x * xRes + 0.5f );
-    #elif defined RAD_XBOX
-        float loc = (float )( y * yRes ) + 0.5f;
-        iy = static_cast< int >( loc * xRes / yRes );       //fix for the aspect ratio
-        ix = static_cast< int >( x * xRes + 0.5f );
-    #else
-        float loc = (float )( y * yRes ) - 0.0f;
-        iy = static_cast< int >( loc * xRes / yRes );       //fix for the aspect ratio
-        ix = static_cast< int >( x * xRes - 0.0f );
-    #endif
+    
+    float loc = (float )( y * yRes ) - 0.0f;
+    iy = static_cast< int >( loc * xRes / yRes );       //fix for the aspect ratio
+    ix = static_cast< int >( x * xRes - 0.0f );
 }
 
 bool FeDrawable::IsClip()
@@ -283,21 +272,9 @@ void FeDrawable::ModulateColour( tColour& colour, const tColour& modulator )
 void FeDrawable::NormalizeCoord(int ix, int iy, float &x, float &y) const
 {
     float height = FeApp::GetInstance()->GetScreenHeight();
-    float width = FeApp::GetInstance()->GetScreenWidth();
-
-    //fix bug where we're off by a pixel left and down
-
-    // MIKE IMPROVE : does this still need to be here?
-    #ifdef RAD_PS2
-        float loc = static_cast< float >( iy - 0.5f ) / height;    //IMPROVE: need for the -0.5 is a P3D bug
-        x = static_cast< float >( ix - 0.5 ) / width;
-    #elif defined(RAD_XBOX)
-        float loc = static_cast< float >( iy - 0.5f ) / height;
-        x = static_cast< float >( ix - 0.5f ) / width;
-    #else
-        float loc = static_cast< float >( iy - 0.0f ) / height;
-        x = static_cast< float >( ix - 0.0f ) / width;
-    #endif
+    float width = FeApp::GetInstance()->GetScreenWidth()
+    float loc = static_cast< float >( iy - 0.0f ) / height;
+    x = static_cast< float >( ix - 0.0f ) / width;
     y = loc * height / width;
 }
 

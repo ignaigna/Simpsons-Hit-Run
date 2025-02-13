@@ -27,11 +27,8 @@
 #include <radstring.hpp>
 #include <raddebug.hpp>
 
-#ifdef WIN32
+#if defined(RAD_WIN32) || defined(RAD_UWP)
 #include <windows.h>
-#endif
-#ifdef RAD_XBOX
-#include <xtl.h>
 #endif
 
 //=============================================================================
@@ -43,18 +40,13 @@
 //=============================================================================
 //
 // Description: This function wraps the non-standard compiler extension version
-//              PS2 version doesn't actually check the length!
 //
 //=============================================================================
 
 int rDebugVsnPrintf( char *buffer, size_t count, const char *format, va_list argptr )
 {
-    #if defined (RAD_XBOX)
-        return _vsnprintf( buffer, count, format, argptr );
-    #elif defined (RAD_WIN32)
+    #if defined(RAD_WIN32) || defined(RAD_UWP)
         return vsnprintf( buffer, count, format, argptr );
-    #elif defined (RAD_PS2)
-        return vsprintf( buffer, format, argptr );
     #endif
 }
 
@@ -63,7 +55,6 @@ int rDebugVsnPrintf( char *buffer, size_t count, const char *format, va_list arg
 //=============================================================================
 //
 // Description: This function wraps the non-standard compiler extension version
-//              PS2 version doesn't actually check the length!
 //
 //=============================================================================
 
@@ -361,7 +352,7 @@ void rDebuggerString_Implementation( const char* string )
         return;
     }
 
-   #if defined( WIN32 ) || defined( RAD_XBOX )
+   #if defined( WIN32 ) || defined( RAD_UWP )
     {
  
         //

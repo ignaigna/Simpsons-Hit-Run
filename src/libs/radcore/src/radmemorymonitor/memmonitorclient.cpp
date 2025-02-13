@@ -39,13 +39,6 @@
 //
 static radMemoryMonitorClient * s_TheMemoryMonitorClient = NULL;
 
-#if defined RAD_PS2
-unsigned int _heapstart = 0;
-unsigned int _heapend = 0;
-unsigned int _stackstart = 0;
-unsigned int _stackend = 0;
-#endif
-
 #ifdef RAD_MW
 //
 // Just add this to make Metrowerks compile, I don't care if the memory
@@ -522,17 +515,8 @@ void radMemoryMonitorClient::DeclarePlatform( )
 
     pPlatform->eventID  = radPlatformEndian32( m_uCurrEventID ); m_uCurrEventID ++;
     pPlatform->timeStamp = radPlatformEndian32( GetTimeFrame( ) );
-#if defined RAD_PS2
-	pPlatform->platform = static_cast< MM_ClientPlatform >( radPlatformEndian32( MM_Platform_PS2 ) );
-    pPlatform->userData = 0;
-#elif defined RAD_XBOX
-	pPlatform->platform = static_cast< MM_ClientPlatform >( radPlatformEndian32( MM_Platform_XBOX ) );
-    pPlatform->userData = ( unsigned int )( ( void * )&s_TheMemoryMonitorClient );
-#elif defined RAD_WIN32
-	pPlatform->platform = static_cast< MM_ClientPlatform >( radPlatformEndian32( MM_Platform_WIN ) );
-    pPlatform->userData = 0;
-#else
-	pPlatform->platform = static_cast< MM_ClientPlatform >( radPlatformEndian32( MM_Platform_Unknown ) );
+#if defined(RAD_WIN32) || defined(RAD_UWP)
+    pPlatform->platform = static_cast< MM_ClientPlatform >( radPlatformEndian32( MM_Platform_WIN ) );
     pPlatform->userData = 0;
 #endif
     InitiateTransmission( );
@@ -590,26 +574,7 @@ void radMemoryMonitorClient::DeclareMemSpaceInfo( )
         return;
     }
 
-#ifdef RAD_PS2
-    int nTest = 0;
-    if ( (unsigned int)( & nTest ) > 32 * 1024 * 1024 )
-    {
-        DeclareMemSpaceInfo( radMemorySpace_Ee, (unsigned int)&_codestart, 128 * 1024 * 1024 );
-    }
-    else
-    {
-        DeclareMemSpaceInfo( radMemorySpace_Ee, (unsigned int)&_codestart, 32 * 1024 * 1024 );
-    }
-
-    DeclareMemSpaceInfo( radMemorySpace_Sound, 0, 2 * 1024 * 1024 );
-    DeclareMemSpaceInfo( radMemorySpace_Iop, 0, 8 * 1024 * 1024 );
-
-#endif
-#ifdef RAD_WIN32
-    DeclareMemSpaceInfo( radMemorySpace_Main, 0x00000000, 0xffffffff );
-#endif
-
-#ifdef RAD_XBOX
+#if defined(RAD_WIN32) || defined(RAD_UWP)
     DeclareMemSpaceInfo( radMemorySpace_Main, 0x00000000, 0xffffffff );
 #endif
 }
@@ -634,51 +599,9 @@ void radMemoryMonitorClient::DeclarePreDefinedMemorySection( )
         return;
     }
 
-#ifdef RAD_PS2
-
-    //
-    // create a dummy variable on stack, and check where the dummy variable is located,
-    // if it is beyond 32MB range, then it is 128MB development system, other wise it
-    // it is 32MB test unit
-    //
-    int nTest;
-    if ( (unsigned int)( & nTest ) > 32 * 1024 * 1024 )
-    {
-        _stackend = _codestart + 128 * 1024 * 1024 - 1;
-    }
-    else
-    {
-        _stackend = _codestart + 32 * 1024 * 1024 - 1;
-    }
-
-    _stackstart = _stackend - (unsigned int)&_stack_size + 1;
-    _heapstart = (unsigned int)&_dataend + 1;
-    _heapend = _stackstart - 1;
-
-    DeclareSection( (void*)(unsigned int)&_codestart, (unsigned int)&_codeend - (unsigned int)&_codestart, MemorySectionType_Code, radMemorySpace_Ee, NULL );
-    IdentifySection( (void*)(unsigned int)&_codestart, ".CODE", radMemorySpace_Ee );
-
-    DeclareSection( (void*)(unsigned int)&_datastart, (unsigned int)&_dataend - (unsigned int)&_datastart, MemorySectionType_StaticData, radMemorySpace_Ee, NULL );
-    IdentifySection( (void*)(unsigned int)&_datastart, ".DATA", radMemorySpace_Ee );
-
-    DeclareSection( (void*)_heapstart, _heapend - _heapstart, MemorySectionType_DynamicData, radMemorySpace_Ee, NULL );
-    IdentifySection( (void*)_heapstart, ".HEAP", radMemorySpace_Ee );
-
-    DeclareSection( (void*)_stackstart, (unsigned int)&_stack_size, MemorySectionType_Stack, radMemorySpace_Ee, NULL );
-    IdentifySection( (void*)_stackstart, ".STACK", radMemorySpace_Ee );
-
-#endif
-#ifdef RAD_WIN32
+#if defined(RAD_WIN32) || defined(RAD_UWP)
 
     DeclareSection( (void*)(uintptr_t)0x00000000, 0xcfffffff, MemorySectionType_DynamicData, radMemorySpace_Main, NULL );
-
-    DeclareSection( (void*)(uintptr_t)0xd0000000, 0xffffffff - 0xd0000000, MemorySectionType_Stack, radMemorySpace_Main, NULL );
-
-#endif
-
-#ifdef RAD_XBOX
-
-    DeclareSection( (void*)(uintptr_t)0x00000000, (unsigned int)(radMemoryMonitorInitialize) + 192 * 1024 * 1024, MemorySectionType_DynamicData, radMemorySpace_Main, NULL );
 
     DeclareSection( (void*)(uintptr_t)0xd0000000, 0xffffffff - 0xd0000000, MemorySectionType_Stack, radMemorySpace_Main, NULL );
 
@@ -703,14 +626,6 @@ void radMemoryMonitorClient::DeclareSection( void* address, unsigned int size, M
 {
     radSingleLock< radMemoryMonitorClient > singleLock( this, true );
     rAssertMsg( m_eInitialized == MM_Initialized, "radMemoryMonitor not initialized." );
-
-#ifdef RAD_PS2
-    //
-    // for ps2, those bits are normally associated with un-cached accelerated
-    // memory access.
-    //
-    address = (void*)((unsigned int)(address) & ~0xF0000000);
-#endif
 
     if ( m_bOverRunReported == true )
     {
@@ -771,14 +686,6 @@ void radMemoryMonitorClient::RescindSection( void* address, radMemorySpace memor
     radSingleLock< radMemoryMonitorClient > singleLock( this, true );
     Service( );
 
-#ifdef RAD_PS2
-    //
-    // for ps2, those bits are normally associated with un-cached accelerated
-    // memory access.
-    //
-    address = (void*)((unsigned int)(address) & ~0xF0000000);
-#endif
-
     rAssertMsg( m_eInitialized == MM_Initialized, "radMemoryMonitor not initialized." );
 
     if ( m_bOverRunReported == true )
@@ -819,14 +726,6 @@ void radMemoryMonitorClient::IdentifySection( void* address, const char* name, r
 {
     radSingleLock< radMemoryMonitorClient > singleLock( this, true );
     Service( );
-
-#ifdef RAD_PS2
-    //
-    // for ps2, those bits are normally associated with un-cached accelerated
-    // memory access.
-    //
-    address = (void*)((unsigned int)(address) & ~0xF0000000);
-#endif
 
     rAssertMsg( m_eInitialized == MM_Initialized, "radMemoryMonitor not initialized." );
 
@@ -882,14 +781,6 @@ void radMemoryMonitorClient::DeclareAllocation( void* address, unsigned int size
     radSingleLock< radMemoryMonitorClient > singleLock( this, true );
     Service( );
     // rDebugPrintf( "Declare: [0x%x] Size: [0x%x] Space: [0x%x]\n", address, size, memorySpace );
-
-#ifdef RAD_PS2
-    //
-    // for ps2, those bits are normally associated with un-cached accelerated
-    // memory access.
-    //
-    address = (void*)((unsigned int)(address) & ~0xF0000000);
-#endif
 
     if ( address == NULL )
     {
@@ -954,13 +845,6 @@ void radMemoryMonitorClient::RescindAllocation( void* address, radMemorySpace me
     radSingleLock< radMemoryMonitorClient > singleLock( this, true );
     Service( );
 
-#ifdef RAD_PS2
-    //
-    // for ps2, those bits are normally associated with un-cached accelerated
-    // memory access.
-    //
-    address = (void*)((unsigned int)(address) & ~0xF0000000);
-#endif
     // rDebugPrintf( "Rescind: [0x%x] Space: [0x%x]\n", address, memorySpace );
 
     rAssertMsg( m_eInitialized == MM_Initialized, "radMemoryMonitor not initialized." );
@@ -1010,13 +894,6 @@ void radMemoryMonitorClient::IdentifyAllocation( void* address, const char * gro
     radSingleLock< radMemoryMonitorClient > singleLock( this, true );
     Service( );
 
-#ifdef RAD_PS2
-    //
-    // for ps2, those bits are normally associated with un-cached accelerated
-    // memory access.
-    //
-    address = (void*)((unsigned int)(address) & ~0xF0000000);
-#endif
     // rDebugPrintf( "Identify: [0x%x] Group: [%s] Name: [%s] Space: [0x%x]\n",
     //    address, group, name, memorySpace );
 
@@ -1128,14 +1005,6 @@ void radMemoryMonitorClient::ReportAddRef( void* pObject, void* pReference, radM
     radSingleLock< radMemoryMonitorClient > singleLock( this, true );
     Service( );
 
-#ifdef RAD_PS2
-    //
-    // for ps2, those bits are normally associated with un-cached accelerated
-    // memory access.
-    //
-    pObject = (void*)((unsigned int)(pObject) & ~0xF0000000);
-    pReference = (void*)((unsigned int)(pReference) & ~0xF0000000);
-#endif
     rAssertMsg( m_eInitialized == MM_Initialized, "radMemoryMonitor not initialized." );
 
 	//
@@ -1152,16 +1021,7 @@ void radMemoryMonitorClient::ReportAddRef( void* pObject, void* pReference, radM
     }
 
     unsigned int uObjectPtr = 0;
-    if ( pObject == NULL )
-    {
-#if defined RAD_PS2
-        uObjectPtr  = _stackstart;
-#endif
-#ifdef RAD_XBOX
-        uObjectPtr = 0xd0000000;
-#endif
-    }
-    else
+    if ( pObject != NULL )
     {
         uObjectPtr  = reinterpret_cast< uintptr_t >( pObject );
     }
@@ -1213,15 +1073,6 @@ void radMemoryMonitorClient::ReportRelease( void* pObject, void* pReference, rad
     radSingleLock< radMemoryMonitorClient > singleLock( this, true );
     Service( );
 
-#ifdef RAD_PS2
-    //
-    // for ps2, those bits are normally associated with un-cached accelerated
-    // memory access.
-    //
-    pObject = (void*)((unsigned int)(pObject) & ~0xF0000000);
-    pReference = (void*)((unsigned int)(pReference) & ~0xF0000000);
-#endif
-
     rAssertMsg( m_eInitialized == MM_Initialized, "radMemoryMonitor not initialized." );
 
 	//
@@ -1238,16 +1089,7 @@ void radMemoryMonitorClient::ReportRelease( void* pObject, void* pReference, rad
     }
 
     unsigned int uObjectPtr = 0;
-    if ( pObject == NULL )
-    {
-#if defined RAD_PS2
-        uObjectPtr  = _stackstart;
-#endif
-#ifdef RAD_XBOX
-        uObjectPtr = 0xd0000000;
-#endif
-    }
-    else
+    if ( pObject != NULL )
     {
         uObjectPtr  = reinterpret_cast< uintptr_t >( pObject );
     }

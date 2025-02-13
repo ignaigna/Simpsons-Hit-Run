@@ -49,7 +49,6 @@
 int rstricmp( const char* string1, const char* string2 )
 {
     //IMPROVE: if this is slow, then it can be swapped for the built in stricmp
-    //on the ps2, pc
     const char* index1 = string1;
     const char* index2 = string2;
 
@@ -98,7 +97,6 @@ int rstricmp( const char* string1, const char* string2 )
 int rstrincmp( const char *string1, const char *string2, int tCount)
 {
     //IMPROVE: if this is slow, then it can be swapped for the built in stricmp
-    //on the ps2, pc
     const char* index1 = string1;
     const char* index2 = string2;
 

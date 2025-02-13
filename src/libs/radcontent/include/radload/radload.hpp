@@ -177,7 +177,7 @@ struct radLoadInit
     int dataLoaderListSize; //@}
     /// Max number of pending load requests.
     int loadQueueSize;
-    /// Sets the stack size that the load thread will have.  Only important for PS2
+    /// Sets the stack size that the load thread will have.
     int loadThreadStackSize;
 };
 

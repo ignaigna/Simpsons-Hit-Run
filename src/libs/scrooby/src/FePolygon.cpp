@@ -47,12 +47,6 @@ FePolygon::FePolygon( const tName& name ) : FeDrawable( name )
     mShader->AddRef();
     mShader->SetInt( PDDI_SP_BLENDMODE, PDDI_BLEND_ALPHA );
     mShader->SetInt( PDDI_SP_SHADEMODE, PDDI_SHADE_GOURAUD );
-#ifdef RAD_PS2
-    if( p3d::display->GetDepth() == 16 )
-    {
-        mShader->SetInt( PDDI_SP_ALPHATEST, 1 );   //turn on alpha testing     (only required for PS2 16 bit framebuffers )
-    }
-#endif
 }
 
 //===========================================================================
