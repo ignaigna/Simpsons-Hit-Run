@@ -2,6 +2,8 @@
 name: Build SRR2
 
 # TODO: 3ur uwp somehow asset stuff too but we cant get them on the repo rn 
+# NOTES:
+# triplet for uwp should be x64-uwp not x64-windows and we should add the argument --allow-unsupported
 
 on:
   workflow_dispatch:
