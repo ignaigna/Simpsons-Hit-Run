@@ -2,8 +2,8 @@ vcpkg_from_github(
     OUT_SOURCE_PATH SOURCE_PATH
     REPO 3UR/SDL-uwp-gl
     REF "release-${VERSION}"
-    SHA512 0
-    HEAD_REF release-2.28.5-uwp-gl
+    SHA512 389801fb9c4015397206241c6cb283bb72d23d557e71a78aa480c3b35a2b5a72676f6b08d8023dcbd67656029795c2c7731610ac862f5f017b1eef812547ef9e
+    HEAD_REF main
     PATCHES
         deps.patch
         alsa-dep-fix.patch
