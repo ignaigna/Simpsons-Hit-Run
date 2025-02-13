@@ -60,9 +60,12 @@
 #include <worldsim/worldphysicsmanager.h>
 #include <worldsim/character/charactermanager.h>
 
-#ifdef RAD_WIN32
+// TODO(3ur): gcm for UWP?
+#if defined(RAD_WIN32)
     #include <main/win32platform.h>
     #include <data/config/gameconfigmanager.h>
+#elif defined(RAD_UWP)
+    #include <main/uwpplatform.h>
 #endif
 
 //******************************************************************************

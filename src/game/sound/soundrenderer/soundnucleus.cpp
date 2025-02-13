@@ -277,7 +277,7 @@ void SoundNucleusInitialize( radMemoryAllocator alloc )
     
     desc.m_MaxRootAllocations  = 170;
     desc.m_NumAuxSends         = NUM_AUX_SENDS;
-#ifdef RAD_WIN32    
+#if defined(RAD_WIN32) || defined(RAD_UWP)
     desc.m_SamplingRate = 48000;
 #endif  
     

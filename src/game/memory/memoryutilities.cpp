@@ -417,8 +417,8 @@ size_t GetMaxFreeMemory()
 size_t GetTotalMemoryFree()
 {
     #if _WIN32
-        MEMORYSTATUS status;
-        GlobalMemoryStatus (&status);
+        MEMORYSTATUSEX status;
+        GlobalMemoryStatusEx (&status);
         return status.dwAvailPhys;
     #else
         #pragma error( "CMemoryTracker::GetTotalMemoryFree - What platform is this then?");

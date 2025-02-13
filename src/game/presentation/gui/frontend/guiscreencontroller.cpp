@@ -138,10 +138,7 @@ CGuiScreenController::CGuiScreenController
 
     // get the platform-specific Controller page
     //
-#if defined( RAD_PS2 )
-    pPage = m_pScroobyScreen->GetPage( "ControllerPS2" );
-    rAssert( pPage );
-#else
+#if defined( RAD_UWP )
     pPage = m_pScroobyScreen->GetPage( "ControllerXBOX" );
 #endif
     rAssert( pPage );
@@ -197,9 +194,7 @@ CGuiScreenController::CGuiScreenController
     // scale down controller image and text labels a bit so that
     // all localized versions will fit on screen
     //
-  #ifdef RAD_PS2
-    const float SCALE_FACTOR = 0.95f;
-  #else
+  #ifdef RAD_UWP
     const float SCALE_FACTOR = 0.9f;
   #endif
 

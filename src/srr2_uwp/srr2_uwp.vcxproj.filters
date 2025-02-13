@@ -1047,9 +1047,6 @@
     <ClCompile Include="..\game\presentation\gui\frontend\guiscreencardgallery.cpp">
       <Filter>Source Files\presentation\gui\frontend</Filter>
     </ClCompile>
-    <ClCompile Include="..\game\presentation\gui\frontend\guiscreencontrollerWin32.cpp">
-      <Filter>Source Files\presentation\gui\frontend</Filter>
-    </ClCompile>
     <ClCompile Include="..\game\presentation\gui\frontend\guiscreendisplay.cpp">
       <Filter>Source Files\presentation\gui\frontend</Filter>
     </ClCompile>
@@ -1850,6 +1847,9 @@
     </ClCompile>
     <ClCompile Include="..\game\input\usercontroller.cpp">
       <Filter>Source Files\input</Filter>
+    </ClCompile>
+    <ClCompile Include="..\game\presentation\gui\frontend\guiscreencontroller.cpp">
+      <Filter>Source Files\presentation\gui\frontend</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -2777,9 +2777,6 @@
     <ClInclude Include="..\game\presentation\gui\frontend\guiscreencardgallery.h">
       <Filter>Source Files\presentation\gui\frontend</Filter>
     </ClInclude>
-    <ClInclude Include="..\game\presentation\gui\frontend\guiscreencontrollerWin32.h">
-      <Filter>Source Files\presentation\gui\frontend</Filter>
-    </ClInclude>
     <ClInclude Include="..\game\presentation\gui\frontend\guiscreendisplay.h">
       <Filter>Source Files\presentation\gui\frontend</Filter>
     </ClInclude>
@@ -3670,6 +3667,9 @@
     </ClInclude>
     <ClInclude Include="..\game\input\usercontroller.h">
       <Filter>Source Files\input</Filter>
+    </ClInclude>
+    <ClInclude Include="..\game\presentation\gui\frontend\guiscreencontroller.h">
+      <Filter>Source Files\presentation\gui\frontend</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

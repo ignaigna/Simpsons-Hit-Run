@@ -228,7 +228,7 @@ void LensFlareDSG::Display()
 }
 void LensFlareDSG::DisplayImmediate()
 {
-#ifdef RAD_WIN32
+#if defined(RAD_WIN32) || defined(RAD_UWP) // TODO(3UR): would do this for uwp but cant rn idk why we cant use the view pointer
     return;
 #endif
 

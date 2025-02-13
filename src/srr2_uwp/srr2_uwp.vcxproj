@@ -417,7 +417,7 @@
     <ClCompile Include="..\game\presentation\gui\bootup\guiscreenlicense.cpp" />
     <ClCompile Include="..\game\presentation\gui\frontend\guimanagerfrontend.cpp" />
     <ClCompile Include="..\game\presentation\gui\frontend\guiscreencardgallery.cpp" />
-    <ClCompile Include="..\game\presentation\gui\frontend\guiscreencontrollerWin32.cpp" />
+    <ClCompile Include="..\game\presentation\gui\frontend\guiscreencontroller.cpp" />
     <ClCompile Include="..\game\presentation\gui\frontend\guiscreendisplay.cpp" />
     <ClCompile Include="..\game\presentation\gui\frontend\guiscreenloadgame.cpp" />
     <ClCompile Include="..\game\presentation\gui\frontend\guiscreenmainmenu.cpp" />
@@ -993,7 +993,7 @@
     <ClInclude Include="..\game\presentation\gui\bootup\guiscreenlicense.h" />
     <ClInclude Include="..\game\presentation\gui\frontend\guimanagerfrontend.h" />
     <ClInclude Include="..\game\presentation\gui\frontend\guiscreencardgallery.h" />
-    <ClInclude Include="..\game\presentation\gui\frontend\guiscreencontrollerWin32.h" />
+    <ClInclude Include="..\game\presentation\gui\frontend\guiscreencontroller.h" />
     <ClInclude Include="..\game\presentation\gui\frontend\guiscreendisplay.h" />
     <ClInclude Include="..\game\presentation\gui\frontend\guiscreenloadgame.h" />
     <ClInclude Include="..\game\presentation\gui\frontend\guiscreenmainmenu.h" />
