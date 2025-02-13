@@ -68,9 +68,8 @@ namespace ParserConst
     {
         PT_PC           = 0x0001,
         PT_XBOX         = 0x0002,
-        PT_PS2          = 0x0004,
 
-        PT_ALL          = PT_PC | PT_XBOX | PT_PS2,
+        PT_ALL          = PT_PC | PT_XBOX,
         PT_DEFAULT      = -1
     };
 
@@ -81,7 +80,6 @@ namespace ParserConst
     extern const unsigned int TOK_NAMED;
     extern const unsigned int TOK_OPTION;
     extern const unsigned int TOK_PC;
-    extern const unsigned int TOK_PS2;
     extern const unsigned int TOK_XBOX;
 
     extern const unsigned int TOK_LCURLY;
@@ -1153,7 +1151,7 @@ inline IRadTypeInfo * IRadTypeInfoSystem::GetTypeInfo( IRefCount * pIRefCount )
         char interfaceName[ 128 ]; 
         const char * pClassName = NULL;
     
-        #if defined (RAD_WIN32) || defined (RAD_XBOX)
+        #if defined (RAD_WIN32) || defined (RAD_UWP)
         {
             //
             // The pName takes the form "class Scope::ClassName" or
@@ -1179,25 +1177,6 @@ inline IRadTypeInfo * IRadTypeInfoSystem::GetTypeInfo( IRefCount * pIRefCount )
             interfaceName[ 0 ] = 'I';
             strcpy( interfaceName + 1, pClassName );
         }
-        #endif
-   
-	    #ifdef RAD_PS2
-
-            unsigned int crappyGccShit;
-
-            for( crappyGccShit = 0; crappyGccShit < strlen( pName ); crappyGccShit ++ )
-            {
-                if ( !( pName[ crappyGccShit ] >= '0' && pName[ crappyGccShit ] <= '9' ) )
-                {
-                    break;
-                }
-            }
-
-            pClassName = pName + crappyGccShit;
-		    
-		    // compiler does not like this instruction...
-		    sprintf( interfaceName, "%s%s", "I", pClassName );
-
         #endif
 
         interfaceName[ 1 ] = toupper( interfaceName[ 1 ] );                                             

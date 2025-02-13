@@ -133,7 +133,7 @@ void IRadScript::SetWarningLevel( radScriptWarningLevel warningLevel )
 
 //========================================================================
 // IRadScript::SplitOption
-//      split PC|XBOX|PS2 into separated option PC XBOX PS2 enumeration
+//      split PC|XBOX into separated option PC XBOX enumeration
 //========================================================================
 
 
@@ -264,7 +264,7 @@ void IRadScript::LoadSync
     m_xIRadFile->WaitForCompletion( );
 
     //
-    // Prepare the buffer and read the script. Align it to 128 to improve performance on PS2
+    // Prepare the buffer and read the script. Align it to 128 to improve performance
     //
     //total Hack 6 is the fe heap
     rReleaseAssert( m_pFileMemory == NULL );
@@ -341,7 +341,7 @@ void IRadScript::OnFileOperationsComplete( void* pUserData )
     {
         case GetFileSize:
         {
-            // Read the data now that we know the file size . Read to aligned 128 to improve performanceon PS2    
+            // Read the data now that we know the file size . Read to aligned 128 to improve performance 
 
             radMemoryAllocator current = radMemoryGetCurrentAllocator();
             rReleaseAssert( m_pFileMemory == NULL );

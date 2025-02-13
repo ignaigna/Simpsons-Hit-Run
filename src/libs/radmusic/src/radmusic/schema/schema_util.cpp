@@ -743,10 +743,8 @@ float tempo_track_beat(
 {
     #if defined RAD_WIN32
         static float game_loop_latency_ms = 60.0f;
-    #elif defined RAD_XBOX
+    #elif defined RAD_UWP // TODO(3ur): if this isnt correct does it affect anything badly
         static float game_loop_latency_ms = 10.0f;
-    #elif defined RAD_PS2
-        static float game_loop_latency_ms = 50.0;
     #endif
     
     float current_sample = radSoundUIntToFloat( int_current_sample );

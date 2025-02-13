@@ -399,11 +399,7 @@ unsigned int radSoundHalBufferCalculateMemorySize
     return result;
 }
 
-#ifdef RAD_XBOX
-    #define OPTIMAL_CD_READ_MULTIPLE ( 1024 * 32 ) // see white papaer
-#else
-    #define OPTIMAL_CD_READ_MULTIPLE radFileMaxSectorSize
-#endif
+#define OPTIMAL_CD_READ_MULTIPLE radFileMaxSectorSize
 
 //========================================================================
 // radSoundStreamReadMultipleGet

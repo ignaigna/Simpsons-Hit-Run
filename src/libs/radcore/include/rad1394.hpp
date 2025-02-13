@@ -25,8 +25,8 @@
 // Build Configuration Check
 //=============================================================================
 
-#if !defined(RAD_PS2) && !defined(RAD_WIN32)
-    #error 'FTech requires definition of RAD_PS2 orRAD_WIN32'
+#if !defined(RAD_WIN32)
+    #error 'FTech requires definition of RAD_WIN32'
 #endif
 #if !defined(RAD_DEBUG) && !defined(RAD_TUNE) && !defined(RAD_RELEASE) 
     #error 'FTech requires definition of RAD_DEBUG, RAD_TUNE, or RAD_RELEASE'

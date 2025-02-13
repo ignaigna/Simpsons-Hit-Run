@@ -673,14 +673,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='TuneWindows|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='TuneUwp|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="src\rad1394\win32lib\rad1394master.cpp" />
     <ClCompile Include="src\radcontroller\directinputcontroller.cpp" />
-    <ClCompile Include="src\raddebugcommunication\host.cpp" />
-    <ClCompile Include="src\raddebugcommunication\host1394socket.cpp" />
-    <ClCompile Include="src\raddebugcommunication\hostchannel.cpp" />
-    <ClCompile Include="src\raddebugcommunication\targetconnection.cpp" />
-    <ClCompile Include="src\raddebugcommunication\targetsocketchannel.cpp" />
-    <ClCompile Include="src\raddebugcommunication\targetx.cpp" />
     <ClCompile Include="src\raddebugconsole\consoleclient.cpp" />
     <ClCompile Include="src\raddebugfileserver\fileserver.cpp" />
     <ClCompile Include="src\raddebugwatch\watchclient.cpp" />
@@ -744,7 +737,6 @@
   <ItemGroup>
     <ClInclude Include="include\microprofile.h" />
     <ClInclude Include="include\pch.hpp" />
-    <ClInclude Include="include\rad1394.hpp" />
     <ClInclude Include="include\radcontroller.hpp" />
     <ClInclude Include="include\raddebug.hpp" />
     <ClInclude Include="include\raddebugcommunication.hpp" />
@@ -770,22 +762,6 @@
     <ClInclude Include="include\radtextdisplay.hpp" />
     <ClInclude Include="include\radthread.hpp" />
     <ClInclude Include="include\radtime.hpp" />
-    <ClInclude Include="src\rad1394\win32lib\rad1394master.hpp" />
-    <ClInclude Include="src\raddebugcommunication\1394shared.hpp" />
-    <ClInclude Include="src\raddebugcommunication\dcmp.h" />
-    <ClInclude Include="src\raddebugcommunication\deci2x.h" />
-    <ClInclude Include="src\raddebugcommunication\decitypes.h" />
-    <ClInclude Include="src\raddebugcommunication\hioshared.hpp" />
-    <ClInclude Include="src\raddebugcommunication\host.hpp" />
-    <ClInclude Include="src\raddebugcommunication\host1394socket.hpp" />
-    <ClInclude Include="src\raddebugcommunication\hostchannel.hpp" />
-    <ClInclude Include="src\raddebugcommunication\netmp.h" />
-    <ClInclude Include="src\raddebugcommunication\protocol.hpp" />
-    <ClInclude Include="src\raddebugcommunication\socket.hpp" />
-    <ClInclude Include="src\raddebugcommunication\targetconnection.hpp" />
-    <ClInclude Include="src\raddebugcommunication\targetdecichannel.hpp" />
-    <ClInclude Include="src\raddebugcommunication\targetsocketchannel.hpp" />
-    <ClInclude Include="src\raddebugcommunication\targetx.hpp" />
     <ClInclude Include="src\raddebugconsole\consoleclient.hpp" />
     <ClInclude Include="src\raddebugfileserver\fileserver.hpp" />
     <ClInclude Include="src\raddebugwatch\watchclient.hpp" />

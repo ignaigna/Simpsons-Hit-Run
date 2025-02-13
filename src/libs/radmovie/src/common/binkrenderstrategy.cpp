@@ -8,7 +8,7 @@
 // File:        binkrenderstrategy.cpp
 // Subsystem:   Foundation Technologies - Movie
 //
-// Description:	Bink render stratetegy for all platforms (not ps2)
+// Description:	Bink render stratetegy for all platforms
 //
 // Date:        October 31, 2002 RWS
 //
@@ -90,7 +90,7 @@ void radMovieRenderStrategyBink::ResetDestinations( void )
 // radMovieRenderStrategyBink::LockNextDestination
 //=============================================================================
 
-unsigned int radMovieRenderStrategyBink::LockNextDestination( LockedDestination * pLockedDestination )
+unsigned int radMovieRenderStrategyBink::LockNextDestination( IRadMovieRenderStrategy::LockedDestination * pLockedDestination )
 {
     rAssert( m_DestLocked == false );
 
@@ -199,15 +199,11 @@ void radMovieRenderStrategyBink::ChangeParameters( unsigned int width, unsigned 
                 m_pTile[ tileIndex ].m_pTexture->AddRef( );
 
                 //
-                // Create texture (platform dependent)
+                // Create texture
                 //
                 
-                #if RAD_WIN32
                 bool wasTextureCreated = m_pTile[ tileIndex ].m_pTexture->Create( RMV_TEXTURE_MAX_TEX_DIM, RMV_TEXTURE_MAX_TEX_DIM, RMV_TEXTURE_BITDEPTH, 8, 0, PDDI_TEXTYPE_RGB );
-                #elif RAD_XBOX
-                bool wasTextureCreated = m_pTile[ tileIndex ].m_pTexture->Create( m_MovieWidth, m_MovieHeight, RMV_TEXTURE_BITDEPTH, 0, 0, PDDI_TEXTYPE_LINEAR );
-                #endif 
-
+                
                 rAssert( wasTextureCreated == true );
 
                 m_pTile[ tileIndex ].m_PosX = x * RMV_TEXTURE_MAX_TEX_DIM;
@@ -274,7 +270,7 @@ bool radMovieRenderStrategyBink::Render( void )
 
         // Set up position info of the tile
         
-        #if defined RAD_WIN32
+        #if defined RAD_WIN32 || defined RAD_UWP
 
         float u = 0.0f;
         float du = m_pTile[ tile ].m_Width / ( float ) m_pTile[ tile ].m_pTexture->GetWidth( );
@@ -291,7 +287,7 @@ bool radMovieRenderStrategyBink::Render( void )
 
         #endif
 
-        #if defined RAD_WIN32
+        #if defined RAD_WIN32 || defined RAD_UWP
 
         float x = ( float ) m_DisplayMultiplier * m_pTile[ tile ].m_PosX + m_MoviePosX;
         float y = ( float ) m_DisplayMultiplier * m_pTile[ tile ].m_PosY + m_MoviePosY;

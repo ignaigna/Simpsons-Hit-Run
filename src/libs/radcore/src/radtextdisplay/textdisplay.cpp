@@ -25,41 +25,10 @@
 
 #include "textdisplay.hpp"        // class specification
 
-#ifdef RAD_PS2
-#include <eekernel.h>
-#include <libgraph.h>
-#include <libdev.h>
-#include <libdma.h>
-#include <libpkt.h>
-#include <sifcmd.h>
-#endif // RAD_PS2
-
-
 
 //===========================================================================
 // Globals
 //===========================================================================
-#ifdef RAD_PS2
-
-//
-// Misc constants copied from PS2 boot loader.
-//
-#define PS2_SUNIT		0x01
-#define PS2_PACKETSIZE	( 0x100 * PS2_SUNIT )
-#define PS2_WORKSIZE	( 0x80 )
-#define PS2_WORKBASE	0x70000000
-#define PS2_SUPPER		( PS2_WORKBASE + PS2_WORKSIZE )
-#define PS2_SLOWER		( PS2_WORKBASE + PS2_WORKSIZE + PS2_PACKETSIZE )
-
-#define PS2_SCREEN_WIDTH        512 // Width in pixels of the mode we use.
-#define PS2_SCREEN_HEIGHT       224 // Height in pixels of the mode we use.
-#define PS2_BUF_OFFSET_X		( ( ( 4096 - PS2_SCREEN_WIDTH ) / 2 ) << 4 )
-#define PS2_BUF_OFFSET_Y		( ( ( 4096 - PS2_SCREEN_HEIGHT ) / 2 ) << 4 )
-#define PS2_CONSOLE_WIDTH		( PS2_SCREEN_WIDTH / 8 ) // Width in characters.
-#define PS2_CONSOLE_HEIGHT		26  // Height in characters
-#define PS2_SCREEN_BORDER_RIGHT 2   // Unusable chars on right side - offscreen.
-
-#endif // RAD_PS2
 
 //
 // The display singleton
@@ -136,17 +105,6 @@ void radTextDisplay::Initialize( radMemoryAllocator alloc )
     m_CurFrame = 0;
     m_Width = 80;
     m_Height = 25;
-    #ifdef RAD_PS2
-    m_Console = 0;
-    m_Width = PS2_CONSOLE_WIDTH - PS2_SCREEN_BORDER_RIGHT;
-    m_Height = PS2_CONSOLE_HEIGHT;
-    #endif // RAD_PS2
-
-	#ifdef RAD_XBOX
-	m_pD3D = NULL;
-	m_pd3dDevice = NULL;
-	m_pXFont = NULL;
-	#endif // RAD_XBOX
 
     //
     // Set up the frame buffer.
@@ -164,11 +122,8 @@ void radTextDisplay::Initialize( radMemoryAllocator alloc )
     //
     // If this platform is unsupported, print a warning.
     //
-    #if !defined RAD_PS2 && !defined RAD_XBOX
     rDebugString( "WARNING: radTextDisplay is not supported on this platform.\n" );
     rDebugString( "         Screen output will be redirected to the debug channel.\n" );
-    #endif // !RAD_PS2 && !RAD_XBOX
-
 }
 
    
@@ -284,16 +239,6 @@ void radTextDisplay::Release( void )
 void radTextDisplay::SetBackgroundColor( unsigned int color )
 {
     m_BackgroundColorRGB = color;
-
-    #ifdef RAD_PS2
-	m_DoubleBufferInfo.clear0.rgbaq.R = ( color >> 16 ) & 0xff;
-	m_DoubleBufferInfo.clear0.rgbaq.G = ( color >> 8 ) & 0xff;
-	m_DoubleBufferInfo.clear0.rgbaq.B = color & 0xff;
-	m_DoubleBufferInfo.clear1.rgbaq.R = ( color >> 16 ) & 0xff;
-	m_DoubleBufferInfo.clear1.rgbaq.G = ( color >> 8 ) & 0xff;
-	m_DoubleBufferInfo.clear1.rgbaq.B = color & 0xff;
-    #endif // RAD_PS2
-
     PaintIfAutoSwapOn( );
 }
 
@@ -312,15 +257,6 @@ void radTextDisplay::SetBackgroundColor( unsigned int color )
 void radTextDisplay::SetTextColor( unsigned int color )
 {
     m_TextColorRGB = color;
-
-    #ifdef RAD_PS2
-    sceDevConsSetColor( m_Console, 7, ( color >> 16 ) & 0xff, ( color >> 8 ) & 0xff, color & 0xff );
-    #endif // RAD_PS2
-
-	#ifdef RAD_XBOX
-    m_pXFont->SetTextColor( D3DCOLOR_XRGB( ( color >> 16 )& 0xff, ( color >> 8 ) & 0xff, color & 0xff ) );
-	#endif
-
     PaintIfAutoSwapOn( );
 }
 
@@ -459,9 +395,7 @@ void radTextDisplay::TextOut( const char*  pText )
     //
     // If this platform is unsupported, just echo the input to the debug channel.
     //
-    #if !defined RAD_PS2 && !defined RAD_XBOX
     rDebugString( pText );
-    #endif // !RAD_PS2 && !RAD_XBOX
 
     //
     // Loop over input characters.
@@ -688,104 +622,6 @@ void radTextDisplay::PaintIfAutoSwapOn( void )
     
 void radTextDisplay::Paint( void )
 {
-    //
-    // PS2 version.
-    //
-    #ifdef RAD_PS2
-
-    char line[ 256 ];
-    rAssert( m_Width < 255 );
-
-    //
-    // Clear the screen.
-    //
-	sceDevConsClear( m_Console );
-
-    //
-    // Loop over text buffer vertically.
-    //
-    for( int y = 0; y < m_Height; y++ )
-    {
-        //
-        // Copy each line into a temp buffer and trim 
-        // whitespace from the right end.
-        //
-        int x;
-        for( x = 0; x < m_Width; x++ )
-        {
-            char c = m_TextBuffer[ x + m_Width * y ];
-            if( c == 0 || ( c & 128 ) != 0 )
-            {
-                c = ' ';
-            }
-            line[ x ] = c;
-        }
-        line[ m_Width ] = '\0';
-        x = m_Width - 1;
-        while( line[ x ] == ' ' && x >= 0 )
-        {
-            line[ x ] = '\0';
-            x--;
-        }
-
-        //
-        // Output the text buffer as a string.
-        //
-    	sceDevConsLocate( m_Console, 0, y );
-	    sceDevConsPrintf( m_Console, line );
-    }
-
-    //
-    // Show the updated frame buffer.
-    //
-	sceDevConsDraw( m_Console );
-    Ps2SwapBuffers( );
-
-    #endif // RAD_PS2
-
-	#ifdef RAD_XBOX
-    IDirect3DSurface8 * pD3DSurface = NULL;
-	m_pd3dDevice->GetRenderTarget( & pD3DSurface );
-
-	unsigned int uFontW = 0;
-	m_pXFont->GetTextExtent( L"a", -1, & uFontW );
-	unsigned int uFontH = m_pXFont->GetTextHeight( );
-
-    m_pd3dDevice->Clear( 0L, NULL, D3DCLEAR_TARGET|D3DCLEAR_ZBUFFER, 
-                         D3DCOLOR_XRGB( ( m_BackgroundColorRGB >> 16 ) & 0xff, ( m_BackgroundColorRGB >> 8 ) & 0xff, m_BackgroundColorRGB & 0xff ), 1.0f, 0L );
-
-    //
-    // Loop over entire text buffer; draw characters individually.
-    //
-    for( int y = 0; y < m_Height; y++ )
-    {
-		unsigned int nCurrentXPos = 0;
-		unsigned int nCharWidth = 0;
-        for( int x = 0; x < m_Width; x++ )
-        {
-            char c = m_TextBuffer[ x + m_Width * y ];
-            if( ( c & 128 ) != 0 )
-            {
-                c = 0;
-            }
-
-            if( c != 0 )
-            {
-				WCHAR cChar = c;
-                m_pXFont->TextOut( pD3DSurface, &cChar, 1, nCurrentXPos, y * uFontH );
-				m_pXFont->GetTextExtent( &cChar, 1, & nCharWidth );
-				nCurrentXPos += nCharWidth;
-            }
-			else
-			{
-				nCurrentXPos += uFontW;
-			}
-        }
-    }
-	pD3DSurface->Release( );
-    m_pd3dDevice->Present( NULL, NULL, NULL, NULL );
-
-	#endif
 }
 
 //=============================================================================
@@ -800,77 +636,6 @@ void radTextDisplay::Paint( void )
 //------------------------------------------------------------------------------
 void radTextDisplay::InitDisplay( void )
 {
-    //
-    // PS2 version.
-    //
-    #ifdef RAD_PS2
-
-    //
-    // Initialize the screen into text console mode.
-    //
-    Ps2InitConsole( );
-
-    //
-    // Show the empty screen.
-    //
-    Ps2SwapBuffers( );
-
-    //
-    // Init the SCE dev console kit.
-    //
-    sceDevConsInit( );
-    m_Console = sceDevConsOpen( PS2_BUF_OFFSET_X + ( 8 << 4 ), 
-                                PS2_BUF_OFFSET_Y + ( 8 << 4 ), 
-                                PS2_CONSOLE_WIDTH, 
-                                PS2_CONSOLE_HEIGHT );
-
-    //
-    // Set the foreground color.
-    //
-    sceDevConsSetColor( m_Console, 7, ( m_TextColorRGB >> 16 ) & 0xff, 
-                        ( m_TextColorRGB >> 8 ) & 0xff, m_TextColorRGB & 0xff );
-
-
-    #endif // RAD_PS2
-
-	//------------------------------------------------------------------------
-	// Initialize XBox D3D
-	//------------------------------------------------------------------------
-	#ifdef RAD_XBOX
-    // Create the D3D object, which is used to create the D3DDevice.
-    if( NULL == ( m_pD3D = Direct3DCreate8( D3D_SDK_VERSION ) ) )
-	{
-		rAssertMsg( false, "radTextDisplay: Error: failed to create D3DDevice.\n" );
-	}
-
-    // Set up the structure used to create the D3DDevice.
-    D3DPRESENT_PARAMETERS d3dpp; 
-    ZeroMemory( &d3dpp, sizeof(d3dpp) );
-    
-    // Set fullscreen 640x480x32 mode
-    d3dpp.BackBufferWidth        = 640;
-    d3dpp.BackBufferHeight       = 480;
-    d3dpp.BackBufferFormat       = D3DFMT_X8R8G8B8;
-
-    // Create one backbuffer and a zbuffer
-    d3dpp.BackBufferCount        = 1;
-    d3dpp.EnableAutoDepthStencil = TRUE;
-    d3dpp.AutoDepthStencilFormat = D3DFMT_D24S8;
-
-    // Set up how the backbuffer is "presented" to the frontbuffer each frame
-    d3dpp.SwapEffect             = D3DSWAPEFFECT_DISCARD;
-
-    // Create the Direct3D device. Hardware vertex processing is specified 
-    // since all vertex processing takes place on Xbox hardware.
-    if( FAILED( m_pD3D->CreateDevice( 0, D3DDEVTYPE_HAL, NULL,
-                                      D3DCREATE_HARDWARE_VERTEXPROCESSING,
-                                      &d3dpp, &m_pd3dDevice ) ) )
-	{
-		rAssertMsg( false, "radTextDisplay: Error: failed to create D3DDevice.\n" );
-	}
-    XFONT_OpenDefaultFont( & m_pXFont );
-
-	#endif
 }
 
 //=============================================================================
@@ -886,163 +651,4 @@ void radTextDisplay::InitDisplay( void )
 
 void radTextDisplay::CloseDisplay( void )
 {
-    //
-    // PS2 version.
-    //
-    #ifdef RAD_PS2
-
-    //
-    // Shut down dev console.
-    //
-    sceDevConsClose( m_Console );
-    //sceSifExitCmd( );
-
-    //
-    // Flush caches.
-    //
-    //DI( );
-    FlushCache( 0 );
-    //FlushCache( 2 );
-
-    #endif // RAD_PS2
-
-	#ifdef RAD_XBOX
-	m_pd3dDevice->Release( );
-	m_pD3D->Release( );
-	m_pd3dDevice = NULL;
-	m_pD3D = NULL;
-	#endif
 }
-
-
-
-//=============================================================================
-// Function:    radTextDisplay::Ps2InitConsole
-//=============================================================================
-// Description: This routine was stolen from code stolen from PS2 sample code. 
-//              It initializes the PS2 display to output text.
-// 
-// Parameters:  None.
-//
-// Returns:     None.
-//
-//------------------------------------------------------------------------------
-#ifdef RAD_PS2
-
-void radTextDisplay::Ps2InitConsole( void )
-{
-    //
-    // Reset a bunch of things.
-    //
-	int sindex;
-	sceVif1Packet packet[ 2 ];
-	sceDmaEnv env;
-	sceDmaChan *p1;
-	u_long giftagAD[ 2 ] = { SCE_GIF_SET_TAG( 0, 1, 0, 0, 0, 1 ), 0x000000000000000eL };
-	sceDevVif0Reset( );
-	sceDevVu0Reset( );
-	sceGsResetPath( );
-	sceDmaReset( 1 );
-
-	sceVif1PkInit( &packet[ 0 ], ( u_long128*) PS2_SUPPER );
-	sceVif1PkInit( &packet[ 1 ], ( u_long128*) PS2_SLOWER );
-
-    //
-    // Set up some DMA stuff.
-    //
-	sceDmaGetEnv( &env );
-	env.notify = 1 << SCE_DMA_VIF1;
-	sceDmaPutEnv( &env );
-
-	p1 = sceDmaGetChan( SCE_DMA_VIF1 );
-	p1->chcr.TTE = 1;
-
-    //
-    // Reset graphics system and enable double buffering.
-    //
-	sceGsResetGraph( 0, SCE_GS_INTERLACE, SCE_GS_NTSC, SCE_GS_FRAME );
-	sceGsSetDefDBuff( &m_DoubleBufferInfo, SCE_GS_PSMCT32, PS2_SCREEN_WIDTH, PS2_SCREEN_HEIGHT,
-	                  SCE_GS_ZGEQUAL, SCE_GS_PSMZ24, SCE_GS_CLEAR );
-
-    //
-    // Set background color for both frame buffers.
-    //
-	m_DoubleBufferInfo.clear0.rgbaq.R = ( m_BackgroundColorRGB >> 16 ) & 0xff;
-	m_DoubleBufferInfo.clear0.rgbaq.G = ( m_BackgroundColorRGB >> 8 ) & 0xff;
-	m_DoubleBufferInfo.clear0.rgbaq.B = m_BackgroundColorRGB & 0xff;
-	m_DoubleBufferInfo.clear1.rgbaq.R = ( m_BackgroundColorRGB >> 16 ) & 0xff;
-	m_DoubleBufferInfo.clear1.rgbaq.G = ( m_BackgroundColorRGB >> 8 ) & 0xff;
-	m_DoubleBufferInfo.clear1.rgbaq.B = m_BackgroundColorRGB & 0xff;
-
-	FlushCache( 0 );
-
-    //
-    // Set up some other mysterious thingies.
-    //
-	sindex = 0;
-	sceVif1PkReset( &packet[ sindex ] );
-	sceVif1PkCnt( &packet[ sindex ], 0 );
-	sceVif1PkOpenDirectCode( &packet[ sindex ], 0 );
-	sceVif1PkOpenGifTag( &packet[ sindex ], *( u_long128* ) &giftagAD[ 0 ] );
-
-	sceVif1PkReserve( &packet[ sindex ],
-		sceGsSetDefAlphaEnv( ( sceGsAlphaEnv*) packet[ sindex ].pCurrent, 0 ) * 4);
-	sceVif1PkCloseGifTag( &packet[ sindex ] );
-	sceVif1PkCloseDirectCode( &packet[ sindex ] );
-	sceVif1PkEnd( &packet[ sindex ], 0 );
-	sceVif1PkTerminate( &packet[ sindex ] );
-
-    //
-    // Tell the Gs to go init itself.
-    //
-	sceDmaSend( p1, ( u_int* )
-		( ( ( u_int ) packet[ sindex ].pBase & 0x0fffffff ) | 0x80000000 ) );
-
-    //
-    // Wait for vsync.
-    //
-    while( !sceGsSyncV( 0 ) ) { }
-}
-#endif // RAD_PS2
-
-
-//=============================================================================
-// Function:    radTextDisplay::Ps2SwapBuffers
-//=============================================================================
-// Description: This function swaps text draw buffers on the PS2.
-// 
-// Parameters:  None.
-//
-// Returns:     None.
-//
-//------------------------------------------------------------------------------
-#ifdef RAD_PS2
-
-void radTextDisplay::Ps2SwapBuffers( void )
-{
-    //
-    // Set up for double-buffer swap.
-    //
-	sceGsSyncPath( 0, 0 );
-	sceGsSwapDBuff( &m_DoubleBufferInfo, m_CurFrame );
-	m_CurFrame++;
-
-    //
-    // Show the appropriate buffer.
-    //
-	if( m_CurFrame & 0x01 )
-	{	/* interlace half pixel adjust */
-		sceGsSetHalfOffset( &m_DoubleBufferInfo.draw1, 2048, 2048, sceGsSyncV( 0 ) ^ 0x01 );
-	}
-	else
-	{
-		sceGsSetHalfOffset( &m_DoubleBufferInfo.draw0, 2048, 2048, sceGsSyncV( 0 ) ^ 0x01 );
-	}
-
-    //
-    // Flush caches.
-    //
-	FlushCache( 0 );
-	sceGsSyncPath( 0, 0 );
-}
-#endif // RAD_PS2

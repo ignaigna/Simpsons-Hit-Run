@@ -7,9 +7,9 @@
 #define RADSCRIPT_PCH_HPP
 
 //
-// only win32 and xbox take advantage of the pch at this moment.
+// only win32 and uwp take advantage of the pch at this moment.
 //
-#if defined RAD_WIN32 || defined RAD_XBOX
+#if defined RAD_WIN32 || defined RAD_UWP
 //
 // Microsoft header files
 //
@@ -19,8 +19,8 @@
 #include <windows.h>
 #endif
 
-#ifdef RAD_XBOX
-#include <xtl.h>
+#if defined(RAD_UWP)
+#include <windows.h>
 #endif
 
 //
@@ -32,6 +32,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-#endif // defined RAD_WIN32 || defined RAD_XBOX
+#endif // defined RAD_WIN32 || defined RAD_UWP
 
 #endif // RADSCRIPT_PCH_HPP

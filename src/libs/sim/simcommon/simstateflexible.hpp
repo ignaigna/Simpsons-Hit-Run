@@ -23,7 +23,6 @@ public:
     
     virtual void SetTransform(const rmt::Matrix& inTransform, float dt = 0);
 
-    // usimg not support by ps2
     //using SimState::GetPosition;  // so that it is not hidden by GetPosition(int inIndex)
     //using SimState::GetTransform;  // so that it is not hidden by GetTransform(int inIndex)
     const rmt::Vector& GetPosition() const { return SimState::GetPosition(); }

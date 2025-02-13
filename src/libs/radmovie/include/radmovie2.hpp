@@ -134,21 +134,11 @@ struct IRadMoviePlayer2 : public IRefCount
     //      * Audio Secondary Buffer:   This can be quite small (you'll hear skips if it's too small)
     //
 
-    #if ( defined RAD_XBOX || defined RAD_WIN32 )
+    #if ( defined RAD_UWP || defined RAD_WIN32 )
 
     virtual void Initialize( 
         IRadMovieRenderLoop * pIRadMovieRenderLoop, 
         IRadMovieRenderStrategy * pIRadMovieRenderStrategy ) = 0;
-
-    #elif RAD_PS2
-
-    virtual void Initialize( 
-        IRadMovieRenderLoop * pIRadMovieRenderLoop, 
-        IRadMovieRenderStrategy * pIRadMovieRenderStrategy,
-        unsigned int maxWidthPixels, 
-        unsigned int maxHeightPixels, unsigned int codedVideoBufferBytes, 
-        unsigned int audioPrimaryBufferSize, unsigned int audioSecondaryBufferSize,
-        IRadSoundHalAudioFormat::SizeType audioSizeType ) = 0;
 
     #endif
 
@@ -245,7 +235,7 @@ struct IRadMovieRenderLoop : public IRefCount
 
 struct IRadMovieRenderStrategy : public IRefCount
 {
-    #if defined RAD_WIN32
+    #if defined RAD_WIN32 || defined RAD_UWP
 
         struct LockedDestination
         {
@@ -282,14 +272,7 @@ struct IRadMovieRenderStrategy : public IRefCount
 
     #else
 
-        #ifdef RAD_XBOX
-
-        virtual void SetParameters( unsigned int width, unsigned int height ) = 0;
-        virtual void ResetParameters( void ) = 0;
-        virtual void GetDestination( IDirect3DSurface8 ** ppIDirect3DSurface8 ) = 0;
-        virtual bool Render( void ) = 0;
-
-        #elif defined RAD_WIN32
+        #if defined RAD_WIN32 || defined RAD_UWP
     
         virtual void SetParameters( unsigned int width, unsigned int height ) = 0;
         virtual bool Render( void * pBuffers[], int strides[] ) = 0;

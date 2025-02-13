@@ -19,18 +19,6 @@
 
 #include <radmemory.hpp>
 #include <raddebug.hpp>
-#ifdef RAD_PS2
-#include <eekernel.h>
-#include <libgraph.h>
-#include <libdev.h>
-#include <libdma.h>
-#include <libpkt.h>
-#include <sifcmd.h>
-#endif // RAD_PS2
-#ifdef RAD_XBOX
-#include <xtl.h>
-#include <xfont.h>
-#endif // RAD_XBOX
 
 //===========================================================================
 // Class Definitions
@@ -108,25 +96,6 @@ class radTextDisplay : public IRadTextDisplay
     void PaintIfAutoSwapOn( void );
     void Paint( void );
 
-
-    //
-    // ===========================================
-    // PS2-specific functions.
-    //
-    #ifdef RAD_PS2
-
-    //
-    // Initialize the PS2 text display system.
-    //
-    void Ps2InitConsole( void );
-
-    //
-    // Display a newly drawn batch of text.
-    //
-    void Ps2SwapBuffers( void );
-
-    #endif // RAD_PS2
-
     //
     // ===========================================
     // Data members.
@@ -159,31 +128,6 @@ class radTextDisplay : public IRadTextDisplay
     // Current redraw frame number (controls selection of frame buffer.
     //
     int m_CurFrame;
-    
-    //
-    // ===========================================
-    // PS2-specific data members.
-    //
-    #ifdef RAD_PS2
-
-    int m_Console;   // Console number.
-
-    //
-    // Double-buffer structure needed for redisplay.
-    //
-    sceGsDBuff m_DoubleBufferInfo;
-
-    #endif // RAD_PS2
-
-    //
-    // ===========================================
-    // XBox specific data members
-    //
-    #ifdef RAD_XBOX
-	LPDIRECT3D9             m_pD3D;			// Used to create the D3DDevice
-	LPDIRECT3DDEVICE8       m_pd3dDevice;	// Our rendering device
-	XFONT *                 m_pXFont;		// Our xbox font
-	#endif // RAD_XBOX
 };
 
 #endif // file

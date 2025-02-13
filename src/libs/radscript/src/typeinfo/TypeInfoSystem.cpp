@@ -27,7 +27,6 @@ const unsigned int ParserConst::TOK_WITH          = ParserConst::GetTokenID( "wi
 const unsigned int ParserConst::TOK_NAMED         = ParserConst::GetTokenID( "named" );
 const unsigned int ParserConst::TOK_OPTION        = ParserConst::GetTokenID( "option" );
 const unsigned int ParserConst::TOK_PC            = ParserConst::GetTokenID( "PC" );
-const unsigned int ParserConst::TOK_PS2           = ParserConst::GetTokenID( "PS2" );
 const unsigned int ParserConst::TOK_XBOX          = ParserConst::GetTokenID( "XBOX" );
 
 const unsigned int ParserConst::TOK_LCURLY        = ParserConst::GetTokenID( "{" );

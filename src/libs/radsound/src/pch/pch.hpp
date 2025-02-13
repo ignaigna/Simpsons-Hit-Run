@@ -7,9 +7,9 @@
 #define RADSOUND_PCH_HPP
 
 //
-// only win32 and xbox take advantage of the pch at this moment.
+// only win32 and uwp take advantage of the pch at this moment.
 //
-#if defined RAD_WIN32 || defined RAD_XBOX
+#if defined RAD_WIN32 || defined RAD_UWP
 //
 // Microsoft header files
 //
@@ -18,21 +18,15 @@
 #define _WIN32_WINNT 0x400
 #endif
 
-#ifdef RAD_XBOX
-#include <xtl.h>
-#include <dsound.h>
-#else
 #include <AL/al.h>
 #include <AL/alc.h>
 #include <AL/efx.h>
-#endif
 
 //
 // Standard C header files
 //
-
 #include <stdio.h>
 
-#endif // defined RAD_WIN32 || defined RAD_XBOX
+#endif // defined RAD_WIN32 || defined RAD_UWP
 
 #endif // RADSOUND_PCH_HPP

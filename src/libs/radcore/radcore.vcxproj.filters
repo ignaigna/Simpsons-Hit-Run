@@ -32,9 +32,6 @@
     <Filter Include="src\radobjectlist">
       <UniqueIdentifier>{3b2a8b74-19cd-4702-9ebd-02911b8f67f5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\raddebugcommunication">
-      <UniqueIdentifier>{cbac2752-6dc4-49a7-8247-d969baeab6d9}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\raddebugconsole">
       <UniqueIdentifier>{10f7ebf2-152c-4001-bfe5-30601aa3f998}</UniqueIdentifier>
     </Filter>
@@ -61,12 +58,6 @@
     </Filter>
     <Filter Include="src\radthread">
       <UniqueIdentifier>{b2618da4-c9c1-4394-8dce-7e112713bd90}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\rad1394">
-      <UniqueIdentifier>{f13a6419-0cbb-4050-96ba-1db612ebab99}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\rad1394\win32lib">
-      <UniqueIdentifier>{2eccec10-8425-4bb7-9846-4e723c5010f2}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\radobjectbtree">
       <UniqueIdentifier>{67fa865e-a3d3-4294-9fa2-ed0df590b4f0}</UniqueIdentifier>
@@ -176,24 +167,6 @@
     <ClCompile Include="src\radobjectlist\weakinterfacewrapper.cpp">
       <Filter>src\radobjectlist</Filter>
     </ClCompile>
-    <ClCompile Include="src\raddebugcommunication\host.cpp">
-      <Filter>src\raddebugcommunication</Filter>
-    </ClCompile>
-    <ClCompile Include="src\raddebugcommunication\host1394socket.cpp">
-      <Filter>src\raddebugcommunication</Filter>
-    </ClCompile>
-    <ClCompile Include="src\raddebugcommunication\hostchannel.cpp">
-      <Filter>src\raddebugcommunication</Filter>
-    </ClCompile>
-    <ClCompile Include="src\raddebugcommunication\targetconnection.cpp">
-      <Filter>src\raddebugcommunication</Filter>
-    </ClCompile>
-    <ClCompile Include="src\raddebugcommunication\targetsocketchannel.cpp">
-      <Filter>src\raddebugcommunication</Filter>
-    </ClCompile>
-    <ClCompile Include="src\raddebugcommunication\targetx.cpp">
-      <Filter>src\raddebugcommunication</Filter>
-    </ClCompile>
     <ClCompile Include="src\raddebugconsole\consoleclient.cpp">
       <Filter>src\raddebugconsole</Filter>
     </ClCompile>
@@ -256,9 +229,6 @@
     </ClCompile>
     <ClCompile Include="src\radthread\thread.cpp">
       <Filter>src\radthread</Filter>
-    </ClCompile>
-    <ClCompile Include="src\rad1394\win32lib\rad1394master.cpp">
-      <Filter>src\rad1394\win32lib</Filter>
     </ClCompile>
     <ClCompile Include="src\radobjectbtree\objectavltree.cpp">
       <Filter>src\radobjectbtree</Filter>
@@ -343,51 +313,6 @@
     <ClInclude Include="src\radmemory\twowayallocator.hpp">
       <Filter>src\radmemory</Filter>
     </ClInclude>
-    <ClInclude Include="src\raddebugcommunication\1394shared.hpp">
-      <Filter>src\raddebugcommunication</Filter>
-    </ClInclude>
-    <ClInclude Include="src\raddebugcommunication\dcmp.h">
-      <Filter>src\raddebugcommunication</Filter>
-    </ClInclude>
-    <ClInclude Include="src\raddebugcommunication\deci2x.h">
-      <Filter>src\raddebugcommunication</Filter>
-    </ClInclude>
-    <ClInclude Include="src\raddebugcommunication\decitypes.h">
-      <Filter>src\raddebugcommunication</Filter>
-    </ClInclude>
-    <ClInclude Include="src\raddebugcommunication\hioshared.hpp">
-      <Filter>src\raddebugcommunication</Filter>
-    </ClInclude>
-    <ClInclude Include="src\raddebugcommunication\host.hpp">
-      <Filter>src\raddebugcommunication</Filter>
-    </ClInclude>
-    <ClInclude Include="src\raddebugcommunication\host1394socket.hpp">
-      <Filter>src\raddebugcommunication</Filter>
-    </ClInclude>
-    <ClInclude Include="src\raddebugcommunication\hostchannel.hpp">
-      <Filter>src\raddebugcommunication</Filter>
-    </ClInclude>
-    <ClInclude Include="src\raddebugcommunication\netmp.h">
-      <Filter>src\raddebugcommunication</Filter>
-    </ClInclude>
-    <ClInclude Include="src\raddebugcommunication\protocol.hpp">
-      <Filter>src\raddebugcommunication</Filter>
-    </ClInclude>
-    <ClInclude Include="src\raddebugcommunication\socket.hpp">
-      <Filter>src\raddebugcommunication</Filter>
-    </ClInclude>
-    <ClInclude Include="src\raddebugcommunication\targetconnection.hpp">
-      <Filter>src\raddebugcommunication</Filter>
-    </ClInclude>
-    <ClInclude Include="src\raddebugcommunication\targetdecichannel.hpp">
-      <Filter>src\raddebugcommunication</Filter>
-    </ClInclude>
-    <ClInclude Include="src\raddebugcommunication\targetsocketchannel.hpp">
-      <Filter>src\raddebugcommunication</Filter>
-    </ClInclude>
-    <ClInclude Include="src\raddebugcommunication\targetx.hpp">
-      <Filter>src\raddebugcommunication</Filter>
-    </ClInclude>
     <ClInclude Include="src\raddebugconsole\consoleclient.hpp">
       <Filter>src\raddebugconsole</Filter>
     </ClInclude>
@@ -463,9 +388,6 @@
     <ClInclude Include="src\radthread\thread.hpp">
       <Filter>src\radthread</Filter>
     </ClInclude>
-    <ClInclude Include="src\rad1394\win32lib\rad1394master.hpp">
-      <Filter>src\rad1394\win32lib</Filter>
-    </ClInclude>
     <ClInclude Include="src\radobjectbtree\objectavltree.hpp">
       <Filter>src\radobjectbtree</Filter>
     </ClInclude>
@@ -492,9 +414,6 @@
     </ClInclude>
     <ClInclude Include="src\radprofiler\profilesample.hpp">
       <Filter>src\radprofiler</Filter>
-    </ClInclude>
-    <ClInclude Include="include\rad1394.hpp">
-      <Filter>inc</Filter>
     </ClInclude>
     <ClInclude Include="include\radcontroller.hpp">
       <Filter>inc</Filter>

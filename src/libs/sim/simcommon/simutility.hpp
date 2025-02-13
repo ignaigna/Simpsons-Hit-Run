@@ -7,9 +7,7 @@
 
 
 #ifndef RAD_RELEASE
-#ifndef RAD_PS2  // SIMPSONS: Don't do this on PS2, trying to improve debug frame rate -- Esan
 #define USE_SIMSTATS
-#endif
 #endif
 
 namespace sim

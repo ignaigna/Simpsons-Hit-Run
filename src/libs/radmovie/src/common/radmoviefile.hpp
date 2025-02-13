@@ -24,10 +24,10 @@
 //=============================================================================
 
 #define RAD_MOVIE_FILE_MAX_AUDIO_TRACKS    16
-#define RAD_MOVIE_FILE_DATA_POSITION       2048 // Ps2 max sector size
+#define RAD_MOVIE_FILE_DATA_POSITION       2048
 
 //=============================================================================
-// struct RadMovieFileHeaderPs2
+// struct RadMovieFileHeader
 //=============================================================================
 
 struct RadMovieFileHeader
