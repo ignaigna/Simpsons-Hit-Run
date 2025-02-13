@@ -272,7 +272,7 @@ void FeDrawable::ModulateColour( tColour& colour, const tColour& modulator )
 void FeDrawable::NormalizeCoord(int ix, int iy, float &x, float &y) const
 {
     float height = FeApp::GetInstance()->GetScreenHeight();
-    float width = FeApp::GetInstance()->GetScreenWidth()
+    float width = FeApp::GetInstance()->GetScreenWidth();
     float loc = static_cast< float >( iy - 0.0f ) / height;
     x = static_cast< float >( ix - 0.0f ) / width;
     y = loc * height / width;
