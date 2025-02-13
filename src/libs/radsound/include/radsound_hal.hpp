@@ -459,19 +459,6 @@ struct IRadSoundHalEffect : public IRefCount
     virtual void Attach( unsigned int auxSend ) = 0;
     virtual void Detach( void ) = 0;
     virtual void Update( void ) = 0;
-
-    #if defined(RAD_UWP)
-        virtual unsigned long GetIndex( void ) = 0;
-        virtual unsigned int GetNumInputs( void ) = 0;
-        virtual unsigned int GetNumOutputs( void ) = 0;
-        virtual unsigned int GetInput( unsigned int index ) = 0;
-        virtual unsigned int GetOutput( unsigned int index ) = 0;
-    #endif
-
-    #if defined(RAD_UWP)
-        virtual void SetMasterGain( float masterGain ) = 0;
-        virtual float GetMasterGain( void ) = 0;
-    #endif
 };
 
 //============================================================================
