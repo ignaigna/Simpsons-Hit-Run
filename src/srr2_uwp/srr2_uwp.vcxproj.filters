@@ -600,46 +600,16 @@
     <ClCompile Include="..\game\gameflow\gameflow.cpp">
       <Filter>Source Files\gameflow</Filter>
     </ClCompile>
-    <ClCompile Include="..\game\input\usercontrollerWin32.cpp">
-      <Filter>Source Files\input</Filter>
-    </ClCompile>
-    <ClCompile Include="..\game\input\virtualinputs.cpp">
-      <Filter>Source Files\input</Filter>
-    </ClCompile>
-    <ClCompile Include="..\game\input\wheelrumble.cpp">
-      <Filter>Source Files\input</Filter>
-    </ClCompile>
-    <ClCompile Include="..\game\input\basedamper.cpp">
-      <Filter>Source Files\input</Filter>
-    </ClCompile>
     <ClCompile Include="..\game\input\button.cpp">
       <Filter>Source Files\input</Filter>
     </ClCompile>
-    <ClCompile Include="..\game\input\constanteffect.cpp">
-      <Filter>Source Files\input</Filter>
-    </ClCompile>
-    <ClCompile Include="..\game\input\FEMouse.cpp">
-      <Filter>Source Files\input</Filter>
-    </ClCompile>
-    <ClCompile Include="..\game\input\forceeffect.cpp">
-      <Filter>Source Files\input</Filter>
-    </ClCompile>
-    <ClCompile Include="..\game\input\Gamepad.cpp">
-      <Filter>Source Files\input</Filter>
-    </ClCompile>
     <ClCompile Include="..\game\input\inputmanager.cpp">
-      <Filter>Source Files\input</Filter>
-    </ClCompile>
-    <ClCompile Include="..\game\input\Keyboard.cpp">
       <Filter>Source Files\input</Filter>
     </ClCompile>
     <ClCompile Include="..\game\input\mappable.cpp">
       <Filter>Source Files\input</Filter>
     </ClCompile>
     <ClCompile Include="..\game\input\mapper.cpp">
-      <Filter>Source Files\input</Filter>
-    </ClCompile>
-    <ClCompile Include="..\game\input\Mouse.cpp">
       <Filter>Source Files\input</Filter>
     </ClCompile>
     <ClCompile Include="..\game\input\MouseCursor.cpp">
@@ -652,9 +622,6 @@
       <Filter>Source Files\input</Filter>
     </ClCompile>
     <ClCompile Include="..\game\input\rumblewin32.cpp">
-      <Filter>Source Files\input</Filter>
-    </ClCompile>
-    <ClCompile Include="..\game\input\steeringspring.cpp">
       <Filter>Source Files\input</Filter>
     </ClCompile>
     <ClCompile Include="..\game\input\SteeringWheel.cpp">
@@ -1881,6 +1848,9 @@
     <ClCompile Include="..\game\main\uwpmain.cpp">
       <Filter>Source Files\main</Filter>
     </ClCompile>
+    <ClCompile Include="..\game\input\usercontroller.cpp">
+      <Filter>Source Files\input</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\game\ai\actionbuttonhandler.h">
@@ -2300,34 +2270,13 @@
     <ClInclude Include="..\game\gameflow\gameflow.h">
       <Filter>Source Files\gameflow</Filter>
     </ClInclude>
-    <ClInclude Include="..\game\input\usercontrollerWin32.h">
-      <Filter>Source Files\input</Filter>
-    </ClInclude>
-    <ClInclude Include="..\game\input\virtualinputs.hpp">
-      <Filter>Source Files\input</Filter>
-    </ClInclude>
     <ClInclude Include="..\game\input\wheeldefines.h">
-      <Filter>Source Files\input</Filter>
-    </ClInclude>
-    <ClInclude Include="..\game\input\wheelrumble.h">
-      <Filter>Source Files\input</Filter>
-    </ClInclude>
-    <ClInclude Include="..\game\input\basedamper.h">
       <Filter>Source Files\input</Filter>
     </ClInclude>
     <ClInclude Include="..\game\input\button.h">
       <Filter>Source Files\input</Filter>
     </ClInclude>
-    <ClInclude Include="..\game\input\constanteffect.h">
-      <Filter>Source Files\input</Filter>
-    </ClInclude>
     <ClInclude Include="..\game\input\controller.h">
-      <Filter>Source Files\input</Filter>
-    </ClInclude>
-    <ClInclude Include="..\game\input\FEMouse.h">
-      <Filter>Source Files\input</Filter>
-    </ClInclude>
-    <ClInclude Include="..\game\input\forceeffect.h">
       <Filter>Source Files\input</Filter>
     </ClInclude>
     <ClInclude Include="..\game\input\Gamepad.h">
@@ -2339,16 +2288,10 @@
     <ClInclude Include="..\game\input\inputPointList.h">
       <Filter>Source Files\input</Filter>
     </ClInclude>
-    <ClInclude Include="..\game\input\Keyboard.h">
-      <Filter>Source Files\input</Filter>
-    </ClInclude>
     <ClInclude Include="..\game\input\mappable.h">
       <Filter>Source Files\input</Filter>
     </ClInclude>
     <ClInclude Include="..\game\input\mapper.h">
-      <Filter>Source Files\input</Filter>
-    </ClInclude>
-    <ClInclude Include="..\game\input\Mouse.h">
       <Filter>Source Files\input</Filter>
     </ClInclude>
     <ClInclude Include="..\game\input\MouseCursor.h">
@@ -2358,9 +2301,6 @@
       <Filter>Source Files\input</Filter>
     </ClInclude>
     <ClInclude Include="..\game\input\rumbleeffect.h">
-      <Filter>Source Files\input</Filter>
-    </ClInclude>
-    <ClInclude Include="..\game\input\steeringspring.h">
       <Filter>Source Files\input</Filter>
     </ClInclude>
     <ClInclude Include="..\game\input\SteeringWheel.h">
@@ -3727,6 +3667,9 @@
     </ClInclude>
     <ClInclude Include="..\game\main\uwpplatform.h">
       <Filter>Source Files\main</Filter>
+    </ClInclude>
+    <ClInclude Include="..\game\input\usercontroller.h">
+      <Filter>Source Files\input</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

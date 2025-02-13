@@ -11,7 +11,7 @@
 #include <pddi/pddienum.hpp>
 #include <radmath/radmath.hpp>
 
-//class tPrimGroupLoader;
+class tPrimGroupLoader;
 class tEntityStore;
 class tPrimGroupStreamed;
 class tVertexList;
@@ -77,7 +77,7 @@ public:
     virtual void ReleaseTempVertices(void);
 
 protected:
-    //friend class tPrimGroupLoader;
+    friend class tPrimGroupLoader;
 
     pddiPrimBuffer *mBuffer;
     rmt::Vector* tempPositions;
@@ -93,7 +93,7 @@ public:
     virtual void DisplayInstanced(unsigned);
 
 protected:
-    //friend class tPrimGroupLoader;
+    friend class tPrimGroupLoader;
 
     unsigned nMatrices;
     rmt::Matrix** matrixPalette;   
@@ -124,7 +124,7 @@ public:
     unsigned short *GetIndices() const  { return mIndices; }
     
 protected:
-    //friend class tPrimGroupLoader;
+    friend class tPrimGroupLoader;
 
     int mIndexCount;
     
@@ -164,7 +164,7 @@ public:
     bool SetVertices(unsigned start, unsigned count, rmt::Vector*);
     
 protected:
-    //friend class tPrimGroupLoader;
+    friend class tPrimGroupLoader;
 
     unsigned nMatrices;
     rmt::Matrix** matrixPalette;   
@@ -196,14 +196,14 @@ class tPrimGroupSkinnedPC : public tPrimGroupSkinnedOptimised
 
 protected:
 	
-    //friend class tPrimGroupLoader;	
+    friend class tPrimGroupLoader;	
     SkinVertex* mVertices;
 };
 #endif
 //-------------------------------------------------------------------
 class tChunkFile;
 
-/*class tPrimGroupLoader
+class tPrimGroupLoader
 {
 public:
     tPrimGroupLoader(void);
@@ -230,4 +230,4 @@ private:
 
     unsigned mVertexFormatMask;
 
-};*/
+};
