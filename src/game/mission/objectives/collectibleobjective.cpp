@@ -52,10 +52,8 @@
 // Global Data, Local Data, Local Classes
 //
 //******************************************************************************
-#if defined( DEBUGWATCH ) || defined( RAD_WIN32 )
+#if defined( DEBUGWATCH ) || defined( RAD_WIN32 ) || defined ( RAD_UWP )
 float DEFAULT_DIST = 5.0f;
-#else
-const float DEFAULT_DIST = 5.0f;
 #endif
 //******************************************************************************
 //

@@ -37,7 +37,7 @@
 // Interface
 //=============================================================================
 
-#if defined( SN_TCPIP ) || defined( RAD_WIN32 ) || defined( RAD_XBOX )
+#if defined( SN_TCPIP ) || defined( RAD_WIN32 ) || defined( RAD_UWP )
 //
 // Game cubes socket is a pure abstract interface. The other platfroms should
 // be as well and this should be cleaned up.
@@ -82,29 +82,24 @@ struct radSocket
     }
     virtual int lasterror( int sock )
     {
-        #if defined( RAD_WIN32 ) || defined( RAD_XBOX )
+        #if defined( RAD_WIN32 ) || defined( RAD_UWP )
         return( WSAGetLastError( ) );
-        #endif
-        #ifdef RAD_PS2
-        return( sn_errno( sock ) );
         #endif
     }
     virtual ~radSocket( void ) 
     {
         
     } 
-    #if defined( RAD_WIN32 ) || defined( RAD_XBOX )
+    #if defined( RAD_WIN32 ) || defined( RAD_UWP )
     virtual int ioctlsocket( SOCKET s, long cmd, u_long *argp )
     {
         return( ::ioctlsocket( s,  cmd,  argp ) );
     }
-    #ifndef RAD_XBOX
     virtual int AsyncSelect( SOCKET s, HWND Wnd, unsigned int wMsg, long levent )
     {
         return( ::WSAAsyncSelect( s, Wnd, wMsg, levent ) );
     }
-    #endif // !RAD_XBOX
-    #endif // RAD_WIN32 || RAD_XBOX 
+    #endif // RAD_WIN32 || RAD_UWP 
 
     //
     // This placement operator is used by the host side only

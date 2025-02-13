@@ -459,7 +459,6 @@
     <ClCompile Include="..\game\presentation\gui\ingame\guiscreenmultihud.cpp" />
     <ClCompile Include="..\game\presentation\gui\ingame\guiscreenpause.cpp" />
     <ClCompile Include="..\game\presentation\gui\ingame\guiscreenpausecontroller.cpp" />
-    <ClCompile Include="..\game\presentation\gui\ingame\guiscreenpausedisplay.cpp" />
     <ClCompile Include="..\game\presentation\gui\ingame\guiscreenpausemission.cpp" />
     <ClCompile Include="..\game\presentation\gui\ingame\guiscreenpauseoptions.cpp" />
     <ClCompile Include="..\game\presentation\gui\ingame\guiscreenpausesettings.cpp" />
@@ -1033,7 +1032,6 @@
     <ClInclude Include="..\game\presentation\gui\ingame\guiscreenmultihud.h" />
     <ClInclude Include="..\game\presentation\gui\ingame\guiscreenpause.h" />
     <ClInclude Include="..\game\presentation\gui\ingame\guiscreenpausecontroller.h" />
-    <ClInclude Include="..\game\presentation\gui\ingame\guiscreenpausedisplay.h" />
     <ClInclude Include="..\game\presentation\gui\ingame\guiscreenpausemission.h" />
     <ClInclude Include="..\game\presentation\gui\ingame\guiscreenpauseoptions.h" />
     <ClInclude Include="..\game\presentation\gui\ingame\guiscreenpausesettings.h" />

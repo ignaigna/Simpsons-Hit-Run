@@ -33,11 +33,8 @@
 #include <radthread.hpp>
 #include <raddebugcommunication.hpp>
 
-#ifdef RAD_WIN32
+#if defined(RAD_WIN32) || defined(RAD_UWP)
 #include <windows.h>
-#endif 
-#ifdef RAD_XBOX
-#include <xtl.h>
 #endif 
 
 #include "protocol.hpp"

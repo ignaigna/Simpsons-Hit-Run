@@ -675,6 +675,11 @@
     </ClCompile>
     <ClCompile Include="src\radcontroller\directinputcontroller.cpp" />
     <ClCompile Include="src\radcontroller\sdlcontroller.cpp" />
+    <ClCompile Include="src\raddebugcommunication\host.cpp" />
+    <ClCompile Include="src\raddebugcommunication\hostchannel.cpp" />
+    <ClCompile Include="src\raddebugcommunication\targetconnection.cpp" />
+    <ClCompile Include="src\raddebugcommunication\targetsocketchannel.cpp" />
+    <ClCompile Include="src\raddebugcommunication\targetx.cpp" />
     <ClCompile Include="src\raddebugconsole\consoleclient.cpp" />
     <ClCompile Include="src\raddebugfileserver\fileserver.cpp" />
     <ClCompile Include="src\raddebugwatch\watchclient.cpp" />
@@ -763,6 +768,16 @@
     <ClInclude Include="include\radtextdisplay.hpp" />
     <ClInclude Include="include\radthread.hpp" />
     <ClInclude Include="include\radtime.hpp" />
+    <ClInclude Include="src\raddebugcommunication\decitypes.h" />
+    <ClInclude Include="src\raddebugcommunication\hioshared.hpp" />
+    <ClInclude Include="src\raddebugcommunication\host.hpp" />
+    <ClInclude Include="src\raddebugcommunication\hostchannel.hpp" />
+    <ClInclude Include="src\raddebugcommunication\netmp.h" />
+    <ClInclude Include="src\raddebugcommunication\protocol.hpp" />
+    <ClInclude Include="src\raddebugcommunication\socket.hpp" />
+    <ClInclude Include="src\raddebugcommunication\targetconnection.hpp" />
+    <ClInclude Include="src\raddebugcommunication\targetsocketchannel.hpp" />
+    <ClInclude Include="src\raddebugcommunication\targetx.hpp" />
     <ClInclude Include="src\raddebugconsole\consoleclient.hpp" />
     <ClInclude Include="src\raddebugfileserver\fileserver.hpp" />
     <ClInclude Include="src\raddebugwatch\watchclient.hpp" />
