@@ -126,6 +126,7 @@ void tPrimGroupOptimised::Display()
 {
     P3DASSERT(mBuffer);
     pddiShader* shader = mShader->GetShader();
+
     p3d::pddi->DrawPrimBuffer( shader, mBuffer );
 }
 
@@ -245,6 +246,7 @@ void tPrimGroupStreamed::Display()
     pddiBaseShader* pShader = (pddiBaseShader *) mShader->GetShader( );
 
     const int numPasses = pShader->GetPasses();
+
     for( int i = 0; i < numPasses;  ++i ){     
         pddiPrimStream* stream = p3d::pddi->BeginPrims(mShader->GetShader(), mPrimType, vertexFormat, (mIndexCount > 0) ? mIndexCount : mVertexList->GetNumVertices(), i );
 
@@ -1927,4 +1929,3 @@ tPrimGroup*  tPrimGroupLoader::Load(tChunkFile *f, tEntityStore *store, rmt::Mat
     
     return primGroup;
 }
-

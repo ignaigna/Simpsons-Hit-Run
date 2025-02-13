@@ -199,11 +199,10 @@ protected:
     friend class tPrimGroupLoader;	
     SkinVertex* mVertices;
 };
-#endif
 //-------------------------------------------------------------------
 class tChunkFile;
 
-/*class tPrimGroupLoader
+class tPrimGroupLoader
 {
 public:
     tPrimGroupLoader(void);
@@ -230,4 +229,6 @@ private:
 
     unsigned mVertexFormatMask;
 
-};*/
+};
+
+#endif // _PRIMGROUP_HPP_
