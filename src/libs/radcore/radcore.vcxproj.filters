@@ -275,6 +275,9 @@
     <ClCompile Include="src\radcontroller\directinputcontroller.cpp">
       <Filter>src\radcontroller</Filter>
     </ClCompile>
+    <ClCompile Include="src\radcontroller\sdlcontroller.cpp">
+      <Filter>src\radcontroller</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\raddispatch\dispatcher.hpp">

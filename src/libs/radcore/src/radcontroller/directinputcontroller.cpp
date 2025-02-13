@@ -21,6 +21,8 @@
 //============================================================================
 
 #include "pch.hpp"
+
+#if defined(RAD_WIN32)
 #include <dinput.h>
 #include <math.h>
 #include <radcontroller.hpp>
@@ -2771,3 +2773,5 @@ void radControllerSystemService( void )
         s_pTheDirectInputControllerSystem->Service( );
     }
 }
+
+#endif // RAD_WIN32
