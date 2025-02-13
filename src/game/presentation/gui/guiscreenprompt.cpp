@@ -111,7 +111,7 @@ MEMTRACK_PUSH_GROUP( "GUIScreenPrompt" );
 
         this->SetFadeTime( ERROR_PROMPT_FADE_TIME );
 
-#ifdef RAD_XBOX
+#ifdef RAD_UWP
         // wrap "Go to Xbox Dashboard" text
         //
         Scrooby::Group* xboxDashboard = pPage->GetGroup( "XboxDashboard" );
@@ -206,16 +206,6 @@ void CGuiScreenPrompt::HandleMessage
     {
         switch( message )
         {
-#ifdef RAD_PS2
-            case GUI_MSG_CONTROLLER_START:
-            {
-                if ( GetGameFlow()->GetCurrentContext() == CONTEXT_PAUSE )
-                    if ( s_pPromptCallback )
-                        s_pPromptCallback->HandleMessage( GUI_MSG_PROMPT_START_RESPONSE );
-
-                break;
-            }
-#endif
             case GUI_MSG_UPDATE:
             {
                 m_elapsedTime += param1;
@@ -243,7 +233,7 @@ void CGuiScreenPrompt::HandleMessage
             }
             case GUI_MSG_CONTROLLER_BACK:
             {
-#ifdef RAD_XBOX
+#ifdef RAD_UWP
                 if( m_ID == GUI_SCREEN_ID_ERROR_PROMPT )
                 {
                     // special case for going to xbox dashboard on the
@@ -418,7 +408,7 @@ void CGuiScreenPrompt::InitIntro()
     rAssert( s_messageIndex >= 0 &&
              s_messageIndex < m_promptMessage->GetNumOfStrings() );
 
-#ifdef RAD_XBOX
+#ifdef RAD_UWP
     if( m_ID == GUI_SCREEN_ID_ERROR_PROMPT )
     {
         // special case for "full xbox hard disk" error message

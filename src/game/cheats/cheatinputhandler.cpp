@@ -39,7 +39,7 @@ static const CheatInputMapping CHEAT_INPUT_MAPPINGS[] =
     { "R1",             CHEAT_INPUT_RTRIGGER },
 #endif
 
-#ifdef RAD_XBOX
+#ifdef RAD_UWP
     { "A",              CHEAT_INPUT_0 },
     { "B",              CHEAT_INPUT_1 },
     { "X",              CHEAT_INPUT_2 },

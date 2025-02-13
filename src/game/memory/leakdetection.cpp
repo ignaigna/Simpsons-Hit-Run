@@ -64,9 +64,6 @@ bool DoWeTrackLeaksInThisHeap( radMemoryAllocator heap )
     if( heap == GMA_PERSISTENT )        return false;
     if( heap == GMA_MUSIC )             return false;
     if( heap == GMA_AUDIO_PERSISTENT )  return false;
-#ifdef RAD_XBOX
-    if( heap == GMA_XBOX_SOUND_MEMORY ) return false;
-#endif
     if( heap == GMA_DEBUG )             return false;
     return true;
 }

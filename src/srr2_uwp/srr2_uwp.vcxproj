@@ -96,7 +96,7 @@
       <SupportJustMyCode>false</SupportJustMyCode>
       <SDLCheck>
       </SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;RAD_DEBUG;WIN64;_WINDOWS;RAD_UWP;_CRT_SECURE_NO_WARNINGS;WIN32_EXTRA_LEAN;WIN32_LEAN_AND_MEAN;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;RAD_DEBUG;WIN64;_WINDOWS;RAD_UWP;RAD_CONSOLE;_CRT_SECURE_NO_WARNINGS;WIN32_EXTRA_LEAN;WIN32_LEAN_AND_MEAN;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
@@ -120,7 +120,7 @@
       <SupportJustMyCode>false</SupportJustMyCode>
       <SDLCheck>
       </SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;RAD_DEBUG;WIN64;_WINDOWS;RAD_UWP;_CRT_SECURE_NO_WARNINGS;WIN32_EXTRA_LEAN;WIN32_LEAN_AND_MEAN;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;RAD_DEBUG;WIN64;_WINDOWS;RAD_UWP;RAD_CONSOLE;_CRT_SECURE_NO_WARNINGS;WIN32_EXTRA_LEAN;WIN32_LEAN_AND_MEAN;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
@@ -144,7 +144,7 @@
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <SDLCheck>
       </SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;RAD_RELEASE;WIN64;_WINDOWS;RAD_UWP;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS;WIN32_EXTRA_LEAN;WIN32_LEAN_AND_MEAN</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;RAD_RELEASE;WIN64;_WINDOWS;RAD_UWP;RAD_CONSOLE;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS;WIN32_EXTRA_LEAN;WIN32_LEAN_AND_MEAN</PreprocessorDefinitions>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <StringPooling>true</StringPooling>

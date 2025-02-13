@@ -12,9 +12,6 @@
 //========================================
 // System Includes
 //========================================      
-#ifdef RAD_PS2      
-#include <malloc.h>
-#endif
 
 // Foundation Tech
 #include <radmath/util.hpp>
@@ -40,21 +37,11 @@
 
 #include <mission/gameplaymanager.h>
 
-#ifdef RAD_PS2
-#include <pddi/pddiext.hpp>
-#include <main/ps2platform.h>
-#define INIT_MEM()  Memory::InitializeMemoryUtilities();PS2Platform::InitializeMemory();
-#endif // RAD_PS2
-
-#ifdef RAD_XBOX
-#include <main/xboxplatform.h>
-#define INIT_MEM()  Memory::InitializeMemoryUtilities();XboxPlatform::InitializeMemory();radMemoryInitialize();
+#ifdef RAD_UWP
+#include <main/uwpplatform.h>
+#define INIT_MEM()  Memory::InitializeMemoryUtilities();UwpPlatform::InitializeMemory();radMemoryInitialize();
 void MemoryHackCallback() { INIT_MEM() };
-#endif // RAD_XBOX
-
-#ifdef RAD_PS2
-    void MemoryHackCallback() { INIT_MEM() };
-#endif
+#endif // RAD_UWP
 
 #ifdef RAD_WIN32
 #include <main/win32platform.h>
@@ -105,8 +92,8 @@ const char* HeapNames[] =
     "Music Heap",
     "Audio Persistent",
     "Small Alloc Heap",
-#ifdef RAD_XBOX
-    "Xbox Sound Heap",
+#ifdef RAD_UWP
+    "UWP Sound Heap",
 #endif
 #ifdef USE_CHAR_GAG_HEAP
     "Character and Gag Heap",
@@ -170,11 +157,6 @@ inline void* AllocateThis( GameMemoryAllocator allocator, size_t size )
 //
 //==============================================================================
 void* operator new( size_t size )
-#ifdef RAD_PS2
-#ifndef RAD_MW
-throw( std::bad_alloc )
-#endif
-#endif
 {
     if( gMemorySystemInitialized == false )
     {
@@ -216,11 +198,6 @@ throw( std::bad_alloc )
 //
 //==============================================================================
 void operator delete(void* pMemory)
-#ifdef RAD_PS2
-#ifndef RAD_MW
-throw()
-#endif
-#endif
 {
     radMemoryFree( pMemory );
 }
@@ -238,11 +215,6 @@ throw()
 //
 //==============================================================================
 void* operator new[]( size_t size )
-#ifdef RAD_PS2
-#ifndef RAD_MW
-throw( std::bad_alloc )
-#endif
-#endif
 {
     if( gMemorySystemInitialized == false )
     {
@@ -283,11 +255,6 @@ throw( std::bad_alloc )
 //
 //==============================================================================
 void operator delete[]( void* pMemory )
-#ifdef RAD_PS2
-#ifndef RAD_MW
-throw()
-#endif
-#endif
 {
     radMemoryFree( pMemory );
 }
@@ -519,14 +486,6 @@ void PrintOutOfMemoryMessage( void* userData, radMemoryAllocator heap, const uns
 
     IRadTextDisplay* textDisplay;
     GameMemoryAllocator heapEnum = static_cast<GameMemoryAllocator>(heap);
-
-#ifdef RAD_PS2
-    //
-    // Need to shut down the MFIFO for this to work properly
-    //
-    ((pddiExtPS2Control*)p3d::pddi->GetExtension(PDDI_EXT_PS2_CONTROL))->MFIFOEnable( false );
-    rReleasePrintf("MFIFO Disabled.\n");
-#endif
 
     //
     // Ironically, the text display object needs to be allocated on a heap,
@@ -1447,100 +1406,7 @@ void HeapManager::DumpArtStats ()
 
 // These constants are the heap sizes for each platform
 //
-#if defined (RAD_PS2)
-    #ifdef RAD_RELEASE
-    const float HS_DEFAULT = 0.12f;  // For only very core FTech stuff      (DO NOT change this)
-    #else                            //                                       If you run out of room in GMA_DEFAULT,
-                                    //                                        you have an unrouted allocation
-    const float HS_DEFAULT = 0.13f;  // For that plus debug comm stuff, etc (DO NOT change this)
-    #endif
-
-    #ifdef CORRAL_SMALL_ALLOCS
-        const float HS_TEMP = 0.350000f;
-    #else
-        const float HS_TEMP = 0.550000f;
-    #endif
-
-    #ifdef PAL
-        // an additional 4-5K is needed for PAL builds, due to other languages
-        // in the text bible using up slightly more memory
-        //
-        const float HS_PERSISTENT = 1.905f;
-    #else
-        const float HS_PERSISTENT = 1.900f;
-    #endif
-
-    const float HS_MUSIC = 0.2f;
-    const float HS_AUDIO_PERSISTENT = 0.62f;//0.693000f;
-
-    //FE Only
-    const float HS_LEVEL_MOVIE = 1.94f;
-    const float HS_LEVEL_AUDIO_FE = 0.05f;
-    const float HS_LEVEL_FE = 14.0f;
-    //In-game Only
-    //const float HS_LEVEL_ZONE = 11.25f;
-    const float HS_LEVEL_ZONE = 11.50f;
-    //const float HS_LEVEL_OTHER = 6.48f;
-    #ifdef CORRAL_SMALL_ALLOCS
-        const float HS_LEVEL_HUD = 1.6700f;
-    #else
-        const float HS_LEVEL_HUD =  2.51f;;
-    #endif
-
-    const float HS_LEVEL_AUDIO_INGAME = 0.05f;
-
-    // level heap is the sum of other heaps
-    const float HS_LEVEL = 0.01 + rmt::Max( ( HS_LEVEL_ZONE + HS_LEVEL_HUD + HS_LEVEL_AUDIO_INGAME ), ( HS_LEVEL_FE + HS_LEVEL_AUDIO_FE + HS_LEVEL_MOVIE ) );
-
-    //Mnigame Only
-    const float HS_MINIGAME_ZONE        = 3.0f;
-    const float HS_MINIGAME_OTHER       = 7.7f;
-    const float HS_MINIGAME_HUD         = 2.3f;
-    const float HS_MINIGAME_MISSION     = 2.0f;
-    const float HS_MINIGAME_AUDIO       = 0.5f;
-
-    #ifndef RAD_RELEASE
-    const float HS_DEBUG = 5.0f;
-    const float HS_DEBUG_FIREWIRE = 0.4f;
-    const float HS_SPECIAL = 10.0f;
-    #endif
-
-#elif defined (RAD_XBOX)
-    #ifdef RAD_RELEASE
-    const float HS_DEFAULT = 0.1f;  // For only very core FTech stuff
-    #else
-    const float HS_DEFAULT = 0.4f;   // For that plus debug comm stuff, etc
-    #endif
-    const float HS_TEMP = 1.0f;
-    const float HS_PERSISTENT = 1.65f;
-    const float HS_MUSIC = 0.2f;
-    const float HS_AUDIO_PERSISTENT = 0.7f;
-    const float HS_LEVEL = 20.01f;    // 0.01 for sub-heap creation overhead
-    //FE Only
-    const float HS_LEVEL_MOVIE = 3.94f; // TC: added extra 2.0 MB until memory leak
-                                        //     in radMovie player is fixed
-    const float HS_LEVEL_AUDIO_FE = 0.05f;
-    const float HS_LEVEL_FE = 5.0f;
-    //In-game Only
-    const float HS_LEVEL_ZONE = 8.0f;
-    //const float HS_LEVEL_OTHER = 5.0f;
-    const float HS_LEVEL_HUD = 2.5f;
-    //const float HS_LEVEL_MISSION = 2.8f;
-    const float HS_LEVEL_AUDIO_INGAME = 0.05f;
-    //Mnigame Only
-    const float HS_MINIGAME_ZONE        = 3.0f;
-    const float HS_MINIGAME_OTHER       = 8.0f;
-    const float HS_MINIGAME_HUD         = 1.55f;
-    const float HS_MINIGAME_MISSION     = 2.0f;
-    const float HS_MINIGAME_AUDIO       = 0.5f;
-
-    #ifndef RAD_RELEASE
-    const float HS_DEBUG = 5.0f;
-    const float HS_DEBUG_FIREWIRE = 0.4f;
-    const float HS_SPECIAL = 10.0f;
-    #endif
-
-#elif defined (RAD_WIN32) // these have not been optimized yet.
+#if defined (RAD_WIN32) || defined (RAD_UWP) // these have not been optimized yet.
     #ifdef RAD_RELEASE
     const float HS_DEFAULT = 0.1f;  // For only very core FTech stuff
     #else
@@ -1596,20 +1462,6 @@ void HeapManager::PrepareHeapsStartup ()
     // This heap holds everything that is allocated at the beginning of the game and never gets freed.
     //
     float persistent_size = HS_PERSISTENT;
-#ifdef RAD_PS2
-#ifndef RAD_RELEASE
-    // On the PS2, in non-release, radSound allocates about 0.1 MB more for radRemoteScript
-    //
-    persistent_size += 0.1f;
-#endif
-
-    // On the PS2, the host drive mount costs about 254K more than the CD drive mount
-    //
-    if (!CommandLineOptions::Get( CLO_CD_FILES_ONLY ))
-    {
-        persistent_size += 0.25f;
-    }
-#endif
 
     CreateHeap( GMA_PERSISTENT, static_cast<unsigned int>(persistent_size * MB * FUDGE) );
 
@@ -1619,11 +1471,6 @@ void HeapManager::PrepareHeapsStartup ()
     // and persist throughout the game.  They aren't necessarily done
     // at start up, hence its own heap
     //
-#if defined( RAD_PS2 )
-    CreateHeap( GMA_AUDIO_PERSISTENT, static_cast< int >( HS_AUDIO_PERSISTENT * FUDGE * MB ) );
-    IRadMemoryAllocator* audioHeap = GetAllocator( GMA_AUDIO_PERSISTENT );
-    radMemoryRegisterAllocator( GMA_MUSIC,            RADMEMORY_ALLOC_DEFAULT, audioHeap );
-#endif
 #ifdef CORRAL_SMALL_ALLOCS   
     CreateHeap( GMA_SMALL_ALLOC, (int)(((float)4*(1024*1024))*FUDGE+(200*1024)));//-170608) );
     extern bool gbSmallAllocCreated;
@@ -1633,45 +1480,6 @@ void HeapManager::PrepareHeapsStartup ()
 //    radMemoryRegisterAllocator( GMA_AUDIO_PERSISTENT, RADMEMORY_ALLOC_VMM, vmmHeap );
 //    radMemoryRegisterAllocator( GMA_MUSIC, RADMEMORY_ALLOC_VMM, vmmHeap );
 //#endif
-
-#if defined(RAD_PS2) && defined(ALL_DL_HEAPS) 
-    unsigned int fudgeFactor;
-
-    if( CommandLineOptions::Get( CLO_MEMORY_MONITOR ) )
-    {
-        fudgeFactor = 64 * 1024;
-    }
-    else
-    {
-        #ifdef RAD_TUNE
-            fudgeFactor = 64 * 1024;
-        #else
-            fudgeFactor = 16 * 1024;
-        #endif
-    }
-
-    //unsigned int size = Memory::GetTotalMemoryFree() - fudgeFactor;// - 256 * 1024; //mfifo
-    unsigned int size = Memory::GetLargestFreeBlock() - fudgeFactor;// - 256 * 1024; //mfifo
-    #ifdef RAD_MW
-        size -= (512 * 1024);
-    #endif
-        //size -= (512*1024);
-    CreateHeap( GMA_DEFAULT, size );
-    IRadMemoryAllocator* defaultHeap = GetAllocator( GMA_DEFAULT );
-    //radMemoryRegisterAllocator( GMA_TEMP,             RADMEMORY_ALLOC_DEFAULT, defaultHeap );
-    radMemoryRegisterAllocator( GMA_LEVEL_MOVIE,      RADMEMORY_ALLOC_DEFAULT, defaultHeap );
-    radMemoryRegisterAllocator( GMA_LEVEL_FE,         RADMEMORY_ALLOC_DEFAULT, defaultHeap );
-    radMemoryRegisterAllocator( GMA_LEVEL_ZONE,       RADMEMORY_ALLOC_DEFAULT, defaultHeap );
-    radMemoryRegisterAllocator( GMA_LEVEL_OTHER,      RADMEMORY_ALLOC_DEFAULT, defaultHeap );
-    //radMemoryRegisterAllocator( GMA_LEVEL_HUD,        RADMEMORY_ALLOC_DEFAULT, defaultHeap );
-    radMemoryRegisterAllocator( GMA_LEVEL_MISSION,    RADMEMORY_ALLOC_DEFAULT, defaultHeap );
-    radMemoryRegisterAllocator( GMA_LEVEL_AUDIO,      RADMEMORY_ALLOC_DEFAULT, defaultHeap );
-    radMemoryRegisterAllocator( GMA_DEBUG,            RADMEMORY_ALLOC_DEFAULT, defaultHeap );
-    radMemoryRegisterAllocator( GMA_SPECIAL,          RADMEMORY_ALLOC_DEFAULT, defaultHeap );
-//    radMemoryRegisterAllocator( GMA_MUSIC,            RADMEMORY_ALLOC_DEFAULT, defaultHeap );
-//    radMemoryRegisterAllocator( GMA_AUDIO_PERSISTENT, RADMEMORY_ALLOC_DEFAULT, defaultHeap );
-
-#endif
 
     if (CommandLineOptions::Get( CLO_NO_HEAPS ))
     {
@@ -1906,23 +1714,7 @@ int HeapManager::GetHeapUsage (IRadMemoryAllocator* allocator)
 
 int HeapManager::GetSoundMemoryHeapUsage()
 {
-    int soundMemoryUsage = 0;
-
-    #ifdef RAD_PS2
-        unsigned int size;
-        unsigned int totalFree;
-        unsigned int largestBlock;
-        unsigned int numObjects;
-        IRadSoundHalMemoryRegion* soundMemory = ::radSoundHalSystemGet()->GetRootMemoryRegion();
-        rAssert( soundMemory != NULL );
-
-        size = soundMemory->GetSize();
-        soundMemory->GetStats( &totalFree, &numObjects, &largestBlock, true );
-
-        soundMemoryUsage = size - totalFree;
-    #endif
-
-    return( soundMemoryUsage );
+    return( 0 );
 }
 
 HeapManager* HeapMgr ()

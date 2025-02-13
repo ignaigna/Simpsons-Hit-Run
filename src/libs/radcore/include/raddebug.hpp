@@ -27,8 +27,8 @@
 // Build Configuration Check
 //=============================================================================
 
-#if !defined(RAD_PS2) && !defined(RAD_XBOX) && !defined(RAD_WIN32)
-    #error 'FTech requires definition of RAD_PS2, RAD_XBOX, or RAD_WIN32'
+#if !defined(RAD_UWP) && !defined(RAD_WIN32)
+    #error 'FTech requires definition of RAD_UWP, or RAD_WIN32'
 #endif
 #if !defined(RAD_DEBUG) && !defined(RAD_TUNE) && !defined(RAD_RELEASE) 
     #error 'FTech requires definition of RAD_DEBUG, RAD_TUNE, or RAD_RELEASE'
@@ -64,16 +64,12 @@ typedef void (radDebugOutputHandler)(const char * pString );
 // DON'T USE THESE FUNCTIONS, USE THE MACROS BELOW.
 //
 
-#if defined (RAD_WIN32) || defined (RAD_XBOX)
+#if defined (RAD_WIN32) || defined (RAD_UWP)
 #ifdef __cplusplus
     bool rDebugAssertFail_Implementation( const char* condition, const char* filename, unsigned int linenum);
 #else
     int rDebugAssertFail_Implementation( const char* condition, const char* filename, unsigned int linenum);
 #endif
-#endif
-
-#if defined( RAD_PS2 )
-bool rDebugAssertFail_Implementation( const char* condition, const char* filename, unsigned int linenum);
 #endif
 
 void rDebugHaltOnAsserts_Implementation( bool halt );
@@ -101,12 +97,8 @@ void rDebugSetOutputHandler     ( radDebugOutputHandler * pOutputProc );
 // in release.
 //
 
-#if defined (RAD_WIN32) || defined (RAD_XBOX)
+#if defined (RAD_WIN32) || defined (RAD_UWP)
 	#define rReleaseBreak() { __debugbreak(); }
-#endif
-
-#ifdef RAD_PS2
-    #define rReleaseBreak() { asm( ".word 0x0000004d"); }
 #endif
 
 //#define rReleaseString( x )( rDebugString_Implementation( x ) )
@@ -148,16 +140,8 @@ void rReleasePrintf( const char *fmt, ... );
     #define rTuneAssertMsg( x, msg ) ((void)0)    // Assert x true, display msg if not
     #define rTuneWarning( x ) ((void)0)           // If x false, display warning
     #define rTuneWarningMsg( x, msg ) ((void)0)   // If x false, display msg
-   
-    #ifdef RAD_PS2 
-        #ifdef RAD_MW 
-            #define rTunePrintf( ... ) ((void)0)
-        #else
-            #define rTunePrintf(format, args...) ((void)0)
-        #endif
-    #endif
 
-    #if defined (RAD_WIN32) || defined (RAD_XBOX)
+    #if defined (RAD_WIN32) || defined (RAD_UWP)
         inline void rTunePrintf( const char *fmt, ... ) { }
     #endif
 
@@ -207,17 +191,7 @@ void rReleasePrintf( const char *fmt, ... );
     #define rDebugChannelDisable( y ) ((void)0)
     #define rDebugChannelTerminate()((void)0)
 
-    #ifdef RAD_PS2 
-        #ifdef RAD_MW 
-            #define rDebugPrintf( ... ) ((void)0)
-            #define rDebugChannelPrintf( ... ) ((void)0)
-        #else
-            #define rDebugPrintf(format, args...) ((void)0)
-            #define rDebugChannelPrintf(format, args...) ((void)0)
-        #endif
-    #endif
-
-    #if defined (RAD_WIN32) || defined (RAD_XBOX)
+    #if defined (RAD_WIN32) || defined (RAD_UWP)
         inline void rDebugPrintf( const char *fmt, ... ) { }
         inline void rDebugChannelPrintf( const char *fmt, ... ) { }
     #endif

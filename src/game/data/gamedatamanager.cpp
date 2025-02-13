@@ -36,14 +36,7 @@
 #include <raddebugwatch.hpp>
 #include <radtime.hpp>
 
-#ifdef RAD_PS2
-    #include <radstring.hpp>
-#endif
-#ifdef RAD_PS2
-const unsigned int MAX_GAME_DATA_SIZE = 8600; // in bytes (since ps2 have different byte packing)
-#else
 const unsigned int MAX_GAME_DATA_SIZE = 7500; // in bytes
-#endif
 
 // Static pointer to instance of singleton.
 GameDataManager* GameDataManager::spInstance = NULL;
@@ -52,43 +45,9 @@ GameDataManager* GameDataManager::spInstance = NULL;
 // Local Constants
 //===========================================================================
 
-#ifdef RAD_PS2
-    const char* SAVED_GAME_TITLE = "The Simpsons:Hit & Run"; // there should be no space betw. "Simpsons:" and "Hit"
-                                                             // due to line break inserted there
-#endif
-
-#ifdef RAD_XBOX
-    // Xbox TCR Requirement!!!
-    //
-    #define ENABLE_MINIMUM_LOAD_SAVE_TIME
-    const unsigned int MINIMUM_LOAD_SAVE_TIME = 2000; // in msec
-#else
-    #define ENABLE_MINIMUM_LOAD_SAVE_TIME
-    const unsigned int MINIMUM_LOAD_SAVE_TIME = 1000; // in msec
-#endif
-
-#ifdef RAD_PS2
-    const unsigned int MINIMUM_DELETE_TIME = 3000; // in msec
-#else
-    const unsigned int MINIMUM_DELETE_TIME = 1000; // in msec
-#endif
-
-#ifdef RAD_PS2
-    /* Filename for PS2 saved games must be prefixed with the following:
-     *
-     * (BISLPS | BISLPM | BISCPS | BASLUS | BASCUS | BESLES | BESCES)-#####
-     *
-     * Example: "BASCUS-12345savegame.dat"
-     *
-     */
-  #ifdef PAL
-    #define PS2_FILENAME_PREFIX "BESLES-51897"
-  #else
-    #define PS2_FILENAME_PREFIX "BASLUS-20624"
-  #endif
-#else
-    #define PS2_FILENAME_PREFIX ""
-#endif
+#define ENABLE_MINIMUM_LOAD_SAVE_TIME
+const unsigned int MINIMUM_LOAD_SAVE_TIME = 1000; // in msec
+const unsigned int MINIMUM_DELETE_TIME = 1000; // in msec
 
 #ifdef DEBUGWATCH
     const char* WATCHER_NAMESPACE = "Game Data Manager";
@@ -431,7 +390,7 @@ GameDataManager::LoadGame( unsigned int slot, GameDataLoadCallback* callback, co
 									sizeof( filename ),
 									slot );
 	else
-		strcpy( filename, load_filename ); // filename is passed in for xbox
+		strcpy( filename, load_filename ); // TODO(3ur): safe to remove the if and else check?
     IRadDrive* currentDrive = GetMemoryCardManager()->GetCurrentDrive();
     rAssert( currentDrive );
 #ifndef RAD_WIN32
@@ -529,18 +488,6 @@ GameDataManager::SaveGame( unsigned int slot, GameDataSaveCallback* callback )
 
     // update saved game title in memcard info before saving
     //
-#ifdef RAD_PS2
-    char levelMissionInfo[ 32 ];
-    m_saveGameInfoHandler->FormatLevelMissionInfo( levelMissionInfo );
-
-    char savedGameTitle[ 32 ];
-    sprintf( savedGameTitle, "%s (%d)", SAVED_GAME_TITLE, slot + 1 );
-
-    GetMemoryCardManager()->UpdateMemcardInfo( savedGameTitle, 13 );
-#endif
-#ifdef RAD_XBOX
-    GetMemoryCardManager()->UpdateMemcardInfo( NULL );
-#endif
 #ifdef RAD_WIN32
     GetMemoryCardManager()->UpdateMemcardInfo( NULL );
 #endif
@@ -555,35 +502,10 @@ GameDataManager::SaveGame( unsigned int slot, GameDataSaveCallback* callback )
 	IRadDrive* currentDrive = GetMemoryCardManager()->GetCurrentDrive();
 	rAssert( currentDrive );
 
-#ifdef RAD_XBOX
-	m_saveGameInfoHandler->FormatDisplay(filename, sizeof(filename)); // define filename for xbox
-#endif
-
-#ifndef RAD_WIN32
-    const radMemcardInfo* memcardInfo = GetMemoryCardManager()->GetMemcardInfo();
-	bool simpleName = false;
-#ifdef RAD_XBOX
-	simpleName = true; // set the flag so radcore doesn't process ':' and '/'
-#endif
-
-#ifdef RAD_PS2
-    radFileOpenFlags fileOpenFlags = OpenAlways;
-#else
-    radFileOpenFlags fileOpenFlags = CreateAlways;
-#endif
-    currentDrive->SaveGameOpenAsync( &m_radFile,
-                                     filename,
-                                     true,
-                                     fileOpenFlags,
-                                     const_cast<radMemcardInfo*>( memcardInfo ),
-                                     m_gameDataSize, simpleName );
-#else
     currentDrive->FileOpenAsync( &m_radFile,
                                  filename,
                                  true,
                                  CreateAlways );
-#endif // ~RAD_WIN32
-
 
     rAssert( m_radFile );
     m_radFile->AddCompletionCallback( this, NULL );
@@ -637,53 +559,13 @@ GameDataManager::GetSaveGameInfo( IRadDrive* pDrive, unsigned int slot,
 	//
 	char filename[ radFileFilenameMax + 1 ];
 
-#ifdef RAD_XBOX
-	// xbox, we get the filename from the drive instead of predefined slot based filename
-	IRadDrive::DirectoryInfo dir_info;
-    dir_info.m_Type = IRadDrive::DirectoryInfo::IsDone; // initialize first, in case it errs out
-
- 
-	pDrive->FindFirstSync("*",&dir_info);
-
-	if (dir_info.m_Type==IRadDrive::DirectoryInfo::IsDone)
-		return false;
-
-	for (unsigned int i = 0; i < slot; i++)
-	{
-        dir_info.m_Type = IRadDrive::DirectoryInfo::IsDone; // initialize first, in case it errs out
-		pDrive->FindNextSync(&dir_info);
-		if (dir_info.m_Type==IRadDrive::DirectoryInfo::IsDone)
-			break;
-	}
-
-	if (dir_info.m_Type==IRadDrive::DirectoryInfo::IsDone)
-		return false;
-	strcpy(filename,dir_info.m_Name);
-
-#else
     this->FormatSavedGameFilename( filename,
                                    sizeof( filename ),
                                    slot );
-#endif
 
     m_lastError = Success; // want to know what is the error from opensync
     if (file_corrupt_flag)
         *file_corrupt_flag = false;
-
-
-#ifndef RAD_WIN32
-	bool simpleName = false;
-#ifdef RAD_XBOX
-	simpleName = true; // set up flag for xbox so radcore doesn't process ':' '/' character
-#endif
-    pDrive->SaveGameOpenSync( &m_radFile,
-                              filename,
-                              false,
-                              OpenExisting,
-							  0,
-							  0,
-							  simpleName);
-#else
 
     eFileOperation temp = m_currentFileOperation;
     m_currentFileOperation = FILE_OP_FILE_CHECK;
@@ -694,17 +576,8 @@ GameDataManager::GetSaveGameInfo( IRadDrive* pDrive, unsigned int slot,
 
     m_currentFileOperation = temp;
 
-#endif // ~RAD_WIN32
-
     rAssert( m_radFile );
     bool saveGameExists = false;
-// since for xbox we know the file is definitely there
-// we could get FileNotFound because of old files, just to cut down
-// on bug report, let's treat that as corrupt file
-#ifdef RAD_XBOX
-    if (m_lastError==FileNotFound)
-        m_lastError = DataCorrupt;
-#endif
 
     if (m_lastError==DataCorrupt && file_corrupt_flag)
     {
@@ -741,11 +614,7 @@ GameDataManager::GetSaveGameInfo( IRadDrive* pDrive, unsigned int slot,
         }
     }
 
-#ifdef RAD_XBOX
-    strcpy(saveGameInfo->m_displayFilename, filename); // use the filename as the display name
-#else
     saveGameInfo->FormatDisplay( saveGameInfo->m_displayFilename, sizeof(saveGameInfo->m_displayFilename) );
-#endif
  
     m_radFile->Release();
     m_radFile = NULL;
@@ -760,10 +629,6 @@ GameDataManager::DoesSaveGameExist( IRadDrive* pDrive, bool check_valid/* = true
     unsigned int numSavedGameExists = 0;
 
     unsigned int to_check_file = NUM_GAME_SLOTS;
-#ifdef RAD_XBOX
-    to_check_file = 1; // on xbox since we query the drive for the file,
-                       // just check first one
-#endif
 
     // check if at least one saved game file exists on the drive
     //
@@ -872,11 +737,7 @@ GameDataManager::FormatSavedGameFilename( char* filename,
     rAssert( filename != NULL );
     rAssert( filenameLength >= 32 );
 
-#ifdef RAD_XBOX
-    sprintf( filename, "Saved Game (Slot %d)", slot + 1 );
-#else
-    sprintf( filename, "%sSave%d", PS2_FILENAME_PREFIX, slot + 1 );
-#endif
+    sprintf( filename, "%sSave%d", "", slot + 1);
 }
 
 void
@@ -1046,14 +907,6 @@ GameDataManager::OnDriveError( radFileError error,
         {
             rTunePrintf( "*** Error [%d] occurred on drive [%s] during loading!\n",
                          error, pDriveName );
-
-#ifdef RAD_XBOX
-            // on xbox we know the filename already
-            //  this could happen because of old version file format
-
-            if (m_lastError==FileNotFound)
-                m_lastError = DataCorrupt;
-#endif
 
             if( m_gameDataLoadCallback != NULL )
             {

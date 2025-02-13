@@ -171,16 +171,6 @@ private:
     void DetermineSavedGameCreationSize( unsigned int driveIndex );
     void OnMemoryCardCheckCompleted();
 
-#ifdef RAD_PS2
-    void LoadMemcardInfo_PS2( GameMemoryAllocator heap );
-    void UnloadMemcardInfo_PS2();
-#endif
-
-#ifdef RAD_XBOX
-    void LoadMemcardInfo_XBOX( GameMemoryAllocator heap );
-    void UnloadMemcardInfo_XBOX();
-#endif
-
     //---------------------------------------------------------------------
     // Private Data
     //---------------------------------------------------------------------
@@ -191,29 +181,7 @@ private:
     eState m_currentState;
     unsigned int m_numDrivesOpened;
 
-#ifdef RAD_PS2
-    enum eMemcardInfoLoadState
-    {
-        MEMCARD_INFO_NOT_LOADED,
-        MEMCARD_INFO_LOADING_ICON_LIST,
-        MEMCARD_INFO_LOADING_ICON_COPY,
-        MEMCARD_INFO_LOADING_ICON_DELETE,
-
-        MEMCARD_INFO_LOAD_COMPLETED
-    };
-#endif
-
-#ifdef RAD_XBOX
-    enum eMemcardInfoLoadState
-    {
-        MEMCARD_INFO_NOT_LOADED,
-        MEMCARD_INFO_LOADING_ICON,
-
-        MEMCARD_INFO_LOAD_COMPLETED
-    };
-#endif
-
-#ifdef RAD_WIN32
+#if defined(RAD_WIN32) || defined(RAD_UWP)
     enum eMemcardInfoLoadState
     {
         MEMCARD_INFO_NOT_LOADED,
@@ -248,9 +216,6 @@ private:
     eMemcardCheckingState m_memcardCheckingState;
     unsigned int m_elapsedMemcardCheckTime;
 
-#ifdef RAD_XBOX
-    unsigned int m_savedGameCreationSizeHD;
-#endif
     unsigned int m_savedGameCreationSize;
 
 };
@@ -261,16 +226,7 @@ inline MemoryCardManager* GetMemoryCardManager() { return( MemoryCardManager::Ge
 inline unsigned int
 MemoryCardManager::GetSavedGameCreationSize( unsigned int driveIndex ) const
 {
-#ifdef RAD_XBOX
-    if( driveIndex == 0 ) // Xbox hard disk
-    {
-        return m_savedGameCreationSizeHD;
-    }
-    else
-#endif
-    {
-        return m_savedGameCreationSize;
-    }
+    return m_savedGameCreationSize;
 }
 
 #endif // MEMORYCARDMANAGER_H

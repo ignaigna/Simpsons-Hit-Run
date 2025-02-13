@@ -15,21 +15,8 @@
 
 #ifdef _WIN32
     #include <crtdbg.h>
-    #ifndef _XBOX
-        #include <windows.h>
-    #endif
+    #include <windows.h>
 #endif
-
-
-#ifdef _XBOX
-    #include <typeinfo.h>
-    #include <xtl.h>
-#endif // XBOX
-
-#ifdef RAD_PS2
-    #include <malloc.h>
-    #include <typeinfo>
-#endif // RAD_PS2
 
 //========================================
 // Project Includes
@@ -40,16 +27,6 @@
 
 namespace Memory
 {
-//******************************************************************************
-//
-// Global Data, Local Data, Local Classes
-//
-//******************************************************************************
-#ifdef RAD_PS2
-static size_t g_MaxFreeMemory = 0;  //used by the PS2 to determine how much memory is free
-#endif
-
-
 //******************************************************************************
 //
 // Public Member Functions
@@ -92,8 +69,7 @@ size_t AllocateLargestFreeBlock( IRadMemoryAllocator* allocator, void*& returnMe
 // InitializeMemoryUtilities
 //==============================================================================
 //
-// Description: does any setup required for the memory utility system. This is
-//              absolutely essential on the PS2
+// Description: does any setup required for the memory utility system.
 //
 // Parameters:	None.
 //
@@ -110,10 +86,6 @@ void InitializeMemoryUtilities()
         return;
     }
     alreadyCalled = true;
-#ifdef RAD_PS2
-    //this is the largest amount of memory that is free
-    g_MaxFreeMemory = GetFreeMemoryProfile();
-#endif
 }
 
 //==============================================================================
@@ -140,10 +112,6 @@ float GetFreeMemoryEntropy( IRadMemoryAllocator* allocator )
     {
         return 0.0f;
     }
-
-//    #ifdef RAD_XBOX
-//    return 0.0;
-//    #endif
 
     unsigned int totalFreeMemory;
     allocator->GetStatus( &totalFreeMemory, NULL, NULL, NULL );
@@ -429,12 +397,8 @@ void GetLargestNFreeBlocks( IRadMemoryAllocator* allocator, const int n, size_t 
 //==============================================================================
 size_t GetMaxFreeMemory()
 {
-#ifdef RAD_PS2
-    return g_MaxFreeMemory;
-#else
     rAssertMsg( false, "GetMaxFreeMemory - this doesnt work on any platform but the PS2\n" );
     return 0;
-#endif
 }
 
 //=============================================================================
@@ -452,15 +416,10 @@ size_t GetMaxFreeMemory()
 //=============================================================================
 size_t GetTotalMemoryFree()
 {
-    #if defined _WIN32
+    #if _WIN32
         MEMORYSTATUS status;
         GlobalMemoryStatus (&status);
         return status.dwAvailPhys;
-    #elif defined RAD_PS2
-        size_t used = GetTotalMemoryUsed();
-        size_t maxFree = GetMaxFreeMemory();
-        size_t free = maxFree - used;
-        return free;
     #else
         #pragma error( "CMemoryTracker::GetTotalMemoryFree - What platform is this then?");
     #endif
@@ -510,15 +469,6 @@ size_t GetTotalMemoryUnavailable()
     #if defined _WIN32
         //IAN didn't bother writing this yet
         return 0;
-    #elif defined RAD_PS2
-        #ifdef RAD_RELEASE
-            size_t totalPhysicalMemory = 1024 * 1024 * 32;
-        #else
-            size_t totalPhysicalMemory = 1024 * 1024 * 128;
-        #endif
-        size_t maxFree = GetMaxFreeMemory();
-        size_t unavailable = totalPhysicalMemory - maxFree;
-        return unavailable;
     #else
         #pragma error( "CMemoryTracker::GetTotalMemoryFree - What platform is this then?");
     #endif
@@ -561,11 +511,6 @@ size_t GetTotalMemoryUsed()
         return 0;
     #endif
 #endif
-
-#if defined RAD_PS2
-    struct mallinfo info = mallinfo();
-    return info.uordblks;
-#endif
 };
 
 //=============================================================================
@@ -583,16 +528,8 @@ size_t GetTotalMemoryUsed()
 //=============================================================================
 void PrintMemoryStatsToTty()
 {
-#ifdef RAD_PS2
-    size_t totalFree    = GetTotalMemoryFree();
-    size_t profileFree  = GetFreeMemoryProfile();
-    size_t largestFree  = GetLargestFreeBlock();
-    size_t lowWaterMark = GetTotalMemoryFreeLowWaterMark();
-    rReleasePrintf( "MEMSTATS\ttotalfree:%d\tprofile:%d\tlargestBlock:%d\tlowWater:%d\n", totalFree, profileFree, largestFree, lowWaterMark );
-#else
     size_t totalFree = GetTotalMemoryFree();
     rReleasePrintf( "MEMSTATS\t%d\t\n", totalFree );
-#endif
 }
 
 }   //namespace MEMORY

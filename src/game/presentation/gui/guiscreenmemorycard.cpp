@@ -34,9 +34,6 @@
 #include <screen.h>
 #include <strings/unicodestring.h>
 #include <text.h>
-#ifdef RAD_PS2
-#include <libmtap.h>
-#endif
 
 const tColour DEFAULT_DISABLED_ITEM_COLOUR_GREY( 128, 128, 128 ); // the same as in guimenu.cpp
 
@@ -69,7 +66,7 @@ CGuiScreenLoadSave::CGuiScreenLoadSave( Scrooby::Screen* pScreen )
     m_operation( SCREEN_OP_IDLE )
 {
     rAssert( pScreen != NULL );
-#ifdef RAD_WIN32
+#if defined(RAD_WIN32) || defined(RAD_UWP)
     Scrooby::Page* pPage = pScreen->GetPage( "GameSlots" );
     if( pPage != NULL )
     {
@@ -98,10 +95,6 @@ CGuiScreenLoadSave::CGuiScreenLoadSave( Scrooby::Screen* pScreen )
         //
         Scrooby::Group* selectMemoryDevice = foreground->GetGroup( "SelectMemoryDevice" );
         rAssert( selectMemoryDevice != NULL );
-
-#ifdef RAD_XBOX
-        selectMemoryDevice->SetVisible( false );
-#endif
 
         pText = selectMemoryDevice->GetText( "SelectMemoryDevice" );
         if( pText != NULL )
@@ -142,12 +135,6 @@ CGuiScreenLoadSave::HandleMessage( eGuiMessage message,
         }
         case GUI_MSG_CONTROLLER_AUX_X:
         {
-#if defined( RAD_PS2 )
-            this->GotoMemoryCardScreen();
-
-            GetEventManager()->TriggerEvent( EVENT_FE_MENU_SELECT );
-#endif
-
             break;
         }
         default:
@@ -177,64 +164,6 @@ CGuiScreenLoadSave::OnFormatOperationComplete( radFileError errorCode )
 void
 CGuiScreenLoadSave::UpdateCurrentMemoryDevice()
 {
-#ifndef RAD_WIN32
-    IRadDrive* currentDrive = GetMemoryCardManager()->GetCurrentDrive();
-    if( currentDrive != NULL )
-    {
-        char textBibleEntry[ 32 ];
-#ifdef RAD_PS2
-        sprintf( textBibleEntry, "PS2_MEMCARD1A:" );
-#endif
-#ifdef RAD_XBOX
-        sprintf( textBibleEntry, "XBOX_%s", currentDrive->GetDriveName() );
-#endif
-
-        HeapMgr()->PushHeap( GetGameFlow()->GetCurrentContext() == CONTEXT_FRONTEND ?
-                             GMA_LEVEL_FE : GMA_LEVEL_HUD );
-
-        UnicodeString deviceName;
-        deviceName.ReadUnicode( GetTextBibleString( textBibleEntry ) );
-
-#ifdef RAD_PS2
-        int port_number = CGuiScreenMemoryCard::s_currentMemoryCardSlot/4;
-        if (sceMtapGetConnection(port_number)==1) { // is multitap
-            deviceName.Append('1' + (CGuiScreenMemoryCard::s_currentMemoryCardSlot/4));
-            deviceName.Append('-' );
-            deviceName.Append('A' + (CGuiScreenMemoryCard::s_currentMemoryCardSlot%4));
-        }
-        else {
-            deviceName.Append('1' + (CGuiScreenMemoryCard::s_currentMemoryCardSlot/4));
-        }
-#endif																	    
-#ifdef RAD_XBOX		
-		const char *volname = GetMemoryCardManager()->GetCurrentDriveVolumeName();
-		UnicodeString muName;
-		if (volname[0]!=0) 
-		{
-			if (p3d::UnicodeStrLen((P3D_UNICODE*)( volname ) ) < MAX_MEM_CARD_NAME)
-				muName.ReadUnicode((P3D_UNICODE*) volname );
-			else
-			{
-				muName.ReadUnicode((P3D_UNICODE*) volname, MAX_MEM_CARD_NAME-1);
-				UnicodeString ellipsis;
-				ellipsis.ReadAscii("...");
-				muName += ellipsis;
-			} 
-			deviceName.Append(' ');
-			deviceName.Append('(');
-			deviceName += muName;
-			deviceName.Append(')');
-		}
-#endif
-
-        rAssert( m_currentMemoryDevice != NULL );
-        m_currentMemoryDevice->SetString( 0, deviceName );
-
-        HeapMgr()->PopHeap(GetGameFlow()->GetCurrentContext() == CONTEXT_FRONTEND ?
-                             GMA_LEVEL_FE : GMA_LEVEL_HUD);
-    }
-#endif
-
     // update current drive index
     //
     m_currentDriveIndex = GetMemoryCardManager()->GetCurrentDriveIndex();
@@ -267,9 +196,6 @@ CGuiScreenMemoryCard::CGuiScreenMemoryCard
                 SCREEN_FX_FADE | SCREEN_FX_SLIDE_Y ),
     m_layerSelectMemoryDevice( NULL ),
     m_layerNoMemoryDevice( NULL ),
-#ifdef RAD_XBOX
-    m_numFreeBlocks( NULL ),
-#endif
     m_pMenu( NULL ),
     m_numAttachedDevices( -1 )
 {
@@ -292,17 +218,11 @@ CGuiScreenMemoryCard::CGuiScreenMemoryCard
 
 	m_memStatusText->SetTextMode( Scrooby::TEXT_WRAP );
 
-#ifdef RAD_XBOX
-    Scrooby::Group* freeSpace = pPage->GetGroup( "FreeSpace" );
-    rAssert( freeSpace != NULL );
-    m_numFreeBlocks = freeSpace->GetText( "NumFreeBlocks" );
-#else
     // hide free space display for non-Xbox platforms
     //
     Scrooby::Group* freeSpace = pPage->GetGroup( "FreeSpace" );
     rAssert( freeSpace != NULL );
     freeSpace->SetVisible( false );
-#endif
 
     // set platform-specific text
     //
@@ -351,12 +271,6 @@ CGuiScreenMemoryCard::CGuiScreenMemoryCard
 	selectDeviceText->SetTextMode( Scrooby::TEXT_WRAP );
 
     this->AutoScaleFrame( m_pScroobyScreen->GetPage( "BigBoard" ) );
-#ifdef RAD_XBOX
-    for(int j = 0; j < radFileDriveMax; j++ )
-    {
-        m_driveMountedFlag[j] = NULL;
-    }
-#endif
 }
 
 
@@ -409,15 +323,6 @@ void CGuiScreenMemoryCard::HandleMessage
     {
         switch( message )
         {
-        #ifdef RAD_PS2
-            case GUI_MSG_CONTROLLER_START:
-            {
-                if ( GetGameFlow()->GetCurrentContext() == CONTEXT_PAUSE )
-                    m_pParent->HandleMessage( GUI_MSG_UNPAUSE_INGAME );
-
-                break;
-            }
-        #endif
             case GUI_MSG_UPDATE:
             {
                 GetMemoryCardManager()->Update( param1 );
@@ -442,17 +347,6 @@ void CGuiScreenMemoryCard::HandleMessage
 
                 int selectedDevice = m_pMenu->GetSelectionValue( MENU_ITEM_MEMORY_DEVICE );
 
-#ifdef RAD_XBOX
-                // check if user selected full xbox hd
-                if ( selectedDevice==0 
-                    && !GetMemoryCardManager()->EnoughFreeSpace( 0 )
-                    && !GetGameDataManager()->DoesSaveGameExist(m_availableDrives[ 0 ], false) )
-                {
-                    m_guiManager->DisplayPrompt(PROMPT_HD_FULL_XBOX, this, PROMPT_TYPE_CONTINUE);
-
-                    break;
-                } 
-#endif
 				GetMemoryCardManager()->SetCurrentDrive( m_availableDrives[ selectedDevice ] );
 
                 s_currentMemoryCardSlot = GetMemoryCardManager()->GetCurrentDriveIndex();
@@ -589,12 +483,6 @@ CGuiScreenMemoryCard::UpdateDeviceList( bool forceUpdate )
 {
     IRadDrive* currentSelectedDrive = NULL;
 
-#ifdef RAD_XBOX
-    IRadDrive *driveMountedFlag[radFileDriveMax];
-    int numAvailableDrives = GetMemoryCardManager()->GetAvailableDrives( m_availableDrives,
-                                                                         m_mediaInfos,
-                                                                         driveMountedFlag);
-#else
     if( m_numAttachedDevices > 0 )
     {
         currentSelectedDrive = m_availableDrives[ m_pMenu->GetSelectionValue( MENU_ITEM_MEMORY_DEVICE ) ];
@@ -602,7 +490,6 @@ CGuiScreenMemoryCard::UpdateDeviceList( bool forceUpdate )
 
     int numAvailableDrives = GetMemoryCardManager()->GetAvailableDrives( m_availableDrives,
                                                                          m_mediaInfos);
-#endif
 
     bool hasMoreDrive = false;
     bool memoryDevicesAvailable = (numAvailableDrives > 0);
@@ -634,59 +521,13 @@ CGuiScreenMemoryCard::UpdateDeviceList( bool forceUpdate )
         rAssert( m_mediaInfos[ i ] );
 
         char textBibleEntry[ 32 ];
-#ifdef RAD_PS2
-        sprintf( textBibleEntry, "PS2_MEMCARD1A:" );
-#endif
-#ifdef RAD_XBOX
-        sprintf( textBibleEntry, "XBOX_%s", m_availableDrives[ i ]->GetDriveName() );
-#endif
-#ifdef RAD_WIN32
         sprintf( textBibleEntry, "XBOX_U:" );  // Temp.
-#endif
 
         HeapMgr()->PushHeap( GetGameFlow()->GetCurrentContext() == CONTEXT_FRONTEND ?
                              GMA_LEVEL_FE : GMA_LEVEL_HUD );
 
         UnicodeString deviceName;
         deviceName.ReadUnicode( GetTextBibleString( textBibleEntry ) );
-
-#ifdef RAD_PS2
-        int drive_index = GetMemoryCardManager()->GetDriveIndex(m_availableDrives[ i ]);
-        int port_number = drive_index/4;
-        if (sceMtapGetConnection(port_number)==1) { // is multitap
-            deviceName.Append('1' + (drive_index/4));
-            deviceName.Append('-' );
-            deviceName.Append('A' + (drive_index%4));
-        }
-        else {
-            deviceName.Append('1' + drive_index/4);
-        }
-#endif
-		
-#ifdef RAD_XBOX		
-		if (i > 0 && m_mediaInfos[ i ]->m_VolumeName[0]!=0) // i==0 is the hard disk
-		{
-			UnicodeString muName;
-			if (p3d::UnicodeStrLen((P3D_UNICODE*)( m_mediaInfos[ i ]->m_VolumeName) ) < MAX_MEM_CARD_NAME)
-				muName.ReadUnicode((P3D_UNICODE*) m_mediaInfos[ i ]->m_VolumeName);
-			else
-			{
-				muName.ReadUnicode((P3D_UNICODE*) m_mediaInfos[ i ]->m_VolumeName, MAX_MEM_CARD_NAME-1);
-				UnicodeString ellipsis;
-				ellipsis.ReadAscii("...");
-				muName += ellipsis;
-			} 
-			deviceName.Append(' ');
-			deviceName.Append('(');
-			deviceName += muName;
-			deviceName.Append(')');
-
-
-		}
-#endif
-
- 
- 
 
         Scrooby::Text* memoryDeviceText = dynamic_cast<Scrooby::Text*>( m_pMenu->GetMenuItem( MENU_ITEM_MEMORY_DEVICE )->GetItemValue() );
         rAssert( memoryDeviceText != NULL );
@@ -718,7 +559,6 @@ CGuiScreenMemoryCard::UpdateDeviceList( bool forceUpdate )
 
         m_pMenu->SetSelectionValue( MENU_ITEM_MEMORY_DEVICE, 0 );
 
-#ifndef RAD_XBOX
         for( int i = 0; i < m_numAttachedDevices; i++ )
         {
             if( m_availableDrives[ i ] == currentSelectedDrive )
@@ -728,35 +568,7 @@ CGuiScreenMemoryCard::UpdateDeviceList( bool forceUpdate )
                 break;
             }
         }
-#endif
     }
-#ifdef RAD_XBOX
-    int j;
-    if (hasMoreDrive)  // find which drive is new and select it
-    {
-        for(j = 0; j < radFileDriveMax; j++ )
-        {
-            if (driveMountedFlag[j] && m_driveMountedFlag[j]==NULL)
-            {
-                for (int x = 0; x < numAvailableDrives; x++)
-                {
-                    if (m_availableDrives[x] == driveMountedFlag[j])
-                    {
-                        m_pMenu->SetSelectionValue( MENU_ITEM_MEMORY_DEVICE, x );
-                        break;
-                    }
-                }
-                break;
-            }
-        }
-        rAssert(j<radFileDriveMax); // we must find the different drive
-    }
-
-    for(j = 0; j < radFileDriveMax; j++ )
-    {
-        m_driveMountedFlag[j] = driveMountedFlag[j];
-    }
-#endif
 }
 
 void
@@ -780,38 +592,6 @@ CGuiScreenMemoryCard::UpdateFreeSpace( unsigned int currentDriveIndex )
 	HeapMgr()->PushHeap( GetGameFlow()->GetCurrentContext() == CONTEXT_FRONTEND ?
                          GMA_LEVEL_FE : GMA_LEVEL_HUD );
 
-#ifdef RAD_XBOX
-	if( static_cast<int>( currentDriveIndex ) < m_numAttachedDevices )
-	{
-		const unsigned int MAX_NUM_FREE_BLOCKS = 50000;
-        unsigned int numFreeBlocks = m_mediaInfos[ currentDriveIndex ]->m_FreeSpace /
-            NUM_BYTES_PER_BLOCK;
-
-		char buffer[ 16 ];
-		if( numFreeBlocks > MAX_NUM_FREE_BLOCKS )
-		{
-			sprintf( buffer, "50,000+" );
-		}
-		else
-		{
-			if( numFreeBlocks < 1000 )
-			{
-				sprintf( buffer, "%d", numFreeBlocks );
-			}
-			else
-			{
-				sprintf( buffer, "%d,%03d", numFreeBlocks / 1000, numFreeBlocks % 1000 );
-			}
-		}
-
-		rAssert( m_numFreeBlocks != NULL );
-		m_numFreeBlocks->SetString( 0, buffer );
-
-		m_pMenu->GetMenuItem( MENU_ITEM_MEMORY_DEVICE )->m_attributes |= SELECTABLE;
-		SetButtonVisible(BUTTON_ICON_ACCEPT , true);
-	}
-#endif // RAD_XBOX
-
 	if (((int)currentDriveIndex < m_numAttachedDevices) && m_mediaInfos[ currentDriveIndex ]->m_MediaState != IRadDrive::MediaInfo::MediaPresent)
 	{
 		m_memStatusText->SetVisible(true);
@@ -819,17 +599,6 @@ CGuiScreenMemoryCard::UpdateFreeSpace( unsigned int currentDriveIndex )
 			(m_mediaInfos[ currentDriveIndex ]->m_MediaState - IRadDrive::MediaInfo::MediaNotFormatted) * 3 
 			+ PLATFORM_TEXT_INDEX);
 		bool disable = true;
-
-#ifdef RAD_PS2
-        // on PS2, if memory card is unformatted, allow it to be selected so that it can be formatted
-        //
-        if( m_mediaInfos[ currentDriveIndex ]->m_MediaState == IRadDrive::MediaInfo::MediaNotFormatted )
-        {
-            disable = false;
-
-            m_memStatusText->SetVisible( false ); // no need to display status text
-        }
-#endif // RAD_PS2
 
 		if (disable) 
 		{
@@ -851,29 +620,16 @@ CGuiScreenMemoryCard::UpdateFreeSpace( unsigned int currentDriveIndex )
                 && GetGameDataManager()->DoesSaveGameExist(m_availableDrives[ currentDriveIndex ], false)==false ) // check for full without save game
             { 
                 int message_index = 5 * 3 + PLATFORM_TEXT_INDEX;
-    #ifdef RAD_XBOX
-                if (currentDriveIndex==0) // hd
-                    message_index ++;
-    #endif 
+
                 m_memStatusText->SetVisible(true);
                 m_memStatusText->SetIndex( message_index );
 
-                bool disable = true;
-#ifdef RAD_XBOX
-                if (currentDriveIndex==0) // hd
-                    disable = false;
-#endif 
+                // change color
+                menu_drawable->SetColour( DEFAULT_DISABLED_ITEM_COLOUR_GREY ); 
 
-                if (disable)
-                {
-                    // change color
-                    menu_drawable->SetColour( DEFAULT_DISABLED_ITEM_COLOUR_GREY ); 
-
-                    // disable selection
-                    m_pMenu->GetMenuItem( MENU_ITEM_MEMORY_DEVICE )->m_attributes &= ~SELECTABLE;
-                    SetButtonVisible(BUTTON_ICON_ACCEPT , false);
-                }
-
+                // disable selection
+                m_pMenu->GetMenuItem( MENU_ITEM_MEMORY_DEVICE )->m_attributes &= ~SELECTABLE;
+                SetButtonVisible(BUTTON_ICON_ACCEPT , false);
             }
         }
     }

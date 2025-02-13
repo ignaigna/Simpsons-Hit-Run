@@ -127,16 +127,7 @@ CGuiScreenScrapBookContents::CGuiScreenScrapBookContents
     m_RTrigger = m_levelBarGroup->GetGroup( "RTrigger" );
     rAssert( m_RTrigger != NULL );
 
-#ifdef RAD_PS2
-    // PS2 only, scale up L1 and R1 button images
-    //
-    m_LTrigger->ResetTransformation();
-    m_LTrigger->ScaleAboutCenter( 1.25f, 1.15f, 1.0f );
-    m_RTrigger->ResetTransformation();
-    m_RTrigger->ScaleAboutCenter( 1.25f, 1.15f, 1.0f );
-#endif
-
-#ifdef RAD_XBOX
+#ifdef RAD_UWP
     switch( CGuiTextBible::GetCurrentLanguage() )
     {
         case Scrooby::XL_FRENCH:
@@ -158,7 +149,7 @@ CGuiScreenScrapBookContents::CGuiScreenScrapBookContents
             break;
         }
     }
-#endif // RAD_XBOX
+#endif // RAD_UWP
 
     m_LTriggerBgd = m_LTrigger->GetSprite( "LTriggerBgd" );
     m_RTriggerBgd = m_RTrigger->GetSprite( "RTriggerBgd" );

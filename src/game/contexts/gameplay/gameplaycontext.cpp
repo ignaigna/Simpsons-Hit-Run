@@ -300,7 +300,7 @@ void GameplayContext::OnStart( ContextEnum previousContext )
             sc->SetAspect( aspect );
             scc->RegisterSuperCam( sc );
 #endif
-#if !defined(FINAL) && defined(RAD_XBOX)
+#if !defined(FINAL) && defined(RAD_UWP)
             sc = new SnapshotCam();
             sc->SetAspect( aspect );
             scc->RegisterSuperCam( sc );

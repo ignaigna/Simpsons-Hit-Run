@@ -278,7 +278,7 @@ void CGuiScreenLoadingFE::HandleMessage
         {
             this->LoadResources();
 
-#ifdef RAD_XBOX
+#ifdef RAD_UWP
             m_startingMemoryAvailable = Memory::GetTotalMemoryFree();
 #else
             m_startingMemoryAvailable = GetTotalMemoryFreeInAllHeaps();
@@ -500,7 +500,7 @@ CGuiScreenLoadingFE::GetCurrentMemoryUsage( ContextEnum currentContext ) const
 {
     float currentMemoryUsage = 0.0f;
 
-#ifdef RAD_XBOX
+#ifdef RAD_UWP
     int totalMemoryFree = Memory::GetTotalMemoryFree();
 #else
     int totalMemoryFree = GetTotalMemoryFreeInAllHeaps();

@@ -49,30 +49,7 @@ struct ControlMap
 
 const ControlMap FMV_CONTROL_MAP[] =
 {
-#ifdef RAD_PS2
-    { "Start",          FMVInput::Start},
-    { "X",              FMVInput::Skip },
-    { "DPadLeft",       FMVInput::UNKNOWN },
-    { "DPadRight",      FMVInput::UNKNOWN },
-    { "DPadUp",         FMVInput::UNKNOWN },
-    { "DPadDown",       FMVInput::UNKNOWN },
-    { "Select",         FMVInput::UNKNOWN },
-    { "Triangle",       FMVInput::UNKNOWN },
-    { "Circle",         FMVInput::UNKNOWN },
-    { "Square",         FMVInput::UNKNOWN },
-    { "L1",             FMVInput::UNKNOWN },
-    { "R1",             FMVInput::UNKNOWN },
-    { "L2",             FMVInput::UNKNOWN },
-    { "R2",             FMVInput::UNKNOWN },
-   #ifdef ANY_BUTTON_SKIP
-    { "LeftStickX",     FMVInput::Skip },
-    { "LeftStickY",     FMVInput::Skip },
-    { "RightStickX",    FMVInput::Skip },
-    { "RightStickY",    FMVInput::Skip },
-    #endif
-#endif // RAD_PS2
-
-#ifdef RAD_XBOX
+#ifdef RAD_UWP
     { "A",              FMVInput::Skip },
     { "Start",          FMVInput::Start},
     #ifdef ANY_BUTTON_SKIP
@@ -93,7 +70,7 @@ const ControlMap FMV_CONTROL_MAP[] =
     { "LeftTrigger",    FMVInput::Skip },
     { "RightTrigger",   FMVInput::Skip },
     #endif
-#endif // RAD_XBOX
+#endif // RAD_UWP
     
     // TODO(3ur): what is space bar? I wanna allow space to skip too in the future
 #ifdef RAD_WIN32

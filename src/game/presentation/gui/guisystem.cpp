@@ -435,7 +435,7 @@ MEMTRACK_PUSH_GROUP( "CGUISystem" );
     //
     FeTextBibleLoader::SetOnlyLoadCurrentLanguage( true );
 
-#if defined( PAL ) && defined( RAD_XBOX ) && !defined( RAD_RELEASE )
+#if defined( PAL ) && defined( RAD_UWP ) && !defined( RAD_RELEASE )
     // TC: disable this for Xbox non-release PAL builds so that I can
     //     change languages on-the-fly w/ the Watcher
     //
@@ -1202,10 +1202,7 @@ void CGuiSystem::OnInitBootUp()
 
     char licenseImageFile[ 256 ];
     sprintf( licenseImageFile,
-#ifdef RAD_PS2
-             "%s%slicenseP.p3d",
-#endif
-#ifdef RAD_XBOX
+#ifdef RAD_UWP
              "%s%slicenseX.p3d",
 #endif
 #ifdef RAD_WIN32
@@ -1579,11 +1576,7 @@ void CGuiSystem::FormatTutorialTextWithLineBreaks()
         //
         P3D_UNICODE* platformText = NULL;
 
-#ifdef RAD_PS2
-        strcat( textBibleID, "_(PS2)" );
-        platformText = GetTextBibleString( textBibleID );
-#endif
-#ifdef RAD_XBOX
+#ifdef RAD_UWP
         strcat( textBibleID, "_(XBOX)" );
         platformText = GetTextBibleString( textBibleID );
 #endif
@@ -1672,11 +1665,6 @@ void CGuiSystem::RegisterWatcherStuff()
         radDbgWatchDelete( &g_wGuiMessageParam2 );
         radDbgWatchDelete( &(Scrooby::g_CameraNearPlane) );
         radDbgWatchDelete( &(Scrooby::g_CameraFarPlane) );
-/*
-#ifdef RAD_PS2
-        radDbgWatchDelete( &g_ps2screenScale );
-#endif
-*/
         radDbgWatchDelete( &g_wScroobyPageName );
         radDbgWatchDelete( &g_wScroobyPosX );
         radDbgWatchDelete( &g_wScroobyPosY );
@@ -1723,15 +1711,7 @@ void CGuiSystem::RegisterWatcherStuff()
                             (RADDEBUGWATCH_CALLBACK)ToggleNextLanguage,
                             NULL,
                             GUI_WATCHER_NAMESPACE );
-/*
-#ifdef RAD_PS2
-    radDbgWatchAddFloat( &g_ps2screenScale,
-                         "PS2 Screen Scale",
-                         GUI_WATCHER_NAMESPACE,
-                         (RADDEBUGWATCH_CALLBACK)UpdatePS2ScreenScale,
-                         NULL, 0.5f, 1.5f );
-#endif
-*/
+
     radDbgWatchAddString( g_wScroobyPageName,
                           sizeof( g_wScroobyPageName ),
                           "Scrooby Page",

@@ -55,8 +55,8 @@ HeapCreationData g_HeapCreationData[] =
     { HEAP_TYPE_TRACKING, GMA_DEFAULT, "Music"                },
     { HEAP_TYPE_TRACKING, GMA_DEFAULT, "Audio Persistent"     },
     { HEAP_TYPE_TRACKING, GMA_DEFAULT, "Small Alloc"          },
-#ifdef RAD_XBOX
-    { HEAP_TYPE_TRACKING, GMA_DEFAULT, "XBOX Sound"           },
+#ifdef RAD_UWP
+    { HEAP_TYPE_TRACKING, GMA_DEFAULT, "UWP Sound"            },
 #endif
 #ifdef USE_CHAR_GAG_HEAP
     { HEAP_TYPE_DOUG_LEA, GMA_DEFAULT, "Characters and Gags"  },

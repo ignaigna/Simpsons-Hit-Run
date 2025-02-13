@@ -67,9 +67,7 @@
     const float LOADING_BGD1_CORRECTION_SCALE = 8.4f;
 #endif
 
-#ifdef RAD_PS2
-    const float LOADING_IMAGE_CORRECTION_SCALE = 1.95f;
-#elif defined( RAD_WIN32 )
+#ifdef RAD_WIN32
     const float LOADING_IMAGE_CORRECTION_SCALE = 0.925f;
 #else
     const float LOADING_IMAGE_CORRECTION_SCALE = 1.85f;
@@ -152,20 +150,6 @@ CGuiScreenLoading::CGuiScreenLoading
     {
         loadingBgd->ScaleAboutCenter( LOADING_BGD0_CORRECTION_SCALE );
     }
-
-/*
-    // XBOX ONLY: show loading text to satisfy Xbox TCR requirement (C01-07)
-    //
-#ifndef RAD_XBOX
-    // otherwise, hide it for all other platforms
-    //
-    Scrooby::Text* loadingText = pPage->GetText( "Loading" );
-    if( loadingText != NULL )
-    {
-        loadingText->SetVisible( false );
-    }
-#endif // !RAD_XBOX
-*/
 
     // get explosion overlay (from Explosion.pag)
     //
@@ -271,7 +255,7 @@ void CGuiScreenLoading::HandleMessage
                 rAssert( m_loadingBarGroup != NULL );
                 m_loadingBarGroup->SetVisible( true );
 
-#if defined( RAD_XBOX )
+#if defined( RAD_UWP )
                 float newMemoryUsage = (m_startingMemoryAvailable - Memory::GetTotalMemoryFree()) / TOTAL_INGAME_MEMORY_USAGE;
 #elif defined( RAD_WIN32 )
                 // this sucks but i just want to finish it.
@@ -362,7 +346,7 @@ void CGuiScreenLoading::HandleMessage
         {
             this->LoadResources();
 
-#ifdef RAD_XBOX
+#ifdef RAD_UWP
             m_startingMemoryAvailable = Memory::GetTotalMemoryFree();
 #else
             m_startingMemoryAvailable = GetTotalMemoryFreeInAllHeaps();

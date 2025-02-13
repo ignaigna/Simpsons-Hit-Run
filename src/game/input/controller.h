@@ -4,13 +4,9 @@
 namespace Input
 {
     // Platform specific controller topology.
-    #ifdef RAD_XBOX
+    #if defined( RAD_UWP )
     const static unsigned int MaxPorts = 4;
     const static unsigned int MaxSlots = 1;
-    #endif
-    #ifdef RAD_PS2
-    const static unsigned int MaxPorts = 2;
-    const static unsigned int MaxSlots = 4;
     #endif
     #if defined( RAD_WIN32 )
     const static unsigned int MaxPorts = 4;

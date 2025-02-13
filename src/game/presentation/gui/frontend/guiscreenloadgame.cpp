@@ -34,21 +34,6 @@
 #include <text.h>
 
 //===========================================================================
-// Global Data, Local Data, Local Classes
-//===========================================================================
-#ifdef RAD_XBOX
-    char gGameFileName[NUM_GAME_SLOTS][radFileFilenameMax+1];
-#endif
-
-#ifdef RAD_PS2
-    const unsigned int AUTO_LOAD_MINIMUM_DISPLAY_TIME = 5000; // in msec
-#endif
-
-//===========================================================================
-// Public Member Functions
-//===========================================================================
-
-//===========================================================================
 // CGuiScreenLoadGame::CGuiScreenLoadGame
 //===========================================================================
 // Description: Constructor.
@@ -186,11 +171,7 @@ void CGuiScreenLoadGame::HandleMessage
 			// start the load game process
 			//
 			rAssert( m_currentSlot != -1 );
-#ifdef RAD_XBOX
-			GetGameDataManager()->LoadGame( m_currentSlot, this, gGameFileName[m_currentSlot] );
-#else
 			GetGameDataManager()->LoadGame( m_currentSlot, this );
-#endif
 		}
 		else
 		{
@@ -225,13 +206,13 @@ void CGuiScreenLoadGame::HandleMessage
                 {
                         // get the filename
                         char filename[ radFileFilenameMax + 1 ];
-#ifdef RAD_XBOX
-                        strcpy(filename, gGameFileName[m_currentSlot]);
-#else
-                        GetGameDataManager()->FormatSavedGameFilename( filename,
+
+                        GetGameDataManager()->FormatSavedGameFilename( 
+                            filename,
                             sizeof( filename ),
-                            m_currentSlot );
-#endif
+                            m_currentSlot 
+                        );
+
                         radFileError err = GetGameDataManager()->DeleteGame(filename);
                         if (err==Success)
                             m_guiManager->DisplayPrompt(PROMPT_DELETE_CORRUPT_SUCCESS_GC + PLATFORM_TEXT_INDEX, this, 
@@ -348,10 +329,7 @@ void CGuiScreenLoadGame::HandleMessage
 
                 if (corrupt)
                 {
-#ifdef RAD_PS2
-                    rAssertMsg( false, "Corrupted save games should not have been selectable!" );
-#endif
-#ifdef RAD_XBOX
+#ifdef RAD_UWP
                     // for xbox don't ask to delete just put up a message
                     int errorMessage = GetErrorMessageIndex( DataCorrupt, ERROR_DURING_LOADING );
                     m_guiManager->DisplayErrorPrompt( errorMessage, this, ERROR_RESPONSE_CONTINUE );
@@ -359,17 +337,7 @@ void CGuiScreenLoadGame::HandleMessage
                 }
                 else
                 {
-    #ifdef RAD_PS2
-                    m_guiManager->DisplayPrompt( PROMPT_LOAD_CONFIRM_PS2, this );
-    #endif
-
-    #ifdef RAD_XBOX
                     m_guiManager->DisplayPrompt( PROMPT_LOAD_CONFIRM_XBOX, this );
-    #endif
-
-    #ifdef RAD_WIN32
-                    m_guiManager->DisplayPrompt( PROMPT_LOAD_CONFIRM_XBOX, this ); // parallel xbox for now.
-    #endif
                 }
 
                 break;
@@ -377,7 +345,7 @@ void CGuiScreenLoadGame::HandleMessage
 
             case GUI_MSG_CONTROLLER_BACK:
             {
-#ifdef RAD_XBOX
+#ifdef RAD_UWP
                 s_forceGotoMemoryCardScreen = true;
                 this->GotoMemoryCardScreen();
 #else
@@ -424,33 +392,7 @@ CGuiScreenLoadGame::OnLoadGameComplete( radFileError errorCode )
     {
         int errorMessage = GetErrorMessageIndex( errorCode, ERROR_DURING_LOADING );
 
-#ifdef RAD_PS2
-        switch( errorCode )
-        {
-            case Success:
-            {
-                rAssert( false );
-                break;
-            }
-/*
-            case DataCorrupt:
-            {
-                m_guiManager->DisplayErrorPrompt( errorMessage, this,
-                                                  ERROR_RESPONSE_YES | ERROR_RESPONSE_NO );
-
-                break;
-            }
-*/
-            default:
-            {
-                m_guiManager->DisplayErrorPrompt( errorMessage, this, ERROR_RESPONSE_CONTINUE );
-
-                break;
-            }
-        }
-#endif // RAD_PS2
-
-#ifdef RAD_XBOX
+#ifdef RAD_UWP
         switch( errorCode )
         {
             case Success:
@@ -470,7 +412,7 @@ CGuiScreenLoadGame::OnLoadGameComplete( radFileError errorCode )
                 break;
             }
         }
-#endif // RAD_XBOX
+#endif // RAD_UWP
 
 #ifdef RAD_WIN32
         switch( errorCode )
@@ -531,43 +473,6 @@ CGuiScreenLoadGame::HandleErrorResponse( CGuiMenuPrompt::ePromptResponse respons
 
             break;
         }
-
-#if defined( RAD_PS2 )
-        case (CGuiMenuPrompt::RESPONSE_YES):
-        {
-            // YES to delete corrupted file
-            //
-            char filename[ radFileFilenameMax + 1 ];
-#ifdef RAD_XBOX
-            strcpy( filename, gGameFileName[ m_currentSlot ] );
-#else
-            GetGameDataManager()->FormatSavedGameFilename( filename,
-                                                           sizeof( filename ),
-                                                           m_currentSlot );
-#endif
-            radFileError err = GetGameDataManager()->DeleteGame( filename );
-            if( err == Success )
-            {
-                m_guiManager->DisplayPrompt( PROMPT_DELETE_CORRUPT_SUCCESS_GC + PLATFORM_TEXT_INDEX,
-                                             this, PROMPT_TYPE_CONTINUE );
-            }
-            else
-            {
-                m_guiManager->DisplayPrompt( PROMPT_DELETE_CORRUPT_FAIL_GC + PLATFORM_TEXT_INDEX,
-                                             this, PROMPT_TYPE_CONTINUE );
-            }
-
-            break;
-        }
-        case (CGuiMenuPrompt::RESPONSE_NO):
-        {
-            // NO to delete corrupted file
-            //
-            this->ReloadScreen();
-
-            break;
-        }
-#endif // RAD_PS2
 
         case (CGuiMenuPrompt::RESPONSE_FORMAT_GC):
         case (CGuiMenuPrompt::RESPONSE_FORMAT_XBOX):
@@ -656,22 +561,11 @@ void CGuiScreenLoadGame::InitIntro()
             if (file_corrupt)
             {
                 UnicodeString corruptSlot;
-#ifdef RAD_XBOX
                 corruptSlot.ReadUnicode( GetTextBibleString( "CORRUPT_SLOT_(XBOX)" ) );
-#endif
-#ifdef RAD_WIN32
-                corruptSlot.ReadUnicode( GetTextBibleString( "CORRUPT_SLOT_(XBOX)" ) );
-#endif
-#ifdef RAD_PS2
-                corruptSlot.ReadUnicode( GetTextBibleString( "CORRUPT_SLOT_(PS2)" ) );
-#endif
                 slotText->SetString(0,corruptSlot);
             }
             else
             {
-            #ifdef RAD_XBOX
-			     strcpy(gGameFileName[i], saveGameInfo.m_displayFilename); // cache the slot filename
-            #endif
                  slotText->SetString( 0, saveGameInfo.m_displayFilename );
             }
 
@@ -696,36 +590,17 @@ void CGuiScreenLoadGame::InitIntro()
 
         // enable slot selection only if save game exists
         //
-#ifdef RAD_PS2
-        m_pMenu->SetMenuItemEnabled( i, saveGameExists && !file_corrupt );
-#else
         m_pMenu->SetMenuItemEnabled( i, saveGameExists );
-#endif // RAD_PS2
     }
 
 	if (has_savegame==false) // no file in card
 	{
 		int prompt_id = PROMPT_LOAD_CARD_EMPTY_GC+PLATFORM_TEXT_INDEX;
-#ifdef RAD_XBOX
-		if (GetMemoryCardManager()->GetCurrentDriveIndex()==0)
-			prompt_id = PROMPT_LOAD_CARD_EMPTY_XBOX_HD;
-#endif
 		m_guiManager->DisplayPrompt(prompt_id,this,PROMPT_TYPE_CONTINUE);
 		m_numTransitionsPending = -1; // disable all transitions
 	}
 	else
     {
-#ifdef RAD_XBOX
-        // check if there are more than 4 files on hd
-        if ( has_4_saves 
-            && GetGameDataManager()->GetSaveGameInfo( currentDrive, NUM_GAME_SLOTS, &saveGameInfo, &file_corrupt )
-            )
-        {
-            m_pFullText->SetIndex( 8 );
-            m_pFullText->SetVisible(true);
-
-        }
-#endif
 	    this->SetButtonVisible( BUTTON_ICON_ACCEPT, true );
     }
 }
@@ -796,22 +671,9 @@ void CGuiScreenLoadGame::LoadGame()
 {
 	m_operation = LOAD;
 
-#ifdef RAD_PS2
-    m_guiManager->DisplayMessage( CGuiScreenMessage::MSG_ID_LOADING_GAME_PS2, this );
-#endif
-
-#ifdef RAD_XBOX
-    if( m_currentDriveIndex == 0 ) // xbox hard disk
-    {
-        m_guiManager->DisplayMessage( CGuiScreenMessage::MSG_ID_LOADING_GAME_XBOX_HD, this );
-    }
-    else // xbox memory unit
-    {
-        m_guiManager->DisplayMessage( CGuiScreenMessage::MSG_ID_LOADING_GAME_XBOX, this );
-    }
-#endif
-
-#ifdef RAD_WIN32
+#if defined(RAD_UWP)
+    m_guiManager->DisplayMessage( CGuiScreenMessage::MSG_ID_LOADING_GAME_XBOX, this );
+#elif defined(RAD_WIN32)
     m_guiManager->DisplayMessage( CGuiScreenMessage::MSG_ID_LOADING_GAME_PC, this );
 #endif
 }
@@ -871,18 +733,6 @@ CGuiScreenAutoLoad::InitRunning()
 
     rAssert( s_autoLoadGameSlot != -1 );
     m_currentSlot = s_autoLoadGameSlot;
-#ifdef RAD_XBOX
-	// for xbox we need to get the filename from slot information first before loading
-	SaveGameInfo saveGameInfo;
-	gGameFileName[m_currentSlot][0] = 0; // initialize to empty string
-	rAssert(m_currentSlot < NUM_GAME_SLOTS);
-	bool saveGameExists = GetGameDataManager()->GetSaveGameInfo( currentDrive, m_currentSlot, &saveGameInfo );
-	if( saveGameExists )	// game filename is cached in gGameFileName global
-	{
-		strcpy( gGameFileName[m_currentSlot], saveGameInfo.m_displayFilename);
-	}
-
-#endif 
 
     this->LoadGame();
 }
@@ -927,24 +777,8 @@ void
 CGuiScreenAutoLoad::LoadGame()
 {
 	m_operation = LOAD;
-    
-#ifdef RAD_PS2
-    m_guiManager->DisplayMessage( CGuiScreenMessage::MSG_ID_AUTO_LOADING_GAME_PS2, this );
-    GetGameDataManager()->SetMinimumLoadSaveTime( AUTO_LOAD_MINIMUM_DISPLAY_TIME );
-#endif
 
-#ifdef RAD_XBOX
-    if( m_currentDriveIndex == 0 ) // xbox hard disk
-    {
-        m_guiManager->DisplayMessage( CGuiScreenMessage::MSG_ID_AUTO_LOADING_GAME_XBOX_HD, this );
-    }
-    else // xbox memory unit
-    {
-        m_guiManager->DisplayMessage( CGuiScreenMessage::MSG_ID_AUTO_LOADING_GAME_XBOX, this );
-    }
-#endif
-
-#ifdef RAD_WIN32
+#if defined(RAD_WIN32) || defined(RAD_UWP)
     rAssert( m_currentDriveIndex == 0 );
     m_guiManager->DisplayMessage( CGuiScreenMessage::MSG_ID_AUTO_LOADING_GAME_XBOX, this );
 #endif

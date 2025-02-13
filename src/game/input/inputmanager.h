@@ -45,7 +45,7 @@ class InputManager : public IRadControllerConnectionChangeCallback,
                      public GameDataHandler
 {
 public:
-#ifdef RAD_XBOX
+#ifdef RAD_UWP
     enum eButtonMap
     {
         DPadUp,
@@ -152,42 +152,6 @@ public:
         LeftStickY = 201,        // Must hack to get camera stuff to compile
         KeyboardEsc = 202        // Cute hack to get escape only back buttons
     };
-#elif defined(RAD_PS2)
-    enum eButtonMap
-    {
-        Select,
-        Start,
-        DPadUp,
-        DPadRight,
-        DPadDown,
-        DPadLeft,
-        L2,
-        R2,
-        L1,
-        R1,
-        Triangle,
-        Circle,
-        X,
-        Square,
-        L3,
-        R3,
-        RightStickX,
-        RightStickY,
-        LeftStickX,
-        LeftStickY,
-        AnalogDPadRight,
-        AnalogDPadLeft,
-        AnalogDPadUp,
-        AnalogDPadDown,
-        AnalogTriangle,
-        AnalogCircle,
-        AnalogX,
-        AnalogSquare,
-        AnalogL1,
-        AnalogR1,
-        AnalogL2,
-        AnalogR2,
-    };
 #endif
 
     // Static Methods for accessing this singleton.
@@ -260,11 +224,6 @@ public:
     FEMouse* GetFEMouse() const { return m_pFEMouse; }
 #endif
 
-#ifdef RAD_PS2
-    int GetLastMultitapStatus(int port) const {return mLastMultitapStatus[port];}
-    int GetCurMultitapStatus(int port) const {return mCurMultitapStatus[port];}
-#endif
-
 private:
     InputManager();
     ~InputManager();
@@ -297,10 +256,6 @@ private:
 
 #ifdef RAD_WIN32
     FEMouse* m_pFEMouse;
-#endif
-#ifdef RAD_PS2
-    int mLastMultitapStatus[2];
-    int mCurMultitapStatus[2];
 #endif
 };
 

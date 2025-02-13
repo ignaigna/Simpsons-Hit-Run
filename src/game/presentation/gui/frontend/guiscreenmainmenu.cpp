@@ -317,15 +317,12 @@ MEMTRACK_PUSH_GROUP( "CGUIScreenMainMenu" );
 	rAssert( pPage );
     m_tvFrame = pPage->GetLayer( "TVFrame" );
 
-    // correct TV frame proportion and size on GC and PS2 and pc
+    // correct TV frame proportion and size on pc
     //
     Scrooby::Sprite* tvFrame = pPage->GetSprite( "TVFrame" );
     if( tvFrame != NULL )
     {
         tvFrame->ResetTransformation();
-#ifdef RAD_PS2
-        tvFrame->ScaleAboutCenter( 1.07f );
-#endif
 #ifdef RAD_WIN32
         tvFrame->ScaleAboutCenter( 1.03f );
 #endif
@@ -644,16 +641,8 @@ void CGuiScreenMainMenu::HandleMessage
                     }
                     case MAIN_MENU_LOAD_GAME:
                     {
-#ifdef RAD_XBOX
-                        // Xbox TCR Requirement: always prompt user to select memory
-                        // device before loading/saving
-                        //
-                        CGuiScreenLoadSave::s_forceGotoMemoryCardScreen = true;
-#endif // RAD_XBOX
                         m_pParent->HandleMessage( GUI_MSG_GOTO_SCREEN, GUI_SCREEN_ID_LOAD_GAME );
-
                         this->StartTransitionAnimation( 200, 230 );
-
                         break;
                     }
                     case MAIN_MENU_CARD_GALLERY:

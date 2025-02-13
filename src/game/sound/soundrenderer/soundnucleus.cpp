@@ -197,10 +197,8 @@ unsigned int CalculateStreamerSize( unsigned int ms, AudioFormat * pAf )
 void SoundNucleusInitialize( radMemoryAllocator alloc )
 {
     
-#if defined( RAD_PS2 ) || defined( RAD_WIN32 )
+#if defined( RAD_UWP ) || defined( RAD_WIN32 )
     ::radSoundHalSystemInitialize( alloc );
-#else
-    ::radSoundHalSystemInitialize( GMA_XBOX_SOUND_MEMORY );
 #endif
 
     CreateAudioFormat( & gCompressedStreamAudioFormat, alloc );

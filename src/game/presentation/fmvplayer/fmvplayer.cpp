@@ -66,7 +66,7 @@
 #define MOVIE_SECONDARY_AUDIO_BUFFER_SIZE 1000
 #define MOVIE_AUDIO_BUFFER_SIZE_TYPE IRadSoundHalAudioFormat::Milliseconds
 
-#ifdef RAD_XBOX
+#ifdef RAD_UWP
 static const float VOLUME_MULTIPLIER = 0.75f;
 #else
 static const float VOLUME_MULTIPLIER = 1.0f;
@@ -350,19 +350,10 @@ void FMVPlayer::Initialize( radMemoryAllocator Allocator )
     m_refIRadMoviePlayer = ::radMoviePlayerCreate2( Allocator );
     rAssert( m_refIRadMoviePlayer != NULL );
 
-#if defined(RAD_XBOX) || defined(RAD_WIN32)
+#if defined(RAD_UWP) || defined(RAD_WIN32)
     m_refIRadMoviePlayer->Initialize(
         refIRadMovieRenderLoop,
         refIRadMovieRenderStrategy );
-#else // PS2
-        m_refIRadMoviePlayer->Initialize( 
-        refIRadMovieRenderLoop,
-        refIRadMovieRenderStrategy,
-        MOVIE_MAX_WIDTH, MOVIE_MAX_HEIGHT, 
-        MOVIE_ENCODED_VIDEO_BUFFER_SIZE, 
-        MOVIE_PRIMARY_AUDIO_BUFFER_SIZE, 
-        MOVIE_SECONDARY_AUDIO_BUFFER_SIZE, 
-        MOVIE_AUDIO_BUFFER_SIZE_TYPE );
 #endif
 }
 

@@ -44,77 +44,23 @@ MemoryCardManager* MemoryCardManager::spInstance = NULL;
 // Local Constants
 //===========================================================================
 
-#ifdef RAD_PS2
-  #ifdef PAL
-    const unsigned int MINIMUM_MEMCARD_CHECK_TIME = 3000; // in msec
-  #else
-    const unsigned int MINIMUM_MEMCARD_CHECK_TIME = 0; // in msec
-  #endif
-#elif RAD_WIN32
-    const unsigned int MINIMUM_MEMCARD_CHECK_TIME = 0; // in msec
-#else
-    const unsigned int MINIMUM_MEMCARD_CHECK_TIME = 1000; // in msec
-#endif
-
+const unsigned int MINIMUM_MEMCARD_CHECK_TIME = 0; // in msec
 const int MAX_SAVED_GAME_TITLE_LENGTH = 32; // # chars
 
-#ifdef RAD_WIN32
+#if defined(RAD_WIN32) || defined(RAD_UWP)
 char DEFAULT_GAME_DRIVE[radFileDrivenameMax+1]; // for win32, need to store the default.
 #endif
 
 const char* SAVE_GAME_DRIVE[] =
 {
-#ifdef RAD_PS2
-    "MEMCARD1A:",
-    "MEMCARD1B:",
-    "MEMCARD1C:",
-    "MEMCARD1D:",
-    "MEMCARD2A:",
-    "MEMCARD2B:",
-    "MEMCARD2C:",
-    "MEMCARD2D:",
-#endif
-
-#ifdef RAD_XBOX
-//    "T:",
-    "U:",
-    "MEMCARD1A:",
-    "MEMCARD1B:",
-    "MEMCARD2A:",
-    "MEMCARD2B:",
-    "MEMCARD3A:",
-    "MEMCARD3B:",
-    "MEMCARD4A:",
-    "MEMCARD4B:",
-#endif
-
-#ifdef RAD_WIN32
+#if defined(RAD_WIN32) || defined(RAD_UWP)
     DEFAULT_GAME_DRIVE,
 #endif
-
     "" // dummy terminator
 };
 
 const unsigned int NUM_SAVE_GAME_DRIVES =
     sizeof( SAVE_GAME_DRIVE ) / sizeof( SAVE_GAME_DRIVE[ 0 ] ) - 1;
-
-#ifdef RAD_PS2
-    const char* PS2_LIST_ICON_FILE = "list.ico";
-    const char* PS2_COPY_ICON_FILE = "copy.ico";
-    const char* PS2_DELETE_ICON_FILE = "delete.ico";
-
-    // this will use the 'list' icon file for all three icons
-    //
-#define USE_ONE_ICON_FILE_ONLY
-#endif
-
-#ifdef RAD_XBOX
-    const char* XBOX_ICON_FILE = "saveimg.xbx";
-
-    // this will use the default title and save game image icons
-    //
-    #define USE_DEFAULT_ICONS
-#endif
 
 //===========================================================================
 // Public Member Functions
@@ -212,9 +158,6 @@ MemoryCardManager::MemoryCardManager()
     m_memcardCheckCallback( NULL ),
     m_memcardCheckingState( MEMCARD_CHECK_NOT_DONE ),
     m_elapsedMemcardCheckTime( 0 ),
-#ifdef RAD_XBOX
-    m_savedGameCreationSizeHD( 0 ),
-#endif
     m_savedGameCreationSize( 0 )
 {
     m_pDrives = new IRadDrive*[ NUM_SAVE_GAME_DRIVES ];
@@ -233,15 +176,6 @@ MemoryCardManager::MemoryCardManager()
         m_mediaInfos[ i ].m_SectorSize = 0;
         m_mediaInfos[ i ].m_VolumeName[ 0 ] = '\0';
     }
-
-/*
-#ifdef RAD_WIN32
-    // Algorithm fix which is only needed on PC.  If there is only one card,
-    // then having m_nextmediainfo = m_currentMediaInfo = 0 won't load anything.
-    // We start currentmediainfo at -1 to indicate that nothing has been loaded.
-    m_currentMediaInfo = -1;
-#endif
-*/
 }
 
 //===========================================================================
@@ -266,7 +200,7 @@ MemoryCardManager::~MemoryCardManager()
         {
             if( m_pDrives[ i ] != NULL )
             {
-#ifndef RAD_WIN32
+#if !defined(RAD_WIN32) && !defined(RAD_UWP)
                 m_pDrives[ i ]->UnregisterErrorHandler( this );
 #endif
 
@@ -276,7 +210,7 @@ MemoryCardManager::~MemoryCardManager()
                 m_numDrivesOpened--;
             }
 
-#ifndef RAD_WIN32
+#if !defined(RAD_WIN32) && !defined(RAD_UWP)
             radDriveUnmount( SAVE_GAME_DRIVE[ i ] );
 #endif
         }
@@ -301,7 +235,7 @@ MemoryCardManager::Init( IRadDriveErrorCallback* radDriveErrorCallback )
 {
     m_radDriveErrorCallback = radDriveErrorCallback;
 
-#ifdef RAD_WIN32
+#if defined(RAD_WIN32) || defined(RAD_UWP)
     radGetDefaultDrive( DEFAULT_GAME_DRIVE );
 #endif
 
@@ -309,7 +243,7 @@ MemoryCardManager::Init( IRadDriveErrorCallback* radDriveErrorCallback )
     //
     for( unsigned int i = 0; i < NUM_SAVE_GAME_DRIVES; i++ )
     {
-#ifndef RAD_WIN32
+#if !defined(RAD_WIN32) && !defined(RAD_UWP)
         bool driveAlreadyMounted = radDriveMount( SAVE_GAME_DRIVE[ i ], GMA_PERSISTENT );
         rAssert( !driveAlreadyMounted );
 #endif
@@ -320,7 +254,7 @@ MemoryCardManager::Init( IRadDriveErrorCallback* radDriveErrorCallback )
 
         // register error handler
         //
-#ifndef RAD_WIN32
+#if !defined(RAD_WIN32) && !defined(RAD_UWP)
         m_pDrives[ i ]->RegisterErrorHandler( this, NULL );
 #endif
     }
@@ -419,15 +353,7 @@ MEMTRACK_PUSH_GROUP( "MemcardInfo" );
 
         m_elapsedMemcardInfoLoadTime = radTimeGetMilliseconds();
 
-#ifdef RAD_PS2
-        this->LoadMemcardInfo_PS2( heap );
-#endif
-
-#ifdef RAD_XBOX
-        this->LoadMemcardInfo_XBOX( heap );
-#endif
-
-#ifdef RAD_WIN32
+#if defined(RAD_WIN32) || defined(RAD_UWP)
         // go straight to the requests complete method; there is no
         // memcard info.
         OnProcessRequestsComplete( NULL );
@@ -448,14 +374,6 @@ MemoryCardManager::UnloadMemcardInfo()
 {
     if( m_memcardInfoLoadState == MEMCARD_INFO_LOAD_COMPLETED )
     {
-#ifdef RAD_PS2
-        this->UnloadMemcardInfo_PS2();
-#endif
-
-#ifdef RAD_XBOX
-        this->UnloadMemcardInfo_XBOX();
-#endif
-
         if( m_memcardInfo != NULL )
         {
             delete m_memcardInfo;
@@ -487,50 +405,6 @@ MemoryCardManager::SetMemcardIconData( char* dataBuffer,
 
     switch( m_memcardInfoLoadState )
     {
-#ifdef RAD_PS2
-        case MEMCARD_INFO_LOADING_ICON_LIST:
-        {
-            m_memcardInfo->m_ListIcon = dataBuffer;
-            m_memcardInfo->m_ListIconSize = dataSize;
-
-#ifdef USE_ONE_ICON_FILE_ONLY
-            m_memcardInfo->m_CopyIcon = dataBuffer;
-            m_memcardInfo->m_CopyIconSize = dataSize;
-
-            m_memcardInfo->m_DelIcon = dataBuffer;
-            m_memcardInfo->m_DelIconSize = dataSize;
-
-            m_memcardInfoLoadState = MEMCARD_INFO_LOADING_ICON_DELETE;
-#endif
-
-            break;
-        }
-        case MEMCARD_INFO_LOADING_ICON_COPY:
-        {
-            m_memcardInfo->m_CopyIcon = dataBuffer;
-            m_memcardInfo->m_CopyIconSize = dataSize;
-
-            break;
-        }
-        case MEMCARD_INFO_LOADING_ICON_DELETE:
-        {
-            m_memcardInfo->m_DelIcon = dataBuffer;
-            m_memcardInfo->m_DelIconSize = dataSize;
-
-            break;
-        }
-#endif // RAD_PS2
-
-#ifdef RAD_XBOX
-        case MEMCARD_INFO_LOADING_ICON:
-        {
-            m_memcardInfo->m_Icon = dataBuffer;
-            m_memcardInfo->m_IconSize = dataSize;
-
-            break;
-        }
-#endif // RAD_XBOX
-
         case MEMCARD_INFO_NOT_LOADED:
         {
             rAssertMsg( false, "*** ERROR: Invalid MemcardInfo load state!" );
@@ -724,24 +598,6 @@ void
 MemoryCardManager::UpdateMemcardInfo( const char* savedGameTitle, int lineBreak )
 {
     rAssert( m_memcardInfo != NULL );
-
-#ifdef RAD_PS2
-    rAssert( savedGameTitle != NULL );
-    rAssert( lineBreak != -1 );
-
-    radSJISChar title[ MAX_SAVED_GAME_TITLE_LENGTH ];
-    radAsciiToSjis( title, savedGameTitle );
-    radSetIconSysTitle( &(m_memcardInfo->m_IconSys),
-                        title,
-                        static_cast<unsigned short>( lineBreak ) );
-#endif
-
-#ifdef RAD_XBOX
-    // TC: stinky XBox! there's is no way to specify a descriptive name
-    //     that's different from the file name
-    //
-    rWarningMsg( savedGameTitle == NULL, "Can't specify save game title on Xbox!" );
-#endif
 }
 
 void
@@ -775,17 +631,8 @@ MemoryCardManager::OnDriveOperationsComplete( void* pUserData )
         {
             if( m_nextMediaInfo == 0 )
             {
-#if defined( RAD_PS2 )
-                // continue to poll for media info from all drives
-                // during the entire minimum checking time
-                //
-                if( m_elapsedMemcardCheckTime > MINIMUM_MEMCARD_CHECK_TIME )
-#endif
-                {
-                    // ok, we finished querying media info from all drives
-                    //
-                    m_memcardCheckingState = MEMCARD_CHECK_COMPLETED;
-                }
+                // ok, we finished querying media info from all drives
+                m_memcardCheckingState = MEMCARD_CHECK_COMPLETED;
             }
         }
     }
@@ -851,24 +698,14 @@ MemoryCardManager::GetDriveIndex( IRadDrive* pDrive ) const
 void
 MemoryCardManager::DetermineSavedGameCreationSize( unsigned int driveIndex )
 {
-#ifdef RAD_XBOX
-    if( driveIndex == 0 ) // Xbox hard disk
-    {
-        rAssert( driveIndex < NUM_SAVE_GAME_DRIVES );
-        m_savedGameCreationSizeHD = m_pDrives[ driveIndex ]->GetCreationSize( m_memcardInfo, GetGameDataManager()->GetGameDataSize() );
+    rAssert( driveIndex < NUM_SAVE_GAME_DRIVES );
+    m_savedGameCreationSize = m_pDrives[ driveIndex ]->GetCreationSize( m_memcardInfo, GetGameDataManager()->GetGameDataSize() );
 
-        rReleasePrintf( "The Simpsons Hit & Run Saved Game File Size (on HD) = %.2f KB (%d bytes)\n",
-                        m_savedGameCreationSizeHD / 1024.0f, m_savedGameCreationSizeHD );
-    }
-    else
-#endif
-    {
-        rAssert( driveIndex < NUM_SAVE_GAME_DRIVES );
-        m_savedGameCreationSize = m_pDrives[ driveIndex ]->GetCreationSize( m_memcardInfo, GetGameDataManager()->GetGameDataSize() );
-
-        rReleasePrintf( "The Simpsons Hit & Run Saved Game File Size = %.2f KB (%d bytes)\n",
-                        m_savedGameCreationSize / 1024.0f, m_savedGameCreationSize );
-    }
+    rReleasePrintf( 
+        "The Simpsons Hit & Run Saved Game File Size = %.2f KB (%d bytes)\n",
+        m_savedGameCreationSize / 1024.0f, 
+        m_savedGameCreationSize 
+    );
 }
 
 void
@@ -928,76 +765,10 @@ MemoryCardManager::OnMemoryCardCheckCompleted()
         }
     }
 
-#ifdef RAD_XBOX
-    // only need to check xbox hard disk, no need to check memory units
-    //
-    rAssertMsg( m_mediaInfos[ 0 ].m_MediaState == IRadDrive::MediaInfo::MediaPresent,
-                "ERROR: *** WTF? The Xbox Hard Disk is not present??" );
-
-    if( !GetGameDataManager()->DoesSaveGameExist( m_pDrives[ 0 ] ) &&
-        !this->EnoughFreeSpace( 0 ) )
-    {
-        driveIndex = 0;
-        errorCode = NoFreeSpace;
-    }
-#endif // RAD_XBOX
-
-#ifdef RAD_WIN32
+#if defined(RAD_WIN32) || defined(RAD_UWP)
     rAssertMsg( m_mediaInfos[ 0 ].m_MediaState == IRadDrive::MediaInfo::MediaPresent,
                 "ERROR: Default hard drive didn't mount." );
 #endif // RAD_WIN32
-
-#if defined( RAD_PS2 )
-    if( !goodCardExists || fullCardExists )
-    {
-        // no good card exists; now search for first card w/ an error
-        //
-        bool errorExists = false;
-        for( unsigned int i = 0; i < NUM_SAVE_GAME_DRIVES; i++ )
-        {
-            if( m_mediaInfos[ i ].m_MediaState == IRadDrive::MediaInfo::MediaPresent )
-            {
-                bool saveGameExists = GetGameDataManager()->DoesSaveGameExist( m_pDrives[ i ] );
-                if( !saveGameExists && !this->EnoughFreeSpace( i ) )
-                {
-                    errorExists = true;
-
-                    errorCode = NoFreeSpace;
-                    driveIndex = static_cast<int>( i );
-
-                    break;
-                }
-            }
-            else if( m_mediaInfos[ i ].m_MediaState != IRadDrive::MediaInfo::MediaNotPresent )
-            {
-                errorExists = true;
-
-                errorCode = m_pDrives[ i ]->GetLastError();
-                mediaState = m_mediaInfos[ i ].m_MediaState;
-                driveIndex = static_cast<int>( i );
-
-                break;
-            }
-        }
-
-        if( !errorExists && !fullCardExists )
-        {
-            // hmmm... no error exists, that means there are no memory cards attached
-            //
-            mediaState = IRadDrive::MediaInfo::MediaNotPresent;
-            driveIndex = -1;
-
-#ifdef RAD_DEBUG
-            // let's double check that there are, in fact, no memory cards
-            //
-            for( unsigned int i = 0; i < NUM_SAVE_GAME_DRIVES; i++ )
-            {
-                rAssert( m_mediaInfos[ i ].m_MediaState == IRadDrive::MediaInfo::MediaNotPresent );
-            }
-#endif
-        }
-    }
-#endif // RAD_PS2
 
     if( m_memcardCheckCallback != NULL )
     {
@@ -1009,103 +780,3 @@ MemoryCardManager::OnMemoryCardCheckCompleted()
         m_memcardCheckCallback = NULL;
     }
 }
-
-#ifdef RAD_PS2
-    void
-    MemoryCardManager::LoadMemcardInfo_PS2( GameMemoryAllocator heap )
-    {
-        // make a header structure
-        //
-        radSJISChar title[ MAX_SAVED_GAME_TITLE_LENGTH ];
-        radAsciiToSjis( title, "" );
-        rAssert( m_memcardInfo != NULL );
-        radMakeIconSys( &(m_memcardInfo->m_IconSys), title, 0 );
-
-        m_memcardInfo->m_ListIcon = NULL;
-        m_memcardInfo->m_CopyIcon = NULL;
-        m_memcardInfo->m_DelIcon = NULL;
-
-        GetLoadingManager()->AddRequest( FILEHANDLER_ICON,
-                                         PS2_LIST_ICON_FILE,
-                                         heap,
-                                         this );
-
-#ifndef USE_ONE_ICON_FILE_ONLY
-        GetLoadingManager()->AddRequest( FILEHANDLER_ICON,
-                                         PS2_COPY_ICON_FILE,
-                                         heap,
-                                         this );
-
-        GetLoadingManager()->AddRequest( FILEHANDLER_ICON,
-                                         PS2_DELETE_ICON_FILE,
-                                         heap,
-                                         this );
-#endif
-
-        m_memcardInfoLoadState = MEMCARD_INFO_LOADING_ICON_LIST;
-    }
-
-    void
-    MemoryCardManager::UnloadMemcardInfo_PS2()
-    {
-        if( m_memcardInfo != NULL )
-        {
-            if( m_memcardInfo->m_ListIcon != NULL )
-            {
-                delete [] reinterpret_cast<char*>( m_memcardInfo->m_ListIcon );
-                m_memcardInfo->m_ListIcon = NULL;
-            }
-
-#ifdef USE_ONE_ICON_FILE_ONLY
-			m_memcardInfo->m_CopyIcon = NULL;
-			m_memcardInfo->m_DelIcon = NULL;
-#else
-            if( m_memcardInfo->m_CopyIcon != NULL )
-            {
-                delete [] reinterpret_cast<char*>( m_memcardInfo->m_CopyIcon );
-                m_memcardInfo->m_CopyIcon = NULL;
-            }
-
-            if( m_memcardInfo->m_DelIcon != NULL )
-            {
-                delete [] reinterpret_cast<char*>( m_memcardInfo->m_DelIcon );
-                m_memcardInfo->m_DelIcon = NULL;
-            }
-#endif
-        }
-    }
-#endif // RAD_PS2
-
-#ifdef RAD_XBOX
-    void
-    MemoryCardManager::LoadMemcardInfo_XBOX( GameMemoryAllocator heap )
-    {
-        rAssert( m_memcardInfo != NULL );
-        m_memcardInfo->m_Icon = NULL;
-
-        m_memcardInfoLoadState = MEMCARD_INFO_LOADING_ICON;
-
-#ifdef USE_DEFAULT_ICONS
-        this->OnProcessRequestsComplete( NULL );
-#else
-        GetLoadingManager()->AddRequest( FILEHANDLER_ICON,
-                                         XBOX_ICON_FILE,
-                                         heap,
-                                         this );
-#endif
-    }
-
-    void
-    MemoryCardManager::UnloadMemcardInfo_XBOX()
-    {
-        if( m_memcardInfo != NULL )
-        {
-            if( m_memcardInfo->m_Icon != NULL )
-            {
-                delete [] reinterpret_cast<char*>( m_memcardInfo->m_Icon );
-                m_memcardInfo->m_Icon = NULL;
-            }
-        }
-    }
-#endif // RAD_XBOX
-

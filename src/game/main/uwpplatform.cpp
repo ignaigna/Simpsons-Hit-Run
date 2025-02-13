@@ -124,7 +124,6 @@
 #include <data/gamedatamanager.h>
 
 #define XBOX_SECTION "XBOX_SECTION"
-#define RAD_XBOX // TODO(3ur): preprocessor literall takes 1 sec to add it but im rushing this rn
 
 //******************************************************************************
 //

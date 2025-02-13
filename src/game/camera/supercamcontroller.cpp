@@ -82,7 +82,7 @@ SuperCamController::~SuperCamController()
 //=============================================================================
 void SuperCamController::LoadControllerMappings( unsigned int controllerId )
 {
-    #ifdef RAD_XBOX
+    #ifdef RAD_UWP
     ClearMap(0);
     Map( "RightStickX",     stickX,             0, controllerId );
     Map( "RightStickY",     stickY,             0, controllerId );

@@ -48,50 +48,23 @@ extern bool gMemorySystemInitialized;
 //
 // Override built-in new.
 //
-void* operator new( size_t size )
-#ifdef RAD_PS2
-#ifndef RAD_MW
-throw( std::bad_alloc )
-#endif
-#endif
-;
+void* operator new( size_t size );
 
 //
 // Override built-in delete.
 //
-void  operator delete(void* pMemory)
-#ifdef RAD_PS2
-#ifndef RAD_MW
-throw()
-#endif
-#endif
-;
+void  operator delete(void* pMemory);
 
 //
 // Override built-in array new.
 //
-void* operator new[]( size_t size )
-#ifdef RAD_PS2
-#ifndef RAD_MW
-throw( std::bad_alloc )
-#endif
-#endif
-;
+void* operator new[]( size_t size );
 
 //
 // Override built-in array delete.
 //
-void  operator delete[]( void* pMemory )
-#ifdef RAD_PS2
-#ifndef RAD_MW
-throw()
-#endif
-#endif
-;
+void  operator delete[]( void* pMemory );
 
-#ifdef RAD_PS2
-    #define CORRAL_SMALL_ALLOCS   
-#endif
 
 // #define USE_CHAR_GAG_HEAP
 
@@ -115,10 +88,7 @@ enum GameMemoryAllocator
     GMA_SPECIAL,                               //    13        
     GMA_MUSIC,                                 //    14        
     GMA_AUDIO_PERSISTENT,                      //    15        
-    GMA_SMALL_ALLOC,                           //    16
-#ifdef RAD_XBOX                                
-    GMA_XBOX_SOUND_MEMORY,                     //    17           
-#endif
+    GMA_SMALL_ALLOC = 16,                      //    16
 #ifdef USE_CHAR_GAG_HEAP
     GMA_CHARS_AND_GAGS,
 #else

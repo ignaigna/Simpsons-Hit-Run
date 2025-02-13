@@ -26,8 +26,8 @@
 // Build Configuration Check
 //=============================================================================
 
-#if !defined(RAD_PS2) && !defined(RAD_XBOX) && !defined(RAD_WIN32)
-    #error 'FTech requires definition of RAD_PS2, RAD_XBOX, or RAD_WIN32'
+#if !defined(RAD_UWP) && !defined(RAD_WIN32)
+    #error 'FTech requires definition of RAD_UWP, or RAD_WIN32'
 #endif
 
 //=============================================================================
@@ -67,15 +67,10 @@ struct IRadMemoryAllocator;
 // Platform Alignment and Caching Macros
 //=============================================================================
 
-#if defined (RAD_WIN32) || defined (RAD_XBOX)
+#if defined (RAD_WIN32) || defined (RAD_UWP)
 #define STANDARD_ALIGNMENT  4
 #define UNCACHE_BIT         0x00000000
 #endif
-
-#ifdef RAD_PS2
-#define STANDARD_ALIGNMENT  16
-#define UNCACHE_BIT         0x20000000
-#endif //RAD_PS2
 
 //=============================================================================
 // L O C A L  M E M O R Y  F U N C T I O N S
@@ -265,13 +260,8 @@ struct IRadMemorySpaceCopyRequest;
 enum radMemorySpace
 {
     radMemorySpace_Null,
-#ifdef RAD_PS2
-    radMemorySpace_Ee,          // PS2 EE memory space.
-    radMemorySpace_Iop,         // PS2 IOP memory space.
-    radMemorySpace_Sound        // PS2 sound memory space.
-#endif
-#if defined (RAD_WIN32) || defined (RAD_XBOX)
-    radMemorySpace_Main         // Win/Xbox main memory.
+#if defined (RAD_WIN32) || defined (RAD_UWP)
+    radMemorySpace_Main         // Win/UWP main memory.
 #endif
 };
 
@@ -279,11 +269,7 @@ enum radMemorySpace
 // LocalMemory always refers to the memory space that is addressable by the 
 // processor running the program.
 //
-#ifdef RAD_PS2
-#define radMemorySpace_Local radMemorySpace_Ee
-#else
 #define radMemorySpace_Local radMemorySpace_Main
-#endif
 
 extern unsigned int radMemorySpace_OptimalMultiple;
 extern unsigned int radMemorySpace_OptimalAlignment;

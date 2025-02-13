@@ -615,7 +615,7 @@ void SuperCamCentral::UpdateCameraCollisionSphereRadius(float radius)
 //=============================================================================
 void SuperCamCentral::Update( unsigned int milliseconds, bool isFirstSubstep )
 {
-#if defined(RAD_XBOX) || defined(RAD_WIN32)
+#if defined(RAD_UWP) || defined(RAD_WIN32)
     if ( mController && 
          !mCameraToggling && 
          mController->GetValue( SuperCamController::cameraToggle ) == 1.0f &&
@@ -703,24 +703,15 @@ void SuperCamCentral::Update( unsigned int milliseconds, bool isFirstSubstep )
             //Test for lookback.
             float lookBack = mController->GetValue( SuperCamController::lookBack );
 
-#if defined(RAD_XBOX)  //Both now!
+#if defined(RAD_UWP)  //Both now!
             float altLookBack = mController->GetValue( SuperCamController::altLookBack );
 
             lookBack = mController->GetAxisValue( SuperCamController::stickY );
-#if defined(RAD_XBOX)
             lookBack = lookBack < -0.8f ? -1.0f : 0.0f;
-#endif
 
             if ( altLookBack == 1.0f || lookBack == -1.0f )
 #elif defined(RAD_WIN32)
             if( lookBack > 0.8f )
-#else //This is PS2
-            if ( mController->GetValue( SuperCamController::l2) >= 0.9f && mController->GetValue( SuperCamController::r2 ) >= 0.9f )
-            {
-                lookBack = 1.0f;
-            }
-
-            if ( rmt::Fabs( lookBack ) > STICK_DEAD_ZONE )
 #endif
             {
                 //This will be reset at end of use.

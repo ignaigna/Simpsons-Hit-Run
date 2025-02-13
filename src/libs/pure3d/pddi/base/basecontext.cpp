@@ -15,15 +15,6 @@
 #include <float.h>
 #include <math.h>
 
-// these macros de-virtualize platform-specific functions
-#ifdef RAD_PS2
-    #include <pddi/ps2/ps2context.hpp>
-
-    #define LoadHardwareMatrix(X)     ((ps2Context*)this)->ps2Context::LoadHardwareMatrix(X)
-    #define SetupHardwareProjection() ((ps2Context*)this)->ps2Context::SetupHardwareProjection()
-    #define SetupHardwareLight(X)     ((ps2Context*)this)->ps2Context::SetupHardwareLight(X)
-#endif
-
 const int STATE_STACK_DEPTH = 4;
 
 //-------------------------------------------------------------------
@@ -157,13 +148,7 @@ void pddiBaseContext::DefaultState()
     state.renderState->greenWrite = true;
     state.renderState->blueWrite = true;
     state.renderState->alphaWrite = true;
-#ifdef RAD_PS2
-    // june22/2001 amb
-    // no BFC is actually faster on the PS2
-    state.renderState->cullMode = PDDI_CULL_NONE;
-#else
     state.renderState->cullMode = PDDI_CULL_NORMAL;
-#endif
     state.renderState->zCompare = PDDI_COMPARE_LESSEQUAL;
     state.renderState->zWrite = true;
     state.renderState->fillMode = PDDI_FILL_SOLID;
@@ -305,9 +290,7 @@ void pddiBaseContext::DisplayStats()
         "tex alloc: %.0f KB (%.0f KB)\n"
         "textures : 4 bit : %d (%.0f KB), 8 bit : %d (%.0f KB)\n"
         "textures : 16 bit : %d (%.0f KB),32 bit : %d (%.0f KB)\n"
-#ifndef RAD_PS2
         "textures : dxtn : %d (%.0f KB)\n"
-#endif
         "tex cache: %.0f hit, %.0f miss (%.1f KB)\n"
         "Skin XformVtx: %d  BPV: %.2f  XForm: %.3fms"
         "\n", 
@@ -340,10 +323,8 @@ void pddiBaseContext::DisplayStats()
         stats[PDDI_STAT_TEXTURE_ALLOC_16BIT], 
         (int)stats[PDDI_STAT_TEXTURE_COUNT_32BIT], 
         stats[PDDI_STAT_TEXTURE_ALLOC_32BIT], 
-#ifndef RAD_PS2
         (int)stats[PDDI_STAT_TEXTURE_COUNT_DXTN], 
         stats[PDDI_STAT_TEXTURE_ALLOC_DXTN], 
-#endif
         stats[PDDI_STAT_TEXTURE_HITS], 
         stats[PDDI_STAT_TEXTURE_MISSES], 
         stats[PDDI_STAT_TEXTURE_UPLOADED],

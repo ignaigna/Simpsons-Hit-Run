@@ -64,7 +64,7 @@ static float CAMERA_FOV[ RenderEnums::MAX_LEVEL - RenderEnums::numLevels ] =
 
 #endif
 
-#ifdef RAD_XBOX
+#ifdef RAD_UWP
 static float CAMERA_VALUES[ RenderEnums::MAX_LEVEL - RenderEnums::numLevels ][ 3 ] = 
 {
 //    { 49.99f, 160.21f, -233.60f },

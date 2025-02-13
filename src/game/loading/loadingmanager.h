@@ -172,7 +172,7 @@ class LoadingManager : public FileHandler::LoadFileCallback
         //
         // Store cement libraries
         //
-#ifdef RAD_XBOX
+#ifdef RAD_UWP
         static const int MAX_CEMENT_LIBRARIES = 15;
 #else
         static const int MAX_CEMENT_LIBRARIES = 10;

@@ -4143,10 +4143,6 @@ void MissionScriptLoader::LoadP3DFile(int argc, const char** argv)
             heap = GMA_DEBUG;
         else if (heapName == "GMA_SPECIAL")
             heap = GMA_SPECIAL;
-#ifdef RAD_XBOX
-        else if (heapName == "GMA_XBOX_SOUND_MEMORY")
-            heap = GMA_XBOX_SOUND_MEMORY;
-#endif
         else
         {
             // unrecognized heapName!
@@ -5359,7 +5355,7 @@ void MissionScriptLoader::SetStatepropShadow(int argc, const char** argv)
 
 void MissionScriptLoader::TreeOfWoeErrorMsg(const char* outputbuffer)
 {
-#ifndef RAD_XBOX
+#ifndef RAD_UWP
 #ifndef FINAL
     IRadTextDisplay* textDisplay;
 
