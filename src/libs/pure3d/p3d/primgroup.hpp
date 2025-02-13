@@ -203,7 +203,7 @@ protected:
 //-------------------------------------------------------------------
 class tChunkFile;
 
-class tPrimGroupLoader
+/*class tPrimGroupLoader
 {
 public:
     tPrimGroupLoader(void);
@@ -230,4 +230,4 @@ private:
 
     unsigned mVertexFormatMask;
 
-};
+};*/
