@@ -22,7 +22,6 @@
 #include <radmemory.hpp>
 #pragma warning(disable:4786)
 #pragma warning(disable:4530)
-#endif
 
 // These two are for stats tracking
 #include <radtime.hpp>
