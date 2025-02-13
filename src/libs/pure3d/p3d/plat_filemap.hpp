@@ -11,3 +11,5 @@
 #elif defined(RAD_WIN32) || defined(RAD_UWP)
     #include <p3d/platform/win32/plat_filemap.hpp>
 #endif
+
+#endif // _BASE_PLAT_FILEMAP_HPP
