@@ -1304,6 +1304,56 @@
     <ClInclude Include="..\game\worldsim\worldobject.h" />
     <ClInclude Include="..\game\worldsim\worldphysicsmanager.h" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\libs\choreo\choreo.vcxproj">
+      <Project>{d3d85ef1-6e12-478e-85f8-95974c430774}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\libs\poser\poser.vcxproj">
+      <Project>{c38a04b6-53b9-4731-8be5-396d0d356097}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\libs\pure3d\Pure3D.vcxproj">
+      <Project>{67904e19-de3b-4707-8f96-13aa64dbf58a}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\libs\radcontent\radcontent.vcxproj">
+      <Project>{b5c1c3a8-11bc-4d82-a7eb-a85b22db74ea}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\libs\radcore\radcore.vcxproj">
+      <Project>{3772a735-0353-433a-a8a2-eb45c84f9139}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\libs\radmath\radmath.vcxproj">
+      <Project>{906e914f-eb63-4b12-9f07-00a727472080}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\libs\radmovie\radmovie.vcxproj">
+      <Project>{dfaabd95-d93e-4ade-85ed-e75989e95419}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\libs\radmusic\radmusic.vcxproj">
+      <Project>{fd6569ba-9760-436f-8a03-6570bc25f2e4}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\libs\radscript\radscript.vcxproj">
+      <Project>{e5114613-e9f3-42f5-bbd7-2c6606a36be2}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\libs\radsound\radsound.vcxproj">
+      <Project>{274d5705-b0a2-4629-8bcf-03ed96a7c9d0}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\libs\scrooby\ScroobyLib.vcxproj">
+      <Project>{60778b7d-0909-46d2-896f-8805097224a3}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\libs\sim\sim.vcxproj">
+      <Project>{9dcf328b-47fd-4e70-8617-2256ef09ff62}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
