@@ -31,7 +31,7 @@ class tContext;
 // Synopsis:    Provides abstraction for setting up and closing a UWP app.
 //
 //=============================================================================
-class UwpPlatform : public Platform
+class UwpPlatform : public GamePlatform
 {
 public:
 
@@ -85,10 +85,6 @@ private:
     // Constructors, Destructors, and Operators
     UwpPlatform();
     virtual ~UwpPlatform();
-
-    // Unused Constructors, Destructors, and Operators
-    UwpPlatform(const UwpPlatform& aPlatform);
-    UwpPlatform& operator=(const UwpPlatform& aPlatform);
 
     // Pointer to the one and only instance of this singleton.
     static UwpPlatform* spInstance;

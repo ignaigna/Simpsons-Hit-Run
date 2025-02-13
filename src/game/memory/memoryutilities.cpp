@@ -490,8 +490,7 @@ size_t GetTotalMemoryUnavailable()
 //==============================================================================
 size_t GetTotalMemoryUsed()
 {
-#if defined RAD_WIN32
-#ifdef RAD_DEBUG
+#if defined(RAD_WIN32) && defined(RAD_DEBUG)
         _CrtMemState state;
         _CrtMemCheckpoint( &state );
         int total = 0;
@@ -506,10 +505,9 @@ size_t GetTotalMemoryUsed()
         GlobalMemoryStatus (&status);
         size_t doubleCheck =  status.dwTotalPhys - status.dwAvailPhys;
         //double check these numbers - they should match on the XBOX!
-        return total;
-    #else
+        return total
+#else
         return 0;
-    #endif
 #endif
 };
 

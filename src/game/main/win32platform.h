@@ -38,7 +38,7 @@ class tContext;
 // Synopsis:    Provides abstraction for setting up and closing a win32 exe.
 //
 //=============================================================================
-class Win32Platform : public Platform, public GameConfigHandler
+class Win32Platform : public GamePlatform, public GameConfigHandler
 {
 public:
 
