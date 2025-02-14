@@ -126,8 +126,11 @@ struct IRadPlatformWin32MessageCallback
 //
 struct IRadPlatform : public IRefCount
 {
+    // TODO(3ur): callbacks are fine to stay uncommented yes? maybe? no?
+#ifndef RAD_UWP
     virtual HWND GetMainWindowHandle( void ) = 0;
     virtual HINSTANCE GetInstanceHandle( void ) = 0;
+#endif
     virtual void RegisterMainWindowCallback
     (
         IRadPlatformWin32MessageCallback* pICallback

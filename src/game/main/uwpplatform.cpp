@@ -1,4 +1,4 @@
-//===========================================================================
+﻿//===========================================================================
 // Copyright (C) 2025 Radical Entertainment Ltd.  All rights reserved.
 //
 // Component:   UwpPlatform   
@@ -102,9 +102,8 @@
 #include <input/inputmanager.h>
 
 #include <main/uwpplatform.h>
-#include <main/commandlineoptions.h>
 #include <main/game.h>
-#include <main/errorsWIN32.h> // TODO(3ur): use errorsXbox?
+#include <main/errorsWIN32.h>
 
 #include <render/RenderManager/RenderManager.h>
 #include <render/Loaders/AllWrappers.h>
@@ -244,17 +243,17 @@ void UwpPlatform::DestroyInstance()
 void UwpPlatform::InitializeWindow()
 {
     // These three attributes must be set prior to creating the first window
-    SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_COMPATIBILITY);
-    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 2);
-    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 6);
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
 
     mWnd = SDL_CreateWindow(
-        "",                      // Window title (Not used)
-        SDL_WINDOWPOS_UNDEFINED, // Window positions (Not used)
-        SDL_WINDOWPOS_UNDEFINED, //
-        1920,                    // TODO(3UR): dynamicccc????
-        1080,                    //
-        SDL_WINDOW_OPENGL | SDL_WINDOW_FULLSCREEN_DESKTOP
+        "Sample Green Screen",      // Window title (not really used)
+        SDL_WINDOWPOS_UNDEFINED,    // Window positions not used
+        SDL_WINDOWPOS_UNDEFINED,
+        640,                        // Width of framebuffer
+        480,                        // Height of framebuffer
+        SDL_WINDOW_OPENGL | SDL_WINDOW_FULLSCREEN_DESKTOP // Flags, need FULLSCREEN to stretch a lower res
     );
 
     rAssert(mWnd != NULL);
@@ -291,15 +290,6 @@ void UwpPlatform::InitializeFoundation()
     //
     ::radMemorySetOutOfMemoryCallback(PrintOutOfMemoryMessage, NULL);
 #endif
-
-    //
-    // Initialize memory monitor by JamesCo. TM.
-    //
-    if (CommandLineOptions::Get(CLO_MEMORY_MONITOR))
-    {
-        const int KB = 1024;
-        ::radMemoryMonitorInitialize(64 * KB, GMA_DEBUG);
-    }
 
     // Setup the memory heaps
     //
@@ -769,53 +759,45 @@ bool UwpPlatform::OnDriveError(radFileError error, const char* pDriveName, void*
     }
     case FileNotFound:
     {
-        if (CommandLineOptions::Get(CLO_FILE_NOT_FOUND))
+        rAssert(pUserData != NULL);
+
+        radFileRequest* request = static_cast<radFileRequest*>(pUserData);
+        const char* fileName = request->GetFilename();
+
+        //Get rid of the slashes.
+        unsigned int i;
+        unsigned int lastIndex = 0;
+        for (i = 0; i < strlen(fileName); ++i)
         {
-            rAssert(pUserData != NULL);
-
-            radFileRequest* request = static_cast<radFileRequest*>(pUserData);
-            const char* fileName = request->GetFilename();
-
-            //Get rid of the slashes.
-            unsigned int i;
-            unsigned int lastIndex = 0;
-            for (i = 0; i < strlen(fileName); ++i)
+            if (fileName[i] == '\\')
             {
-                if (fileName[i] == '\\')
-                {
-                    lastIndex = i;
-                }
+                lastIndex = i;
             }
+        }
 
-            unsigned int adjustedIndex = lastIndex == 0 ? lastIndex : lastIndex + 1;
+        unsigned int adjustedIndex = lastIndex == 0 ? lastIndex : lastIndex + 1;
 
-            char adjustedName[32];
-            strncpy(adjustedName, &fileName[adjustedIndex], (strlen(fileName) - lastIndex));
-            adjustedName[strlen(fileName) - lastIndex] = '\0';
+        char adjustedName[32];
+        strncpy(adjustedName, &fileName[adjustedIndex], (strlen(fileName) - lastIndex));
+        adjustedName[strlen(fileName) - lastIndex] = '\0';
 
-            char errorString[256];
-            sprintf(errorString, "%s:\n%s", ERROR_STRINGS[errorIndex], adjustedName);
-            if (inFrame) p3d::context->EndFrame(true);
-            DisplaySplashScreen(Error, errorString, 1.0f, 0.0f, 0.0f, tColour(255, 255, 255), 0);
-            if (inFrame) p3d::context->BeginFrame();
-            mErrorState = P_ERROR;
-            mPauseForError = true;
+        char errorString[256];
+        sprintf(errorString, "%s:\n%s", ERROR_STRINGS[errorIndex], adjustedName);
+        if (inFrame) p3d::context->EndFrame(true);
+        DisplaySplashScreen(Error, errorString, 1.0f, 0.0f, 0.0f, tColour(255, 255, 255), 0);
+        if (inFrame) p3d::context->BeginFrame();
+        mErrorState = P_ERROR;
+        mPauseForError = true;
 
-            if (GetPresentationManager()->GetFMVPlayer()->IsPlaying())
-            {
-                GetPresentationManager()->GetFMVPlayer()->Pause();
-            }
-            else
-            {
-                GetSoundManager()->StopForMovie();
-            }
-            return true;
+        if (GetPresentationManager()->GetFMVPlayer()->IsPlaying())
+        {
+            GetPresentationManager()->GetFMVPlayer()->Pause();
         }
         else
         {
-            error = HardwareFailure;
-            //Fall through.
+            GetSoundManager()->StopForMovie();
         }
+        return true;
     }
     case ShellOpen:
     case WrongMedia:
@@ -944,10 +926,6 @@ void UwpPlatform::ShutdownFoundation()
     ::radLoadTerminate();
     ::radFileTerminate();
     ::radDbgWatchTerminate();
-    if (CommandLineOptions::Get(CLO_MEMORY_MONITOR))
-    {
-        ::radMemoryMonitorTerminate();
-    }
     ::radDbgComTargetTerminate();
     ::radTimeTerminate();
     ::radPlatformTerminate();
@@ -1052,18 +1030,10 @@ void UwpPlatform::InitializePure3D()
     //    p3d::loadManager->AddHandler(p3d, "p3d");
     p3d::context->GetLoadManager()->AddHandler(p3d, "p3d");
     p3d::context->GetLoadManager()->AddHandler(new(GMA_PERSISTENT) tPNGHandler, "png");
-
-    if (CommandLineOptions::Get(CLO_FE_UNJOINED))
-    {
-        p3d::context->GetLoadManager()->AddHandler(new(GMA_PERSISTENT) tBMPHandler, "bmp");
-        p3d::context->GetLoadManager()->AddHandler(new(GMA_PERSISTENT) tTargaHandler, "tga");
-    }
-    else
-    {
-        p3d::context->GetLoadManager()->AddHandler(new(GMA_PERSISTENT) tBMPHandler, "p3d");
-        p3d::context->GetLoadManager()->AddHandler(new(GMA_PERSISTENT) tPNGHandler, "p3d");
-        p3d::context->GetLoadManager()->AddHandler(new(GMA_PERSISTENT) tTargaHandler, "p3d");
-    }
+    
+    p3d::context->GetLoadManager()->AddHandler(new(GMA_PERSISTENT) tBMPHandler, "p3d");
+    p3d::context->GetLoadManager()->AddHandler(new(GMA_PERSISTENT) tPNGHandler, "p3d");
+    p3d::context->GetLoadManager()->AddHandler(new(GMA_PERSISTENT) tTargaHandler, "p3d");
 
     //    p3d->AddHandler(new tGeometryLoader);
     //    GeometryWrappedLoader* pGWL = new GeometryWrappedLoader;

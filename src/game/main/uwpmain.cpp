@@ -25,18 +25,12 @@
 #include <main/game.h>
 #include <main/uwpplatform.h>
 #include <main/singletons.h>
-// TODO(3ur): IMPLEMENT ME
-//#include <main/commandlineoptions.h>
 #include <memory/memoryutilities.h>
 #include <memory/srrmemory.h>
 
 //========================================
 // Forward Declarations
 //========================================
-
-// TODO(3ur): IMPLEMENT ME
-//static void ProcessCommandLineArguments();
-
 static void LogOutputFunction(void* userdata, int category, SDL_LogPriority priority, const char* message)
 {
     rDebugPrintf("[SDL] %s\n", message);
@@ -56,17 +50,9 @@ static void LogOutputFunction(void* userdata, int category, SDL_LogPriority prio
 int SDL_main(int argc, char* argv[])
 {
     //
-    // Pick out and store command line settings.
-    //
-    // TODO(3UR): IMPLEMENT ME OR DONT CAUSE ITS UWP (DEBUG ONLY MOST LIKELY)
-    //CommandLineOptions::InitDefaults();
-    //ProcessCommandLineArguments();
-
-    //
     // Initialize SDL subsystems
     //
-    SDL_SetMainReady();
-    SDL_Init(SDL_INIT_VIDEO | SDL_INIT_GAMECONTROLLER); // TODO(3UR): Add both SDLInput and DirectInput in the filters for radcore but have a if guard to stop symbol errors and issues between windows and uwp
+    if (SDL_Init(SDL_INIT_VIDEO) < 0) return -1;
     SDL_LogSetOutputFunction(LogOutputFunction, NULL);
 
     //
@@ -161,20 +147,4 @@ int SDL_main(int argc, char* argv[])
 int CALLBACK WinMain(HINSTANCE, HINSTANCE, LPSTR argv, int argc)
 {
     return SDL_WinRTRunApp(SDL_main, NULL);
-}
-
-//=============================================================================
-// Function:    ProcessCommandLineArguments
-//=============================================================================
-//
-// Description: Pick out the command line options and store them.
-// 
-// Parameters:  None.
-//
-// Returns:     None.
-//
-//=============================================================================
-void ProcessCommandLineArguments()
-{
-    // TODO(3ur): IMPLEMENT ME
 }
