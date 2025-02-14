@@ -52,7 +52,8 @@ int SDL_main(int argc, char* argv[])
     //
     // Initialize SDL subsystems
     //
-    if (SDL_Init(SDL_INIT_VIDEO) < 0) return -1;
+
+    if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_GAMECONTROLLER) < 0) return -1;
     SDL_LogSetOutputFunction(LogOutputFunction, NULL);
 
     //
