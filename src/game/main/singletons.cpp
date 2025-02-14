@@ -163,13 +163,12 @@ void CreateSingletons()
     CGuiSystem* pGuiSystem = CGuiSystem::CreateInstance();
     rAssert( pGuiSystem != NULL );
 
-    // TODO(3UR): TEMP COMMENTED OUT :(
-    /*SoundManager* pSoundManager =
+    SoundManager* pSoundManager =
         SoundManager::CreateInstance( CommandLineOptions::Get( CLO_MUTE ),
                                       CommandLineOptions::Get( CLO_NO_MUSIC ),
                                       CommandLineOptions::Get( CLO_NO_EFFECTS ),
-                                      CommandLineOptions::Get( CLO_NO_DIALOG ) );*/
-    //rAssert( pSoundManager != NULL );
+                                      CommandLineOptions::Get( CLO_NO_DIALOG ) );
+    rAssert( pSoundManager != NULL );
 
     MissionManager* pMM = MissionManager::CreateInstance();
     rAssert( pMM != NULL );

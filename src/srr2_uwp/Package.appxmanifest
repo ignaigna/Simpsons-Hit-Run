@@ -31,7 +31,7 @@
   <Applications>
     <Application Id="App"
       Executable="$targetnametoken$.exe"
-      EntryPoint="SRR2_UWP.App">
+      EntryPoint="uwp.App">
       <uap:VisualElements
         DisplayName="The Simpsons: Hit &amp; Run"
         Square150x150Logo="Assets\Square150x150Logo.png"
