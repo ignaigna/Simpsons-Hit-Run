@@ -55,7 +55,6 @@ If the setup was successful, you should now be able to build any project in the 
 
 ![Screenshot 2025-02-10 092453](https://github.com/user-attachments/assets/7b5c9c6a-259d-4e5d-bd07-e429bd2f54bb)
 
-### UWP
+### UWP (Click the thumbnail these are videos)
 
-**YOUTUBE VIDEO - CLICK THUMBNAIL TO VIEW**
 [![YouTube Video](https://img.youtube.com/vi/l_Ii-4Wygn8/0.jpg)](https://www.youtube.com/watch?v=l_Ii-4Wygn8)
