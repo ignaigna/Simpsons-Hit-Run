@@ -1362,7 +1362,7 @@
   </ImportGroup>
   <!-- Mesa and SDL deps -->
   <ItemGroup>
-    <Content Include="$(SolutionDir)/third_party/bin/*.dll">
+    <Content Include="$(SolutionDir)/deps/bin/*.dll">
       <Link>%(Filename)%(Extension)</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -1370,6 +1370,12 @@
   <!-- Redist provided by ms / required by mesa gallium -->
   <ItemGroup>
     <Content Include="C:\Program Files (x86)\Windows Kits\10\Redist\D3D\x64\dxil.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <!-- Redist provided by ms / required by mesa gallium -->
+  <ItemGroup>
+    <Content Include="$(SolutionDir)/assets/*"> <!-- hopefully this also gets subfolders -->
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
