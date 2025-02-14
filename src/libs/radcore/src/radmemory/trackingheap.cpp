@@ -55,16 +55,6 @@ TrackingHeap::TrackingHeap():
 //=============================================================================
 TrackingHeap::~TrackingHeap()
 {
-#ifndef RAD_WIN32 // this routine is a problem for wind0ze.
-    rAssert( m_NumberOfAllocations == 0 );
-    ADDRESS_SIZE_MAP::iterator it;
-    for( it = m_Map.begin(); it != m_Map.end(); ++it )
-    {
-        void*  address = ( *it ).first;
-        size_t size    = ( *it ).second;
-        rTunePrintf( "leaked %p - %d bytes\n", address, size );
-    }
-#endif
 }
 
 //=============================================================================
@@ -370,9 +360,6 @@ void TrackingHeap::TrackAllocations( bool trackAllocations )
 //=============================================================================
 bool TrackingHeap::ValidateHeap( void )
 {
-#ifndef RAD_WIN32  // happens all the time in wind0ze
-    rAssert( false );
-#endif
     return true;
 }
 

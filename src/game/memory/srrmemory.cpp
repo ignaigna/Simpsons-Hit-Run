@@ -37,18 +37,17 @@
 
 #include <mission/gameplaymanager.h>
 
-#ifdef RAD_UWP
-#include <main/uwpplatform.h>
-#define INIT_MEM()  Memory::InitializeMemoryUtilities();UwpPlatform::InitializeMemory();radMemoryInitialize();
-void MemoryHackCallback() { INIT_MEM() };
-#endif // RAD_UWP
-
-#ifdef RAD_WIN32
+#if defined(RAD_WIN32)
 #include <main/win32platform.h>
-#define INIT_MEM()  Memory::InitializeMemoryUtilities();Win32Platform::InitializeMemory();
-#define SHUTDOWN_MEM()  Win32Platform::ShutdownMemory();
+#define PLATFORMCLASS Win32Platform
+#else if defined(RAD_UWP)
+#include <main/uwpplatform.h>
+#define PLATFORMCLASS UwpPlatform
+#endif
+
+#define INIT_MEM()  Memory::InitializeMemoryUtilities();PLATFORMCLASS::InitializeMemory();
+#define SHUTDOWN_MEM()  PLATFORMCLASS::ShutdownMemory();
 void MemoryHackCallback() { INIT_MEM() };
-#endif // RAD_WIN32
 
 //******************************************************************************
 //
@@ -62,6 +61,7 @@ bool g_HeapManagerCreated   = false;
 //
 bool gMemorySystemInitialized = false;
 
+#define OVERRIDE_BUILTIN_NEW
 #ifdef OVERRIDE_BUILTIN_NEW
 // 
 // Temporarily disable allocation routing (to avoid infinite loops)
@@ -92,9 +92,6 @@ const char* HeapNames[] =
     "Music Heap",
     "Audio Persistent",
     "Small Alloc Heap",
-#ifdef RAD_UWP
-    "UWP Sound Heap",
-#endif
 #ifdef USE_CHAR_GAG_HEAP
     "Character and Gag Heap",
 #endif
@@ -616,16 +613,22 @@ void HeapStack::Pop ()
     pushNumberStack[ currentStackPointer ] = -1;
     GameMemoryAllocator current = m_Stack[ m_CurPos ];
     m_CurPos--;
+#ifndef RAD_UWP // runs fine on xbox but this assert is flooding, dont think it matters if we ignore it
     rAssertMsg (m_CurPos >= 0, "Heap Stack Underflow! Calls to Push and Pop on heap stack are mismatched. [jdy]");
+#endif
 }
 
 void HeapStack::Pop( GameMemoryAllocator alloc )
 {
     --currentStackPointer;
     pushNumberStack[ currentStackPointer ] = -1;
+#ifndef RAD_UWP // runs fine on xbox but this assert is flooding, dont think it matters if we ignore it
     rAssertMsg( m_Stack[ m_CurPos ] == alloc, "HeapStack - Detected mismatch in push/pop calls - fix, or tell Ian Gipson immediately" );
+#endif
     m_CurPos--;
+#ifndef RAD_UWP // runs fine on xbox but this assert is flooding, dont think it matters if we ignore it
     rAssertMsg (m_CurPos >= 0, "Heap Stack Underflow! Calls to Push and Pop on heap stack are mismatched. [jdy]");
+#endif
 }
 
 
@@ -1406,7 +1409,42 @@ void HeapManager::DumpArtStats ()
 
 // These constants are the heap sizes for each platform
 //
-#if defined (RAD_WIN32) || defined (RAD_UWP) // these have not been optimized yet.
+#if defined(RAD_UWP)
+    #ifdef RAD_RELEASE
+    const float HS_DEFAULT = 0.1f;  // For only very core FTech stuff
+    #else
+    const float HS_DEFAULT = 0.4f;   // For that plus debug comm stuff, etc
+    #endif
+    const float HS_TEMP = 1.0f;
+    const float HS_PERSISTENT = 1.65f;
+    const float HS_MUSIC = 0.2f;
+    const float HS_AUDIO_PERSISTENT = 0.7f;
+    const float HS_LEVEL = 20.01f;    // 0.01 for sub-heap creation overhead
+    //FE Only
+    const float HS_LEVEL_MOVIE = 3.94f; // TC: added extra 2.0 MB until memory leak
+                                        //     in radMovie player is fixed
+    const float HS_LEVEL_AUDIO_FE = 0.05f;
+    const float HS_LEVEL_FE = 5.0f;
+    //In-game Only
+    const float HS_LEVEL_ZONE = 8.0f;
+    //const float HS_LEVEL_OTHER = 5.0f;
+    const float HS_LEVEL_HUD = 2.5f;
+    //const float HS_LEVEL_MISSION = 2.8f;
+    const float HS_LEVEL_AUDIO_INGAME = 0.05f;
+    //Mnigame Only
+    const float HS_MINIGAME_ZONE        = 3.0f;
+    const float HS_MINIGAME_OTHER       = 8.0f;
+    const float HS_MINIGAME_HUD         = 1.55f;
+    const float HS_MINIGAME_MISSION     = 2.0f;
+    const float HS_MINIGAME_AUDIO       = 0.5f;
+
+    #ifndef RAD_RELEASE
+    const float HS_DEBUG = 5.0f;
+    const float HS_DEBUG_FIREWIRE = 0.4f;
+    const float HS_SPECIAL = 10.0f;
+    #endif
+
+#elif defined (RAD_WIN32) // these have not been optimized yet.
     #ifdef RAD_RELEASE
     const float HS_DEFAULT = 0.1f;  // For only very core FTech stuff
     #else

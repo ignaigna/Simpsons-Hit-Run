@@ -13,7 +13,7 @@
 // System Includes
 //========================================
 
-#ifdef RAD_WIN32
+#if defined(RAD_WIN32) || defined(RAD_UWP)
     #include <crtdbg.h>
     #include <windows.h>
 #endif
@@ -184,7 +184,7 @@ size_t GetFreeMemoryProfile()
     static int numberOfTimesCalled = 0;
     ++numberOfTimesCalled;
 
-#ifdef RAD_WIN32
+#if defined(RAD_WIN32) || defined(RAD_UWP)
     return 0;
 #endif
     const int size = 256;
@@ -290,7 +290,7 @@ size_t GetFreeMemoryProfile()
 //==============================================================================
 size_t GetLargestFreeBlock()
 {
-    #ifdef RAD_WIN32
+    #if defined(RAD_WIN32) || defined(RAD_UWP)
         return 0;
     #endif
 
@@ -416,7 +416,7 @@ size_t GetMaxFreeMemory()
 //=============================================================================
 size_t GetTotalMemoryFree()
 {
-    #if RAD_WIN32
+    #if defined(RAD_WIN32) || defined(RAD_UWP)
         MEMORYSTATUSEX status;
         GlobalMemoryStatusEx (&status);
         return status.ullAvailPhys;
@@ -466,13 +466,12 @@ size_t GetTotalMemoryFreeLowWaterMark()
 //=============================================================================
 size_t GetTotalMemoryUnavailable()
 {
-    #if defined RAD_WIN32
+    #if defined(RAD_WIN32) || defined(RAD_UWP)
         //IAN didn't bother writing this yet
         return 0;
     #else
         #pragma error( "CMemoryTracker::GetTotalMemoryFree - What platform is this then?");
     #endif
-    return 0;
 }
 
 //==============================================================================
@@ -490,7 +489,7 @@ size_t GetTotalMemoryUnavailable()
 //==============================================================================
 size_t GetTotalMemoryUsed()
 {
-#if defined(RAD_WIN32) && defined(RAD_DEBUG)
+#if (defined(RAD_WIN32) || defined(RAD_UWP)) && defined(RAD_DEBUG)
         _CrtMemState state;
         _CrtMemCheckpoint( &state );
         int total = 0;
@@ -501,11 +500,11 @@ size_t GetTotalMemoryUsed()
         }
 
         //double check against the MEMORYSTATUS numbers
-        MEMORYSTATUS status;
-        GlobalMemoryStatus (&status);
-        size_t doubleCheck =  status.dwTotalPhys - status.dwAvailPhys;
+        MEMORYSTATUSEX status;
+        GlobalMemoryStatusEx (&status);
+        size_t doubleCheck =  status.ullTotalPhys - status.ullAvailPhys;
         //double check these numbers - they should match on the XBOX!
-        return total
+        return total;
 #else
         return 0;
 #endif
