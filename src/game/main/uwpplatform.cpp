@@ -251,8 +251,8 @@ void UwpPlatform::InitializeWindow()
         "The Simpsons: Hit & Run", // Window title (not really used)
         SDL_WINDOWPOS_UNDEFINED,   // Window positions not used
         SDL_WINDOWPOS_UNDEFINED,   //
-        640,                       // Width of framebuffer
-        480,                       // Height of framebuffer
+        1920,                      // Width of framebuffer
+        1080,                      // Height of framebuffer
         SDL_WINDOW_OPENGL | SDL_WINDOW_FULLSCREEN_DESKTOP // Flags, need FULLSCREEN to stretch a lower res
     );
 
