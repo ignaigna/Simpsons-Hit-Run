@@ -175,7 +175,7 @@ float MAX_BLUR = 0.15f; // Blur alpha will never go over this level
 float BLUR_GRADIENT = MAX_BLUR / ( 66.66f - 33.33f );
 
 #if defined( RAD_UWP )
-#define USE_BLUR
+//#define USE_BLUR - **pddiRenderContext::GetExtension[virtual]**(...) returned nullptr. :(
 #endif
 
 //******************************************************************************
