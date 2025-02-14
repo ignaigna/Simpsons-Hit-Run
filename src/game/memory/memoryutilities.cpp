@@ -13,7 +13,7 @@
 // System Includes
 //========================================
 
-#ifdef _WIN32
+#ifdef RAD_WIN32
     #include <crtdbg.h>
     #include <windows.h>
 #endif
@@ -184,7 +184,7 @@ size_t GetFreeMemoryProfile()
     static int numberOfTimesCalled = 0;
     ++numberOfTimesCalled;
 
-#ifdef _WIN32
+#ifdef RAD_WIN32
     return 0;
 #endif
     const int size = 256;
@@ -290,7 +290,7 @@ size_t GetFreeMemoryProfile()
 //==============================================================================
 size_t GetLargestFreeBlock()
 {
-    #ifdef _WIN32
+    #ifdef RAD_WIN32
         return 0;
     #endif
 
@@ -416,7 +416,7 @@ size_t GetMaxFreeMemory()
 //=============================================================================
 size_t GetTotalMemoryFree()
 {
-    #if _WIN32
+    #if RAD_WIN32
         MEMORYSTATUSEX status;
         GlobalMemoryStatusEx (&status);
         return status.ullAvailPhys;
@@ -466,7 +466,7 @@ size_t GetTotalMemoryFreeLowWaterMark()
 //=============================================================================
 size_t GetTotalMemoryUnavailable()
 {
-    #if defined _WIN32
+    #if defined RAD_WIN32
         //IAN didn't bother writing this yet
         return 0;
     #else

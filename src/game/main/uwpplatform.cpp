@@ -243,16 +243,16 @@ void UwpPlatform::DestroyInstance()
 void UwpPlatform::InitializeWindow()
 {
     // These three attributes must be set prior to creating the first window
-    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
-    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 6);
-    SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_COMPATIBILITY);
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 2);
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
 
     mWnd = SDL_CreateWindow(
-        "Sample Green Screen",      // Window title (not really used)
-        SDL_WINDOWPOS_UNDEFINED,    // Window positions not used
-        SDL_WINDOWPOS_UNDEFINED,
-        640,                        // Width of framebuffer
-        480,                        // Height of framebuffer
+        "The Simpsons: Hit & Run", // Window title (not really used)
+        SDL_WINDOWPOS_UNDEFINED,   // Window positions not used
+        SDL_WINDOWPOS_UNDEFINED,   //
+        640,                       // Width of framebuffer
+        480,                       // Height of framebuffer
         SDL_WINDOW_OPENGL | SDL_WINDOW_FULLSCREEN_DESKTOP // Flags, need FULLSCREEN to stretch a lower res
     );
 
