@@ -172,3 +172,9 @@ src/libs/sim/[Tt]une[Ww]indows
 src/libs/sim/[Tt]une[Uu]wp
 src/libs/sim/lib/
 src/libs/sim/obj/
+
+# Assets
+assets/*
+
+# Allow these deps (Required for UWP)
+!deps/**/*.dll
