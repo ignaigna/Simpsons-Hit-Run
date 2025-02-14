@@ -1,53 +1,65 @@
 # SRR2
 
 > [!WARNING]  
-> THIS DOES NOT YET SUPPORT UWP
+> UWP SUPPORT IS NOT YET AVAILABLE
 
-SRR2 is a cleaner version of *The Simpsons Hit & Run* with several changes, including C++ 17 support, x64, and VCPkg for easier third party library installation. This is based on the source code that leaked in 2021, the end goal is to add more feature, improvements, and UWP support.
+SRR2 is a refined version of _The Simpsons: Hit & Run_ with several enhancements, including C++17 support, x64 architecture, and VCPkg for easier third-party library installation. This project is based on the source code that leaked in 2021. The ultimate goal is to add more features, improvements, and eventually UWP support.
 
 ## Installation
 
-> [!NOTE]
-> Assets are too big to include in the repo, You can get them from (TODO) and drag and dropthem into the build folder.
+> [!IMPORTANT]
+> Assets are too large to include in the repository. You can obtain them from (TODO) and place them in the build folder.
 
-### I dont want to mess around with code I just want a build
+### Quick Installation (Pre-built Version)
 
-1. Download the latest build [Here](https://github.com/3UR/Simpsons-Hit-Run/releases/latest).
-2. You will see a zip similar to `SRR2-Debug-x86-2025.02.09-15.21.49-07cbce9.zip` download it.
-3. Open the zip and then open the file named the same with no extension (this is also a zip the workflow for releases is still WIP so its structured bad) extract it anywhere you want.
-4. Go to where you extracted the zip and find `SRR2.exe`.
-5. Download the assets from above and drag and drop them where `SRR2.exe` is.
-6. You can run the game now. (it will crash without assets)
+1. Download the latest build from the [Releases page](https://github.com/3UR/Simpsons-Hit-Run/releases/latest).
+2. Locate a zip file similar to `SRR2-Release-x64-2025.02.11-12.07.28-73389fa.zip` and download it.
+3. Extract the contents of the zip file to your desired location.
+4. Navigate to the extracted folder and locate `SRR2.exe`.
+5. Download the assets as mentioned in the note above and place them in the same directory as `SRR2.exe`.
+6. You can now run the game. (Note: The game will crash without the required assets)
 
-### I want to work on the code and create my own builds
+### Developer Installation (Building from Source)
 
-#### Developer Environment
+#### Prerequisites
 
-When working on the code you must have some things
+To work with the source code, ensure you have the following:
 
-- Visual Studio (Install from Microsoft if not installed)
-- C++ Language Support (Check the `Desktop development with C++` and `Universal Windows Platform development` options in the Visual Studio installer)
-- VCPkg support (When checking `Desktop development with C++` make sure `vcpkg package manager` on the right side is selected)
+- Visual Studio (Install from Microsoft if not already present)
+- C++ Language Support (In the Visual Studio installer, select the `Desktop development with C++` and `Universal Windows Platform development` options)
+- VCPkg support (When selecting `Desktop development with C++`, ensure `vcpkg package manager` is checked on the right side)
 
 #### Setup
 
-Once you have the dev environment you will have to
+1. Open a command prompt in your desired directory and run:
 
-1. Open command prompt where you want to clone the source code and run `git clone https://github.com/3UR/Simpsons-Hit-Run`
-2. Open `SRR2.sln` with Visual Studio
-3. Once in Visual Studio press `Tools -> Command Line -> Developer Command Prompt`
-4. A Developer Command Prompt will open enter the following `vcpkg.exe install` (Wait for this to finish it will install all required dependencies)
-5. Once that is done you may need to run `vcpkg integrate install`
+```cmd
+git clone https://github.com/3UR/Simpsons-Hit-Run.git
+```
+
+2. Open `SRR2.sln` with Visual Studio.
+3. In Visual Studio, go to `Tools -> Command Line -> Developer Command Prompt`.
+4. In the opened Developer Command Prompt, run:
+
+```cmd
+vcpkg.exe install
+```
+
+(This will install all required dependencies. Wait for it to complete.) 5. After completion, you may need to run:
+
+```cmd
+vcpkg integrate install
+```
 
 #### Building
 
-After all of that if everything was successfull you should now be able to build any project in the SLN (If something went wrong above [Create an Issue](https://github.com/3UR/Simpsons-Hit-Run/issues/new?template=Blank+issue))
+If the setup was successful, you should now be able to build any project in the solution. If you encounter issues, please [create an issue](https://github.com/3UR/Simpsons-Hit-Run/issues/new) on the GitHub repository.
 
-When building the main game project `SRR2` it will be outputted in the `build` folder `bin-Win32-Debug` for example, once it is built before running make sure you download the assets and drag and drop them into this folder (The same goes when using the visual studio debugger make sure the assets are there before running the build).
+When building the main game project `SRR2`, the output will be in the `build` folder (e.g., `bin-Win32-Debug`). Before running, ensure you've downloaded the assets and placed them in this folder. This also applies when using the Visual Studio debugger.
 
 ## Screenshots
 
-**builds using this source**
+**Builds using this source**
 
 ### Windows
 
