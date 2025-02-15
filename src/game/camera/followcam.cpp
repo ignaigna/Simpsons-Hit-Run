@@ -165,8 +165,6 @@ void FollowCam::Update( unsigned int milliseconds )
     float left = mController->GetValue( SuperCamController::carLookLeft );
     float right = mController->GetValue( SuperCamController::carLookRight );
     float leftRight = ( right > left ) ? right : -left;
-#else //This is PS2
-    float leftRight = mController->GetValue( SuperCamController::r2 ) - mController->GetValue( SuperCamController::l2 );
 #endif
 
 #if defined(RAD_WIN32)
@@ -936,17 +934,12 @@ void FollowCam::GetTargetPosition( rmt::Vector* position,
         float left = mController->GetValue( SuperCamController::carLookLeft );
         float right = mController->GetValue( SuperCamController::carLookRight );
         lookLeftRight = ( right > left ) ? right : -left;
-#else //This is PS2
-        lookUp = mController->GetValue( SuperCamController::lookToggle );
-        lookLeftRight = mController->GetValue( SuperCamController::r2 ) - mController->GetValue( SuperCamController::l2 );
 #endif
 #else
 #if defined(RAD_UWP)
         lookUp = mController->GetValue( SuperCamController::stickY );
 #elif defined(RAD_WIN32)
         lookUp = mController->GetValue( SuperCamController::carLookUp );
-#else //This is PS2
-        lookUp = mController->GetValue( SuperCamController::lookToggle );
 #endif
 #endif
 
@@ -1037,8 +1030,6 @@ void FollowCam::CalculateRod( rmt::Vector* rod,
     float left = mController->GetValue( SuperCamController::carLookLeft );
     float right = mController->GetValue( SuperCamController::carLookRight );
     float leftRight = ( right > left ) ? -right : left;
-#else //This is PS2
-    float leftRight = mController->GetValue( SuperCamController::l2 ) - mController->GetValue( SuperCamController::r2 );
 #endif
 
     if ( GetFlag( (Flag)LOS_CORRECTED ) && IsPushingStick() ) 
@@ -1222,8 +1213,6 @@ bool FollowCam::GetDesiredRod( rmt::Vector* rod)
         float left = mController->GetValue( SuperCamController::carLookLeft );
         float right = mController->GetValue( SuperCamController::carLookRight );
         float leftRight = ( right > left ) ? right : -left;
-#else //This is PS2
-        float leftRight = mController->GetValue( SuperCamController::r2 ) - mController->GetValue( SuperCamController::l2 );
 #endif
 
         float dir = rmt::Sign( leftRight );

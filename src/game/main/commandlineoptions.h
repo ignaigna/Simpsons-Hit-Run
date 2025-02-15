@@ -30,8 +30,6 @@ enum CmdLineOptionEnum
     CLO_SKIP_MOVIE,     // Skip intro movie
     CLO_MEMORY_MONITOR, // Enable RadMemoryMonitor
     CLO_HEAP_STATS,     // Enable heap stats display
-    CLO_CD_FILES_ONLY,  // PS2 Only - Only load files from CD/DVD
-    CLO_SN_PROFILER,    // PS2 Only - Enable SN profiler
     CLO_ART_STATS,      // Custom display for the Artists, Such as FPS,Texture/Mesh Allocations etc.
     CLO_PROP_STATS,     // Enables logging of prop memory usage
 
@@ -78,7 +76,6 @@ enum CmdLineOptionEnum
 
     CLO_MEMCARD_CHEAT,  // unlock everything in the game temporarily before saving data to memory card
     
-    CLO_PS2_TOOL,
     CLO_FILE_NOT_FOUND,     //Testing for file not found
     CLO_NO_LOADING_SPEW,    // Don't Spew <<START>>, <<END>> messages
     CLO_AUDIO_LOADING_SPEW, // Spew Audio loading info

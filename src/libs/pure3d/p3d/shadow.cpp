@@ -92,7 +92,6 @@ enum ShadowVolPass
 
 static inline void SetupPass(ShadowVolPass pass, tShader* shader)
 {
-#ifdef RAD_PS2
     p3d::pddi->SetCullMode( (pass == PASS_FRONT) ? PDDI_CULL_SHADOW_BACKFACE : PDDI_CULL_SHADOW_FRONTFACE );
     shader->SetInt( PDDI_SP_BLENDMODE, (pass == PASS_FRONT) ? PDDI_BLEND_ADD : PDDI_BLEND_SUBTRACT);
 

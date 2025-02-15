@@ -62,15 +62,6 @@ short CommandLineOptions::s_defaultMission = 0;
 //==============================================================================
 void CommandLineOptions::InitDefaults()
 {
-    simpsonsUInt64 orValue = 1;
-
-#ifdef RAD_RELEASE
-    // enable CLO_CD_FILES_ONLY in release builds for all platforms
-    //
-    orValue = 1;
-    orValue <<= CLO_CD_FILES_ONLY;
-    sOptions |= orValue;
-#endif
 }
 
 //==============================================================================
@@ -124,34 +115,6 @@ void CommandLineOptions::HandleOption( const char* const optionIn )
     else if( strcmp( strupr(option), "HEAPSTATS" ) == 0 )
     {
         orValue <<= CLO_HEAP_STATS;
-    }
-    else if( strcmp( strupr(option), "CDFILES" ) == 0 )
-    {
-        orValue <<= CLO_CD_FILES_ONLY;
-    }
-    else if( strcmp( strupr(option), "HOSTFILES" ) == 0 )
-    {
-        //
-        // Careful to avoid the PS2-hated 64-bit constant
-        //
-        andValue = 1;
-        andValue <<= CLO_CD_FILES_ONLY;
-        andValue = ~andValue;
-
-        sOptions = sOptions & andValue;
-
-        //
-        // Skip the or operation below
-        //
-        optionFound = false;
-    }
-    else if( strcmp( strupr(option), "FIREWIRE" ) == 0 )
-    {
-        orValue <<= CLO_FIREWIRE;
-    }
-    else if( strcmp( strupr(option), "SNPROFILER" ) == 0 )
-    {
-        orValue <<= CLO_SN_PROFILER;
     }
     else if( strcmp( strupr(option), "ARTSTATS" ) == 0 )
     {
@@ -296,10 +259,6 @@ void CommandLineOptions::HandleOption( const char* const optionIn )
     else if ( strcmp( strupr( option ), "MEMCARDCHEAT" ) == 0 )
     {
         orValue <<= CLO_MEMCARD_CHEAT;
-    }
-    else if ( strcmp( strupr( option ), "TOOL" ) == 0 )
-    {
-        orValue <<= CLO_PS2_TOOL;
     }
     else if ( strcmp( strupr( option ), "FILENOTFOUND" ) == 0 )
     {

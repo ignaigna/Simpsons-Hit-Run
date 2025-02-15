@@ -228,35 +228,24 @@ struct radCrashRecordPs2
         //
         // CPU Registers
         //
+        struct _128Bits     // Provides 128 bit support for windows
+        {
+            unsigned int pos3; // lsb
+            unsigned int pos2;
+            unsigned int pos1;
+            unsigned int pos0; // msb
+        };
 
-        #ifdef RAD_PS2
+        struct _64Bits      // Provides 64 bit support for windows
+        {
+            unsigned int pos1; // lsb
+            unsigned int pos0; // msb
+        };
+
+        _128Bits gpr[ 32 ];
+        _64Bits hi[ 2 ];
+        _64Bits lo[ 2 ];
         
-            unsigned long long gpr[ 32 ];  
-            unsigned long hi[ 2 ];
-            unsigned long lo[ 2 ];
-        
-        #else
-
-            struct _128Bits     // Provides 128 bit support for windows
-            {
-                unsigned int pos3; // lsb
-                unsigned int pos2;
-                unsigned int pos1;
-                unsigned int pos0; // msb
-            };
-
-            struct _64Bits      // Provides 64 bit support for windows
-            {
-                unsigned int pos1; // lsb
-                unsigned int pos0; // msb
-            };
-
-            _128Bits gpr[ 32 ];
-            _64Bits hi[ 2 ];
-            _64Bits lo[ 2 ];
-        
-        #endif // RAD_PS2
-
         unsigned int cpuReserved[ 4 ]; // no sa or pc register currently
 
         //

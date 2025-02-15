@@ -7,12 +7,6 @@
 #include <raddebug.hpp>
 #include <radmath/radmath.hpp>
 
-#if defined(RAD_PS2)
-#include <input/wheeldefines.h>
-#endif
-
-
-
 #ifndef WORLD_BUILDER
 #include <main/commandlineoptions.h>
 #endif
@@ -140,10 +134,6 @@ mbIsRumbleOn( false )
     {
         this->mMappable[ i ] = 0;
     }
-
-#if defined(RAD_PS2)
-    mHeavyWheelRumble.SetRumbleType( LG_TYPE_SQUARE );
-#endif
 }
 
 void UserController::NotifyConnect( void )
@@ -313,52 +303,6 @@ void UserController::Initialize( IRadController* pIController2 )
     
         mbInputPointsRegistered = true;
 
-#if defined(RAD_PS2)
-        //Get the steering spring.
-        IRadControllerOutputPoint* p_OutputPoint = m_xIController2->GetOutputPointByName( "CenterSpring" );
-        if ( p_OutputPoint )
-        {
-            mSteeringSpring.Init( p_OutputPoint );
-        }
-
-        p_OutputPoint = m_xIController2->GetOutputPointByName( "BaseDamper" );
-        if ( p_OutputPoint )
-        {
-            mSteeringDamper.Init( p_OutputPoint );
-        }
-
-        p_OutputPoint = m_xIController2->GetOutputPointByName( "Constant" );
-        if ( p_OutputPoint )
-        {
-            mConstantEffect.Init( p_OutputPoint );
-        }
-
-        p_OutputPoint = m_xIController2->GetOutputPointByName( "Rumble" );
-        if ( p_OutputPoint )
-        {
-            mWheelRumble.Init( p_OutputPoint );
-        }
-
-        p_OutputPoint = m_xIController2->GetOutputPointByName( "HeavyRumble" );
-        if ( p_OutputPoint )
-        {
-            mHeavyWheelRumble.Init( p_OutputPoint );
-        }
-#endif
-
-#if defined( RAD_PS2 )
-        p_OutputPoint = m_xIController2->GetOutputPointByName( "SmallMotor" );
-        if ( p_OutputPoint )
-        {
-            mRumbleEffect.SetMotor( 0,  p_OutputPoint );
-        }
-        
-        p_OutputPoint = m_xIController2->GetOutputPointByName( "LargeMotor" );
-        if ( p_OutputPoint )
-        {
-            mRumbleEffect.SetMotor( 1,  p_OutputPoint );
-        }
-#else
         IRadControllerOutputPoint* p_OutputPoint = m_xIController2->GetOutputPointByName( "LeftMotor" );
         if ( p_OutputPoint )
         {
@@ -370,7 +314,6 @@ void UserController::Initialize( IRadController* pIController2 )
         {
             mRumbleEffect.SetMotor( 1,  p_OutputPoint );
         }
-#endif
     }
 
 #ifdef CONTROLLER_DEBUG
@@ -433,25 +376,6 @@ void UserController::ReleaseRadController( void )
 
 void UserController::SetRumble( bool bRumbleOn, bool pulse )
 {
-#if defined(RAD_PS2)
-    if ( bRumbleOn && !mbIsRumbleOn && !CommandLineOptions::Get( CLO_NO_HAPTIC ) )
-    {
-        mSteeringSpring.Start();
-        mSteeringDamper.Start();
-        mConstantEffect.Start();
-        mWheelRumble.Start();
-        mHeavyWheelRumble.Start();
-    }
-    else if ( !bRumbleOn && mbIsRumbleOn )
-    {
-        mSteeringSpring.Stop();
-        mSteeringDamper.Stop();
-        mConstantEffect.Stop();
-        mWheelRumble.Stop();
-        mHeavyWheelRumble.Stop();
-    }
-#endif
-
     if ( pulse )
     {
         PulseRumble();

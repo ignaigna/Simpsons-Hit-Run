@@ -81,23 +81,11 @@ public:
     // return the button id from the name.
     int GetIdByName( const char* pszName ) const;
 
-#if defined(RAD_PS2)
-    SteeringSpring* GetSpring() { return mSteeringSpring.IsInit() ? &mSteeringSpring : NULL; };
-    BaseDamper* GetDamper() { return mSteeringDamper.IsInit() ? &mSteeringDamper : NULL; };
-    ConstantEffect* GetConstantEffect() { return mConstantEffect.IsInit() ? &mConstantEffect : NULL; };
-    WheelRumble* GetWheelRumble() { return mWheelRumble.IsInit() ? &mWheelRumble : NULL; };
-    WheelRumble* GetHeavyWheelRumble() { return mHeavyWheelRumble.IsInit() ? &mHeavyWheelRumble : NULL; };
-#endif
-
     Mappable* GetMappable( unsigned int which ) { return mMappable[ which ];  };
 
     bool IsWheel() 
     {
-#if defined(RAD_PS2)
-        return mSteeringSpring.IsInit();
-#else
         return false;
-#endif
     }
 protected:
     // Implements IRadControllerInputPointCallback
@@ -122,14 +110,6 @@ protected:
     float  mButtonDeadZones[ Input::MaxPhysicalButtons ];
 
     unsigned mGameState;
-    
-#if defined(RAD_PS2)
-    SteeringSpring mSteeringSpring;
-    BaseDamper mSteeringDamper;
-    ConstantEffect mConstantEffect;
-    WheelRumble mWheelRumble;
-    WheelRumble mHeavyWheelRumble;
-#endif
     bool mbIsRumbleOn;
 
     RumbleEffect mRumbleEffect;    
