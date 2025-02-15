@@ -21,14 +21,7 @@
 
 const int MB = 1024 * 1024; // bytes
 
-#ifdef RAD_UWP
-    const float TOTAL_INGAME_MEMORY_USAGE = 16.7f * MB;
-    const float TOTAL_FE_MEMORY_USAGE = 13.1f * MB;
-    const float TOTAL_SUPERSPRINT_MEMORY_USAGE = 5.5f * MB;
-    const float TOTAL_DEMO_MEMORY_USAGE = TOTAL_INGAME_MEMORY_USAGE;
-#endif
-
-#ifdef RAD_WIN32  
+#if defined( RAD_WIN32 ) || defined( RAD_UWP )
     // These settings are for release mode, which has difft memory behaviour than Tune,
     // only because Tune has debug information.
     const float TOTAL_INGAME_MEMORY_USAGE = 1.3f * MB;

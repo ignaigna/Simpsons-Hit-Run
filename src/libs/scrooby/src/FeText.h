@@ -21,12 +21,13 @@ class PascalCString;
 #include "FeParent.h"
 #include "strings/unicodeString.h"
 
-#ifdef WIN32
+// TODO(3UR): if text is still scaled weirdly remove all uwp references from this file otherwise remove the todo here and in other places
+#if defined( RAD_WIN32 ) || defined( RAD_UWP )
 #pragma warning( disable : 4250 )
 #endif
 
-#ifdef RAD_WIN32
-struct ShortRectExtents  
+#if defined( RAD_WIN32 ) || defined( RAD_UWP )
+struct ShortRectExtents
 {
     short xMin,
           xMax,
@@ -93,7 +94,7 @@ class FeText
         int GetTextWidth();
         int GetTextHeight();
 
-#ifdef RAD_WIN32
+#if defined( RAD_WIN32 ) || defined( RAD_UWP )
         virtual bool IsPointInBoundingRect( float x, float y );
 #endif
         // Whether or not to show text with a drop shadow
@@ -125,7 +126,7 @@ class FeText
 
         void ResetText();       
         void ReCalculateAlignment();
-#ifdef RAD_WIN32
+#if defined( RAD_WIN32 ) || defined( RAD_UWP )
         void RecalculateRectExtents();
 #endif
 
@@ -146,14 +147,14 @@ class FeText
         bool mOverrideStringBuffer : 1;
         bool mDisplayShadow : 1;
         bool mDisplayOutline : 1;
-#ifdef RAD_WIN32
+#if defined( RAD_WIN32 ) || defined( RAD_UWP )
         bool mIsBoundingBoxStretched : 1;
 #endif
         // TC: Added text outline support
         //
         tColour mOutlineColour;
 
-#ifdef RAD_WIN32
+#if defined( RAD_WIN32 ) || defined( RAD_UWP )
         ShortRectExtents m_rectExtents;     //stores the bounding rect info in windows coordinate system.
 #endif
 

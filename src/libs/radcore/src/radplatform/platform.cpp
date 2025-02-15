@@ -29,7 +29,7 @@
 #include <radstring.hpp>
 #include <radobjectlist.hpp>
 
-#if defined(RAD_WIN32) || defined(RAD_UWP)
+#if defined( RAD_WIN32 ) || defined( RAD_UWP )
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_syswm.h>
 #include <windows.h>
@@ -73,7 +73,7 @@ class radPlatform : public IRadPlatform
     {
         rDebugString( VersionString );
 
-        #if defined(RAD_WIN32) || defined(RAD_UWP)
+        #if defined( RAD_WIN32 ) || defined( RAD_UWP )
             m_pMainWindow = NULL;
         #endif
 
@@ -98,7 +98,7 @@ class radPlatform : public IRadPlatform
         m_RefCount--;
     }
 
-#if defined(RAD_WIN32) || defined(RAD_UWP)
+#if defined( RAD_WIN32 ) || defined( RAD_UWP )
 
     //
     // Windows specific interfaces.
@@ -120,7 +120,7 @@ class radPlatform : public IRadPlatform
 
         rWarningMsg( m_pMainWindow != NULL, "hMainWindow set to NULL in platform component" );
 
-        #if defined(RAD_WIN32) || defined(RAD_UWP)
+        #if defined( RAD_WIN32 ) || defined( RAD_UWP )
             SDL_VERSION( &m_wmInfo.version );
             SDL_GetWindowWMInfo( pMainWindow, &m_wmInfo );
         #endif
@@ -161,7 +161,7 @@ class radPlatform : public IRadPlatform
     private:    
     
     SDL_Window* m_pMainWindow;
-#if defined(RAD_WIN32) || defined(RAD_UWP)
+#if defined( RAD_WIN32 ) || defined( RAD_UWP )
     SDL_SysWMinfo m_wmInfo;
 #endif
 
@@ -190,7 +190,7 @@ static unsigned int thePlaftormSpace[(sizeof( radPlatform ) / sizeof( unsigned i
 // parameters required for each platform.
 //
 //=============================================================================
-#if defined(RAD_WIN32) || defined(RAD_UWP)
+#if defined( RAD_WIN32 ) || defined( RAD_UWP )
 //
 // Windows requires the game provide the main window handle and the module
 // instance.

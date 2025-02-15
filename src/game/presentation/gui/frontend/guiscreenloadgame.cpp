@@ -641,7 +641,7 @@ void CGuiScreenLoadGame::InitOutro()
 void
 CGuiScreenLoadGame::GotoMemoryCardScreen( bool isFromPrompt )
 {
-#ifdef RAD_WIN32
+#if defined( RAD_WIN32 ) || defined( RAD_UWP )
     if( isFromPrompt )
     {
         CGuiScreen* pScreen = static_cast<CGuiScreen*>( m_guiManager->FindWindowByID( GUI_SCREEN_ID_GENERIC_PROMPT ) );

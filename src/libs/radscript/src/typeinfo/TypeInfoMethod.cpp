@@ -11,7 +11,7 @@
 
 #include <radtypeinfo.hpp>
 
-#if defined (RAD_WIN32) || defined (RAD_UWP)
+#if defined( RAD_WIN32 ) || defined( RAD_UWP )
 #include "win32\win32typeinfovfcall.h"
 #endif
 
@@ -46,8 +46,7 @@ unsigned int IRadTypeInfoMethod::Invoke
             //
             //  ---- RAD_WIN32 or RAD_UWP ----------------------------------------------------
             // 
-                 
-            #if defined (RAD_WIN32) || defined (RAD_UWP)
+            #if defined( RAD_WIN32 ) || defined( RAD_UWP )
 
                 return InvokeVf( pI, m_VTableOffset, pParams, numParams );
 

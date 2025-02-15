@@ -115,7 +115,7 @@ class radThreadFiber : public IRadThreadFiber,
     //
     // OS Specific stuff.
     //
-#if defined(RAD_WIN32) || defined(RAD_UWP)
+#if defined( RAD_WIN32 ) || defined( RAD_UWP )
 public:
     LPVOID      m_Win32Fiber;
 private:

@@ -60,7 +60,6 @@
 #include <worldsim/worldphysicsmanager.h>
 #include <worldsim/character/charactermanager.h>
 
-// TODO(3ur): gcm for UWP?
 #if defined(RAD_WIN32)
     #include <main/win32platform.h>
     #include <data/config/gameconfigmanager.h>

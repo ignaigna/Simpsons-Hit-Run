@@ -9,7 +9,6 @@
 #include "platformdrives.hpp"
 #include "remotedrive.hpp"
 
-// TODO(3ur): may need to write a entire uwp drive or add #if guards to win32 and do stuff different if its uwp
 #if defined(RAD_WIN32) || defined(RAD_UWP)
 #include "../win32/win32drive.hpp"
 #endif

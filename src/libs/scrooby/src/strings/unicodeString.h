@@ -20,7 +20,7 @@
 //===========================================================================
 // Nested Includes
 //===========================================================================
-#if defined(WIN32) || defined(WIN64)
+#if defined( RAD_WIN32 ) || defined( RAD_UWP )
 #pragma warning ( disable : 4786 ) 
 #endif
 #include <stddef.h>

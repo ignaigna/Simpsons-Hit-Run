@@ -31,13 +31,14 @@
 // Local Constants, Typedefs, and Macros
 //===========================================================================
 
+// TODO(3UR): Bump max limit of stuff maybe 
 
 // Maximum number of animentitydsgs that can be inserted into the manager
 const int MAX_NUM_ANIM_ENTITY_DSGS = 100;
 // Maximum number of multicontrollers that can be inserted into the manager
 const int MAX_NUM_MULTICONTROLLERS = 50;
 // Maximum number of stateprops that can be inserted into the manager
-#ifdef RAD_WIN32
+#if defined( RAD_WIN32 ) || defined( RAD_UWP )
 const int MAX_NUM_STATEPROPS = 300;
 #else
 const int MAX_NUM_STATEPROPS = 250;

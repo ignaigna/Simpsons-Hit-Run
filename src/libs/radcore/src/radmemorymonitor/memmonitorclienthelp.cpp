@@ -136,7 +136,7 @@ void radMemoryMonitorClient::InitiateTransmission( )
 
 void radMemoryMonitorClient::SendStackUsageData( radMemorySpace memSpace, uintptr_t uAddress )
 {
-#if defined RAD_WIN32 || defined RAD_UWP
+#if defined( RAD_WIN32 ) || defined( RAD_UWP )
     rAssert( memSpace == radMemorySpace_Main );
 #endif
 
@@ -291,7 +291,7 @@ void radMemoryMonitorClient::SendMemoryBlock128Byte( radMemorySpace memorySpace,
 {
     rAssert( memLength <= 128 );
 
-#if defined RAD_WIN32 || defined RAD_UWP
+#if defined( RAD_WIN32 ) || defined( RAD_UWP )
     rAssert( memorySpace == radMemorySpace_Main );
 #endif
 
@@ -366,7 +366,7 @@ void radMemoryMonitorClient::SendMemoryBlock( radMemorySpace memorySpace, uintpt
 //------------------------------------------------------------------------------
 void radMemoryMonitorClient::SendObjectRefount( radMemorySpace memorySpace, void * pObjectPtr, unsigned int * pRefCount )
 {
-#if defined RAD_WIN32 || defined RAD_UWP
+#if defined( RAD_WIN32 ) || defined( RAD_UWP )
     rAssert( memorySpace == radMemorySpace_Main );
 #endif
 
@@ -777,7 +777,7 @@ MM_ClientMemorySpace radMemoryMonitorClient::ConvertMemSpc2ClientMemSpc( radMemo
 {
 	switch( memorySpace )
 	{
-#if defined RAD_WIN32 || defined RAD_UWP
+#if defined( RAD_WIN32 ) || defined( RAD_UWP )
 		case radMemorySpace_Main:
 		{
 			return MM_WIN_MAIN;
@@ -797,7 +797,7 @@ radMemorySpace radMemoryMonitorClient::ConvertClientMemSpc2MemSpc( MM_ClientMemo
 {
 	switch( memorySpace )
 	{
-#if defined RAD_WIN32 || defined RAD_UWP
+#if defined( RAD_WIN32 ) || defined( RAD_UWP )
 		case MM_WIN_MAIN:
 		{
 			return radMemorySpace_Main;

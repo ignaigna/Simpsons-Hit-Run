@@ -741,9 +741,9 @@ float tempo_track_beat(
     unsigned int int_current_sample,
     unsigned int int_sampling_rate )
 {
-    #if defined RAD_WIN32
+    #if defined( RAD_WIN32 )
         static float game_loop_latency_ms = 60.0f;
-    #elif defined RAD_UWP // TODO(3ur): if this isnt correct does it affect anything badly
+    #elif defined( RAD_UWP )
         static float game_loop_latency_ms = 10.0f;
     #endif
     

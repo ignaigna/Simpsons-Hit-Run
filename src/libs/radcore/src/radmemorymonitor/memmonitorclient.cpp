@@ -437,7 +437,7 @@ void radMemoryMonitorClient::Service( void )
     //
     while ( m_bSuspended && m_pChannel && m_bAttached )
     {
-#if defined WIN32
+#if defined( RAD_WIN32 ) || defined( RAD_UWP )
         ::Sleep( 5 );   // if on PC, don't take entire CPU cycle
 #endif
         radDbgComService( );
@@ -515,7 +515,7 @@ void radMemoryMonitorClient::DeclarePlatform( )
 
     pPlatform->eventID  = radPlatformEndian32( m_uCurrEventID ); m_uCurrEventID ++;
     pPlatform->timeStamp = radPlatformEndian32( GetTimeFrame( ) );
-#if defined(RAD_WIN32) || defined(RAD_UWP)
+#if defined( RAD_WIN32 ) || defined( RAD_UWP )
     pPlatform->platform = static_cast< MM_ClientPlatform >( radPlatformEndian32( MM_Platform_WIN ) );
     pPlatform->userData = 0;
 #endif
@@ -574,7 +574,7 @@ void radMemoryMonitorClient::DeclareMemSpaceInfo( )
         return;
     }
 
-#if defined(RAD_WIN32) || defined(RAD_UWP)
+#if defined( RAD_WIN32 ) || defined( RAD_UWP )
     DeclareMemSpaceInfo( radMemorySpace_Main, 0x00000000, 0xffffffff );
 #endif
 }
@@ -599,7 +599,7 @@ void radMemoryMonitorClient::DeclarePreDefinedMemorySection( )
         return;
     }
 
-#if defined(RAD_WIN32) || defined(RAD_UWP)
+#if defined( RAD_WIN32 ) || defined( RAD_UWP )
 
     DeclareSection( (void*)(uintptr_t)0x00000000, 0xcfffffff, MemorySectionType_DynamicData, radMemorySpace_Main, NULL );
 

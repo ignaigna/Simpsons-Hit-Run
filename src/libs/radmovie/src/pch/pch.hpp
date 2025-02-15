@@ -9,11 +9,10 @@
 //
 // only win32 and UWP take advantage of the pch at this moment.
 //
-#if defined RAD_WIN32 || defined RAD_UWP
+#if defined( RAD_WIN32 ) || defined( RAD_UWP )
 //
 // Microsoft header files
 //
-#if defined(RAD_WIN32) || defined(RAD_UWP)
 #define WINVER 0x0501
 #define _WIN32_WINNT 0x400
 #include <windows.h>
@@ -23,7 +22,6 @@
 #include <uuids.h>
 #include <evcode.h>
 #include <vfwmsgs.h>
-#endif
 
 //
 // Standard C header files

@@ -66,7 +66,7 @@ FeText::FeText( const tName& name, int x, int y )
     mOverrideStringBuffer( false ),
     mDisplayShadow( false ),
     mDisplayOutline( false ),
-#ifdef RAD_WIN32
+#if defined( RAD_WIN32 ) || defined( RAD_UWP )
     mIsBoundingBoxStretched( false ),
 #endif
     mOutlineColour( 0, 0, 0, 192 )
@@ -75,7 +75,7 @@ FeText::FeText( const tName& name, int x, int y )
     FeText::Reset();
     mOriginalColour.Set( 0xFF, 0xFF, 0xFF, 0xFF );
     mShadowColour.Set( 0x00, 0x00, 0x00, 0x80 );
-#ifdef RAD_WIN32
+#if defined( RAD_WIN32 ) || defined( RAD_UWP )
     memset( &m_rectExtents, 0, sizeof( m_rectExtents ) );
 #endif
 }
@@ -147,7 +147,8 @@ void FeText::Display() //Override
         p3d::stack->Scale( scale, scale, 1.0f );
         ResetText();
 
-#ifdef RAD_WIN32
+        // TODO(3UR): if text is still scaled weirdly remove all uwp references from this file otherwise remove the todo here and in other places
+#if defined( RAD_WIN32 ) || defined( RAD_UWP )
         // TC: for PC sku, the source fonts are actually twice as big (for higher resolution display),
         //     so we need to scale them back down to the intended size
         //
@@ -399,7 +400,7 @@ int FeText::GetTextWidth()
 
     return textWidth;
 }
-#ifdef RAD_WIN32
+#if defined( RAD_WIN32 ) || defined( RAD_UWP )
 bool FeText::IsPointInBoundingRect( float x, float y )
 {
     float height = FeApp::GetInstance()->GetScreenHeight();
@@ -429,7 +430,7 @@ void FeText::Reset()
 
 void FeText::ReCalculateAlignment()
 {
-#ifdef RAD_WIN32
+#if defined( RAD_WIN32 ) || defined( RAD_UWP )
     if( !mIsBoundingBoxStretched )
     {
         // TC: for PC sku, the source fonts are actually twice as big (for higher resolution display),
@@ -466,7 +467,7 @@ void FeText::ReCalculateAlignment()
         height = (mFont->GetTextHeight( FeApp::GetInstance()->GetTextBuffer() )) * scale;
         NormalizeCoord( m_width, m_height, boxWidth, boxHeight );
 
-#ifdef RAD_WIN32
+#if defined( RAD_WIN32 ) || defined( RAD_UWP )
         // TC: for PC sku, the source fonts are actually twice as big (for higher resolution display),
         //     so the width of the current text string is only half as wide; this is needed for proper
         //     right alignment
@@ -503,7 +504,7 @@ void FeText::ReCalculateAlignment()
         default :
             break;
         }
-#ifdef RAD_WIN32
+#if defined( RAD_WIN32 ) || defined( RAD_UWP )
         RecalculateRectExtents();
 #endif
     }
@@ -590,7 +591,7 @@ void FeText::ResetText()
     }
 }
 
-#ifdef RAD_WIN32
+#if defined( RAD_WIN32 ) || defined( RAD_UWP )
 void FeText::RecalculateRectExtents()
 {
     float height = FeApp::GetInstance()->GetScreenHeight();

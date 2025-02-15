@@ -511,7 +511,7 @@ void CGuiManager::DisplayErrorPrompt
 
     if( promptResponses & ERROR_RESPONSE_FORMAT )
     {
-#if defined(RAD_WIN32) || defined(RAD_UWP)
+#if defined( RAD_WIN32 ) || defined( RAD_UWP )
         responses[ numResponses++ ] = CGuiMenuPrompt::RESPONSE_FORMAT_XBOX;
 #endif
     }

@@ -255,9 +255,7 @@ void CGuiScreenLoading::HandleMessage
                 rAssert( m_loadingBarGroup != NULL );
                 m_loadingBarGroup->SetVisible( true );
 
-#if defined( RAD_UWP )
-                float newMemoryUsage = (m_startingMemoryAvailable - Memory::GetTotalMemoryFree()) / TOTAL_INGAME_MEMORY_USAGE;
-#elif defined( RAD_WIN32 )
+#if defined( RAD_WIN32 ) || defined( RAD_UWP )
                 // this sucks but i just want to finish it.
                 float memUsage = float( GetLoadingManager()->GetNumRequestsProcessed() ) / TOTAL_INGAME_FILES;
                 float newMemoryUsage = m_currentMemoryUsage;
