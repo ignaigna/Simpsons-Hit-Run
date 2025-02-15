@@ -6,12 +6,6 @@ Create<daSoundResourceData>("ferrari")
     .AddFilename ( "sound/carsound/cellcar.rsd", 1.000000f )
     .SetLooping ( true )
     .SetTrim ( 0.490000f )
-#ifdef RAD_PS2
-    .SetTrim ( 0.680000f )
-#endif
-#ifdef RAD_GAMECUBE
-    .SetTrim ( 0.660000f )
-#endif
     ;
 Create<daSoundResourceData>("gearshift")
     .AddFilename ( "sound/carsound/common/gearshft.rsd", 1.000000f );
@@ -90,10 +84,4 @@ Create<daSoundResourceData>("mission_ai_vehicle")
     .AddFilename ( "sound/carsound/sportscarB.rsd", 1.000000f )
     .SetLooping ( true )
     .SetTrim ( 0.610000f )
-#ifdef RAD_PS2
-    .SetTrim ( 0.850000f )
-#endif
-#ifdef RAD_GAMECUBE
-    .SetTrim ( 0.780000f )
-#endif
     ;

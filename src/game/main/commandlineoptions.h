@@ -31,7 +31,6 @@ enum CmdLineOptionEnum
     CLO_MEMORY_MONITOR, // Enable RadMemoryMonitor
     CLO_HEAP_STATS,     // Enable heap stats display
     CLO_CD_FILES_ONLY,  // PS2 Only - Only load files from CD/DVD
-    CLO_FIREWIRE,       // PS2 Only - Enable IEEE Firewire support
     CLO_SN_PROFILER,    // PS2 Only - Enable SN profiler
     CLO_ART_STATS,      // Custom display for the Artists, Such as FPS,Texture/Mesh Allocations etc.
     CLO_PROP_STATS,     // Enables logging of prop memory usage

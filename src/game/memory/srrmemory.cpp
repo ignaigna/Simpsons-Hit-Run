@@ -914,22 +914,15 @@ float HeapManager::GetFudgeFactor ()
     float FUDGE;
 
 #ifndef RAD_RELEASE
-    if( CommandLineOptions::Get( CLO_FIREWIRE ) )
-    {
+    #if defined( RAD_TUNE )
         FUDGE = 1.0f;
-    }
-    else
-    {
-        #if defined( RAD_TUNE )
-            FUDGE = 1.0f;
+    #else
+        #ifdef RAD_MW
+            FUDGE = 1.5f;
         #else
-            #ifdef RAD_MW
-                FUDGE = 1.5f;
-            #else
-                FUDGE = 2.0f;
-            #endif
+            FUDGE = 2.0f;
         #endif
-    }
+    #endif
 #else
     if( CommandLineOptions::Get( CLO_LARGEHEAPS ) )
     {
@@ -1404,7 +1397,6 @@ void HeapManager::DumpArtStats ()
 //These only exist in debug and tune
 
 //--HS_DEBUG
-//--HS_DEBUG_FIREWIRE
 //--HS_SPECIAL
 
 // These constants are the heap sizes for each platform
@@ -1440,7 +1432,6 @@ void HeapManager::DumpArtStats ()
 
     #ifndef RAD_RELEASE
     const float HS_DEBUG = 5.0f;
-    const float HS_DEBUG_FIREWIRE = 0.4f;
     const float HS_SPECIAL = 10.0f;
     #endif
 
@@ -1475,7 +1466,6 @@ void HeapManager::DumpArtStats ()
 
     #ifndef RAD_RELEASE
     const float HS_DEBUG = 5.0f;
-    const float HS_DEBUG_FIREWIRE = 0.4f;
     const float HS_SPECIAL = 10.0f;
     #endif
 
@@ -1558,25 +1548,14 @@ void HeapManager::PrepareHeapsStartup ()
     // This heap is for holding all debugging related materials, such as the host communication channel, the watcher, the profiler, etc.
     // It is not created in release mode.
     //
-    float debugSize;
-    if( CommandLineOptions::Get( CLO_FIREWIRE ) )
-    {
-        debugSize = HS_DEBUG_FIREWIRE;
-    }
-    else
-    {
-        debugSize = HS_DEBUG;
-    }
+    float debugSize = HS_DEBUG;
 
     CreateHeap( GMA_DEBUG, static_cast<unsigned int>(debugSize * MB) );
 
-    if ( !CommandLineOptions::Get( CLO_FIREWIRE ) )
-    {
-        // The special heap.
-        // This heap is created in debug and tune only and is used for routing a group of allocations to a specific place.
-        //
-        CreateHeap( GMA_SPECIAL, static_cast<unsigned int>(HS_SPECIAL * MB) );
-    }
+    // The special heap.
+    // This heap is created in debug and tune only and is used for routing a group of allocations to a specific place.
+    //
+    CreateHeap( GMA_SPECIAL, static_cast<unsigned int>(HS_SPECIAL * MB) );
 #endif
 
     // The default heap.

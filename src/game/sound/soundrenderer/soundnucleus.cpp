@@ -112,7 +112,7 @@ void CreateStreamerResources( StreamerResources * pSi, radMemoryAllocator alloc 
     pSi->m_pStitchedDataSource->AddRef( );
     pSi->m_pStitchedDataSource->InitializeFromAudioFormat( pSi->m_pAudioFormat->m_pAudioFormat );
 
-    if ( STREAM_USE_BUFFERED_DATA_SOURCES && ( false == CommandLineOptions::Get( CLO_FIREWIRE ) ) )
+    if ( STREAM_USE_BUFFERED_DATA_SOURCES )
     {                                
         pSi->m_pBufferedDataSource = radSoundBufferedDataSourceCreate( alloc );
         pSi->m_pBufferedDataSource->AddRef( );
@@ -301,7 +301,7 @@ void SoundNucleusInitialize( radMemoryAllocator alloc )
         sgDesc[ i ].channels                        = MUSIC_NUM_CHANNELS;
         sgDesc[ i ].sampling_rate                   = MUSIC_SAMPLING_RATE;
         sgDesc[ i ].stream_buffer_size_in_ms        = STREAM_BUFFER_SIZE_MS;
-        sgDesc[ i ].use_buffered_data_source        = CommandLineOptions::Get( CLO_FIREWIRE ) ? false : STREAM_USE_BUFFERED_DATA_SOURCES;
+        sgDesc[ i ].use_buffered_data_source        = STREAM_USE_BUFFERED_DATA_SOURCES;
     }
         
     radmusic::initialize( sgDesc, MUSIC_NUM_STREAM_PLAYERS, MUSIC_NUM_CLIP_PLAYERS, GMA_MUSIC );

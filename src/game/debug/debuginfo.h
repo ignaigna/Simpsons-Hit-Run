@@ -51,23 +51,23 @@
 
 #else
 
-#define CREATE_DEBUGINFO()                              if(!CommandLineOptions::Get(CLO_FIREWIRE)) { DebugInfo::CreateInstance(); }
-#define DESTROY_DEBUGINFO()                             if(!CommandLineOptions::Get(CLO_FIREWIRE)) { DebugInfo::DestroyInstance(); }
+#define CREATE_DEBUGINFO()                              DebugInfo::CreateInstance();
+#define DESTROY_DEBUGINFO()                             DebugInfo::DestroyInstance();
 
-#define DEBUGINFO_PUSH_SECTION(s)                       (!CommandLineOptions::Get(CLO_FIREWIRE)) ? DebugInfo::GetInstance()->Push(s) : false
-#define DEBUGINFO_POP_SECTION()                         if(!CommandLineOptions::Get(CLO_FIREWIRE)) { DebugInfo::GetInstance()->Pop(); }
+#define DEBUGINFO_PUSH_SECTION(s)                       DebugInfo::GetInstance()->Push(s)
+#define DEBUGINFO_POP_SECTION()                         DebugInfo::GetInstance()->Pop();
 
-#define DEBUGINFO_ADDSCREENTEXT(s)                      if(!CommandLineOptions::Get(CLO_FIREWIRE)) { DebugInfo::GetInstance()->AddScreenText(s); }
-#define DEBUGINFO_ADDSCREENTEXTVECTOR(s, v)             if(!CommandLineOptions::Get(CLO_FIREWIRE)) { DebugInfo::GetInstance()->AddScreenText(s, v); }
-#define DEBUGINFO_ADDSCREENTEXTVECTORCOLOUR(s, v, c)    if(!CommandLineOptions::Get(CLO_FIREWIRE)) { DebugInfo::GetInstance()->AddScreenText(s, v, c); }
-#define DEBUGINFO_ADDSCREENLINE(v1, v2, c)              if(!CommandLineOptions::Get(CLO_FIREWIRE)) { DebugInfo::GetInstance()->AddScreenLine(v1, v2, c); }
-#define DEBUGINFO_ADDLINE(v1, v2, c)                    if(!CommandLineOptions::Get(CLO_FIREWIRE)) { DebugInfo::GetInstance()->AddLine(v1, v2, c); }
-#define DEBUGINFO_ADDCIRCLE(v1, v2, c)                  if(!CommandLineOptions::Get(CLO_FIREWIRE)) { DebugInfo::GetInstance()->AddCircle(v1, v2, c); }
-#define DEBUGINFO_ADDSTAR(v1, c, s)                     if(!CommandLineOptions::Get(CLO_FIREWIRE)) { DebugInfo::GetInstance()->AddStar(v1, c, s); }
+#define DEBUGINFO_ADDSCREENTEXT(s)                      DebugInfo::GetInstance()->AddScreenText(s);
+#define DEBUGINFO_ADDSCREENTEXTVECTOR(s, v)             DebugInfo::GetInstance()->AddScreenText(s, v);
+#define DEBUGINFO_ADDSCREENTEXTVECTORCOLOUR(s, v, c)    DebugInfo::GetInstance()->AddScreenText(s, v, c);
+#define DEBUGINFO_ADDSCREENLINE(v1, v2, c)              DebugInfo::GetInstance()->AddScreenLine(v1, v2, c);
+#define DEBUGINFO_ADDLINE(v1, v2, c)                    DebugInfo::GetInstance()->AddLine(v1, v2, c);
+#define DEBUGINFO_ADDCIRCLE(v1, v2, c)                  DebugInfo::GetInstance()->AddCircle(v1, v2, c);
+#define DEBUGINFO_ADDSTAR(v1, c, s)                     DebugInfo::GetInstance()->AddStar(v1, c, s);
 
-#define DEBUGINFO_TOGGLE(step)                          if(!CommandLineOptions::Get(CLO_FIREWIRE)) { DebugInfo::GetInstance()->Toggle(step); }
+#define DEBUGINFO_TOGGLE(step)                          DebugInfo::GetInstance()->Toggle(step);
 
-#define DEBUGINFO_RENDER()                              if(!CommandLineOptions::Get(CLO_FIREWIRE)) { DebugInfo::GetInstance()->Render(); }
+#define DEBUGINFO_RENDER()                              DebugInfo::GetInstance()->Render();
 
 
 //========================================
