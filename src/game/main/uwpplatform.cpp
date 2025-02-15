@@ -103,7 +103,7 @@
 
 #include <main/uwpplatform.h>
 #include <main/game.h>
-#include <main/errorsWIN32.h>
+#include <main/errorsUWP.h>
 
 #include <render/RenderManager/RenderManager.h>
 #include <render/Loaders/AllWrappers.h>
