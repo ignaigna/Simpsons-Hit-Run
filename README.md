@@ -36,6 +36,9 @@ When working on the code you must have some things
 
 #### Setup
 
+> [!WARNING]
+> The source directory root must have an 'Assets' folder and  you must put all assets here if you intent to run the debugger and not manually deploy.
+
 1. Open command prompt and navigate to a directory where you want to store the source and run `git clone https://github.com/3UR/Simpsons-Hit-Run`
 2. When done you can open `SRR2.sln` with Visual Studio.
 3. Once in Visual Studio press `Tools -> Command Line -> Developer Command Prompt`
