@@ -1019,8 +1019,15 @@ void MusicPlayer::SetUpPerformance(
     
     m_radLoadRequest->Release( );
     m_radLoadRequest = NULL;
-
-    *ppPerformance = radmusic::performance_new( *ppComposition, searchPath );    
+            
+    if ( CommandLineOptions::Get( CLO_FIREWIRE ) )
+    {
+        *ppPerformance = radmusic::performance_new( *ppComposition, searchPath, radMemorySpace_Local );    
+    }
+    else
+    {
+        *ppPerformance = radmusic::performance_new( *ppComposition, searchPath );    
+    }
     
     rAssert( *ppPerformance != NULL );
 }

@@ -6,3 +6,9 @@
 #include <sound/soundfx/reverbcontroller.cpp>
 #include <sound/soundfx/reverbsettings.cpp>
 #include <sound/soundfx/positionalsoundsettings.cpp>
+
+#ifdef RAD_PS2
+#include <sound/soundfx/ps2reverbcontroller.cpp>
+#else
+#include <sound/soundfx/gcreverbcontroller.cpp>
+#endif

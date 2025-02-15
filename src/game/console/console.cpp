@@ -258,7 +258,7 @@ bool Console::Initialize()
 #ifdef RAD_DEBUG
 MEMTRACK_PUSH_GROUP( "Console Initialize" );
 
-    if( false )
+    if( !CommandLineOptions::Get( CLO_FIREWIRE ) )
     {
         //initialize the console log buffers
         gConsoleMsgBuffer[0] = new(GMA_DEBUG) char[MAX_STRING_LENGTH * MAX_BUFFERS];

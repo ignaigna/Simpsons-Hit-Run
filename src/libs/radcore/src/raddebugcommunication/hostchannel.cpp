@@ -39,6 +39,7 @@
 #include "netmp.h"
 #include "dcmp.h"
 #include "protocol.hpp"
+#include "host1394socket.hpp"
 
 //=============================================================================
 // Local Defintions
@@ -131,6 +132,19 @@ rDbgComHostChannel::rDbgComHostChannel
     //
     if( INADDR_NONE == inet_addr( m_ParentHost->GetIpAddress( m_TargetIndex ) ) )
     {   
+        //
+        // For now, it the name is FireWire, then we use the 1394 socket implementation.
+        //
+        if( 0 == stricmp( m_ParentHost->GetIpAddress( m_TargetIndex ), "FireWire" ) )
+        {
+            char* p = new char[ sizeof( CHost1394Socket ) ];
+            m_SocketImp = new( p ) CHost1394Socket( );
+            // do not lookup DNS for firewire
+            m_UsingDNSLookup = false;
+        
+            return;
+        }
+
     }
             
     //

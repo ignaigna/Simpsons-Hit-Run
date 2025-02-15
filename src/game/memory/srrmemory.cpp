@@ -908,15 +908,22 @@ float HeapManager::GetFudgeFactor ()
     float FUDGE = 1.0f;
 
 #ifndef RAD_RELEASE
-    #if defined( RAD_TUNE )
+    if( CommandLineOptions::Get( CLO_FIREWIRE ) )
+    {
         FUDGE = 1.0f;
-    #else
-        #ifdef RAD_MW
-            FUDGE = 1.5f;
+    }
+    else
+    {
+        #if defined( RAD_TUNE )
+            FUDGE = 1.0f;
         #else
-            FUDGE = 2.0f;
+            #ifdef RAD_MW
+                FUDGE = 1.5f;
+            #else
+                FUDGE = 2.0f;
+            #endif
         #endif
-    #endif
+    }
 #else
     if( CommandLineOptions::Get( CLO_LARGEHEAPS ) )
     {
@@ -1394,6 +1401,7 @@ void HeapManager::DumpArtStats ()
 //These only exist in debug and tune
 
 //--HS_DEBUG
+//--HS_DEBUG_FIREWIRE
 //--HS_SPECIAL
 
 // These constants are the heap sizes for each platform
@@ -1429,6 +1437,7 @@ void HeapManager::DumpArtStats ()
 
     #ifndef RAD_RELEASE
     const float HS_DEBUG = 5.0f;
+    const float HS_DEBUG_FIREWIRE = 0.4f;
     const float HS_SPECIAL = 10.0f;
     #endif
 
@@ -1463,6 +1472,7 @@ void HeapManager::DumpArtStats ()
 
     #ifndef RAD_RELEASE
     const float HS_DEBUG = 5.0f;
+    const float HS_DEBUG_FIREWIRE = 0.4f;
     const float HS_SPECIAL = 10.0f;
     #endif
 
@@ -1547,10 +1557,13 @@ void HeapManager::PrepareHeapsStartup ()
     //
     CreateHeap( GMA_DEBUG, static_cast<unsigned int>(HS_DEBUG * MB) );
 
-    // The special heap.
-    // This heap is created in debug and tune only and is used for routing a group of allocations to a specific place.
-    //
-    CreateHeap( GMA_SPECIAL, static_cast<unsigned int>(HS_SPECIAL * MB) );
+    if ( !CommandLineOptions::Get( CLO_FIREWIRE ) )
+    {
+        // The special heap.
+        // This heap is created in debug and tune only and is used for routing a group of allocations to a specific place.
+        //
+        CreateHeap( GMA_SPECIAL, static_cast<unsigned int>(HS_SPECIAL * MB) );
+    }
 #endif
 
     // The default heap.
