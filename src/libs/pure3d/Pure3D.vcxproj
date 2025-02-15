@@ -176,14 +176,14 @@
     <_ProjectFileVersion>17.0.35309.182</_ProjectFileVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugWindows|Win32'">
-    <OutDir>.\lib\$(Platform)\</OutDir>
+    <OutDir>.\lib\$(Configuration)\$(Platform)\</OutDir>
     <IntDir>.\obj\$(Configuration)\$(Platform)\</IntDir>
     <ExecutablePath>$(DXSDK_DIR)\Utilities\bin\x86;$(ExecutablePath)</ExecutablePath>
     <IncludePath>$(DXSDK_DIR)\Include;$(IncludePath)</IncludePath>
     <LibraryPath>$(DXSDK_DIR)\Lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugUwp|Win32'">
-    <OutDir>.\lib\$(Platform)\</OutDir>
+    <OutDir>.\lib\$(Configuration)\$(Platform)\</OutDir>
     <IntDir>.\obj\$(Configuration)\$(Platform)\</IntDir>
     <ExecutablePath>$(DXSDK_DIR)\Utilities\bin\x86;$(ExecutablePath)</ExecutablePath>
     <IncludePath>$(DXSDK_DIR)\Include;$(IncludePath)</IncludePath>
@@ -204,14 +204,14 @@
     <IntDir>.\obj\$(Configuration)\$(Platform)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='TuneWindows|Win32'">
-    <OutDir>.\lib\$(Platform)\</OutDir>
+    <OutDir>.\lib\$(Configuration)\$(Platform)\</OutDir>
     <IntDir>.\obj\$(Configuration)\$(Platform)\</IntDir>
     <ExecutablePath>$(DXSDK_DIR)\Utilities\bin\x86;$(ExecutablePath)</ExecutablePath>
     <IncludePath>$(DXSDK_DIR)\Include;$(IncludePath)</IncludePath>
     <LibraryPath>$(DXSDK_DIR)\Lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='TuneUwp|Win32'">
-    <OutDir>.\lib\$(Platform)\</OutDir>
+    <OutDir>.\lib\$(Configuration)\$(Platform)\</OutDir>
     <IntDir>.\obj\$(Configuration)\$(Platform)\</IntDir>
     <ExecutablePath>$(DXSDK_DIR)\Utilities\bin\x86;$(ExecutablePath)</ExecutablePath>
     <IncludePath>$(DXSDK_DIR)\Include;$(IncludePath)</IncludePath>
@@ -232,14 +232,14 @@
     <IntDir>.\obj\$(Configuration)\$(Platform)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseWindows|Win32'">
-    <OutDir>.\lib\$(Platform)\</OutDir>
+    <OutDir>.\lib\$(Configuration)\$(Platform)\</OutDir>
     <IntDir>.\obj\$(Configuration)\$(Platform)\</IntDir>
     <ExecutablePath>$(DXSDK_DIR)\Utilities\bin\x86;$(ExecutablePath)</ExecutablePath>
     <IncludePath>$(DXSDK_DIR)\Include;$(IncludePath)</IncludePath>
     <LibraryPath>$(DXSDK_DIR)\Lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseUwp|Win32'">
-    <OutDir>.\lib\$(Platform)\</OutDir>
+    <OutDir>.\lib\$(Configuration)\$(Platform)\</OutDir>
     <IntDir>.\obj\$(Configuration)\$(Platform)\</IntDir>
     <ExecutablePath>$(DXSDK_DIR)\Utilities\bin\x86;$(ExecutablePath)</ExecutablePath>
     <IncludePath>$(DXSDK_DIR)\Include;$(IncludePath)</IncludePath>
@@ -317,7 +317,7 @@
       <AssemblerListingLocation>.\obj\$(Configuration)\$(Platform)\asm\
 </AssemblerListingLocation>
       <ObjectFileName>.\obj\$(Configuration)\$(Platform)\</ObjectFileName>
-      <ProgramDataBaseFileName>.\lib\$(Platform)\</ProgramDataBaseFileName>
+      <ProgramDataBaseFileName>.\lib\$(Configuration)\$(Platform)\</ProgramDataBaseFileName>
       <BrowseInformation>true</BrowseInformation>
       <WarningLevel>Level3</WarningLevel>
       <SuppressStartupBanner>true</SuppressStartupBanner>
@@ -347,7 +347,7 @@
       <AssemblerListingLocation>.\obj\$(Configuration)\$(Platform)\asm\
 </AssemblerListingLocation>
       <ObjectFileName>.\obj\$(Configuration)\$(Platform)\</ObjectFileName>
-      <ProgramDataBaseFileName>.\lib\$(Platform)\</ProgramDataBaseFileName>
+      <ProgramDataBaseFileName>.\lib\$(Configuration)\$(Platform)\</ProgramDataBaseFileName>
       <BrowseInformation>true</BrowseInformation>
       <WarningLevel>Level3</WarningLevel>
       <SuppressStartupBanner>true</SuppressStartupBanner>
@@ -377,7 +377,7 @@
       <AssemblerListingLocation>.\obj\$(Configuration)\$(Platform)\asm\
 </AssemblerListingLocation>
       <ObjectFileName>.\obj\$(Configuration)\$(Platform)\</ObjectFileName>
-      <ProgramDataBaseFileName>.\lib\$(Platform)\</ProgramDataBaseFileName>
+      <ProgramDataBaseFileName>.\lib\$(Configuration)\$(Platform)\</ProgramDataBaseFileName>
       <BrowseInformation>true</BrowseInformation>
       <WarningLevel>Level3</WarningLevel>
       <SuppressStartupBanner>true</SuppressStartupBanner>
@@ -387,7 +387,7 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Lib>
-      <OutputFile>.\lib\$(Platform)\pure3dwd.lib</OutputFile>
+      <OutputFile>.\lib\$(Configuration)\$(Platform)\pure3dwd.lib</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
     </Lib>
     <ResourceCompile>
@@ -407,7 +407,7 @@
       <AssemblerListingLocation>.\obj\$(Configuration)\$(Platform)\asm\
 </AssemblerListingLocation>
       <ObjectFileName>.\obj\$(Configuration)\$(Platform)\</ObjectFileName>
-      <ProgramDataBaseFileName>.\lib\$(Platform)\</ProgramDataBaseFileName>
+      <ProgramDataBaseFileName>.\lib\$(Configuration)\$(Platform)\</ProgramDataBaseFileName>
       <BrowseInformation>true</BrowseInformation>
       <WarningLevel>Level3</WarningLevel>
       <SuppressStartupBanner>true</SuppressStartupBanner>
@@ -417,7 +417,7 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Lib>
-      <OutputFile>.\lib\$(Platform)\pure3dwd.lib</OutputFile>
+      <OutputFile>.\lib\$(Configuration)\$(Platform)\pure3dwd.lib</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
     </Lib>
     <ResourceCompile>
@@ -438,7 +438,7 @@
       <AssemblerListingLocation>.\obj\$(Configuration)\$(Platform)\asm\
 </AssemblerListingLocation>
       <ObjectFileName>.\obj\$(Configuration)\$(Platform)\</ObjectFileName>
-      <ProgramDataBaseFileName>.\lib\$(Platform)\</ProgramDataBaseFileName>
+      <ProgramDataBaseFileName>.\lib\$(Configuration)\$(Platform)\</ProgramDataBaseFileName>
       <WarningLevel>Level3</WarningLevel>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <DebugInformationFormat>OldStyle</DebugInformationFormat>
@@ -468,7 +468,7 @@
       <AssemblerListingLocation>.\obj\$(Configuration)\$(Platform)\asm\
 </AssemblerListingLocation>
       <ObjectFileName>.\obj\$(Configuration)\$(Platform)\</ObjectFileName>
-      <ProgramDataBaseFileName>.\lib\$(Platform)\</ProgramDataBaseFileName>
+      <ProgramDataBaseFileName>.\lib\$(Configuration)\$(Platform)\</ProgramDataBaseFileName>
       <WarningLevel>Level3</WarningLevel>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <DebugInformationFormat>OldStyle</DebugInformationFormat>
@@ -498,7 +498,7 @@
       <AssemblerListingLocation>.\obj\$(Configuration)\$(Platform)\asm\
 </AssemblerListingLocation>
       <ObjectFileName>.\obj\$(Configuration)\$(Platform)\</ObjectFileName>
-      <ProgramDataBaseFileName>.\lib\$(Platform)\</ProgramDataBaseFileName>
+      <ProgramDataBaseFileName>.\lib\$(Configuration)\$(Platform)\</ProgramDataBaseFileName>
       <WarningLevel>Level3</WarningLevel>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <DebugInformationFormat>OldStyle</DebugInformationFormat>
@@ -507,7 +507,7 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Lib>
-      <OutputFile>.\lib\$(Platform)\pure3dwt.lib</OutputFile>
+      <OutputFile>.\lib\$(Configuration)\$(Platform)\pure3dwt.lib</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
     </Lib>
     <ResourceCompile>
@@ -528,7 +528,7 @@
       <AssemblerListingLocation>.\obj\$(Configuration)\$(Platform)\asm\
 </AssemblerListingLocation>
       <ObjectFileName>.\obj\$(Configuration)\$(Platform)\</ObjectFileName>
-      <ProgramDataBaseFileName>.\lib\$(Platform)\</ProgramDataBaseFileName>
+      <ProgramDataBaseFileName>.\lib\$(Configuration)\$(Platform)\</ProgramDataBaseFileName>
       <WarningLevel>Level3</WarningLevel>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <DebugInformationFormat>OldStyle</DebugInformationFormat>
@@ -537,7 +537,7 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Lib>
-      <OutputFile>.\lib\$(Platform)\pure3dwt.lib</OutputFile>
+      <OutputFile>.\lib\$(Configuration)\$(Platform)\pure3dwt.lib</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
     </Lib>
     <ResourceCompile>
@@ -558,7 +558,7 @@
       <AssemblerListingLocation>.\obj\$(Configuration)\$(Platform)\asm\
 </AssemblerListingLocation>
       <ObjectFileName>.\obj\$(Configuration)\$(Platform)\</ObjectFileName>
-      <ProgramDataBaseFileName>.\lib\$(Platform)\</ProgramDataBaseFileName>
+      <ProgramDataBaseFileName>.\lib\$(Configuration)\$(Platform)\</ProgramDataBaseFileName>
       <WarningLevel>Level3</WarningLevel>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
@@ -588,7 +588,7 @@
       <AssemblerListingLocation>.\obj\$(Configuration)\$(Platform)\asm\
 </AssemblerListingLocation>
       <ObjectFileName>.\obj\$(Configuration)\$(Platform)\</ObjectFileName>
-      <ProgramDataBaseFileName>.\lib\$(Platform)\</ProgramDataBaseFileName>
+      <ProgramDataBaseFileName>.\lib\$(Configuration)\$(Platform)\</ProgramDataBaseFileName>
       <WarningLevel>Level3</WarningLevel>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
@@ -618,7 +618,7 @@
       <AssemblerListingLocation>.\obj\$(Configuration)\$(Platform)\asm\
 </AssemblerListingLocation>
       <ObjectFileName>.\obj\$(Configuration)\$(Platform)\</ObjectFileName>
-      <ProgramDataBaseFileName>.\lib\$(Platform)\</ProgramDataBaseFileName>
+      <ProgramDataBaseFileName>.\lib\$(Configuration)\$(Platform)\</ProgramDataBaseFileName>
       <WarningLevel>Level3</WarningLevel>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
@@ -627,7 +627,7 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Lib>
-      <OutputFile>.\lib\$(Platform)\pure3dwr.lib</OutputFile>
+      <OutputFile>.\lib\$(Configuration)\$(Platform)\pure3dwr.lib</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
     </Lib>
     <ResourceCompile>
@@ -648,7 +648,7 @@
       <AssemblerListingLocation>.\obj\$(Configuration)\$(Platform)\asm\
 </AssemblerListingLocation>
       <ObjectFileName>.\obj\$(Configuration)\$(Platform)\</ObjectFileName>
-      <ProgramDataBaseFileName>.\lib\$(Platform)\</ProgramDataBaseFileName>
+      <ProgramDataBaseFileName>.\lib\$(Configuration)\$(Platform)\</ProgramDataBaseFileName>
       <WarningLevel>Level3</WarningLevel>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
@@ -657,7 +657,7 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Lib>
-      <OutputFile>.\lib\$(Platform)\pure3dwr.lib</OutputFile>
+      <OutputFile>.\lib\$(Configuration)\$(Platform)\pure3dwr.lib</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
     </Lib>
     <ResourceCompile>

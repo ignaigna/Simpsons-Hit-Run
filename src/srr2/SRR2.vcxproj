@@ -1017,11 +1017,11 @@
     <ClInclude Include="..\game\worldsim\worldcollisionsolveragent.h" />
     <ClInclude Include="..\game\worldsim\worldobject.h" />
     <ClInclude Include="..\game\worldsim\worldphysicsmanager.h" />
-    <ClInclude Include="..\resources\win\afxres.h" />
+    <ClInclude Include="afxres.h" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="..\resources\win\SRR2.rc" />
-    <Image Include="..\resources\win\Simpsons.ico" />
+    <ResourceCompile Include="SRR2.rc" />
+    <Image Include="Simpsons.ico" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\libs\choreo\choreo.vcxproj">

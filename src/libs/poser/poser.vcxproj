@@ -176,11 +176,11 @@
     <_ProjectFileVersion>17.0.35309.182</_ProjectFileVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseWindows|Win32'">
-    <OutDir>.\lib\$(Platform)\</OutDir>
+    <OutDir>.\lib\$(Configuration)\$(Platform)\</OutDir>
     <IntDir>.\obj\$(Configuration)\$(Platform)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseUwp|Win32'">
-    <OutDir>.\lib\$(Platform)\</OutDir>
+    <OutDir>.\lib\$(Configuration)\$(Platform)\</OutDir>
     <IntDir>.\obj\$(Configuration)\$(Platform)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseWindows|x64'">
@@ -192,19 +192,19 @@
     <IntDir>.\obj\$(Configuration)\$(Platform)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugWindows|Win32'">
-    <OutDir>.\lib\$(Platform)\</OutDir>
+    <OutDir>.\lib\$(Configuration)\$(Platform)\</OutDir>
     <IntDir>.\obj\$(Configuration)\$(Platform)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugUwp|Win32'">
-    <OutDir>.\lib\$(Platform)\</OutDir>
+    <OutDir>.\lib\$(Configuration)\$(Platform)\</OutDir>
     <IntDir>.\obj\$(Configuration)\$(Platform)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='TuneWindows|Win32'">
-    <OutDir>.\lib\$(Platform)\</OutDir>
+    <OutDir>.\lib\$(Configuration)\$(Platform)\</OutDir>
     <IntDir>.\obj\$(Configuration)\$(Platform)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='TuneUwp|Win32'">
-    <OutDir>.\lib\$(Platform)\</OutDir>
+    <OutDir>.\lib\$(Configuration)\$(Platform)\</OutDir>
     <IntDir>.\obj\$(Configuration)\$(Platform)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugWindows|x64'">
@@ -278,7 +278,7 @@
       <AssemblerListingLocation>.\obj\$(Configuration)\$(Platform)\asm\
 </AssemblerListingLocation>
       <ObjectFileName>.\obj\$(Configuration)\$(Platform)\</ObjectFileName>
-      <ProgramDataBaseFileName>.\lib\$(Platform)\</ProgramDataBaseFileName>
+      <ProgramDataBaseFileName>.\lib\$(Configuration)\$(Platform)\</ProgramDataBaseFileName>
       <WarningLevel>Level3</WarningLevel>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <CompileAs>Default</CompileAs>
@@ -307,7 +307,7 @@
       <AssemblerListingLocation>.\obj\$(Configuration)\$(Platform)\asm\
 </AssemblerListingLocation>
       <ObjectFileName>.\obj\$(Configuration)\$(Platform)\</ObjectFileName>
-      <ProgramDataBaseFileName>.\lib\$(Platform)\</ProgramDataBaseFileName>
+      <ProgramDataBaseFileName>.\lib\$(Configuration)\$(Platform)\</ProgramDataBaseFileName>
       <WarningLevel>Level3</WarningLevel>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <CompileAs>Default</CompileAs>
@@ -336,7 +336,7 @@
       <AssemblerListingLocation>.\obj\$(Configuration)\$(Platform)\asm\
 </AssemblerListingLocation>
       <ObjectFileName>.\obj\$(Configuration)\$(Platform)\</ObjectFileName>
-      <ProgramDataBaseFileName>.\lib\$(Platform)\</ProgramDataBaseFileName>
+      <ProgramDataBaseFileName>.\lib\$(Configuration)\$(Platform)\</ProgramDataBaseFileName>
       <WarningLevel>Level3</WarningLevel>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <CompileAs>Default</CompileAs>
@@ -344,7 +344,7 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Lib>
-      <OutputFile>.\lib\$(Platform)\poserwr.lib</OutputFile>
+      <OutputFile>.\lib\$(Configuration)\$(Platform)\poserwr.lib</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
     </Lib>
     <ResourceCompile>
@@ -365,7 +365,7 @@
       <AssemblerListingLocation>.\obj\$(Configuration)\$(Platform)\asm\
 </AssemblerListingLocation>
       <ObjectFileName>.\obj\$(Configuration)\$(Platform)\</ObjectFileName>
-      <ProgramDataBaseFileName>.\lib\$(Platform)\</ProgramDataBaseFileName>
+      <ProgramDataBaseFileName>.\lib\$(Configuration)\$(Platform)\</ProgramDataBaseFileName>
       <WarningLevel>Level3</WarningLevel>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <CompileAs>Default</CompileAs>
@@ -373,7 +373,7 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Lib>
-      <OutputFile>.\lib\$(Platform)\poserwr.lib</OutputFile>
+      <OutputFile>.\lib\$(Configuration)\$(Platform)\poserwr.lib</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
     </Lib>
     <ResourceCompile>
@@ -393,7 +393,7 @@
       <AssemblerListingLocation>.\obj\$(Configuration)\$(Platform)\asm\
 </AssemblerListingLocation>
       <ObjectFileName>.\obj\$(Configuration)\$(Platform)\</ObjectFileName>
-      <ProgramDataBaseFileName>.\lib\$(Platform)\</ProgramDataBaseFileName>
+      <ProgramDataBaseFileName>.\lib\$(Configuration)\$(Platform)\</ProgramDataBaseFileName>
       <WarningLevel>Level3</WarningLevel>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
@@ -422,7 +422,7 @@
       <AssemblerListingLocation>.\obj\$(Configuration)\$(Platform)\asm\
 </AssemblerListingLocation>
       <ObjectFileName>.\obj\$(Configuration)\$(Platform)\</ObjectFileName>
-      <ProgramDataBaseFileName>.\lib\$(Platform)\</ProgramDataBaseFileName>
+      <ProgramDataBaseFileName>.\lib\$(Configuration)\$(Platform)\</ProgramDataBaseFileName>
       <WarningLevel>Level3</WarningLevel>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
@@ -451,7 +451,7 @@
       <AssemblerListingLocation>.\obj\$(Configuration)\$(Platform)\asm\
 </AssemblerListingLocation>
       <ObjectFileName>.\obj\$(Configuration)\$(Platform)\</ObjectFileName>
-      <ProgramDataBaseFileName>.\lib\$(Platform)\</ProgramDataBaseFileName>
+      <ProgramDataBaseFileName>.\lib\$(Configuration)\$(Platform)\</ProgramDataBaseFileName>
       <WarningLevel>Level3</WarningLevel>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
@@ -460,7 +460,7 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Lib>
-      <OutputFile>.\lib\$(Platform)\poserwd.lib</OutputFile>
+      <OutputFile>.\lib\$(Configuration)\$(Platform)\poserwd.lib</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
     </Lib>
     <ResourceCompile>
@@ -480,7 +480,7 @@
       <AssemblerListingLocation>.\obj\$(Configuration)\$(Platform)\asm\
 </AssemblerListingLocation>
       <ObjectFileName>.\obj\$(Configuration)\$(Platform)\</ObjectFileName>
-      <ProgramDataBaseFileName>.\lib\$(Platform)\</ProgramDataBaseFileName>
+      <ProgramDataBaseFileName>.\lib\$(Configuration)\$(Platform)\</ProgramDataBaseFileName>
       <WarningLevel>Level3</WarningLevel>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
@@ -489,7 +489,7 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Lib>
-      <OutputFile>.\lib\$(Platform)\poserwd.lib</OutputFile>
+      <OutputFile>.\lib\$(Configuration)\$(Platform)\poserwd.lib</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
     </Lib>
     <ResourceCompile>
@@ -510,7 +510,7 @@
       <AssemblerListingLocation>.\obj\$(Configuration)\$(Platform)\asm\
 </AssemblerListingLocation>
       <ObjectFileName>.\obj\$(Configuration)\$(Platform)\</ObjectFileName>
-      <ProgramDataBaseFileName>.\lib\$(Platform)\</ProgramDataBaseFileName>
+      <ProgramDataBaseFileName>.\lib\$(Configuration)\$(Platform)\</ProgramDataBaseFileName>
       <WarningLevel>Level3</WarningLevel>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <DebugInformationFormat>OldStyle</DebugInformationFormat>
@@ -540,7 +540,7 @@
       <AssemblerListingLocation>.\obj\$(Configuration)\$(Platform)\asm\
 </AssemblerListingLocation>
       <ObjectFileName>.\obj\$(Configuration)\$(Platform)\</ObjectFileName>
-      <ProgramDataBaseFileName>.\lib\$(Platform)\</ProgramDataBaseFileName>
+      <ProgramDataBaseFileName>.\lib\$(Configuration)\$(Platform)\</ProgramDataBaseFileName>
       <WarningLevel>Level3</WarningLevel>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <DebugInformationFormat>OldStyle</DebugInformationFormat>
@@ -570,7 +570,7 @@
       <AssemblerListingLocation>.\obj\$(Configuration)\$(Platform)\asm\
 </AssemblerListingLocation>
       <ObjectFileName>.\obj\$(Configuration)\$(Platform)\</ObjectFileName>
-      <ProgramDataBaseFileName>.\lib\$(Platform)\</ProgramDataBaseFileName>
+      <ProgramDataBaseFileName>.\lib\$(Configuration)\$(Platform)\</ProgramDataBaseFileName>
       <WarningLevel>Level3</WarningLevel>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <DebugInformationFormat>OldStyle</DebugInformationFormat>
@@ -579,7 +579,7 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Lib>
-      <OutputFile>.\lib\$(Platform)\poserwt.lib</OutputFile>
+      <OutputFile>.\lib\$(Configuration)\$(Platform)\poserwt.lib</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
     </Lib>
     <ResourceCompile>
@@ -600,7 +600,7 @@
       <AssemblerListingLocation>.\obj\$(Configuration)\$(Platform)\asm\
 </AssemblerListingLocation>
       <ObjectFileName>.\obj\$(Configuration)\$(Platform)\</ObjectFileName>
-      <ProgramDataBaseFileName>.\lib\$(Platform)\</ProgramDataBaseFileName>
+      <ProgramDataBaseFileName>.\lib\$(Configuration)\$(Platform)\</ProgramDataBaseFileName>
       <WarningLevel>Level3</WarningLevel>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <DebugInformationFormat>OldStyle</DebugInformationFormat>
@@ -609,7 +609,7 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Lib>
-      <OutputFile>.\lib\$(Platform)\poserwt.lib</OutputFile>
+      <OutputFile>.\lib\$(Configuration)\$(Platform)\poserwt.lib</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
     </Lib>
     <ResourceCompile>
