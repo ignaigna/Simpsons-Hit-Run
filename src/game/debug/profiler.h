@@ -17,7 +17,9 @@
 //========================================
 
 #if !defined( RAD_RELEASE ) && !defined( WORLD_BUILDER ) && !defined( RAD_MW )
-//#define PROFILER_ENABLED
+#if defined(RAD_UWP)
+    #define PROFILER_ENABLED
+#endif
 //TODO(3ur)
 //#define MICROPROFILE_ENABLED 1
 #endif // RAD_RELEASE
