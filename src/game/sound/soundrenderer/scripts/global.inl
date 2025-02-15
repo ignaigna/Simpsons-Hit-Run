@@ -1,8 +1,5 @@
 Create<globalSettings>("tuner")
     .SetMasterVolume ( 1.000000f )
-#ifdef RAD_GAMECUBE
-    .SetMasterVolume ( 0.670000f ) option GCN
-#endif
     .SetSfxVolume ( 0.880000f )
     .SetMusicVolume ( 0.780000f )
     .SetMusicVolume ( 0.840000f )
