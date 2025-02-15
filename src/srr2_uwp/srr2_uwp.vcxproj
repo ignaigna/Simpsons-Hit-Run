@@ -1352,10 +1352,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="Assets\SplashScreen.png" />
-    <Image Include="Assets\Square150x150Logo.png" />
-    <Image Include="Assets\Square44x44Logo.png" />
-    <Image Include="Assets\StoreLogo.png" />
+    <Image Include="resources\SplashScreen.png" />
+    <Image Include="resources\Square150x150Logo.png" />
+    <Image Include="resources\Square44x44Logo.png" />
+    <Image Include="resources\StoreLogo.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
@@ -1373,10 +1373,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-  <!-- Redist provided by ms / required by mesa gallium -->
-  <ItemGroup>
-    <Content Include="$(SolutionDir)/assets/*"> <!-- hopefully this also gets subfolders -->
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
+  <!-- Assets -->
+  <!-- TODO(3UR): need to copy the folder and keep structure of all subfolders in /assets -->
 </Project>
