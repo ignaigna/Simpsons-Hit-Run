@@ -603,7 +603,7 @@ void HeapStack::Push (GameMemoryAllocator alloc)
     ++currentStackPointer;
     ++pushNumber;
     m_CurPos++;
-    rAssertMsg (m_CurPos < m_Size, "Heap Stack Overflow! Increase size of the Heap Stack. [jdy]");
+    rAssertMsg (m_CurPos < m_Size, "Heap Stack Overflow! Increase size of the Heap Stack. [jdy]"); // TODO(3UR): This is not okay on uwp but I just don't know why it's always incorrect yet on windows its normal
     m_Stack[m_CurPos] = alloc;
 }
 
@@ -613,22 +613,16 @@ void HeapStack::Pop ()
     pushNumberStack[ currentStackPointer ] = -1;
     GameMemoryAllocator current = m_Stack[ m_CurPos ];
     m_CurPos--;
-#ifndef RAD_UWP // runs fine on xbox but this assert is flooding, dont think it matters if we ignore it
-    rAssertMsg (m_CurPos >= 0, "Heap Stack Underflow! Calls to Push and Pop on heap stack are mismatched. [jdy]");
-#endif
+    rAssertMsg (m_CurPos >= 0, "Heap Stack Underflow! Calls to Push and Pop on heap stack are mismatched. [jdy]"); // TODO(3UR): This is not okay on uwp but I just don't know why it's always incorrect yet on windows its normal
 }
 
 void HeapStack::Pop( GameMemoryAllocator alloc )
 {
     --currentStackPointer;
     pushNumberStack[ currentStackPointer ] = -1;
-#ifndef RAD_UWP // runs fine on xbox but this assert is flooding, dont think it matters if we ignore it
-    rAssertMsg( m_Stack[ m_CurPos ] == alloc, "HeapStack - Detected mismatch in push/pop calls - fix, or tell Ian Gipson immediately" );
-#endif
+    rAssertMsg( m_Stack[ m_CurPos ] == alloc, "HeapStack - Detected mismatch in push/pop calls - fix, or tell Ian Gipson immediately" ); // TODO(3UR): This is not okay on uwp but I just don't know why it's always incorrect yet on windows its normal
     m_CurPos--;
-#ifndef RAD_UWP // runs fine on xbox but this assert is flooding, dont think it matters if we ignore it
-    rAssertMsg (m_CurPos >= 0, "Heap Stack Underflow! Calls to Push and Pop on heap stack are mismatched. [jdy]");
-#endif
+    rAssertMsg (m_CurPos >= 0, "Heap Stack Underflow! Calls to Push and Pop on heap stack are mismatched. [jdy]"); // TODO(3UR): This is not okay on uwp but I just don't know why it's always incorrect yet on windows its normal
 }
 
 
@@ -911,7 +905,7 @@ GameMemoryAllocator HeapManager::GetHeapID (const IRadMemoryHeap* heap)
 
 float HeapManager::GetFudgeFactor ()
 {
-    float FUDGE;
+    float FUDGE = 1.0f;
 
 #ifndef RAD_RELEASE
     #if defined( RAD_TUNE )
@@ -933,6 +927,9 @@ float HeapManager::GetFudgeFactor ()
         FUDGE = 1.0f;
     }
 #endif
+
+    // Account for larger than expected pointer size
+    FUDGE *= sizeof(void*) / 4.0f;
 
     return FUDGE;
 }
@@ -1420,7 +1417,7 @@ void HeapManager::DumpArtStats ()
     //In-game Only
     const float HS_LEVEL_ZONE = 8.0f;
     //const float HS_LEVEL_OTHER = 5.0f;
-    const float HS_LEVEL_HUD = 2.5f;
+    const float HS_LEVEL_HUD = 5.0f;
     //const float HS_LEVEL_MISSION = 2.8f;
     const float HS_LEVEL_AUDIO_INGAME = 0.05f;
     //Mnigame Only
@@ -1548,9 +1545,7 @@ void HeapManager::PrepareHeapsStartup ()
     // This heap is for holding all debugging related materials, such as the host communication channel, the watcher, the profiler, etc.
     // It is not created in release mode.
     //
-    float debugSize = HS_DEBUG;
-
-    CreateHeap( GMA_DEBUG, static_cast<unsigned int>(debugSize * MB) );
+    CreateHeap( GMA_DEBUG, static_cast<unsigned int>(HS_DEBUG * MB) );
 
     // The special heap.
     // This heap is created in debug and tune only and is used for routing a group of allocations to a specific place.

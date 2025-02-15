@@ -258,7 +258,7 @@ bool Console::Initialize()
 #ifdef RAD_DEBUG
 MEMTRACK_PUSH_GROUP( "Console Initialize" );
 
-    if( true )
+    if( false )
     {
         //initialize the console log buffers
         gConsoleMsgBuffer[0] = new(GMA_DEBUG) char[MAX_STRING_LENGTH * MAX_BUFFERS];
@@ -493,7 +493,6 @@ bool Console::SetLogMode(int logMode)
             if (!mLogFile)
             {
                 char fullPath[256];
-// RM                sprintf(fullPath, "%sconsole.log", ResourceManager::GetInstance()->GetRemoteDriveName());
                 ::radFileOpen(&mLogFile, fullPath, true, CreateAlways, NormalPriority, 0, RADMEMORY_ALLOC_TEMP);
                 if (mLogFile)
                 {
@@ -516,7 +515,6 @@ bool Console::SetLogMode(int logMode)
             if (!mLogFile)
             {
                 char fullPath[256];
-// RM               sprintf(fullPath, "%sconsole.log", ResourceManager::GetInstance()->GetRemoteDriveName());
                 ::radFileOpen(&mLogFile, fullPath, true, OpenAlways, NormalPriority, 0, RADMEMORY_ALLOC_TEMP);
                 if (mLogFile)
                 {
