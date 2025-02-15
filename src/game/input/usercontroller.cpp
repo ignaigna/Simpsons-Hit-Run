@@ -487,7 +487,7 @@ void UserController::ApplyDynaEffect( RumbleEffect::DynaEffect effect, unsigned 
 {
     if ( mbIsRumbleOn && !CommandLineOptions::Get( CLO_NO_HAPTIC ) )
     {
-#ifdef RAD_XBOX
+#ifdef RAD_UWP
         gain *= 2.0f;
 #endif
         mRumbleEffect.SetDynaEffect( effect, durationms, gain );

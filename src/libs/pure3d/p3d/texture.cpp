@@ -306,7 +306,7 @@ tTexture* tTextureLoader::LoadVolumeImage(tChunkFile* f, tImageFactory* factory,
     bool alpha = f->GetLong() == 1;
     unsigned format = f->GetLong();
 
-#ifdef RAD_XBOX
+#ifdef RAD_UWP
     P3DASSERT(depth>0);
     tTexture* texture = buildTexture;
     tImage** images = new tImage*[depth];

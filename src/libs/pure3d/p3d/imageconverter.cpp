@@ -90,7 +90,7 @@ tTexture* tImageConverter::ImageToTexture(tImage* image, bool linear)
 //-------------------------------------------------------------------
 tTexture* tImageConverter::ImageInToVolumeTexture(tImage** images, int numImages, tTexture* texture, int mipLevel)
 {
-#ifdef RAD_XBOX
+#ifdef RAD_UWP
     P3DASSERT(texture);
 
     pddiTexture* pdditexture = texture->GetTexture();
@@ -109,7 +109,7 @@ tTexture* tImageConverter::ImageInToVolumeTexture(tImage** images, int numImages
 
 tTexture* tImageConverter::ImageToVolumeTexture(tImage** images, int numImages, int numMipMaps, pddiTextureUsageHint usage)
 {
-#ifdef RAD_XBOX
+#ifdef RAD_UWP
 
     P3DASSERT(images);
     tTexture* texture = new tTexture;
@@ -241,7 +241,7 @@ void tImageConverter::UpdateSurface(tImage* image, pddiLockInfo* lock)
 //-------------------------------------------------------------------
 void tImageConverter::UpdateVolumeTexture(tImage* image, pddiLockInfo* lock, int depth)
 {
-#ifdef RAD_XBOX   
+#ifdef RAD_UWP   
     P3DASSERT(image);
     P3DASSERT(lock);
     pddiPixelFormat format = lock->format;

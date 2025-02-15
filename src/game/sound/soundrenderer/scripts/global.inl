@@ -5,12 +5,7 @@ Create<globalSettings>("tuner")
 #endif
     .SetSfxVolume ( 0.880000f )
     .SetMusicVolume ( 0.780000f )
-#ifdef RAD_XBOX
     .SetMusicVolume ( 0.840000f )
-#endif
-#ifdef RAD_PC
-    .SetMusicVolume ( 0.840000f )
-#endif
     .SetDialogueVolume ( 1.000000f )
     .SetAmbienceVolume ( 0.750000f )
     .SetCarVolume ( 0.880000f )

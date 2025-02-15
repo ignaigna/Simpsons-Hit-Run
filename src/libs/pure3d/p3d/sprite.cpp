@@ -17,7 +17,7 @@
 
 static const int IMAGE_VERSION = 14000;
 
-#ifdef RAD_XBOX 
+#ifdef RAD_UWP 
     bool tSprite::createLinear = true;
     static int minSpriteSize = 2;
     static const int maxSpriteSize = 256;
@@ -94,7 +94,7 @@ tSprite::tSprite(tTexture** images, int w, int h, int count, tShader* mat, int b
 {
     linear = false;
 
-#ifdef RAD_XBOX
+#ifdef RAD_UWP
     minSpriteSize = 32;
 #endif
 
