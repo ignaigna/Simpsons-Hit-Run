@@ -286,7 +286,7 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Lib>
-      <OutputFile>.\lib\$(Platform)\simwr.lib</OutputFile>
+      <OutputFile>.\lib\$(Configuration)\$(Platform)\simwr.lib</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
     </Lib>
     <ResourceCompile>
@@ -315,7 +315,7 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Lib>
-      <OutputFile>.\lib\$(Platform)\simwr.lib</OutputFile>
+      <OutputFile>.\lib\$(Configuration)\$(Platform)\simwr.lib</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
     </Lib>
     <ResourceCompile>
@@ -403,7 +403,7 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Lib>
-      <OutputFile>.\lib\$(Platform)\simwt.lib</OutputFile>
+      <OutputFile>.\lib\$(Configuration)\$(Platform)\simwt.lib</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
     </Lib>
     <ResourceCompile>
@@ -433,7 +433,7 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Lib>
-      <OutputFile>.\lib\$(Platform)\simwt.lib</OutputFile>
+      <OutputFile>.\lib\$(Configuration)\$(Platform)\simwt.lib</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
     </Lib>
     <ResourceCompile>
@@ -523,7 +523,7 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Lib>
-      <OutputFile>.\lib\$(Platform)\simwd.lib</OutputFile>
+      <OutputFile>.\lib\$(Configuration)\$(Platform)\simwd.lib</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
     </Lib>
     <ResourceCompile>
@@ -553,7 +553,7 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Lib>
-      <OutputFile>.\lib\$(Platform)\simwd.lib</OutputFile>
+      <OutputFile>.\lib\$(Configuration)\$(Platform)\simwd.lib</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
     </Lib>
     <ResourceCompile>

@@ -298,7 +298,7 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Lib>
-      <OutputFile>.\lib\$(Platform)\radcontentwr.lib</OutputFile>
+      <OutputFile>.\lib\$(Configuration)\$(Platform)\radcontentwr.lib</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
     </Lib>
     <ResourceCompile>
@@ -330,7 +330,7 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Lib>
-      <OutputFile>.\lib\$(Platform)\radcontentwr.lib</OutputFile>
+      <OutputFile>.\lib\$(Configuration)\$(Platform)\radcontentwr.lib</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
     </Lib>
     <ResourceCompile>
@@ -362,7 +362,7 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Lib>
-      <OutputFile>.\lib\$(Platform)\radcontentwr.lib</OutputFile>
+      <OutputFile>.\lib\$(Configuration)\$(Platform)\radcontentwr.lib</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
     </Lib>
     <ResourceCompile>
@@ -425,7 +425,7 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Lib>
-      <OutputFile>.\lib\$(Platform)\radcontentwt.lib</OutputFile>
+      <OutputFile>.\lib\$(Configuration)\$(Platform)\radcontentwt.lib</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
     </Lib>
     <ResourceCompile>
@@ -457,7 +457,7 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Lib>
-      <OutputFile>.\lib\$(Platform)\radcontentwt.lib</OutputFile>
+      <OutputFile>.\lib\$(Configuration)\$(Platform)\radcontentwt.lib</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
     </Lib>
     <ResourceCompile>
@@ -489,7 +489,7 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Lib>
-      <OutputFile>.\lib\$(Platform)\radcontentwt.lib</OutputFile>
+      <OutputFile>.\lib\$(Configuration)\$(Platform)\radcontentwt.lib</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
     </Lib>
     <ResourceCompile>
@@ -521,7 +521,7 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Lib>
-      <OutputFile>.\lib\$(Platform)\radcontentwt.lib</OutputFile>
+      <OutputFile>.\lib\$(Configuration)\$(Platform)\radcontentwt.lib</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
     </Lib>
     <ResourceCompile>
@@ -551,7 +551,7 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Lib>
-      <OutputFile>.\lib\$(Platform)\radcontentwd.lib</OutputFile>
+      <OutputFile>.\lib\$(Configuration)\$(Platform)\radcontentwd.lib</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
     </Lib>
     <ResourceCompile>
@@ -582,7 +582,7 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Lib>
-      <OutputFile>.\lib\$(Platform)\radcontentwd.lib</OutputFile>
+      <OutputFile>.\lib\$(Configuration)\$(Platform)\radcontentwd.lib</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
     </Lib>
     <ResourceCompile>

@@ -290,7 +290,7 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Lib>
-      <OutputFile>.\lib\$(Platform)\radcorewr.lib</OutputFile>
+      <OutputFile>.\lib\$(Configuration)\$(Platform)\radcorewr.lib</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
     </Lib>
     <ResourceCompile>
@@ -323,7 +323,7 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Lib>
-      <OutputFile>.\lib\$(Platform)\radcorewr.lib</OutputFile>
+      <OutputFile>.\lib\$(Configuration)\$(Platform)\radcorewr.lib</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
     </Lib>
     <ResourceCompile>
@@ -356,7 +356,7 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Lib>
-      <OutputFile>.\lib\$(Platform)\radcorewr.lib</OutputFile>
+      <OutputFile>.\lib\$(Configuration)\$(Platform)\radcorewr.lib</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
     </Lib>
     <ResourceCompile>
@@ -423,7 +423,7 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Lib>
-      <OutputFile>.\lib\$(Platform)\radcorewt.lib</OutputFile>
+      <OutputFile>.\lib\$(Configuration)\$(Platform)\radcorewt.lib</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
     </Lib>
     <ResourceCompile>
@@ -457,7 +457,7 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Lib>
-      <OutputFile>.\lib\$(Platform)\radcorewt.lib</OutputFile>
+      <OutputFile>.\lib\$(Configuration)\$(Platform)\radcorewt.lib</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
     </Lib>
     <ResourceCompile>
@@ -491,7 +491,7 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Lib>
-      <OutputFile>.\lib\$(Platform)\radcorewt.lib</OutputFile>
+      <OutputFile>.\lib\$(Configuration)\$(Platform)\radcorewt.lib</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
     </Lib>
     <ResourceCompile>
@@ -525,7 +525,7 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Lib>
-      <OutputFile>.\lib\$(Platform)\radcorewt.lib</OutputFile>
+      <OutputFile>.\lib\$(Configuration)\$(Platform)\radcorewt.lib</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
     </Lib>
     <ResourceCompile>
@@ -557,7 +557,7 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Lib>
-      <OutputFile>.\lib\$(Platform)\radcorewd.lib</OutputFile>
+      <OutputFile>.\lib\$(Configuration)\$(Platform)\radcorewd.lib</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
     </Lib>
     <ResourceCompile>
@@ -589,7 +589,7 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Lib>
-      <OutputFile>.\lib\$(Platform)\radcorewd.lib</OutputFile>
+      <OutputFile>.\lib\$(Configuration)\$(Platform)\radcorewd.lib</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
     </Lib>
     <ResourceCompile>

@@ -294,7 +294,7 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Lib>
-      <OutputFile>.\lib\$(Platform)\radmoviewd.lib</OutputFile>
+      <OutputFile>.\lib\$(Configuration)\$(Platform)\radmoviewd.lib</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
     </Lib>
     <ResourceCompile>
@@ -332,7 +332,7 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Lib>
-      <OutputFile>.\lib\$(Platform)\radmoviewd.lib</OutputFile>
+      <OutputFile>.\lib\$(Configuration)\$(Platform)\radmoviewd.lib</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
     </Lib>
     <ResourceCompile>
@@ -446,7 +446,7 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Lib>
-      <OutputFile>.\lib\$(Platform)\radmoviewt.lib</OutputFile>
+      <OutputFile>.\lib\$(Configuration)\$(Platform)\radmoviewt.lib</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
     </Lib>
     <ResourceCompile>
@@ -485,7 +485,7 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Lib>
-      <OutputFile>.\lib\$(Platform)\radmoviewt.lib</OutputFile>
+      <OutputFile>.\lib\$(Configuration)\$(Platform)\radmoviewt.lib</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
     </Lib>
     <ResourceCompile>
@@ -524,7 +524,7 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Lib>
-      <OutputFile>.\lib\$(Platform)\radmoviewt.lib</OutputFile>
+      <OutputFile>.\lib\$(Configuration)\$(Platform)\radmoviewt.lib</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
     </Lib>
     <ResourceCompile>
@@ -563,7 +563,7 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Lib>
-      <OutputFile>.\lib\$(Platform)\radmoviewt.lib</OutputFile>
+      <OutputFile>.\lib\$(Configuration)\$(Platform)\radmoviewt.lib</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
     </Lib>
     <ResourceCompile>
@@ -601,7 +601,7 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Lib>
-      <OutputFile>.\lib\$(Platform)\radmoviewr.lib</OutputFile>
+      <OutputFile>.\lib\$(Configuration)\$(Platform)\radmoviewr.lib</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
     </Lib>
     <ResourceCompile>
@@ -640,7 +640,7 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Lib>
-      <OutputFile>.\lib\$(Platform)\radmoviewr.lib</OutputFile>
+      <OutputFile>.\lib\$(Configuration)\$(Platform)\radmoviewr.lib</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
     </Lib>
     <ResourceCompile>
@@ -679,7 +679,7 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Lib>
-      <OutputFile>.\lib\$(Platform)\radmoviewr.lib</OutputFile>
+      <OutputFile>.\lib\$(Configuration)\$(Platform)\radmoviewr.lib</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
     </Lib>
     <ResourceCompile>
