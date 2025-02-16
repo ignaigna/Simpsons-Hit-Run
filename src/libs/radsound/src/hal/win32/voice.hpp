@@ -30,27 +30,27 @@ class radSoundHalVoiceWin
 	public:
 
 		virtual void SetPriority( unsigned int priority );
-		virtual unsigned int GetPriority( void );
+		virtual unsigned int GetPriority();
 
-		virtual void Play( void );
-		virtual void Stop( void );
-		virtual bool IsPlaying( void );
-		virtual unsigned int GetPlaybackPositionInSamples( void );
+		virtual void Play();
+		virtual void Stop();
+		virtual bool IsPlaying();
+		virtual unsigned int GetPlaybackPositionInSamples();
 		virtual void SetPlaybackPositionInSamples( unsigned int positionInSamples );
 		         
 		virtual void SetBuffer( IRadSoundHalBuffer * pIRadSoundHalBuffer );
-		virtual IRadSoundHalBuffer * GetBuffer( void );
+		virtual IRadSoundHalBuffer * GetBuffer();
 
 		virtual void  SetMuted( bool );
-		virtual bool  GetMuted( void );
+		virtual bool  GetMuted();
 		virtual void  SetVolume( float );
-		virtual float GetVolume( void );
+		virtual float GetVolume();
 		virtual void  SetTrim( float );
-		virtual float GetTrim( void ); 
+		virtual float GetTrim(); 
 		virtual void  SetPitch( float );
-		virtual float GetPitch( void );
+		virtual float GetPitch();
 		virtual void  SetPan( float );
-		virtual float GetPan( void );
+		virtual float GetPan();
 
 		virtual void SetAuxMode( unsigned int aux, radSoundAuxMode  mode );
 		virtual radSoundAuxMode GetAuxMode( unsigned int aux );
@@ -58,24 +58,24 @@ class radSoundHalVoiceWin
 		virtual float GetAuxGain( unsigned int aux );
 
 		virtual void SetPositionalGroup( IRadSoundHalPositionalGroup * pIRadSoundHalPositionalGroup );
-		virtual IRadSoundHalPositionalGroup * GetPositionalGroup( void );
+		virtual IRadSoundHalPositionalGroup * GetPositionalGroup();
 
 		virtual void OnApplyPositionalInfo( float listenerRolloffFactor );
 	
-		radSoundHalVoiceWin( void );
+		radSoundHalVoiceWin();
 
 	protected:
 
-		virtual ~radSoundHalVoiceWin( void );
+		virtual ~radSoundHalVoiceWin();
 
 	private:
 
 		IMPLEMENT_REFCOUNTED( "radSoundHalVoiceWin" )
 
-		bool IsHardwarePlaying( void );
+		bool IsHardwarePlaying();
 
-		void SetVolumeInternal( void );
-		void SetPitchInternal( void );
+		void SetVolumeInternal();
+		void SetPitchInternal();
 
 		unsigned int m_Priority;
 

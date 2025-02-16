@@ -158,6 +158,12 @@ void rReleasePrintf( const char *fmt, ... );
     #define rBreak() rReleaseBreak()
     #define rWarning( x ) if (!(x)) rDebugWarningFail_Implementation(#x,__FILE__,__LINE__)
     #define rWarningMsg( x, msg ) if (!(x)) rDebugWarningFail_Implementation(msg,__FILE__,__LINE__)
+    #define rWarningMsgf(x, fmt, ...) \
+    if (!(x)) { \
+        char msgBuffer[512]; \
+        snprintf(msgBuffer, sizeof(msgBuffer), fmt, __VA_ARGS__); \
+        rDebugWarningFail_Implementation(msgBuffer, __FILE__, __LINE__); \
+    }
     #define rDebugString( x )(rDebugString_Implementation( x ) )
     #define rDebugChannelInitialize( x ) rDebugChannelInitialize_Implementation( x )
     #define rDebugChannel( y, x ) rDebugChannel_Implementation( y, x )

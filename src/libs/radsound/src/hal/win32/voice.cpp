@@ -29,10 +29,21 @@ radSoundHalVoiceWin::radSoundHalVoiceWin( void )
     m_Volume( 1.0f ),
     m_MuteFactor( 1.0f ),
     m_Trim( 1.0f ),
-	m_xRadSoundHalPositionalGroup( NULL )
+	m_xRadSoundHalPositionalGroup( NULL ),
+    m_Source( 0 )
 {
     alGenSources( 1, &m_Source );
-    alSourcei( m_Source, AL_SOURCE_RELATIVE, AL_TRUE );
+    ALenum error = alGetError();
+
+    if ( error!= AL_NO_ERROR )
+    {
+        m_Source = 0;
+        rWarningMsgf( false, "Failed to generate OpenAL source. Code: 0x%X", error );
+    }
+    else
+    {
+        alSourcei( m_Source, AL_SOURCE_RELATIVE, AL_TRUE );
+    }
 }
 
 //========================================================================
@@ -56,9 +67,10 @@ radSoundHalVoiceWin::~radSoundHalVoiceWin
 		m_xRadSoundHalPositionalGroup->RemovePositionalEntity( this );
 	}
 
-    if (m_Source)
+    if (m_Source != 0)
     {
         alDeleteSources(1, &m_Source);
+        m_Source = 0;
     }
 }
 
@@ -382,7 +394,7 @@ void radSoundHalVoiceWin::SetPitchInternal( void )
         alSourcef( m_Source, AL_REFERENCE_DISTANCE, 1.0f );
         alSourcef( m_Source, AL_MAX_DISTANCE, 1000.0f );
         alSourcef( m_Source, AL_ROLLOFF_FACTOR, 0.0f );
-        alSourcef( m_Source, AL_SOURCE_RELATIVE, AL_TRUE );
+//        alSourcef( m_Source, AL_SOURCE_RELATIVE, AL_TRUE );
     }
 }
 
@@ -419,7 +431,7 @@ void radSoundHalVoiceWin::SetPitchInternal( void )
     alSourcef(m_Source, AL_REFERENCE_DISTANCE, p->m_ReferenceDistance);
     alSourcef(m_Source, AL_MAX_DISTANCE, p->m_MaxDistance);
     alSourcef(m_Source, AL_ROLLOFF_FACTOR, listenerRolloffFactor);
-    alSourcef(m_Source, AL_SOURCE_RELATIVE, AL_FALSE);
+//    alSourcef(m_Source, AL_SOURCE_RELATIVE, AL_FALSE);
 
     rWarningMsg(alGetError() == AL_NO_ERROR, "radSoundHalVoiceWin::OnApplyPositionalInfo Failed.\n");
 }
