@@ -8,8 +8,7 @@
 //
 // Microsoft header files
 //
-#define WINVER 0x0501
-#define _WIN32_WINNT 0x400
+#define _WIN32_WINNT 0x0602
 #include <windows.h>
 
 //

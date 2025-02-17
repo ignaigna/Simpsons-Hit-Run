@@ -415,6 +415,8 @@
       <CompileAs>Default</CompileAs>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <CompileAsWinRT>false</CompileAsWinRT>
+      <ForcedUsingFiles>$(VCToolsInstallDir)lib\x86\store\references\platform.winmd;%(ForcedUsingFiles)</ForcedUsingFiles>
     </ClCompile>
     <Lib>
       <OutputFile>.\lib\$(Configuration)\$(Platform)\pure3dwd.lib</OutputFile>
@@ -535,6 +537,8 @@
       <CompileAs>Default</CompileAs>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <CompileAsWinRT>false</CompileAsWinRT>
+      <ForcedUsingFiles>$(VCToolsInstallDir)lib\x86\store\references\platform.winmd;%(ForcedUsingFiles)</ForcedUsingFiles>
     </ClCompile>
     <Lib>
       <OutputFile>.\lib\$(Configuration)\$(Platform)\pure3dwt.lib</OutputFile>
@@ -655,6 +659,8 @@
       <CompileAs>Default</CompileAs>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <CompileAsWinRT>false</CompileAsWinRT>
+      <ForcedUsingFiles>$(VCToolsInstallDir)lib\x86\store\references\platform.winmd;%(ForcedUsingFiles)</ForcedUsingFiles>
     </ClCompile>
     <Lib>
       <OutputFile>.\lib\$(Configuration)\$(Platform)\pure3dwr.lib</OutputFile>

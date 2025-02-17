@@ -406,6 +406,8 @@
       <CompileAs>Default</CompileAs>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <CompileAsWinRT>false</CompileAsWinRT>
+      <ForcedUsingFiles>$(VCToolsInstallDir)lib\x86\store\references\platform.winmd;%(ForcedUsingFiles)</ForcedUsingFiles>
     </ClCompile>
     <Lib>
       <OutputFile>.\lib\$(Configuration)\$(Platform)\radmusicwd.lib</OutputFile>
@@ -561,6 +563,8 @@
       <CompileAs>Default</CompileAs>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <CompileAsWinRT>false</CompileAsWinRT>
+      <ForcedUsingFiles>$(VCToolsInstallDir)lib\x86\store\references\platform.winmd;%(ForcedUsingFiles)</ForcedUsingFiles>
     </ClCompile>
     <Lib>
       <OutputFile>.\lib\$(Configuration)\$(Platform)\radmusicwr.lib</OutputFile>
@@ -716,6 +720,8 @@
       <CompileAs>Default</CompileAs>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <CompileAsWinRT>false</CompileAsWinRT>
+      <ForcedUsingFiles>$(VCToolsInstallDir)lib\x86\store\references\platform.winmd;%(ForcedUsingFiles)</ForcedUsingFiles>
     </ClCompile>
     <Lib>
       <OutputFile>.\lib\$(Configuration)\$(Platform)\radmusicwt.lib</OutputFile>

@@ -367,6 +367,8 @@
       <CompileAs>Default</CompileAs>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <CompileAsWinRT>false</CompileAsWinRT>
+      <ForcedUsingFiles>$(VCToolsInstallDir)lib\x86\store\references\platform.winmd;%(ForcedUsingFiles)</ForcedUsingFiles>
     </ClCompile>
     <Lib>
       <OutputFile>.\lib\$(Configuration)\$(Platform)\radmathwd.lib</OutputFile>
@@ -487,6 +489,8 @@
       <CompileAs>Default</CompileAs>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <CompileAsWinRT>false</CompileAsWinRT>
+      <ForcedUsingFiles>$(VCToolsInstallDir)lib\x86\store\references\platform.winmd;%(ForcedUsingFiles)</ForcedUsingFiles>
     </ClCompile>
     <Lib>
       <OutputFile>.\lib\$(Configuration)\$(Platform)\radmathwt.lib</OutputFile>
@@ -603,6 +607,8 @@
       <CompileAs>Default</CompileAs>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <CompileAsWinRT>false</CompileAsWinRT>
+      <ForcedUsingFiles>$(VCToolsInstallDir)lib\x86\store\references\platform.winmd;%(ForcedUsingFiles)</ForcedUsingFiles>
     </ClCompile>
     <Lib>
       <OutputFile>.\lib\$(Configuration)\$(Platform)\radmathwr.lib</OutputFile>
