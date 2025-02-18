@@ -82,7 +82,7 @@ SuperCamController::~SuperCamController()
 //=============================================================================
 void SuperCamController::LoadControllerMappings( unsigned int controllerId )
 {
-    #ifdef RAD_XBOX
+    #ifdef RAD_UWP
     ClearMap(0);
     Map( "RightStickX",     stickX,             0, controllerId );
     Map( "RightStickY",     stickY,             0, controllerId );
@@ -93,43 +93,6 @@ void SuperCamController::LoadControllerMappings( unsigned int controllerId )
     Map( "LeftStickY",      leftStickY,         0, controllerId );
     Map( "Start",           start,              0, controllerId );
     Map( "Black",           cameraToggle,       0, controllerId );
-    #endif
-
-    #ifdef RAD_PS2
-    ClearMap(0);
-    if ( Map( "Wheel", stickX, 0, controllerId ) )
-    {
-        mIsWheel = true;
-        //This is a wheel.  No right stickY
-        Map( "Gas", in, 0, controllerId );
-        Map( "Brake", out, 0, controllerId );
-
-        if ( !Map( "Y", lookBack, 0, controllerId ) )
-        {
-            //This is a D-Pad Wheel
-            Map( "L2", lookBack, 0, controllerId );
-            Map( "X", A, 0, controllerId );
-        }
-        else
-        {
-            //GT Wheel
-            Map( "Gas", A, 0, controllerId );
-        }
-    }
-    else
-    {
-        Map( "RightStickX", stickX, 0, controllerId );
-        Map( "RightStickY", stickY, 0, controllerId );
-        Map( "AnalogR1", zToggle, 0, controllerId );
-        Map( "L1", lookToggle, 0, controllerId );
-        Map( "X", A, 0, controllerId );
-        Map( "R3", toggleFirstPerson, 0, controllerId );
-
-        Map( "L2", l2, 0, controllerId );
-        Map( "R2", r2, 0, controllerId );
-
-        Map( "LeftStickY", leftStickY, 0, controllerId );
-    }
     #endif
 
     #ifdef RAD_WIN32

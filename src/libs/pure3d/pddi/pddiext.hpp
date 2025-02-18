@@ -357,14 +357,6 @@ class pddiExtReadPixels : public pddiExtension
 
 };
 
-
-//--------------------------------------------------------------------
-// 0x00600000 - 0x0006FFFFF
-// GameCube  specific
-//--------------------------------------------------------------------
-
-const unsigned PDDI_EXT_BUFCOPY = 0x00600001;
-
 class pddiExtBufferCopy : public pddiExtension
 {
 public:

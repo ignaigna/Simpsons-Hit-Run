@@ -198,8 +198,7 @@ private:
     bool          m_TimerActive;
     
     //
-    // This buffer we use for send and receiving file requests to the host. Want to keep it aligned
-    // to 64 bytes since we DMA from it to the IOP on the PS2
+    // This buffer we use for send and receiving file requests to the host
     //
     unsigned char   m_TransferBufferSpace[ sizeof( HfpReadRpy) + REMOTE_DRIVE_ALIGNMENT ];
     unsigned char*  m_TransferBuffer;

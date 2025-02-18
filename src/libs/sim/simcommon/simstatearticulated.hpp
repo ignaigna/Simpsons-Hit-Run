@@ -36,7 +36,6 @@ public:
     
     void GetVelocity(const rmt::Vector& inPosition, rmt::Vector& oVelocity, int inIndex=-1);
     
-    // usimg not support by ps2
     //using SimState::GetSimulatedObject;  // so that it is not hidden by GetSimulatedObject(int inIndex)
     //using SimState::GetPosition;  // so that it is not hidden by GetPosition(int inIndex)
     //using SimState::GetTransform;  // so that it is not hidden by GetTransform(int inIndex)

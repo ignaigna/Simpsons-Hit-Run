@@ -174,15 +174,8 @@ float MAX_BLUR = 0.15f; // Blur alpha will never go over this level
 // So max blur will be reached at 15 fps, scaled linearly from 30 fps
 float BLUR_GRADIENT = MAX_BLUR / ( 66.66f - 33.33f );
 
-// Vlad wants the PS2 to use a minimum amount of fixed blurring all the time
-#ifdef RAD_PS2
-//float MIN_PS2_BLUR = 0.075f;
-float MIN_PS2_BLUR = 0.15f;
-float MIN_PS2_BLUR_CHEAT = 0.8f;
-#endif
-
-#if defined( RAD_PS2) || defined( RAD_XBOX )
-#define USE_BLUR
+#if defined( RAD_UWP )
+//#define USE_BLUR - **pddiRenderContext::GetExtension[virtual]**(...) returned nullptr. :(
 #endif
 
 //******************************************************************************
@@ -485,11 +478,6 @@ bool RenderManager::LoadAllNeededData
 //==============================================================================
 void RenderManager::ContextUpdate( unsigned int iElapsedTime )
 {
-    // On the PS2, use a minimum blur all the time    
-#ifdef RAD_PS2
-    ApplyPS2Blur();
-#endif
-
     GetIntersectManager()->mbSameFrame = false;
 #ifdef DEBUGWATCH
    unsigned int t0 = radTimeGetMicroseconds();
@@ -501,10 +489,10 @@ void RenderManager::ContextUpdate( unsigned int iElapsedTime )
     p3d::context->SwapBuffers();
     END_PROFILE( "Swap Buffers" );
 
-#if defined( RAD_XBOX )
-    LoadingManager* lm = GetLoadingManager();
-    PresentationManager* pm = GetPresentationManager();
-    p3d::display->SetForceVSync( lm && !lm->IsLoading(), !(pm && pm->GetFMVPlayer()->IsPlaying()));               
+#if defined( RAD_UWP )
+ //   LoadingManager* lm = GetLoadingManager();
+ //   PresentationManager* pm = GetPresentationManager();
+ //   p3d::display->SetForceVSync( lm && !lm->IsLoading(), !(pm && pm->GetFMVPlayer()->IsPlaying()));               
 #endif
 
 #ifdef LOAD_SYNC
@@ -1352,12 +1340,7 @@ BEGIN_PROFILE( "RenderManager HandleEvent" );
    {
    case EVENT_MISSION_RESET:
        {
-#if defined( RAD_XBOX )
-           // XBox seems to like this syntax better.
-           bool jumpStage = reinterpret_cast<bool>( pEventData );
-#else
            bool jumpStage = (bool)( pEventData );
-#endif
            if( jumpStage )
            {
                ResetMoodLighting( true );
@@ -1805,9 +1788,6 @@ RenderManager::RenderManager() :
    radDbgWatchAddUnsignedInt( &mDebugRenderTime, "Debug Render All Layers micros", "RenderManager", NULL, NULL );
    radDbgWatchAddUnsignedInt( &mDebugSwapTime, "Debug Render Swap micros", "RenderManager", NULL, NULL );
    radDbgWatchAddBoolean( &mDebugDumpAllZones, "Dump All Zones", "RenderManager", NULL, NULL );
-#ifdef RAD_PS2
-   radDbgWatchAddFloat( &MIN_PS2_BLUR, "Minimum PS2 motion blur", "RenderManager", NULL, NULL );
-#endif
 
 //   radDbgWatchAddFloat( &BLUR_ALPHA, "Blur Alpha", "RenderManager", NULL, NULL, 0.0f, 1.0f );
    radDbgWatchAddFloat( &BLUR_SCALE, "Blur Scale", "RenderManager", NULL, NULL, 0.0f, 1.0f );
@@ -1952,27 +1932,6 @@ void RenderManager::ResetMoodLighting( bool Immediate )
         mMood.mTransition = 0.0f;
     }
 }
-
-#ifdef RAD_PS2
-// Bump up the blur to a minimum level on the PS2
-void RenderManager::ApplyPS2Blur()
-{
-    // We only want blur in game, not in the frontend.
-    if ( mpRenderLayers[ RenderEnums::LevelSlot ]->IsRenderReady() )
-    {
-        float blurThreshold = GetCheatInputSystem()->IsCheatEnabled( CHEAT_ID_TRIPPY ) ? MIN_PS2_BLUR_CHEAT : MIN_PS2_BLUR;
-        if ( mBlurAlpha < blurThreshold )
-        {
-            mBlurAlpha = blurThreshold;         
-        }
-    }
-    else
-    {
-        mBlurAlpha = 0;
-    }
-
-}
-#endif
 
 void RenderManager::AdjustBlurByFrameRate( unsigned int elapsedTime )
 {

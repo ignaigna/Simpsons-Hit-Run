@@ -17,7 +17,7 @@
 
 static const int IMAGE_VERSION = 14000;
 
-#ifdef RAD_XBOX 
+#ifdef RAD_UWP 
     bool tSprite::createLinear = true;
     static int minSpriteSize = 2;
     static const int maxSpriteSize = 256;
@@ -94,7 +94,7 @@ tSprite::tSprite(tTexture** images, int w, int h, int count, tShader* mat, int b
 {
     linear = false;
 
-#ifdef RAD_XBOX
+#ifdef RAD_UWP
     minSpriteSize = 32;
 #endif
 
@@ -317,14 +317,12 @@ void tSprite::BuildSections(tImage* image, tImageConverter* conv)
     
     tImage* buffer = NULL;
 
-#ifndef RAD_PS2
     if (linear)
     {
         buffer = new tImage32; 
         buffer->EnableColourKey(image->GetColourKeyStatus());
     }
     else
-#endif
     {
         switch(image->GetDepth())
         {
@@ -332,11 +330,9 @@ void tSprite::BuildSections(tImage* image, tImageConverter* conv)
                          ((tImage8*)buffer)->SetPalette(((tImage8*)image)->GetPalette());
 
                          break;
-#ifndef RAD_PS2
             case 32 : buffer = new tImage32; 
                          buffer->EnableColourKey(image->GetColourKeyStatus());
                          break;
-#endif
         }  
     }
 
@@ -537,13 +533,8 @@ void tSprite::BuildPoly(int polyNum, tRect& src, int newX, int newY)
     }
     else
     {
-        #ifdef RAD_PS2
-            float fudgeU = 0.0f;
-            float fudgeV = 0.0f;
-        #else
-            float fudgeU = (1/((float)newX * 2));
-            float fudgeV = (1/((float)newY * 4));
-        #endif
+        float fudgeU = (1/((float)newX * 2));
+        float fudgeV = (1/((float)newY * 4));
         u0 = float(blitBorder) / float(newX) + fudgeU;
         u1 = float(blitBorder+src.width) / float(newX) + fudgeU;
         v0 = 1.0f - float(blitBorder) / float(newY) - fudgeV;

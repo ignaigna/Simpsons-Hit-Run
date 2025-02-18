@@ -16,7 +16,7 @@
 // Nested Includes
 //========================================
 class tName;
-#ifndef WIN32
+#if !defined(RAD_WIN32) && !defined(RAD_UWP)
 #define USECLASSSIZETRACKER
 #endif
 

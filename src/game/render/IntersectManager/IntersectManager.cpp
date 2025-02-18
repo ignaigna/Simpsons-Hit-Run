@@ -1054,119 +1054,9 @@ IntersectDSG* IntersectManager::FindIntersectionTriNew
     float  DistToPlane, ClosestDistToPlane = 20000.0f;//TriRadius,
     int foundTerrainType;
 
-    //   iRadius *= 2.5f;
+    //iRadius *= 2.5f;
     //MS7 Default, in case we don't find an intersection
-
-#if defined(RAD_PS2) && !defined(RAD_MW)
-    radTime64 time = radTimeGetMicroseconds64();
-static rmt::Vector4 alignedVertices[3] __attribute__((aligned(16))); //vf1,vf2,vf3
-static rmt::Vector4 alignedNormal __attribute__((aligned(16)));      //vf4
-
-static rmt::Vector4 alignedRayOrigin __attribute__((aligned(16)));   //vf5
-
-static rmt::Vector4 alignedPointOnPlane __attribute__((aligned(16))); //vf7
-static rmt::Vector4 alignedDistFromPlane __attribute__((aligned(16)));//vf8
-
-    for( int i=rCurrentLeaf.mIntersectElems.mUseSize-1; i>-1; i-- )
-    {
-        rCurrentLeaf.mIntersectElems[i]->IntoTheVoid_WithGoFastaStripes();
-        for( int j=rCurrentLeaf.mIntersectElems[i]->nTris()-1; j>-1; j-- )
-        {
-/*
-            foundTerrainType = rCurrentLeaf.mIntersectElems[i]->mTri(j,alignedVertices,alignedNormal);//TriCtr, 
-
-            alignedRayVector.Set( 0.0f, -1.0f, 0.0f );
-            alignedRayOrigin.Set( irPosn.x, 10000.0f, irPosn.z );
-            
-            if( IntersectWithPlane( alignedVertices[0], alignedNormal, alignedRayOrigin, alignedRayVector, alignedDistFromPlane.x) )
-            {
-*/
-            TriPts[0] = irPosn;
-            foundTerrainType = rCurrentLeaf.mIntersectElems[i]->mFlatTriFast(j,TriPts,TriNorm );//TriCtr, 
-            if(foundTerrainType==-1) continue;
-            alignedVertices[0] = TriPts[0];
-            alignedVertices[1] = TriPts[1];
-            alignedVertices[2] = TriPts[2];
-            alignedNormal      = TriNorm;
-
-            TriPts[2].Set( 0.0f, -1.0f, 0.0f );
-            TriPts[1].Set( irPosn.x, 10000.0f, irPosn.z );
-            if( IntersectWithPlane( TriPts[ 0 ], TriNorm, TriPts[1], TriPts[2], DistToPlane ) )
-            {
-                if( DistToPlane >= 0.0f )//alignedDistFromPlane.x >= 0.0f  )
-                {
-                    alignedDistFromPlane.Set( DistToPlane, DistToPlane, DistToPlane, 1.0f );
-                    //alignedDistFromPlane.y = alignedDistFromPlane.x;
-                    //alignedDistFromPlane.z = alignedDistFromPlane.x;
-
-                    alignedPointOnPlane = TriPts[2];
-                    alignedRayOrigin    = TriPts[1];
-
-                    asm __volatile__(R"(
-                        lqc2        vf7, 0(%5)     # load pointOnPlane
-                        lqc2        vf8, 0(%6)     # load distFromPlane
-                        lqc2        vf5, 0(%4)     # load rayOrigin
-                        vmul.xyz    vf7, vf7,  vf8 # pointOnPlane.Scale( DistToPlane );
-                        lqc2        vf1, 0(%0)     # load vertex0
-                        lqc2        vf2, 0(%1)     # load vertex1
-                        vadd.xyz    vf7, vf7,  vf5 # pointOnPlane.Add( tmpVect ); tempVect == alignedRayOrigin, tempVect2 == alignedRayVector
-                        lqc2        vf4, 0(%3)     # load normal
-                        vsub.xyz    vf9, vf1,  vf2 # tmpVect.Sub(TriPts[0],TriPts[1]);
-                        lqc2        vf3, 0(%2)     # load vertex2
-                        vopmula.xyz ACC, vf9,  vf4 # outer product stage 1 tmpVect.CrossProduct(TriNorm); 
-                        vopmsub.xyz vf9, vf4,  vf9 # outer product stage 2
-                        vsub.xyz    vf10,vf7,  vf2 # tmpVect2.Sub(pointOnPlane,TriPts[1]);
-                        vmul.xyz    vf20,vf10, vf9 # ==if( tmpVect.Dot(tmpVect2) >= 0.00f)
-                        sqc2        vf20, 0(%0)     # store result in vertex 0
-                        vsub.xyz    vf9, vf2,  vf3 # tmpVect.Sub(TriPts[1],TriPts[2]);
-                        vopmula.xyz ACC, vf9,  vf4 # outer product stage 1 tmpVect.CrossProduct(TriNorm); 
-                        vopmsub.xyz vf9, vf4,  vf9 # outer product stage 2
-                        vsub.xyz    vf10,vf7,  vf3 # tmpVect2.Sub(pointOnPlane,TriPts[2]);
-                        vmul.xyz    vf21,vf10, vf9 # ==if( tmpVect.Dot(tmpVect2) >= 0.00f)
-                        sqc2        vf21, 0(%1)     # store result in vertex 1
-                        vsub.xyz    vf9, vf3,  vf1 # tmpVect.Sub(TriPts[2],TriPts[0]);
-                        vopmula.xyz ACC, vf9,  vf4 # outer product stage 1 tmpVect.CrossProduct(TriNorm); 
-                        vopmsub.xyz vf9, vf4,  vf9 # outer product stage 2
-                        vsub.xyz    vf10,vf7,  vf1 # tmpVect2.Sub(pointOnPlane,TriPts[0]);
-                        vmul.xyz    vf22,vf10, vf9 # ==if( tmpVect.Dot(tmpVect2) >= 0.00f)
-                        sqc2        vf22, 0(%2)     # store result in vertex 2
-                        sqc2        vf7,  0(%5)     # store result in vertex 2
-                   )": // no outputs
-                    : "r" (&(alignedVertices[0])),
-                      "r" (&(alignedVertices[1])),
-                      "r" (&(alignedVertices[2])), 
-                      "r" (&alignedNormal), 
-                      "r" (&alignedRayOrigin), 
-                      "r" (&alignedPointOnPlane), 
-                      "r" (&alignedDistFromPlane)
-                    : "memory" );
-
-                    if(     ((alignedVertices[0].x+alignedVertices[0].y+alignedVertices[0].z) >= 0.00f)
-                        &&  ((alignedVertices[1].x+alignedVertices[1].y+alignedVertices[1].z) >= 0.00f)
-                        &&  ((alignedVertices[2].x+alignedVertices[2].y+alignedVertices[2].z) >= 0.00f)
-                        )
-                    {
-                        orIntersectNorm = alignedNormal;
-                        orIntersectPosn = alignedPointOnPlane;
-                        rCurrentLeaf.mIntersectElems[i]->OutOfTheVoid_WithGoFastaStripes();
-
-                        //time = radTimeGetMicroseconds64()-time;
-                        //rReleasePrintf("vu0 found t=%d  \t-=- ",(int)time);
-
-                        return rCurrentLeaf.mIntersectElems[i];
-                    }
-                }
-            }
-        }
-        rCurrentLeaf.mIntersectElems[i]->OutOfTheVoid_WithGoFastaStripes();
-    }
-
-    //time = radTimeGetMicroseconds64()-time;
-    //rReleasePrintf("vu0 miss t=%d  \t-=- ",(int)time);
-    return NULL;
-
-#else
-//    time = radTimeGetMicroseconds64();
+    //time = radTimeGetMicroseconds64();
     for( int i=rCurrentLeaf.mIntersectElems.mUseSize-1; i>-1; i-- )
     {
         rCurrentLeaf.mIntersectElems[i]->IntoTheVoid_WithGoFastaStripes();
@@ -1228,9 +1118,7 @@ static rmt::Vector4 alignedDistFromPlane __attribute__((aligned(16)));//vf8
     }
 
     return NULL;
-#endif
 }
-//#endif
 
 #if 1
 //========================================================================
@@ -1263,120 +1151,7 @@ int IntersectManager::FindIntersection
     //   iRadius *= 2.5f;
     //MS7 Default, in case we don't find an intersection
     obFoundPlane = false;
-
-#if defined(RAD_PS2) && !defined(RAD_MW)
-    //radTime64 time = radTimeGetMicroseconds64();
-static rmt::Vector4 alignedVertices[3] __attribute__((aligned(16))); //vf1,vf2,vf3
-static rmt::Vector4 alignedNormal __attribute__((aligned(16)));      //vf4
-
-static rmt::Vector4 alignedRayOrigin __attribute__((aligned(16)));   //vf5
-
-static rmt::Vector4 alignedPointOnPlane __attribute__((aligned(16))); //vf7
-static rmt::Vector4 alignedDistFromPlane __attribute__((aligned(16)));//vf8
-
-    for( int i=rCurrentLeaf.mIntersectElems.mUseSize-1; i>-1; i-- )
-    {
-        rCurrentLeaf.mIntersectElems[i]->IntoTheVoid_WithGoFastaStripes();
-        for( int j=rCurrentLeaf.mIntersectElems[i]->nTris()-1; j>-1; j-- )
-        {
-/*
-            foundTerrainType = rCurrentLeaf.mIntersectElems[i]->mTri(j,alignedVertices,alignedNormal);//TriCtr, 
-
-            alignedRayVector.Set( 0.0f, -1.0f, 0.0f );
-            alignedRayOrigin.Set( irPosn.x, 10000.0f, irPosn.z );
-            
-            if( IntersectWithPlane( alignedVertices[0], alignedNormal, alignedRayOrigin, alignedRayVector, alignedDistFromPlane.x) )
-            {
-*/
-            TriPts[0] = irPosn;
-            foundTerrainType = rCurrentLeaf.mIntersectElems[i]->mFlatTriFast(j,TriPts,TriNorm );//TriCtr, 
-            if(foundTerrainType==-1) continue;
-            alignedVertices[0] = TriPts[0];
-            alignedVertices[1] = TriPts[1];
-            alignedVertices[2] = TriPts[2];
-            alignedNormal      = TriNorm;
-
-            TriPts[2].Set( 0.0f, -1.0f, 0.0f );
-            TriPts[1].Set( irPosn.x, 10000.0f, irPosn.z );
-            if( IntersectWithPlane( TriPts[ 0 ], TriNorm, TriPts[1], TriPts[2], DistToPlane ) )
-            {
-                if( DistToPlane >= 0.0f )//alignedDistFromPlane.x >= 0.0f  )
-                {
-                    alignedDistFromPlane.Set( DistToPlane, DistToPlane, DistToPlane, 1.0f );
-                    //alignedDistFromPlane.y = alignedDistFromPlane.x;
-                    //alignedDistFromPlane.z = alignedDistFromPlane.x;
-
-                    alignedPointOnPlane = TriPts[2];
-                    alignedRayOrigin    = TriPts[1];
-
-                    asm __volatile__(R"(
-                        lqc2        vf7, 0(%5)     # load pointOnPlane
-                        lqc2        vf8, 0(%6)     # load distFromPlane
-                        lqc2        vf5, 0(%4)     # load rayOrigin
-                        vmul.xyz    vf7, vf7,  vf8 # pointOnPlane.Scale( DistToPlane );
-                        lqc2        vf1, 0(%0)     # load vertex0
-                        lqc2        vf2, 0(%1)     # load vertex1
-                        vadd.xyz    vf7, vf7,  vf5 # pointOnPlane.Add( tmpVect ); tempVect == alignedRayOrigin, tempVect2 == alignedRayVector
-                        lqc2        vf4, 0(%3)     # load normal
-                        vsub.xyz    vf9, vf1,  vf2 # tmpVect.Sub(TriPts[0],TriPts[1]);
-                        lqc2        vf3, 0(%2)     # load vertex2
-                        vopmula.xyz ACC, vf9,  vf4 # outer product stage 1 tmpVect.CrossProduct(TriNorm); 
-                        vopmsub.xyz vf9, vf4,  vf9 # outer product stage 2
-                        vsub.xyz    vf10,vf7,  vf2 # tmpVect2.Sub(pointOnPlane,TriPts[1]);
-                        vmul.xyz    vf20,vf10, vf9 # ==if( tmpVect.Dot(tmpVect2) >= 0.00f)
-                        sqc2        vf20, 0(%0)     # store result in vertex 0
-                        vsub.xyz    vf9, vf2,  vf3 # tmpVect.Sub(TriPts[1],TriPts[2]);
-                        vopmula.xyz ACC, vf9,  vf4 # outer product stage 1 tmpVect.CrossProduct(TriNorm); 
-                        vopmsub.xyz vf9, vf4,  vf9 # outer product stage 2
-                        vsub.xyz    vf10,vf7,  vf3 # tmpVect2.Sub(pointOnPlane,TriPts[2]);
-                        vmul.xyz    vf21,vf10, vf9 # ==if( tmpVect.Dot(tmpVect2) >= 0.00f)
-                        sqc2        vf21, 0(%1)     # store result in vertex 1
-                        vsub.xyz    vf9, vf3,  vf1 # tmpVect.Sub(TriPts[2],TriPts[0]);
-                        vopmula.xyz ACC, vf9,  vf4 # outer product stage 1 tmpVect.CrossProduct(TriNorm); 
-                        vopmsub.xyz vf9, vf4,  vf9 # outer product stage 2
-                        vsub.xyz    vf10,vf7,  vf1 # tmpVect2.Sub(pointOnPlane,TriPts[0]);
-                        vmul.xyz    vf22,vf10, vf9 # ==if( tmpVect.Dot(tmpVect2) >= 0.00f)
-                        sqc2        vf22, 0(%2)     # store result in vertex 2
-                        sqc2        vf7,  0(%5)     # store result in vertex 2
-                   )": // no outputs
-                    : "r" (&(alignedVertices[0])),
-                      "r" (&(alignedVertices[1])),
-                      "r" (&(alignedVertices[2])), 
-                      "r" (&alignedNormal), 
-                      "r" (&alignedRayOrigin), 
-                      "r" (&alignedPointOnPlane), 
-                      "r" (&alignedDistFromPlane)
-                    : "memory" );
-
-                    if(     ((alignedVertices[0].x+alignedVertices[0].y+alignedVertices[0].z) >= 0.00f)
-                        &&  ((alignedVertices[1].x+alignedVertices[1].y+alignedVertices[1].z) >= 0.00f)
-                        &&  ((alignedVertices[2].x+alignedVertices[2].y+alignedVertices[2].z) >= 0.00f)
-                        )
-                    {
-                        orGroundPlaneNorm = alignedNormal;
-                        orGroundPlanePosn = alignedPointOnPlane;
-                        obFoundPlane = true;
-                        rCurrentLeaf.mIntersectElems[i]->OutOfTheVoid_WithGoFastaStripes();
-
-                        //time = radTimeGetMicroseconds64()-time;
-                        //rReleasePrintf("vu0 found t=%d  \t-=- ",(int)time);
-
-                        return foundTerrainType;
-                        //j=-1; //i=-1;
-                    }
-                }
-            }
-        }
-        rCurrentLeaf.mIntersectElems[i]->OutOfTheVoid_WithGoFastaStripes();
-    }
-
-    //time = radTimeGetMicroseconds64()-time;
-    //rReleasePrintf("vu0 miss t=%d  \t-=- ",(int)time);
-    return 0;
-
-#else
-    obFoundPlane = false;
-//    time = radTimeGetMicroseconds64();
+    //time = radTimeGetMicroseconds64();
     for( int i=rCurrentLeaf.mIntersectElems.mUseSize-1; i>-1; i-- )
     {
         rCurrentLeaf.mIntersectElems[i]->IntoTheVoid_WithGoFastaStripes();
@@ -1442,7 +1217,6 @@ static rmt::Vector4 alignedDistFromPlane __attribute__((aligned(16)));//vf8
     }
 
     return 0;
-#endif
 }
 
 #else

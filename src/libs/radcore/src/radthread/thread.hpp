@@ -115,20 +115,11 @@ class radThreadFiber : public IRadThreadFiber,
     //
     // OS Specific stuff.
     //
-#if defined(RAD_WIN32) || defined(RAD_XBOX)
+#if defined( RAD_WIN32 ) || defined( RAD_UWP )
 public:
     LPVOID      m_Win32Fiber;
 private:
     static void CALLBACK FiberEntry( void* param );
-#endif
-
-#ifdef RAD_PS2
-    static void FiberEntry( void );
-    static void PS2SwitchToFiber( unsigned int* OldSp, unsigned int* OldPc, 
-                                  unsigned int NewSp, unsigned int NewPc );
-    void*        m_Stack;
-    unsigned int m_CurrentStackPointer;
-    unsigned int m_CurrentProgramCounter;
 #endif
 
 };

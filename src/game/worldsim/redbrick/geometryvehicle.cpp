@@ -183,7 +183,7 @@ GeometryVehicle::GeometryVehicle():
         mBrakeLights[i] = NULL;
     }
 
-#ifdef RAD_WIN32
+#if defined( RAD_WIN32 ) || defined( RAD_UWP )
     mFrinkArc = NULL;
 #endif
 
@@ -345,7 +345,7 @@ GeometryVehicle::~GeometryVehicle()
         }
     }
 
-#ifdef RAD_WIN32
+#if defined( RAD_WIN32 ) || defined( RAD_UWP )
     if( mFrinkArc )
     {
         mFrinkArc->Release();
@@ -867,8 +867,8 @@ BEGIN_PROFILE("GeometryVehicle::Display Render")
     }
 
 
-#ifdef RAD_WIN32
-    const tName& name = mVehicleOwner->GetNameObject();
+#if defined( RAD_WIN32 ) || defined( RAD_UWP )
+const tName& name = mVehicleOwner->GetNameObject();
     if( name == "frink_v" )
     {
         float topSpeed = mVehicleOwner->GetTopSpeed();
@@ -2163,11 +2163,11 @@ bool GeometryVehicle::GetArt( const char* name)
             rAssert( mRefractionShader[ i ] != NULL );
         }
 
-#ifdef RAD_WIN32
+#if defined( RAD_WIN32 ) || defined( RAD_UWP )
         tPose* p3dPose = mCompositeDrawable->GetPose();
 
         char buffy[128];
-        sprintf(buffy, "frinkArcGroup", i);
+        sprintf(buffy, "frinkArcGroup");
         int jointIndex = p3dPose->FindJointIndex(buffy);
 
         for(int j = 0; j < mCompositeDrawable->GetNumDrawableElement(); j++)
@@ -2924,7 +2924,7 @@ void GeometryVehicle::Update(float dt)
         {
             float adjustedRefraction = 0.5f + (0.5f * refraction);
 
-            #ifndef RAD_WIN32
+            #if !defined( RAD_WIN32 ) && !defined( RAD_UWP )
                 mRefractionShader[ 0 ]->SetFloat( PDDI_SP_REFRACTBLEND, adjustedRefraction );
                 mRefractionShader[ 0 ]->SetFloat( PDDI_SP_REFRACTINDEX, refractiveIndex );
             #endif
@@ -2938,7 +2938,7 @@ void GeometryVehicle::Update(float dt)
         {
             if( mRefractionShader[ i ] != NULL )
             {
-                #ifndef RAD_WIN32
+                #if !defined( RAD_WIN32 ) && !defined( RAD_UWP )
                     mRefractionShader[ i ]->SetFloat( PDDI_SP_REFRACTBLEND, refraction );
                     mRefractionShader[ i ]->SetFloat( PDDI_SP_REFRACTINDEX, refractiveIndex );
                 #endif

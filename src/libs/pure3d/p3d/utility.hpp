@@ -21,7 +21,7 @@
 
 struct IRadFileCompletionCallback;
 
-#if defined( RAD_WIN32 )
+#if defined( RAD_WIN32 ) || defined ( RAD_UWP )
     #include <string.h> // for strlen()
 #endif
 

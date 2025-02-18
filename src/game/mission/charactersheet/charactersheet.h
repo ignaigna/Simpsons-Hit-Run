@@ -16,15 +16,7 @@ const int MAX_PURCHASED_ITEMS = 12; //the maximum number of things that can be b
 const int MAX_CARS_OWNED =60;
 const unsigned int MAX_LEVEL_GAGS = 32; // stored as a bitmask, so if you need to make it bigger, 
                                // change the type in the level struct
-
-// on PS2, always use a byte for a boolean, so that this data type size
-// is the same for all builds (debug/tune/release)
-//
-#ifdef RAD_PS2
-    typedef unsigned char CS_BOOL;
-#else
-    typedef bool CS_BOOL;
-#endif
+typedef bool CS_BOOL;
 
     enum CarDamageStateEnum
     {

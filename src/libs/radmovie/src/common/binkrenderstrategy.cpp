@@ -8,7 +8,7 @@
 // File:        binkrenderstrategy.cpp
 // Subsystem:   Foundation Technologies - Movie
 //
-// Description:	Bink render stratetegy for all platforms (not ps2)
+// Description:	Bink render stratetegy for all platforms
 //
 // Date:        October 31, 2002 RWS
 //
@@ -90,7 +90,7 @@ void radMovieRenderStrategyBink::ResetDestinations( void )
 // radMovieRenderStrategyBink::LockNextDestination
 //=============================================================================
 
-unsigned int radMovieRenderStrategyBink::LockNextDestination( LockedDestination * pLockedDestination )
+unsigned int radMovieRenderStrategyBink::LockNextDestination( IRadMovieRenderStrategy::LockedDestination * pLockedDestination )
 {
     rAssert( m_DestLocked == false );
 
@@ -199,15 +199,11 @@ void radMovieRenderStrategyBink::ChangeParameters( unsigned int width, unsigned 
                 m_pTile[ tileIndex ].m_pTexture->AddRef( );
 
                 //
-                // Create texture (platform dependent)
+                // Create texture
                 //
                 
-                #if RAD_WIN32
                 bool wasTextureCreated = m_pTile[ tileIndex ].m_pTexture->Create( RMV_TEXTURE_MAX_TEX_DIM, RMV_TEXTURE_MAX_TEX_DIM, RMV_TEXTURE_BITDEPTH, 8, 0, PDDI_TEXTYPE_RGB );
-                #elif RAD_XBOX
-                bool wasTextureCreated = m_pTile[ tileIndex ].m_pTexture->Create( m_MovieWidth, m_MovieHeight, RMV_TEXTURE_BITDEPTH, 0, 0, PDDI_TEXTYPE_LINEAR );
-                #endif 
-
+                
                 rAssert( wasTextureCreated == true );
 
                 m_pTile[ tileIndex ].m_PosX = x * RMV_TEXTURE_MAX_TEX_DIM;
@@ -246,7 +242,7 @@ bool radMovieRenderStrategyBink::Render( void )
     // some camera settings
     p3d::pddi->PushState(PDDI_STATE_ALL);
     p3d::pddi->PushIdentityMatrix(PDDI_MATRIX_MODELVIEW);
-    #ifdef RAD_WIN32
+    #if defined( RAD_WIN32 ) || defined( RAD_UWP )
     p3d::pddi->SetProjectionMode(PDDI_PROJECTION_DEVICE);
     #else
     p3d::pddi->SetProjectionMode(PDDI_PROJECTION_ORTHOGRAPHIC); //PDDI_PROJECTION_DEVICE
@@ -274,7 +270,7 @@ bool radMovieRenderStrategyBink::Render( void )
 
         // Set up position info of the tile
         
-        #if defined RAD_WIN32
+        #if defined( RAD_WIN32 ) || defined( RAD_UWP )
 
         float u = 0.0f;
         float du = m_pTile[ tile ].m_Width / ( float ) m_pTile[ tile ].m_pTexture->GetWidth( );
@@ -282,7 +278,7 @@ bool radMovieRenderStrategyBink::Render( void )
         float v = 1.0f;
         float dv = - ( float ) ( m_pTile[ tile ].m_Height / ( float ) m_pTile[ tile ].m_pTexture->GetHeight( ) );
 
-        #elif RAD_XBOX
+        #elif RAD_XBOX // TODO(3UR): If videos still render weirdly on UWP its worth enabling this to see
 
         float u = 0.0f;
         float v = ( float ) m_pTile[ tile ].m_Height;
@@ -291,7 +287,7 @@ bool radMovieRenderStrategyBink::Render( void )
 
         #endif
 
-        #if defined RAD_WIN32
+        #if defined( RAD_WIN32 ) || defined( RAD_UWP )
 
         float x = ( float ) m_DisplayMultiplier * m_pTile[ tile ].m_PosX + m_MoviePosX;
         float y = ( float ) m_DisplayMultiplier * m_pTile[ tile ].m_PosY + m_MoviePosY;

@@ -439,26 +439,6 @@ void PauseContext::OnStop( ContextEnum nextContext )
         if ( GetGameplayManager()->GetGameType() == GameplayManager::GT_NORMAL &&
             GetAvatarManager()->GetAvatarForPlayer( 0 )->GetVehicle() )
         {
-#ifdef RAD_PS2
-            bool hasWheel = false;
-
-            if ( controllerID != Input::USB0 &&
-                 controllerID != Input::USB1 )
-            {
-                if ( GetInputManager()->GetController( Input::USB0 )->IsConnected() )
-                {
-                    GetInputManager()->SetRumbleForDevice( Input::USB0, vibrationOn );
-                    hasWheel = true;
-                }
-                else if ( GetInputManager()->GetController( Input::USB1 )->IsConnected() )
-                {
-                    GetInputManager()->SetRumbleForDevice( Input::USB1, vibrationOn );
-                    hasWheel = true;
-                }
-            }
-            //I hate this.
-            if ( !hasWheel )
-#endif
             GetInputManager()->SetRumbleForDevice( controllerID, vibrationOn );
         }
 

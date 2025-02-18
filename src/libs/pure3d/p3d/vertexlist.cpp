@@ -569,13 +569,8 @@ void tVertexList::Stream(pddiPrimStream* stream, int start, int count)
 {
     if( offset )
     {
-        #ifdef RAD_PS2
-            rAssert( false );
-            
-        #else
-            //UNUSED CODE ???
-            StreamWithOffsetInternal( this, stream, start, count );
-        #endif
+        //UNUSED CODE ???
+        StreamWithOffsetInternal( this, stream, start, count );
     }
     else
     {

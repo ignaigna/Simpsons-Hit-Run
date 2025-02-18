@@ -19,14 +19,6 @@
 #include <radtime.hpp>
 #include <string.h>
 
-//
-// use PS2EE software math library explicitly, so we don't get warning on it.
-//
-#if defined RAD_PS2 && !defined RAD_MW
-extern "C" unsigned long __udivdi3( unsigned long, unsigned long );
-extern "C" float __floatdisf( unsigned long );
-#endif
-
 #ifdef RADPROFILER
 radProfiler * g_pTheProfiler = NULL;
 
@@ -338,12 +330,8 @@ void radProfiler::EndFrame( )
     unsigned int uDeltaTime = (unsigned int)( radTimeGetMicroseconds64( ) - m_uFrameStartTime );
 
     m_uTotalFrameTime += uDeltaTime;
-
-#if defined RAD_PS2 && !defined RAD_MW
-    m_fAveFrameTime = __floatdisf( __udivdi3( m_uTotalFrameTime, m_uFrameCount ) ) / 1000.0f;
-#else
     m_fAveFrameTime = (float)( m_uTotalFrameTime / m_uFrameCount ) / 1000.0f;
-#endif
+
     float fDeltaTime = uDeltaTime / 1000.0f;
 
     if ( m_fMaxFrameTime < fDeltaTime )
@@ -356,15 +344,8 @@ void radProfiler::EndFrame( )
         m_fMinFrameTime = fDeltaTime;
     }
 
-#if defined RAD_PS2 && !defined RAD_MW
-    m_fFramePerSec = (float)m_uFrameCount / __floatdisf( __udivdi3( m_uTotalFrameTime, ( 1000 * 1000 ) ) );
-
-    EndFrameForAllProfileNode( m_uTotalFrameTime, __udivdi3( m_uTotalFrameTime, m_uFrameCount ), uDeltaTime, m_uFrameCount );
-#else
     m_fFramePerSec = (float)m_uFrameCount / (float)( m_uTotalFrameTime / ( 1000 * 1000 ) );
-
     EndFrameForAllProfileNode( m_uTotalFrameTime, ( m_uTotalFrameTime / m_uFrameCount ), uDeltaTime, m_uFrameCount );
-#endif
 }
 
 //===========================================================================

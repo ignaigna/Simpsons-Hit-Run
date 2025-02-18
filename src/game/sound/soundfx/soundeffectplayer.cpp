@@ -24,14 +24,8 @@
 #include <sound/soundfx/soundfxgameplaylogic.h>
 #include <sound/soundfx/soundfxpauselogic.h>
 
-#ifdef RAD_XBOX
-#include <sound/soundfx/xboxreverbcontroller.h>
-#elif RAD_WIN32
+#if defined(RAD_WIN32) || defined(RAD_UWP)
 #include <sound/soundfx/win32reverbcontroller.h>
-#elif RAD_PS2
-#include <sound/soundfx/ps2reverbcontroller.h>
-#else
-#include <sound/soundfx/gcreverbcontroller.h>
 #endif
 
 #include <memory/srrmemory.h>
@@ -180,14 +174,8 @@ void SoundEffectPlayer::initialize()
     m_logicObjects[FXSTATE_GAMEPLAY] = new(GMA_PERSISTENT) SoundFXGameplayLogic();
     m_logicObjects[FXSTATE_PAUSED] = new(GMA_PERSISTENT) SoundFXPauseLogic();
 
-#ifdef RAD_PS2
-    m_reverbController = new(GMA_PERSISTENT) PS2ReverbController();
-#elif RAD_XBOX
-    m_reverbController = new(GMA_PERSISTENT) XboxReverbController();
-#elif RAD_WIN32
+#if defined(RAD_WIN32) || defined(RAD_UWP)
     m_reverbController = new(GMA_PERSISTENT) Win32ReverbController();
-#else
-    m_reverbController = new(GMA_PERSISTENT) GCReverbController();
 #endif
 }
 

@@ -29,11 +29,6 @@
 //===========================================================================
 // Forward References
 //===========================================================================
-
-#ifdef RAD_XBOX
-    const unsigned int NUM_BYTES_PER_BLOCK = 16 * 1024;
-#endif
-
 class CGuiMenu;
 struct IRadDrive;
 
@@ -121,11 +116,6 @@ private:
 
     Scrooby::Group* m_layerSelectMemoryDevice;
     Scrooby::Group* m_layerNoMemoryDevice;
-
-#ifdef RAD_XBOX
-    Scrooby::Text* m_numFreeBlocks;
-    IRadDrive *m_driveMountedFlag[radFileDriveMax];
-#endif
     Scrooby::Text* m_memStatusText;
 
     CGuiMenu* m_pMenu;

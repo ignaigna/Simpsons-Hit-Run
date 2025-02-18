@@ -60,9 +60,11 @@
 #include <worldsim/worldphysicsmanager.h>
 #include <worldsim/character/charactermanager.h>
 
-#ifdef RAD_WIN32
+#if defined(RAD_WIN32)
     #include <main/win32platform.h>
     #include <data/config/gameconfigmanager.h>
+#elif defined(RAD_UWP)
+    #include <main/uwpplatform.h>
 #endif
 
 //******************************************************************************
@@ -73,19 +75,7 @@
 
 // Static pointer to instance of singleton.
 BootupContext* BootupContext::spInstance = NULL;
-
-#ifdef RAD_RELEASE
-    #ifdef RAD_PS2
-        // TC: Edwin (Singh) says that the PS2 TRC requires that the license screen
-        //     be displayed for at least 5 seconds.
-        //
-        const int MINIMUM_LICENSE_SCREEN_DISPLAY_TIME = 5000; // in msec
-    #else
-        const int MINIMUM_LICENSE_SCREEN_DISPLAY_TIME = 1000; // in msec
-    #endif
-#else
-    const int MINIMUM_LICENSE_SCREEN_DISPLAY_TIME = 1000; // in msec
-#endif
+const int MINIMUM_LICENSE_SCREEN_DISPLAY_TIME = 1000; // in msec
 
 //******************************************************************************
 //
@@ -276,16 +266,6 @@ void BootupContext::OnStart( ContextEnum previousContext )
 
     MEMTRACK_PUSH_FLAG( "Bootup" );
     GetGameDataManager()->Init();
-
-#ifdef RAD_PS2
-    // must load memory card info first, before anything else, since the
-    // memory card boot-up check is done right at the beginning
-    //
-    if( !CommandLineOptions::Get( CLO_SKIP_MEMCHECK ) )
-    {
-        GetMemoryCardManager()->LoadMemcardInfo();
-    }
-#endif
 
     GetGuiSystem()->Init();
     GetGuiSystem()->RegisterUserInputHandlers();

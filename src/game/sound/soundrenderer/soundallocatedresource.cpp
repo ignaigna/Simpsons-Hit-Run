@@ -340,12 +340,8 @@ void daSoundAllocatedResource::Initialize
     
     for( unsigned int i = 0; i < numFiles; i++ )
     {
-
-#ifdef RAD_XBOX
-        daSoundFileInstance* pFileInstance = new( GMA_XBOX_SOUND_MEMORY ) daSoundFileInstance( m_pResource, i );
-#else
         daSoundFileInstance* pFileInstance = new( GMA_AUDIO_PERSISTENT ) daSoundFileInstance( m_pResource, i );
-#endif
+
         pFileInstance->AddRef( );
 
         //

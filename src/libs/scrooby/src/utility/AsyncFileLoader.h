@@ -87,10 +87,8 @@ class AsyncFileLoader :  public IRadFileCompletionCallback
 
         static bool g_UseBackSlashes;   //'\' - back slash
                                         //'/' - forward slash
-                                        // backshashes valid on Windows, Xbox, PS2 from CD
-                                        // forwardslashes needed for PS2 under Linux. (Stinky linux)
 
-        static bool ValidFilenamePS2( const char* filename );
+        static bool ValidFilename( const char* filename );
 
         unsigned int mRefCount;
 

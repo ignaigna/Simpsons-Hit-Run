@@ -20,12 +20,6 @@
 
 #ifdef RADPROFILER
 
-#if defined RAD_PS2 && !defined RAD_MW
-extern "C" unsigned long __udivdi3( unsigned long, unsigned long );
-extern "C" float __floatdisf( unsigned long );
-extern "C" double fptodp( float );
-#endif
-
 IRadMemoryAllocator * radProfileSample::s_pProfileSampleAllocator = NULL;
 
 radRef< radProfileSample > radProfileSampleCreate( radMemoryAllocator alloc )
@@ -271,14 +265,7 @@ void radProfileSample::EndMeasure( radTime64 * puTotalTimeInMicroSec, radTime64 
     m_uTotalTimeThisFrame += uDeltaTime;
     m_uStartTime = 0;
 
-    //
-    // #if defined are used for remove warning in ps2ee build
-    //
-#if defined RAD_PS2 && ! defined RAD_MW
-    float fCurrentTimeInMSec = __floatdisf( uDeltaTime ) / 1000.0f;
-#else
     float fCurrentTimeInMSec = (float)uDeltaTime / 1000.0f;
-#endif
 
     if ( m_fMinTimeInMSec > fCurrentTimeInMSec )
     {
@@ -290,14 +277,7 @@ void radProfileSample::EndMeasure( radTime64 * puTotalTimeInMicroSec, radTime64 
         m_fMaxTimeInMSec = fCurrentTimeInMSec;
     }
 
-    //
-    // #if defined are used for remove warning in ps2ee build
-    //
-#if defined RAD_PS2 && ! defined RAD_MW
-    m_fAveTimeInMSec = __floatdisf( __udivdi3( m_uTotalTime, m_uSampleCount ) ) / 1000.0f;
-#else
     m_fAveTimeInMSec = (float)( m_uTotalTime / m_uSampleCount ) / 1000.0f;
-#endif
 
     //
     // return parameter for some simple stats
@@ -309,14 +289,7 @@ void radProfileSample::EndMeasure( radTime64 * puTotalTimeInMicroSec, radTime64 
 
     if ( puAveTimeInMicroSec != NULL )
     {
-        //
-        // #if defined are used for remove warning in ps2ee build
-        //
-#if defined RAD_PS2 && ! defined RAD_MW
-        *puAveTimeInMicroSec = __udivdi3( m_uTotalTimeAllFrame, m_uSampleCount );
-#else
         *puAveTimeInMicroSec = (unsigned int)( m_uTotalTimeAllFrame / m_uSampleCount );
-#endif
     }
 
     if ( puThisTimeInMicroSec != NULL )
@@ -338,23 +311,9 @@ void radProfileSample::StartFrame( )
 
 void radProfileSample::EndFrame( radTime64 uTotalFrameTimeInMicroSec, radTime64 uAveFrameTimeInMicroSec, radTime64 uThisFrameTimeInMicroSec, unsigned int uFrameCount )
 {
-    //
-    // #if defined are used for remove warning in ps2ee build
-    //
-#if defined RAD_PS2 && ! defined RAD_MW
-    float fTimeThisFrameInPercent = __floatdisf( __udivdi3( m_uTotalTimeThisFrame, m_uSampleCountThisFrame ) ) / __floatdisf( uThisFrameTimeInMicroSec );
-#else
     float fTimeThisFrameInPercent = (float)( m_uTotalTimeThisFrame / m_uSampleCountThisFrame ) / (float)uThisFrameTimeInMicroSec;
-#endif
 
-    //
-    // #if defined are used for remove warning in ps2ee build
-    //
-#if defined RAD_PS2 && ! defined RAD_MW
-    m_fAveTimePerFrameInPercent = __floatdisf( __udivdi3( m_uTotalTimeAllFrame, m_uSampleCountAllFrame ) ) / __floatdisf( uAveFrameTimeInMicroSec );
-#else
     m_fAveTimePerFrameInPercent = (float)( m_uTotalTimeAllFrame / m_uSampleCountAllFrame ) / (float)( uAveFrameTimeInMicroSec );
-#endif
 
     if ( fTimeThisFrameInPercent < m_fMinTimePerFrameInPercent )
     {
@@ -388,17 +347,6 @@ void radProfileSample::DebugDumpNode( radProfileSample * pNode, unsigned int uLe
         rDebugString( "\t" );
     }
     
-#if defined RAD_PS2 && ! defined RAD_MW
-    rDebugPrintf( "[%s] Ave[%.6f][%.2f%%], Min[%.6f][%.2f%%], Max[%.6f][%.2f%%], Count[%d]", 
-                  pNode->GetName( ),
-                  fptodp( pNode->m_fAveTimeInMSec ),
-                  fptodp( pNode->m_fAveTimePerFrameInPercent * 100.0f ),
-                  fptodp( pNode->m_fMinTimeInMSec ),
-                  fptodp( pNode->m_fMinTimePerFrameInPercent * 100.0f ),
-                  fptodp( pNode->m_fMaxTimeInMSec ),
-                  fptodp( pNode->m_fMaxTimePerFrameInPercent * 100.0f ),
-                  fptodp( pNode->m_uSampleCount ) );
-#else
     rDebugPrintf( "[%s] Ave[%.6f][%.2f%%], Min[%.6f][%.2f%%], Max[%.6f][%.2f%%], Count[%d]", 
                   pNode->GetName( ),
                   pNode->m_fAveTimeInMSec,
@@ -408,7 +356,6 @@ void radProfileSample::DebugDumpNode( radProfileSample * pNode, unsigned int uLe
                   pNode->m_fMaxTimeInMSec,
                   pNode->m_fMaxTimePerFrameInPercent * 100.0f,
                   pNode->m_uSampleCount );
-#endif
 
     rDebugString( "\n" );
 

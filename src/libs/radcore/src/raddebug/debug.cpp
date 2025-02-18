@@ -27,11 +27,8 @@
 #include <radstring.hpp>
 #include <raddebug.hpp>
 
-#ifdef WIN32
+#if defined(RAD_WIN32) || defined(RAD_UWP)
 #include <windows.h>
-#endif
-#ifdef RAD_XBOX
-#include <xtl.h>
 #endif
 
 //=============================================================================
@@ -43,18 +40,13 @@
 //=============================================================================
 //
 // Description: This function wraps the non-standard compiler extension version
-//              PS2 version doesn't actually check the length!
 //
 //=============================================================================
 
 int rDebugVsnPrintf( char *buffer, size_t count, const char *format, va_list argptr )
 {
-    #if defined (RAD_XBOX)
-        return _vsnprintf( buffer, count, format, argptr );
-    #elif defined (RAD_WIN32)
+    #if defined(RAD_WIN32) || defined(RAD_UWP)
         return vsnprintf( buffer, count, format, argptr );
-    #elif defined (RAD_PS2)
-        return vsprintf( buffer, format, argptr );
     #endif
 }
 
@@ -63,7 +55,6 @@ int rDebugVsnPrintf( char *buffer, size_t count, const char *format, va_list arg
 //=============================================================================
 //
 // Description: This function wraps the non-standard compiler extension version
-//              PS2 version doesn't actually check the length!
 //
 //=============================================================================
 
@@ -76,7 +67,8 @@ int rDebugSnPrintf( char *buffer, size_t count, const char *format ... )
 	return retval;
 }
 
-#ifdef WIN32
+#if defined(RAD_WIN32) || defined(RAD_UWP)
+
 //=============================================================================
 // Function:    rAssertThreadProc
 //=============================================================================
@@ -91,7 +83,12 @@ int rDebugSnPrintf( char *buffer, size_t count, const char *format ... )
 //------------------------------------------------------------------------------
 static DWORD WINAPI rAssertThreadProc(LPVOID lpParameter)
 {
+#ifdef RAD_WIN32
     return MessageBox( NULL, (char*)lpParameter, "Internal Error", MB_ABORTRETRYIGNORE | MB_ICONEXCLAMATION | MB_SETFOREGROUND | MB_TASKMODAL);
+#else
+    //__debugbreak(); // TODO(3UR): UWP popup or something? - i am so tired of the break here it is annoying when getting loads of assert lets just leave it to the debug logging
+#endif
+    return 0;
 }
 
 //=============================================================================
@@ -195,7 +192,7 @@ bool rDebugAssertFail_Implementation
     //
     // Windows implementation display message box
     //
-#ifdef WIN32
+#if defined(RAD_WIN32)
     {
         int retval = rErrorMessageBox(text);
 
@@ -212,7 +209,7 @@ bool rDebugAssertFail_Implementation
     }
 #else
 	return true;
-#endif // WIN32
+#endif // RAD_WIN32
 }
 
 //=============================================================================
@@ -294,7 +291,7 @@ void rDebugValidFail_Implementation
     //
     // Display message box and check for response
     //
-    #ifdef WIN32
+    #if defined(RAD_WIN32)
     {
         int retval = rErrorMessageBox(text);
 
@@ -311,7 +308,7 @@ void rDebugValidFail_Implementation
          // (retval == IDIGNORE) continues.
         }
     }
-    #endif // WIN32
+    #endif // RAD_WIN32
 }
 
 //=============================================================================
@@ -361,7 +358,7 @@ void rDebuggerString_Implementation( const char* string )
         return;
     }
 
-   #if defined( WIN32 ) || defined( RAD_XBOX )
+   #if defined( RAD_WIN32 ) || defined( RAD_UWP )
     {
  
         //

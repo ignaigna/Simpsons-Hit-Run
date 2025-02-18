@@ -25,26 +25,11 @@
 //=============================================================================
 
 #include "pch.hpp"
-#ifdef RAD_WIN32
+#if defined(RAD_WIN32) || defined(RAD_UWP)
 #include <windows.h>
-#endif // RAD_WIN32
-#ifdef RAD_XBOX
-#include <xtl.h>
-#endif // RAD_XBOX 
+#endif // RAD_WIN32 || RAD_UWP
 
 #include <string.h>
-
-#ifdef RAD_PS2
-#include <eekernel.h>
-#ifdef SN_TCPIP
-extern "C"
-{
-#include "../../../Sdks/sntcpip/inc/snsocket.h"
-#include "../../../Sdks/sntcpip/inc/sneeutil.h"
-#include "../../../Sdks/sntcpip/inc/snskdefs.h"
-}
-#endif
-#endif
 //#include <stddef.h>
 #include <radplatform.hpp>
 #include <radmemorymonitor.hpp>
@@ -57,24 +42,6 @@ extern "C"
 #include "deci2x.h"
 #include "netmp.h"
 #include "dcmp.h"
-
-//=============================================================================
-// Local Defintions
-//=============================================================================
-
-#ifdef RAD_PS2
-
-// 
-// Translate socket error codes and error macro
-//
-#define WSAGetLastError( ) sn_errno( m_Socket )
-
-#endif
-
-//=============================================================================
-// Static Data Defintions
-//=============================================================================
-
 
 //=============================================================================
 // Public Member Functions

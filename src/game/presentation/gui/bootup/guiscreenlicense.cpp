@@ -64,10 +64,7 @@ CGuiScreenLicense::CGuiScreenLicense
 
     // set platform-specific license screen image
     //
-#ifdef RAD_PS2
-    tSprite* pSprite = p3d::find<tSprite>( "licenseP.png" );
-#endif
-#ifdef RAD_XBOX
+#ifdef RAD_UWP
     tSprite* pSprite = p3d::find<tSprite>( "licenseX.png" );
 #endif
 #ifdef RAD_WIN32

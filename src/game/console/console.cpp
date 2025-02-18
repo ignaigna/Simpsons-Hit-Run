@@ -493,7 +493,6 @@ bool Console::SetLogMode(int logMode)
             if (!mLogFile)
             {
                 char fullPath[256];
-// RM                sprintf(fullPath, "%sconsole.log", ResourceManager::GetInstance()->GetRemoteDriveName());
                 ::radFileOpen(&mLogFile, fullPath, true, CreateAlways, NormalPriority, 0, RADMEMORY_ALLOC_TEMP);
                 if (mLogFile)
                 {
@@ -516,7 +515,6 @@ bool Console::SetLogMode(int logMode)
             if (!mLogFile)
             {
                 char fullPath[256];
-// RM               sprintf(fullPath, "%sconsole.log", ResourceManager::GetInstance()->GetRemoteDriveName());
                 ::radFileOpen(&mLogFile, fullPath, true, OpenAlways, NormalPriority, 0, RADMEMORY_ALLOC_TEMP);
                 if (mLogFile)
                 {

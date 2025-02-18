@@ -7,16 +7,13 @@
 #define RADMOIVE_PCH_HPP
 
 //
-// only win32 and xbox take advantage of the pch at this moment.
+// only win32 and UWP take advantage of the pch at this moment.
 //
-#if defined RAD_WIN32 || defined RAD_XBOX
+#if defined( RAD_WIN32 ) || defined( RAD_UWP )
 //
 // Microsoft header files
 //
-#ifdef RAD_WIN32
-#define WINVER 0x0501
-#define _WIN32_WINNT 0x400
-#include <windows.h>
+#define _WIN32_WINNT 0x0602
 #include <windows.h>
 
 #include <strmif.h>
@@ -24,11 +21,6 @@
 #include <uuids.h>
 #include <evcode.h>
 #include <vfwmsgs.h>
-#endif
-
-#ifdef RAD_XBOX
-#include <xtl.h>
-#endif
 
 //
 // Standard C header files
@@ -45,6 +37,6 @@
 //
 #include "radoptions.hpp"
 
-#endif // defined RAD_WIN32 || defined RAD_XBOX
+#endif // defined RAD_WIN32 || defined RAD_UWP
 
 #endif // RADMOIVE_PCH_HPP

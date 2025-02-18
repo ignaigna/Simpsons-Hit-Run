@@ -7,7 +7,7 @@
 
 namespace Sound
 {
-#ifdef RAD_XBOX
+#ifdef RAD_UWP
     const unsigned int SOUND_NUM_STREAM_PLAYERS = 10;
 #else
     const unsigned int SOUND_NUM_STREAM_PLAYERS = 9;

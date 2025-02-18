@@ -42,19 +42,13 @@
 
 #include <memory/leakdetection.h>
 
-#if ( defined RAD_XBOX ) || (defined RAD_MW) || (defined RAD_WIN32)
+#if (defined RAD_UWP) || (defined RAD_MW) || (defined RAD_WIN32)
     extern void MemoryHackCallback();
 #endif
 
 extern void do_check_malloc_state();
 
 void* gEmergencyMemory = NULL;
-
-#ifdef RAD_PS2
-#define    HACK_AUDIO_PERSISTENT    ((radMemoryAllocator)15)
-#define    HACK_PERSISTENT          ((radMemoryAllocator)3)
-#define    HACK_SMALL_ALLOC       ((radMemoryAllocator)16)   
-#endif
 
 //----------------------------------------------------------------------------
 // IRadmemoryAllocator Stats Stub
@@ -411,10 +405,6 @@ inline void * radMemoryAllocSearch( unsigned int numberOfBytes, unsigned int ali
 //============================================================================
 // ::radMemoryAlloc
 //============================================================================
-#ifdef RAD_PS2
-bool gbSmallAllocCreated = false;
-#endif
-
 //#define TRACK_LEAKS
 
 #ifdef TRACK_LEAKS
@@ -434,18 +424,7 @@ std::map<void*,AllocState> gbLeakMap;
 
 void * radMemoryAlloc( radMemoryAllocator allocator, unsigned int numberOfBytes )
 {
-#ifdef RAD_PS2
-    if(     (numberOfBytes<201)
-        && gbSmallAllocCreated 
-        && (allocator != HACK_AUDIO_PERSISTENT)
-        && (allocator != HACK_PERSISTENT)
-        && (allocator != RADMEMORY_ALLOC_TEMP)
-        )
-    {
-        allocator = HACK_SMALL_ALLOC;
-    }
-#endif
-#if ( defined RAD_XBOX ) || ( defined RAD_MW ) || ( defined RAD_WIN32 )
+#if ( defined RAD_UWP ) || ( defined RAD_MW ) || ( defined RAD_WIN32 )
     if ( !g_Initialized )
     {
         MemoryHackCallback();
@@ -459,9 +438,6 @@ void * radMemoryAlloc( radMemoryAllocator allocator, unsigned int numberOfBytes 
     rAssert( g_Initialized == true );
     rAssert( allocator < ALLOCATOR_TABLE_SIZE || allocator == ALLOCATOR_SEARCH );
 
-    #ifdef RAD_XBOX
-        //rAssert( allocator != 2 );
-    #endif
     void * pMem;
 
     if ( allocator == ALLOCATOR_SEARCH )
@@ -498,21 +474,10 @@ void * radMemoryAllocAligned
     unsigned int alignment
 )
 {
-#if ( defined RAD_XBOX ) || ( defined RAD_MW ) || ( defined RAD_WIN32 )
+#if ( defined RAD_UWP ) || ( defined RAD_MW ) || ( defined RAD_WIN32 )
     if ( !g_Initialized )
     {
         MemoryHackCallback();
-    }
-#endif
-#ifdef RAD_PS2
-    if(     (numberOfBytes<201)
-        && gbSmallAllocCreated 
-        && (allocator != HACK_AUDIO_PERSISTENT)
-        && (allocator != HACK_PERSISTENT)
-        && (allocator != RADMEMORY_ALLOC_TEMP)
-        )
-    {
-        allocator = HACK_SMALL_ALLOC;
     }
 #endif
     rAssert( ( alignment % 4 ) == 0 );
@@ -551,9 +516,6 @@ void * radMemoryAllocAligned
 
 void radMemoryFree( radMemoryAllocator allocator, void * pMemory )
 {
-#ifdef RAD_PS2
-    return radMemoryFree(pMemory);
-#endif
     LEAK_DETECTION_REMOVE_ALLOCATION( pMemory );
     rAssert( g_Initialized == true );
 
@@ -585,9 +547,6 @@ void radMemoryFree( radMemoryAllocator allocator, void * pMemory )
 
 void radMemoryFreeAligned(  radMemoryAllocator allocator, void * pAlignedMemory )
 {
-#ifdef RAD_PS2
-    return radMemoryFreeAligned(pAlignedMemory);
-#endif
     LEAK_DETECTION_REMOVE_ALLOCATION( pAlignedMemory );
     rAssert( g_Initialized == true );
 

@@ -540,7 +540,7 @@ LoadingManager::LoadingManager()
         mCementLibraries[i].isLoading = false;
     }
 
-#ifdef RAD_WIN32
+#if defined(RAD_WIN32) || defined(RAD_UWP)
     mRequestsProcessed = 0;
 #endif
 }
@@ -598,7 +598,7 @@ void LoadingManager::ProcessNextRequest()
                 {            
                     rReleasePrintf( "<<START>> Async Loading: %s\n", request.filename );
                 }
-#ifdef RAD_WIN32
+#if defined(RAD_WIN32) || defined(RAD_UWP)
                 mRequestsProcessed++;
 #endif
 

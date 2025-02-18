@@ -265,7 +265,7 @@ CGuiManagerLanguage::CheckLanguage()
         }
         default:
         {
-#ifdef RAD_XBOX
+#ifdef RAD_UWP
             // default to English, if unsupported language detected
             //
             CGuiTextBible::SetCurrentLanguage( Scrooby::XL_ENGLISH );

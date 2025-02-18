@@ -8,7 +8,7 @@
 #include "FeOwner.h"
 #include "Layer.h"
 
-#ifdef WIN32
+#if defined( RAD_WIN32 ) || defined( RAD_UWP )
 #pragma warning( disable :4250 )
 #endif
 

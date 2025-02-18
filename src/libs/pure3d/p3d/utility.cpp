@@ -103,7 +103,7 @@ void print(const char* s)
     #ifdef P3D_DEBUG_FTT_MESSAGES
     rDebugString(s);
     #else
-    #if defined(RAD_WIN32) || defined(RAD_XBOX)
+    #if defined(RAD_WIN32) || defined(RAD_UWP)
        OutputDebugString(s);
     #else
        ::printf("%s", s);
@@ -124,11 +124,8 @@ void printf(const char* s, ...)
 
     va_start( va_alist, s ); 
 
-    #if (defined RAD_WIN32 || defined RAD_XBOX)
+    #if (defined RAD_WIN32 || defined RAD_UWP)
     _vsnprintf( printfstr, 1024, s, va_alist );
-    #endif
-    #if (defined RAD_PS2)
-    vsprintf( printfstr, s, va_alist );
     #endif
 
     va_end( va_alist ); 

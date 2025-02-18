@@ -38,30 +38,7 @@ struct ControlMap
 
 const ControlMap GUI_CONTROL_MAP[] =
 {
-#if defined(RAD_PS2)
-    { "LeftStickX",     GuiInput::XAxis },
-    { "LeftStickY",     GuiInput::YAxis },
-    { "RightStickX",    GuiInput::XAxisRight },
-    { "RightStickY",    GuiInput::YAxisRight },
-    { "DPadLeft",       GuiInput::Left },
-    { "DPadRight",      GuiInput::Right },
-    { "DPadUp",         GuiInput::Up },
-    { "DPadDown",       GuiInput::Down },
-    { "Start",          GuiInput::Start },
-    { "X",              GuiInput::Select },
-    { "Triangle",       GuiInput::Back },
-    { "Square",         GuiInput::AuxX },
-    { "Circle",         GuiInput::AuxY },
-    { "L1",             GuiInput::L1 },
-    { "R1",             GuiInput::R1 },
-    { "LGA",            GuiInput::AuxStart },   //Only on the GT Wheel
-    { "LGX",            GuiInput::AuxSelect },  //Only on the GT Wheel
-    { "LGY",            GuiInput::AuxBack },    //Only on the GT Wheel
-    { "Wheel",          GuiInput::AuxXAxis },   //Only on the GT Wheel
-    { "LGR1",           GuiInput::AuxUp },      //Only on the GT Wheel
-    { "LGL1",           GuiInput::AuxDown },    //Only on the GT Wheel
-    
-#elif defined(RAD_XBOX)
+#if defined(RAD_UWP)
 
     { "LeftStickX",     GuiInput::XAxis },
     { "LeftStickY",     GuiInput::YAxis },
@@ -590,7 +567,7 @@ void CGuiUserInputHandler::OnButtonDown( int controllerId, int buttonId, const I
 #ifdef RAD_CONSOLE
             if( m_isStartToSelectMappingEnabled )
             {
-                // for Xbox only, START is mapped to same functionality as SELECT
+                // for UWP only, START is mapped to same functionality as SELECT
                 this->Select( controllerId );
             }
 #endif

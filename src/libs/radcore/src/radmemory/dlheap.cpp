@@ -38,10 +38,8 @@
 #undef MALLOC_ALIGNMENT
 #endif
 
-#if defined RAD_WIN32 || defined RAD_XBOX
+#if defined RAD_WIN32 || defined RAD_UWP
 #define MALLOC_ALIGNMENT 8
-#elif defined RAD_PS2
-#define MALLOC_ALIGNMENT 16
 #endif
 
 #define LACKS_SYS_PARAM_H 

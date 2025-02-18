@@ -695,10 +695,8 @@ bool ScriptReader::HandleError()
 // Halt the machine such that a it will break into the debugger if present
 static void choreoBreakToDebugger()
 {
-#if defined(RAD_WIN32) || defined(RAD_XBOX)
+#if defined(RAD_WIN32) || defined(RAD_UWP)
     __debugbreak();
-#elif defined(RAD_PS2)
-    asm( ".word 0x0000004d"); // break instruction on PS2
 #else
    while(1){/* nop */}; // if we don't have a trap instruction, just loop so that the debugger can connect
 #endif
@@ -729,7 +727,7 @@ static void choreoMessageBox(const char* message)
 // print a message to the debugging console
 static void choreoPrintDebugMessage(const char* message)
 {
-#if defined(RAD_WIN32) || defined(RAD_XBOX)
+#if defined(RAD_WIN32)
    OutputDebugString(message);
 #else
    printf(message);

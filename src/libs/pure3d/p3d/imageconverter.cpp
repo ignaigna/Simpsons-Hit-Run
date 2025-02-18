@@ -90,7 +90,7 @@ tTexture* tImageConverter::ImageToTexture(tImage* image, bool linear)
 //-------------------------------------------------------------------
 tTexture* tImageConverter::ImageInToVolumeTexture(tImage** images, int numImages, tTexture* texture, int mipLevel)
 {
-#ifdef RAD_XBOX
+#ifdef RAD_UWP
     P3DASSERT(texture);
 
     pddiTexture* pdditexture = texture->GetTexture();
@@ -109,7 +109,7 @@ tTexture* tImageConverter::ImageInToVolumeTexture(tImage** images, int numImages
 
 tTexture* tImageConverter::ImageToVolumeTexture(tImage** images, int numImages, int numMipMaps, pddiTextureUsageHint usage)
 {
-#ifdef RAD_XBOX
+#ifdef RAD_UWP
 
     P3DASSERT(images);
     tTexture* texture = new tTexture;
@@ -241,7 +241,7 @@ void tImageConverter::UpdateSurface(tImage* image, pddiLockInfo* lock)
 //-------------------------------------------------------------------
 void tImageConverter::UpdateVolumeTexture(tImage* image, pddiLockInfo* lock, int depth)
 {
-#ifdef RAD_XBOX   
+#ifdef RAD_UWP   
     P3DASSERT(image);
     P3DASSERT(lock);
     pddiPixelFormat format = lock->format;
@@ -435,20 +435,14 @@ void tImageConverter::FillLockRGB32(tImage* image, pddiLockInfo* lock)
 
 tImage* tImageConverter::LockToImage(pddiLockInfo* lock)
 {
-    #ifdef RAD_PS2
-        rAssert( false );
-        return NULL;
-    #else
-        tImage32* image = new tImage32;
-        image->SetSize(lock->width, lock->height);
-        UpdateImage(lock, image);
-        return image;
-    #endif
+    tImage32* image = new tImage32;
+    image->SetSize(lock->width, lock->height);
+    UpdateImage(lock, image);
+    return image;
 }
 
 void tImageConverter::UpdateImage(pddiLockInfo* lock, tImage* image)
 {
-#ifndef RAD_PS2
     P3DASSERT(dynamic_cast<tImage32*>(image));
     P3DASSERT((lock->depth == 16) || (lock->depth == 32));
 
@@ -511,7 +505,6 @@ void tImageConverter::UpdateImage(pddiLockInfo* lock, tImage* image)
         default:
             break;
     }
-#endif
 }
 
 /*

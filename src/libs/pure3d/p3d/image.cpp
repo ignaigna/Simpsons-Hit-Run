@@ -254,7 +254,6 @@ void tImage8::Clear(unsigned colour)
     memset(image,colour,height*width);
 }
 
-#ifndef RAD_PS2
 //-------------------------------------------------------------------
 tImage32::tImage32()
 {
@@ -401,7 +400,7 @@ void tImage32::Clear(unsigned colour)
     for(int i = 0; i < height*width; i++)
         *pix++ = colour;
 }
-#endif //RAD_PS2
+
 //-------------------------------------------------------------------
 // utility functions for tImage::CopyRegion()
 void p3dBlockCopy(unsigned char* src, unsigned char* dest, int width, int height, int srcStride, int destStride)

@@ -31,10 +31,6 @@
 #include <radmemory.hpp>
 #include <radmemorymonitor.hpp>
 
-#if defined RAD_PS2 && ! defined RAD_MW
-        extern "C" double fptodp( float );
-#endif
-
 #define IS_NULL_MASK 0x80000000
 #define SIZE_MASK ( ~IS_NULL_MASK )
 
@@ -382,12 +378,7 @@ class radString
     virtual void Append( const float value )
     {
         char string[64];
-
-#if defined RAD_PS2 && ! defined RAD_MW
-        sprintf( string, "%f", fptodp( value ) );
-#else
         sprintf( string, "%f", value );
-#endif
         Append( string );
     }
     //========================================================================

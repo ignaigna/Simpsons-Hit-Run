@@ -38,52 +38,12 @@ int RadmathSanityCheck()
 
 #endif // RAD_RELEASE
 
-#ifdef RAD_PS2
-
-#include <libdma.h>
-#include <libvu0.h>
-
-#ifndef RAD_RELEASE
-bool g_rmtInitialized = false;
-#endif
-
-int radMathInitialize()
-{
-    #ifndef RAD_RELEASE
-    int ucodeSize = (unsigned)vu0_end - (unsigned)vu0_begin;
-    printf("RadMath : VU0 ucode size = %d bytes\n", ucodeSize);
-    assert(ucodeSize < 4096 && "VU0 code too big!");    
-    #endif
-
-    sceDmaChan* dmaVif0; 
-
-    // upload the VU0 ucode
-    dmaVif0 = sceDmaGetChan(SCE_DMA_VIF0);
-    dmaVif0->chcr.TTE = 0;	
-
-	sceDmaSend( dmaVif0,vu0_ucode );
-	sceDmaSync( dmaVif0,0,0 );
-
-    #ifndef RAD_RELEASE
-    g_rmtInitialized = true;
-    RadmathSanityCheck();
-    printf("RadmathSanityCheck() - passed!\n");
-    #endif
-
-    return 0;
-}
-
-#else
-
 // todo - add radMathInitiliaze() for other platforms if needed
 int radMathInitialize()
 {
-    #ifndef RAD_RELEASE
+#ifndef RAD_RELEASE
     RadmathSanityCheck();
-    #endif
+#endif
 
     return 0;
 }
-
-#endif
-

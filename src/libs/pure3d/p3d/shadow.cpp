@@ -26,27 +26,13 @@
 #include <p3d/chunkfile.hpp>
 #include <constants/chunkids.hpp>
 
-#if defined (RAD_PS2)
-#include <pddi/pddiext.hpp>
-#endif
-
-#if defined (RAD_WIN32) || defined(RAD_XBOX)
+#if defined (RAD_WIN32) || defined(RAD_UWP)
 #define CARMACK_REVERSE // use inverted z-buffer mode 
 #define DRAW_CAPS // draw caps on volumes
 #endif
 
-#if defined (RAD_PS2)
-//#define CARMACK_REVERSE // use inverted z-buffer mode 
-//#define DRAW_CAPS // draw caps on volumes
-#endif
-
 const unsigned short NO_NEIGHBOUR = 0xffff;
-
-#ifndef RAD_PS2
-    static const tColour s_VolumeColour(255,0,0,0);
-#else
-    static const tColour s_VolumeColour(0x8,0x8,0x8,0 );
-#endif
+static const tColour s_VolumeColour(255,0,0,0);
 
 static const unsigned MAX_EDGES     = 2048;
 static const unsigned MAX_CAP_POLYS = 2048;
@@ -106,7 +92,6 @@ enum ShadowVolPass
 
 static inline void SetupPass(ShadowVolPass pass, tShader* shader)
 {
-#ifdef RAD_PS2
     p3d::pddi->SetCullMode( (pass == PASS_FRONT) ? PDDI_CULL_SHADOW_BACKFACE : PDDI_CULL_SHADOW_FRONTFACE );
     shader->SetInt( PDDI_SP_BLENDMODE, (pass == PASS_FRONT) ? PDDI_BLEND_ADD : PDDI_BLEND_SUBTRACT);
 
@@ -132,14 +117,11 @@ tShadowGenerator::tShadowGenerator() :
     washShader = new tShader();
     washShader->AddRef();
    
-#if !defined(RAD_PS2)
     //Create the shadow wash shader
     washShader->SetInt(PDDI_SP_ISLIT, 0);
     washShader->SetInt(PDDI_SP_SHADEMODE, PDDI_SHADE_FLAT);
     washShader->SetInt(PDDI_SP_ALPHATEST, false );
     washShader->SetInt(PDDI_SP_BLENDMODE, PDDI_BLEND_MODULATE);
-#endif
-   
 }
 
 tShadowGenerator::~tShadowGenerator()
@@ -161,13 +143,6 @@ void tShadowGenerator::Begin()
     //Save some rendering states
     oldCull = p3d::pddi->GetCullMode();
 
-#ifdef RAD_PS2
-    pddiExtPS2Control* ps2 = (pddiExtPS2Control*)p3d::pddi->GetExtension(PDDI_EXT_PS2_CONTROL);
-
-    // clear alpha buffer
-    ps2->BeginStencilPass(0);
-
-#else
     #ifdef CARMACK_REVERSE
         pddi->SetZCompare(PDDI_COMPARE_GREATEREQUAL);
     #endif
@@ -180,7 +155,6 @@ void tShadowGenerator::Begin()
     pddi->SetStencilMask(0xffffffff);
 
     pddi->SetColourWrite(false, false, false, false); // disable writes to colour buffer
-#endif
 
     s_volumeShader = volumeShader;
 }
@@ -195,14 +169,6 @@ void tShadowGenerator::End()
     // restore the old cull mode
     p3d::pddi->SetCullMode(oldCull);
 
-#ifdef RAD_PS2
-    pddiExtPS2Control* ps2 = (pddiExtPS2Control*)p3d::pddi->GetExtension(PDDI_EXT_PS2_CONTROL);
-    ps2->SetShadowColour(washColour.Red(), washColour.Green(), washColour.Blue(), washColour.Alpha());
-    ps2->EndStencilPass(0);
-    pddi->SetZWrite(true);
-    pddi->EnableStencilBuffer(false);
-
-#else
     pddi->SetColourWrite(true, true, true, true); // enable writes to colour buffer
 
     // Draws a big gray polygon over scene according to the mask in the
@@ -250,7 +216,6 @@ void tShadowGenerator::End()
     pddi->SetZWrite(true);
     pddi->SetZCompare(PDDI_COMPARE_LESSEQUAL);
     pddi->EnableStencilBuffer(false);
-#endif
 }
 
 void tShadowGenerator::PreRender()
@@ -713,11 +678,7 @@ void tShadowSkin::Display(tPose* p)
     {
         Matrix tmp;
 
-#ifndef RAD_PS2
         tmp.Mult(skeleton->GetJoint(i)->inverseWorldMatrix, p->GetJoint(i)->worldMatrix);
-#else
-        tmp.MultAligned(skeleton->GetJoint(i)->inverseWorldMatrix, p->GetJoint(i)->worldMatrix);
-#endif
         if(!poseChanged)
         {
             for(unsigned j = 0; j < 4; j++)

@@ -1,9 +1,0 @@
-Xbox	
-
-"    ""There's a problem with the disc you're using. It may be dirty or damaged. Press A to continue."","	"    ""Problem bei der benutzten CD: CD ist verschmutzt oder besch�digt. Weiter mit A-Taste."","
-	
-PS2	
-	
-"    ""The disc tray is open"","	"    ""Der DVD/CD-Lade ist ge�ffnet."","
-"    ""Incorrect disc. Insert The Simpsons Hit & Run disc."","	"    ""Falsche DVD/CD-ROM. Leg die THE SIMPSONS Hit & Run-DVD/CD-ROM ein."","
-"    ""No disc. Insert The Simpsons Hit & Run disc."","	"    ""Keine DVD/CD-ROM. Leg die THE SIMPSONS Hit & Run-DVD/CD-ROM ein."","

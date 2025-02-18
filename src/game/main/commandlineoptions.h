@@ -79,7 +79,6 @@ enum CmdLineOptionEnum
 
     CLO_MEMCARD_CHEAT,  // unlock everything in the game temporarily before saving data to memory card
     
-    CLO_PS2_TOOL,
     CLO_FILE_NOT_FOUND,     //Testing for file not found
     CLO_NO_LOADING_SPEW,    // Don't Spew <<START>>, <<END>> messages
     CLO_AUDIO_LOADING_SPEW, // Spew Audio loading info

@@ -27,7 +27,7 @@
 #include <p3d/loadmanager.hpp>
 #include <p3d/utility.hpp>
 
-#ifdef RAD_WIN32
+#if defined(RAD_WIN32) || defined(RAD_UWP)
 #include <SDL2/SDL.h>  // for SDL_PollEvent...
 #endif
 
@@ -71,10 +71,6 @@ bool g_inDemoMode = false;
 #endif
 
 #ifdef DEMO_MODE_PROFILER
-
-#ifdef RAD_PS2
-#include <libgraph.h>
-#endif
 
 DemoProfiler::DemoProfiler(unsigned mf) :
     recording(false), maxFrames(mf), nChannel(0), currentFrame(0),
@@ -234,9 +230,6 @@ void DemoProfiler::Dump()
         if( !(i % 10) )
         {
             rmt::Sin(0.0f);
-#ifdef RAD_PS2
-            sceGsSyncV(0);
-#endif
         }
     }
 
@@ -276,7 +269,7 @@ static int g_DemoProfiler_CurrentFrame = 0;
 // Constraints: This is a singleton so only one instance is allowed.
 //
 //==============================================================================
-Game* Game::CreateInstance( Platform* platform )
+Game* Game::CreateInstance( GamePlatform* platform )
 {
     rAssert( platform != NULL );
 
@@ -337,10 +330,10 @@ Game* Game::GetInstance()
 //
 // Parameters:  ()
 //
-// Return:      Platform
+// Return:      GamePlatform
 //
 //=============================================================================
-Platform* Game::GetPlatform()
+GamePlatform* Game::GetPlatform()
 {
     return mpPlatform;
 }
@@ -493,7 +486,7 @@ void Game::Run()
         //
         // Service the windows message loop.
         //
-#ifdef RAD_WIN32
+#if defined(RAD_WIN32) || defined(RAD_UWP)
         SDL_Event msg;
         while( SDL_PollEvent( &msg ) )
         {
@@ -517,7 +510,7 @@ void Game::Run()
                 }               
             }
         }
-#endif // RAD_WIN32
+#endif // RAD_WIN32 || RAD_UWP
 
         //
         // Service the GameFlow and RenderFlow.
@@ -666,7 +659,7 @@ unsigned Game::GetRandomSeed ()
 // Returns:     N/A.
 //
 //==============================================================================
-Game::Game( Platform* platform ) :
+Game::Game( GamePlatform* platform ) :
     mpPlatform( platform ),
     mpTimerList( NULL ),
     mpGameFlow( NULL ),

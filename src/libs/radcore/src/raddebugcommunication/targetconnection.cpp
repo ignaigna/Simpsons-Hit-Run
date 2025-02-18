@@ -25,26 +25,11 @@
 //=============================================================================
 
 #include "pch.hpp"
-#ifdef RAD_WIN32
+#if defined(RAD_WIN32) || defined(RAD_UWP)
 #include <windows.h>
-#endif // RAD_WIN32
-#ifdef RAD_XBOX
-#include <xtl.h>
-#endif // RAD_XBOX 
+#endif // RAD_WIN32 || RAD_UWP
 
 #include <string.h>
-
-#ifdef RAD_PS2
-#include <eekernel.h>
-#ifdef SN_TCPIP
-extern "C"
-{
-#include "../../../Sdks/sntcpip/inc/snsocket.h"
-#include "../../../Sdks/sntcpip/inc/sneeutil.h"
-#include "../../../Sdks/sntcpip/inc/snskdefs.h"
-}
-#endif
-#endif
 //#include <stddef.h>
 #include <radplatform.hpp>
 #include <radmemorymonitor.hpp>
@@ -66,15 +51,6 @@ extern "C"
 // Constant governing time-out we wait for expected messages.
 //
 const unsigned int MessageTimeout = 2000;       // Milliseconds
-
-#ifdef RAD_PS2
-
-// 
-// Translate socket error codes and error macro
-//
-#define WSAGetLastError( ) sn_errno( m_Socket )
-
-#endif
 
 //=============================================================================
 // Static Data Defintions
@@ -134,11 +110,9 @@ rDbgComTargetConnection::rDbgComTargetConnection
     //  
     // Set socket option to send keep alive messages
     //
-#ifndef RAD_XBOX
     int KeepAlive = 1;
     result = m_pParentTarget->m_SocketImp->setsockopt( m_Socket, SOL_SOCKET, SO_KEEPALIVE, (const char*) &KeepAlive, sizeof( int ) );
     rAssert( result == 0 );    
-#endif // !RAD_XBOX
  
     //  
     // Lets set up our receiver. We are expectin teh DECI connect message in a timely

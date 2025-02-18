@@ -43,12 +43,7 @@
 #define GMA_DEFAULT 0
 #endif
 
-#ifdef RAD_PS2
-#include <main/ps2platform.h>
-#include <libmtap.h>
-#endif
-
-#if defined RAD_XBOX
+#if defined RAD_UWP
 
     InputManager::eButtonMap RESET_BUTTONS[] =
     {
@@ -125,12 +120,6 @@ MEMTRACK_PUSH_GROUP( "InputManager" );
 
     mxIControllerSystem2 = radControllerSystemGet();
 
-#ifdef RAD_PS2
-    // On PS2, check for initial button pushes.
-    m_isProScanButtonsPressed = PS2Platform::GetInstance()->CheckForStartupButtons( );
-    rDebugPrintf( "Do Progressive scan: %s\n", m_isProScanButtonsPressed ? "yup" : "nope" );
-#endif
-
     unsigned int i = 0;
 
     for ( i = 0; i < Input::MaxControllers; i++ )
@@ -184,7 +173,7 @@ void InputManager::Update( unsigned int timeinms )
         }
     }
 
-#ifndef RAD_XBOX
+#ifndef RAD_UWP
     if ( mResetEnabled )
     {
         if ( !resetting )
@@ -407,11 +396,6 @@ m_isProScanButtonsPressed( false )
 #ifdef RAD_WIN32
     m_pFEMouse = new FEMouse;
 #endif
-#ifdef RAD_PS2
-    mLastMultitapStatus[0] = mLastMultitapStatus[1] = 0;
-    mCurMultitapStatus[0] = mCurMultitapStatus[1] = 0;
-
-#endif
 }
 
 
@@ -512,91 +496,16 @@ void InputManager::EnumerateControllers( void )
             }
             else
             {
-#ifdef RAD_PS2
-               if(strcmp( "PsxDualShock2", xIC2->GetType() ) == 0 )
-                {
-                    controller->Initialize( xIC2 );
-                    controller->NotifyConnect( );
-                    controller->LoadControllerMappings( );
-                    controller->SetRumble( IsRumbleEnabled() );
-                }
-                xIC2 = NULL;
-
-                if ( port == 0 )
-                {
-                    somethingPluggedIn0 = true;
-                }
-                else
-                {
-                    somethingPluggedIn1 = true;
-                }
-#else
                 controller->Initialize( xIC2 );
                 controller->NotifyConnect( );
                 controller->LoadControllerMappings( );
                 controller->SetRumble( IsRumbleEnabled() );
 
                 xIC2 = NULL;
-#endif
             }
 #endif
         }
     }
-
-#ifdef RAD_PS2
-
-    //TEST THE MULTITAP STATUS
-    if ( somethingPluggedIn0 || somethingPluggedIn1 )
-    {
-        if ( somethingPluggedIn0 )
-        {
-            mLastMultitapStatus[0] = sceMtapGetConnection(0);
-        }
-
-        if ( somethingPluggedIn1 )
-        {
-            mLastMultitapStatus[1] = sceMtapGetConnection(1);
-        }
-    }
-#endif
-
-
-#ifdef RAD_PS2
-    unsigned int i;
-    for ( i = 0; i < Input::MaxUSB; ++i )
-    {
-        char szLocation[ 256 ];
-        sprintf( szLocation, "USB%d", i );
-
-        xIC2 = mxIControllerSystem2->GetControllerAtLocation( szLocation );
-        //
-        // Grab the controller device associated with the foundation controller.
-        //
-        UserController* controller = &mControllerArray[ Input::USB0 + i ];
-
-        if ( xIC2 == NULL || !xIC2->IsConnected( ) )
-        {
-            controller->NotifyDisconnect( );
-        }
-        else
-        {
-            if ( xIC2->IsConnected( ) && strcmp( xIC2->GetClassification(), "Wheel" ) == 0 )
-            {
-                // Initialize the controller.  This will notify all observers of the
-                // controller being added.
-
-                controller->Initialize( xIC2 );
-                controller->NotifyConnect( );
-                controller->LoadControllerMappings( );
-            }
-            else
-            {
-                controller->NotifyDisconnect( );
-            }
-            xIC2 = NULL;
-        }
-    }
-#endif
 
 //#ifdef RAD_DEBUG
     char connectionMap[128] = "Controller status changed (connection : ";
@@ -617,21 +526,8 @@ void InputManager::EnumerateControllers( void )
         }
         strcat(connectionMap," ");
     }
-#ifdef RAD_PS2
-    for(unsigned int i = (Input::MaxSlots * Input::MaxPorts); i < Input::MaxControllers; ++i )
-    {
-        if ( mControllerArray[i].IsConnected() )
-        {
-            strcat(connectionMap,"U");
-        }
-        else
-        {
-            strcat(connectionMap, "o");
-        }
-    }
-#endif
-    strcat(connectionMap,")\n");
 
+    strcat(connectionMap,")\n");
     rReleaseString(connectionMap);
 //#endif
 }

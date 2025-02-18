@@ -15,7 +15,7 @@
 //========================================
 // Forward References
 //========================================
-class Platform;
+class GamePlatform;
 struct IRadTimerList;
 class GameFlow;
 class RenderFlow;
@@ -80,11 +80,11 @@ class Game
     public:
 
         // Static Methods (for creating and getting an instance of the game)
-        static Game* CreateInstance( Platform* platform );
+        static Game* CreateInstance( GamePlatform* platform );
         static void  DestroyInstance();
         static Game* GetInstance();
         
-        Platform* GetPlatform();
+        GamePlatform* GetPlatform();
 
 
         // Game Flow Public Methods
@@ -108,7 +108,7 @@ class Game
     private:
 
         // Constructors, Destructors, and Operators
-        Game( Platform* platform );
+        Game( GamePlatform* platform );
         virtual ~Game();
 
         // Unused Constructors, Destructors, and Operators
@@ -120,7 +120,7 @@ class Game
         static Game*    spInstance;
 
         // Private Attributes
-        Platform*       mpPlatform;
+        GamePlatform*   mpPlatform;
         IRadTimerList*  mpTimerList;
         GameFlow*       mpGameFlow;
         RenderFlow*     mpRenderFlow;

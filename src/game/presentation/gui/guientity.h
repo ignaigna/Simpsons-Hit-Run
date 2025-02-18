@@ -29,15 +29,7 @@
 	#define NULL 0
 #endif
 
-#ifdef RAD_PS2
-    const int PLATFORM_TEXT_INDEX = 1;
-#endif
-#ifdef RAD_XBOX
-    const int PLATFORM_TEXT_INDEX = 2;
-#endif
-#ifdef RAD_WIN32 // parallel the xbox for now.
-    const int PLATFORM_TEXT_INDEX = 2;
-#endif
+const int PLATFORM_TEXT_INDEX = 2;
 
 enum eGuiMessage
 {

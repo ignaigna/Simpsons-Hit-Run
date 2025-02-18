@@ -40,11 +40,7 @@
 #ifdef SRR2_HOLIDAYS_THEME_HACK
     #include <radtime.hpp>
 
-    #ifdef RAD_PS2
-        #include <libscf.h>
-    #endif
-
-    #ifdef RAD_WIN32
+    #if defined(RAD_WIN32) || defined(RAD_UWP)
         #define WIN32_EXTRA_LEAN
         #define WIN32_LEAN_AND_MEAN
         #include <Windows.h>

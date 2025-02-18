@@ -1,7 +1,7 @@
 //=============================================================================
 // Copyright (C) 2002 Radical Entertainment Ltd.  All rights reserved.
 //
-// Component:   Platform
+// Component:   GamePlatform
 //
 // Description: Pure virtual interface that abstracts the differences for
 //              setting up and shutting down the different platforms.
@@ -18,7 +18,6 @@
 // Nested Includes
 //========================================
 #include <p3d/p3dtypes.hpp> // tColour
-
 #include <radfile.hpp>
 
 struct IRadDrive;
@@ -29,7 +28,7 @@ struct IRadDrive;
 //              support (e.g. PS2, Xbox, etc.).
 //
 //=============================================================================
-class Platform : public IRadDriveErrorCallback
+class GamePlatform : public IRadDriveErrorCallback
 {
     public:
         
@@ -98,7 +97,7 @@ class Platform : public IRadDriveErrorCallback
         // Foundation attributes
         IRadDrive* mpIRadDrive;
 
-        Platform() : mPauseForError( false ), mpIRadDrive( 0 ) {};
+        GamePlatform() : mPauseForError( false ), mpIRadDrive( 0 ) {};
 };
 
 #endif // PLATFORM_H

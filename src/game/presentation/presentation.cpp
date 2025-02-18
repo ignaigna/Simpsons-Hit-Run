@@ -372,9 +372,7 @@ Description:    You're one stop method for playing an FMV during gameplay. It
                 reloads the HUD. Don't use this in the frontend as the
                 un/reloading of the frontend is a waste.
                 NOTE that the platform specific path for the movies is prepended
-                to the filename. So if you pass "fmv2.rmv" you'll get
-                "d:\movies\fmv2.rmv" on XBox, "movies\fmv2.rmv" on PS2,
-                "movies/fmv2.rmv" on GC.
+                to the filename.
 =============================================================================*/
 void PresentationManager::PlayFMV( const char* FileName,
                                    PresentationEvent::PresentationEventCallBack* pCallback,
@@ -424,11 +422,7 @@ void PresentationManager::PlayFMV( const char* FileName,
     mWaitingOnFade = true;
     FMVEvent* pEvent = 0;
     GetPresentationManager()->QueueFMV( &pEvent, this );
-#ifdef RAD_XBOX
-    strcpy( pEvent->fileName, "D:\\movies\\" );
-#elif RAD_PS2
-    strcpy( pEvent->fileName, "movies\\" );
-#elif RAD_WIN32
+#if defined(RAD_WIN32) || defined(RAD_UWP)
     strcpy( pEvent->fileName, "movies\\" );
 #else
     strcpy( pEvent->fileName, "movies/" );

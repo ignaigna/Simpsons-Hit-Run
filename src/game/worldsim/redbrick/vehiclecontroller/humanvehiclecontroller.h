@@ -25,9 +25,7 @@ public:
     void ReleaseVehicleMappable( void );
 
     void Create( Vehicle* pVehicle, VehicleMappable* pMappable, int controllerId );
-#ifdef RAD_PS2
-    void SetWheel( VehicleMappable* pMappable, unsigned int wheelNum );
-#endif
+
 	virtual float GetGas( void ) const;
     virtual float GetThrottle( void ) const;
 	virtual float GetBrake( void ) const;
@@ -57,13 +55,9 @@ private:
 
 	VehicleMappable* mpMappable;
 
-#ifdef RAD_PS2
-    VehicleMappable* mpWheel[ Input::MaxUSB ];
-#endif
-
     int mControllerId;
 
-#if defined(RAD_PS2) || defined(RAD_WIN32)
+#if defined(RAD_WIN32)
     SteeringSpring* mSpring;
     BaseDamper* mDamper;
     ConstantEffect* mConstantEffect;

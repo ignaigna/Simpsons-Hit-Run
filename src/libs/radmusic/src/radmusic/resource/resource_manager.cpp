@@ -35,10 +35,8 @@ enum enum_resource_buffer_state {
 // Global Data, Local Data, Local Classes
 //-----------------------------------------------------------------------------
 
-#if defined RAD_WIN32 || defined RAD_XBOX
+#if defined( RAD_WIN32 ) || defined( RAD_UWP )
 	#define PLATFORM_AUDIO_FORMAT IRadSoundHalAudioFormat::PCM
-#elif defined RAD_PS2
-	#define PLATFORM_AUDIO_FORMAT IRadSoundHalAudioFormat::VAG
 #endif
 	
 const unsigned char g_max_stream_graphs = 64;

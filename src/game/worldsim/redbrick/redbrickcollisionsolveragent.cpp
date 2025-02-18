@@ -21,10 +21,6 @@
 #include <events/eventmanager.h>
 #include <sound/soundcollisiondata.h>
 
-#ifdef RAD_XBOX
-#include <float.h>
-#endif
-
 
 //------------------------------------------------------------------------
 RedBrickCollisionSolverAgent::RedBrickCollisionSolverAgent()

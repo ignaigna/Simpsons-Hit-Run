@@ -14,101 +14,24 @@ namespace RadicalMathLibrary
 {
 
 //conversion functions
-#ifdef RAD_PS2
-    #ifndef PS2MW
-        
-        inline float LtoF( const int x )
-        {
-            return (float)(x);
-        }
-/*
-//optimized ltof by jesse but doesn't work 100%
-        #define LtoF(x)       \
-            ({ float __value; int __arg = (x);   \
-            asm ("mtc1  %1,%0;cvt.s.w  %0,%0": "=f" (__value): "r" (__arg));  \
-            __value; })
-*/
+inline float LtoF( const int x )
+{
+    return (float)(x);
+}
 
-    #else
+inline int FtoL(const float x)
+{
+    /*
+        Don't use.  Result is a round of x rather than a truncate.
 
-        inline float LtoF( const int x )
-        {
-            return (float)(x);
-        }
-
-    #endif
-#else
-
-    inline float LtoF( const int x )
-    {
-        return (float)(x);
-    }
-
-#endif
-
-#ifdef WIN32
-    inline int FtoL(const float x)
-    {
-        /*
-        // Don't use.  Result is a round of x rather than a truncate.
         int r;
         _asm fld x
         _asm fistp r;
         return r;
-        */
-        return (int)(x);
-    }
-#else
-    #ifdef RAD_PS2
-        #ifndef PS2MW
-
-        /*
-        inline int FtoL(float v)
-        {
-            int _val;
-            asm __volatile__ ("
-                cvt.w.s $f1, %1
-                mfc1 $8, $f1
-                sd $8, %0
-            " : "+r"(_val) : "f"(v) : "$f1", "$8");
-            return _val;
-        }
-        */
-        inline int FtoL(const float v)
-        {
-            register int _val;
-            asm __volatile__ (R"(
-                cvt.w.s $f1, %1
-                mfc1 %0, $f1
-            )" : "=r"(_val) : "f"(v) : "$f1");
-            return _val;
-        }
-
-/*
-//optimized ftol by jesse but doesn't work 100%
-            #define FtoL(x)       \
-                ({ int __value; float __arg = (x);   \
-                asm ("cvt.w.s  $f1,%1;mfc1  %0,$f1": "=r" (__value): "f" (__arg): "$f1");  \
-                __value; })
-*/
-
-        #else
-
-            inline int FtoL( const float x )
-            {
-                return (int)(x);
-            }
-
-        #endif   
-    #else
-
-        inline int FtoL( const float x )
-        {
-            return (int)(x);
-        }
-
-    #endif
-#endif
+    */
+    
+    return (int)(x);
+}
     
 // generic absolute value
 template <class T> inline T Abs(const T x)
@@ -117,23 +40,11 @@ template <class T> inline T Abs(const T x)
 }
 
 // absolute value for floats, - faster than generic version
-#ifdef PS2MW
-inline float Fabs(const register float a)
-{
-    register float b;
-    asm
-    {
-        abs.s b, a
-    }
-    return b;
-}
-#else
 inline float Fabs(const float a)
 {
     unsigned x = *(unsigned*)&a & 0x7fffffff;  // strip of bit 31
     return *(float*)&x;
 }
-#endif
 
 // returns -1 if negative, 0 if 0, 1 if positive
 template <class T> inline T Sign(const T x)
@@ -250,85 +161,11 @@ inline int Pow2Log2(const int x)
 
 // inverse, square root, inverse square root, ceil, floor, exponential
 inline float Inverse(const float a)                {  return 1.0f/a; }
-
-#ifndef RAD_PS2 
-inline float Sqrt( const float a)            {  return sqrtf(a); } 
-#else
-inline float Sqrt(const float floatVal) 
-{ 
-    float result = 0.0f; 
-
-    asm __volatile__(R"(
-    sqrt.s %0, %1 
-    )"
-    : "=f" (result) 
-    : "f" (floatVal) 
-    ); 
-
- return (result); 
-} 
-#endif 
-
-
-#ifdef RAD_PS2
-
-inline float ISqrt(const float a)
-{
-    register float res;
-    register float one = 1.0f;
-
-    asm __volatile__(R"(
-        rsqrt.s %0,%1,%2
-        )"
-        : "=f"(res)
-        : "f"(one),"f"(a));
-
-    return res;
-}
-
-#else
+inline float Sqrt(const float a) { return sqrtf(a); }
 inline float ISqrt(const float a)                  {  return 1.0f/sqrtf(a); }
-#endif
 inline float Ceil(const float a)                   {  return ceilf(a); }
 inline float Floor(const float a)                  {  return floorf(a); }
 inline float Exp(const float x)                    {  return expf(x); }
-
-#ifdef RAD_PS2
-
-const float pi_f = 3.1415926535897932384626433832795f;
-
-inline float ffabs(const float a)
-{
-    float rv;
-    asm ( "abs.s %0,%1" : "=f"( rv ) : "f"( a ) );
-    return rv;
-}
-
-inline float AtanPart(const float x)
-{
-    float xu( ffabs(x) );
-    return x + ( 0.75f*pi_f - 2.5f)*(x*xu) + ( 1.5f - pi_f*0.5f  )*(x*xu*xu);
-}
-
-// x is assumed to be positive
-inline float AtanPartU(const float x)
-{
-    return x + ( 0.75f*pi_f - 2.5f)*x*x + ( 1.5f - pi_f*0.5f  )*x*x*x;
-}
-
-inline float Atanf(const float x) // fast atan approximation
-{
-    if( ffabs(x) <= 1.f )
-    {
-        return AtanPart(x);
-    }
-    if( x > 0 ) {
-        return pi_f*0.5f - AtanPartU(1.0f/x);
-    }
-    return -pi_f*0.5f + AtanPartU(-1.0f/x);
-}
-
-#endif
 
 
 // A hashing function that uses the "hashpjw"
@@ -353,11 +190,7 @@ inline unsigned Hash(const char *x)
 
 inline int IsNan( const float n )
 {
-#ifdef RAD_PS2
-    return isnanf(n);
-#else
     return std::isnan(n);
-#endif
 }
 
 }  // RadicalMathLibrary namespace

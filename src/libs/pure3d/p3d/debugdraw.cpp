@@ -12,15 +12,7 @@
 #include <p3d/utility.hpp>
 #include <p3d/matrixstack.hpp>
 
-#ifdef RAD_PS2
-#define fabs ps2Fabs
-#endif
-
 using namespace RadicalMathLibrary;
-
-#ifdef RAD_PS2
-#define fabs ps2Fabs
-#endif
 
 //---------------------------------------------------------------------------
 // Support Math Functions that should go into Radmath

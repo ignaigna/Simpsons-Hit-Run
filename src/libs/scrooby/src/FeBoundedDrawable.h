@@ -28,7 +28,7 @@
 //===========================================================================
 // Constants, Typedefs, and Macro Definitions (needed by external clients)
 //===========================================================================
-#if defined(RAD_WIN32) || defined(RAD_XBOX)
+#if defined(RAD_WIN32) || defined(RAD_UWP)
 #pragma warning( disable : 4250 )
 #endif
 

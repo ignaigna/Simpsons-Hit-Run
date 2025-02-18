@@ -38,7 +38,7 @@ class tContext;
 // Synopsis:    Provides abstraction for setting up and closing a win32 exe.
 //
 //=============================================================================
-class Win32Platform : public Platform, public GameConfigHandler
+class Win32Platform : public GamePlatform, public GameConfigHandler
 {
 public:
 
@@ -77,7 +77,6 @@ public:
 
     virtual void LaunchDashboard();
     virtual void ResetMachine();
-
     virtual void DisplaySplashScreen( SplashScreen screenID, 
         const char* overlayText = NULL, 
         float fontScale = 1.0f, 

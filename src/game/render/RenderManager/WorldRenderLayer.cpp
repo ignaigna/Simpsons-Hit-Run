@@ -60,23 +60,9 @@
 #include <render/Loaders/BillboardWrappedLoader.h>
 #include <worldsim/avatarmanager.h>
 
-#ifdef RAD_PS2
 #define DEFAULT_R 67;
 #define DEFAULT_G 67;
 #define DEFAULT_B 67;
-#elif defined(RAD_XBOX)
-#define DEFAULT_R 67;
-#define DEFAULT_G 67;
-#define DEFAULT_B 67;
-#elif defined(RAD_WIN32)
-#define DEFAULT_R 67;
-#define DEFAULT_G 67;
-#define DEFAULT_B 67;
-#else
-#define DEFAULT_R 67;
-#define DEFAULT_G 67;
-#define DEFAULT_B 67;
-#endif
 
 static unsigned char gWashColourR = DEFAULT_R;
 static unsigned char gWashColourG = DEFAULT_G;

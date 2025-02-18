@@ -2,10 +2,6 @@
 // Copyright (c) 2002 Radical Games Ltd.  All rights reserved.
 //=============================================================================
 
-#ifdef RAD_XBOX
-#pragma warning( disable : 4530 )
-#endif
-
 #include <p3d/entity.hpp>
 #include <p3d/error.hpp>
 #include <p3d/utility.hpp>

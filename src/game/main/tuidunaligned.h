@@ -19,13 +19,11 @@
 //
 // This is a 64 bit number
 //
-#ifdef RAD_PS2
-    typedef unsigned long radInt64;
-#elif defined( RAD_WIN32 ) || defined ( RAD_XBOX )
+#if defined( RAD_WIN32 ) || defined ( RAD_UWP )
     #include <cstdint>
     typedef uint64_t radInt64;
 #else
-    #error 'FTech requires definition of RAD_PS2, RAD_XBOX, or RAD_WIN32'
+    #error 'FTech requires definition of RAD_UWP or RAD_WIN32'
 #endif
 
 

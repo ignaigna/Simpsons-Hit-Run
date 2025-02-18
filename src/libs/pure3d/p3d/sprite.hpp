@@ -30,13 +30,8 @@ struct tRect;
 class tSprite : public tDrawable
 {
 public:
-#ifdef RAD_PS2
-    tSprite(tImage*, tShader* Shader = NULL, int blitBorder = 1, int nativeX = 640, int nativeY = 448,tImageConverter* conv = 0);
-    tSprite(tTexture**, int w, int h, int count, tShader* Shader = NULL, int blitBorder = 1, int nativeX = 640, int nativeY = 448,tImageConverter* conv = 0);
-#else
     tSprite(tImage*, tShader* Shader = NULL, int blitBorder = 1, int nativeX = 640, int nativeY = 480,tImageConverter* conv = 0);
     tSprite(tTexture**, int w, int h, int count, tShader* Shader = NULL, int blitBorder = 1, int nativeX = 640, int nativeY = 480,tImageConverter* conv = 0);
-#endif
 
     void Display();
 
@@ -59,7 +54,7 @@ public:
 
     tShader* GetShader(void);
 
-#ifdef RAD_XBOX
+#ifdef RAD_UWP
     static void EnableLinearTexture(bool enable)  { createLinear = enable; }
 #else
     static void EnableLinearTexture(bool enable)  { createLinear = false; }

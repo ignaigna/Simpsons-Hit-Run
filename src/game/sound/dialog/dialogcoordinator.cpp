@@ -131,12 +131,7 @@ DialogCoordinator::DialogCoordinator( IRadNameSpace* namespaceObj ) :
     {
         if( tutorialConvNames[i].platformSpecificLine )
         {
-#ifdef RAD_PS2
-            sprintf( buffer, "%sps2", tutorialConvNames[i].convName );
-#else
             sprintf( buffer, "%sxbx", tutorialConvNames[i].convName );
-#endif
-
             tutorialConvNames[i].convNameKey = ::radMakeKey32( buffer );
         }
         else

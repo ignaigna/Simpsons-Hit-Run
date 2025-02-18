@@ -5,13 +5,6 @@
 
 #ifndef _PURE3D_HPP
 #define _PURE3D_HPP
-#ifdef RAD_PS2
-//
-// Inlcuding p3d.hpp makes our build dependancies really really big.  Please
-// include only the files that you actually need
-//
-    #error DON'T INCLUDE THIS!!! It's a huge pain if you do
-#endif
 #include <p3d/array.hpp>
 #include <p3d/bmp.hpp>
 #include <p3d/camera.hpp>

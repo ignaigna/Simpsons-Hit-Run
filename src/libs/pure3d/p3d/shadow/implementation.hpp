@@ -7,22 +7,11 @@
 #define _SHADOW_IMPLIMENTATION_HPP_
 
 
-#if defined (RAD_WIN32) || defined(RAD_XBOX)
+#if defined (RAD_WIN32) || defined(RAD_UWP)
 #define CARMACK_REVERSE // use inverted z-buffer mode 
 #define DRAW_CAPS // draw caps on volumes
 #endif
 
-#if defined (RAD_PS2)
-//#define CARMACK_REVERSE // use inverted z-buffer mode 
-//#define DRAW_CAPS // draw caps on volumes
-#endif
-
-
-#ifdef RAD_PS2
-#include <p3d/shadow/implementation_ps2.hpp>
-#else
 #include <p3d/shadow/implementation_common.hpp>
-#endif
-
 
 #endif

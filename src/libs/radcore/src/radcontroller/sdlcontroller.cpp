@@ -1,5 +1,5 @@
 //=============================================================================
-// Copyright (c) 2002 Radical Games Ltd.  All rights reserved.
+// Copyright (c) 2025 Radical Games Ltd.  All rights reserved.
 //=============================================================================
 
 
@@ -21,6 +21,7 @@
 //============================================================================
 
 #include "pch.hpp"
+#if defined(RAD_UWP)
 #include <algorithm>
 #include <stdio.h>
 #include <string.h>
@@ -1726,4 +1727,4 @@ void radControllerSystemService( void )
     }
 }
 
-
+#endif // RAD_UWP

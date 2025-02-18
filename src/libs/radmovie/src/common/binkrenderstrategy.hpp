@@ -5,18 +5,18 @@
 
 //=============================================================================
 //
-// File:        binkrenderstrategyxbox.hpp
+// File:        binkrenderstrategy.hpp
 //
 // Subsystem:	Foundation Technologies - Movie Player
 //
-// Description:	This is an xbox render strategy implementation
+// Description:	This is an render strategy implementation
 //
 // Date:    	August 21, 2002 RWS
 //
 //=============================================================================
 
-#ifndef BINKRENDERSTRATEGYXBOX_HPP
-#define BINKRENDERSTRATEGYXBOX_HPP
+#ifndef BINKRENDERSTRATEGY_HPP
+#define BINKRENDERSTRATEGY_HPP
 
 //=============================================================================
 // Include Files
@@ -33,7 +33,7 @@
 #define RMV_TEXTURE_MAX_TEX_DIM 256
 #else
 #define RMV_TEXTURE_MAX_TEX_DIM 1024 // somewhat arbitrary, just needs to be big
-#endif // RAD_XBOX
+#endif
 
 #define RMV_TEXTURE_BITDEPTH 32
 
@@ -45,7 +45,7 @@
 #define RMV_MAX_NUM_TILES 9
 #else
 #define RMV_MAX_NUM_TILES 1
-#endif // RAD_XBOX
+#endif
 
 //=============================================================================
 // Forward Class/Struct Declarations

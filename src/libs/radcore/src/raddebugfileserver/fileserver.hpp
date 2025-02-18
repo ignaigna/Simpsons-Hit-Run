@@ -15,7 +15,7 @@
 #ifndef __FILESERVER_H
 #define __FILESERVER_H
 
-#if defined (RAD_WIN32) || defined (RAD_XBOX)    // server only exists on Windows
+#if defined (RAD_WIN32) // server only exists on Windows
 
 
 //===========================================================================

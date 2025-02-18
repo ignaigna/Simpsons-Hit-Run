@@ -155,7 +155,7 @@ inline FollowCamData::FollowCamData() :
     mQuickTurnDelay( 0 ),
     mQuickTurnModifier( 0.0f ),
     mAspect( SUPERCAM_ASPECT ),//4.0f / 3.0f ),
-#ifdef RAD_XBOX
+#ifdef RAD_UWP
     mFOV( 1.45f ),
 #else
     mFOV( 1.363451f ),

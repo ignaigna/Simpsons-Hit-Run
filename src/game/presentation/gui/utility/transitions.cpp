@@ -2560,11 +2560,7 @@ void Translator::SetEndOffscreenBottom( const Scrooby::Drawable* drawable )
     int yMin;
     int yMax;
     drawable->GetBoundingBox( xMin, yMin, xMax, yMax );
-    #ifdef RAD_PS2
-        SetCoordsEnd( 0, -20 -yMax );    
-    #else
-        SetCoordsEnd( 0, -yMax );    
-    #endif
+    SetCoordsEnd(0, -yMax);
 }
 
 //==============================================================================
@@ -2640,11 +2636,7 @@ void Translator::SetEndOffscreenTop( const Scrooby::Drawable* drawable )
     int yMin;
     int yMax;
     drawable->GetBoundingBox( xMin, yMin, xMax, yMax );
-    #ifdef RAD_PS2
-        SetCoordsEnd( 0, 480 + 20 - yMin );    
-    #else
-        SetCoordsEnd( 0, 480 - yMin );    
-    #endif
+    SetCoordsEnd( 0, 480 - yMin );    
 }
 
 //==============================================================================
@@ -2664,13 +2656,7 @@ void Translator::SetStartOffscreenBottom ( const Scrooby::Drawable* drawable )
     int yMin;
     int yMax;
     drawable->GetBoundingBox( xMin, yMin, xMax, yMax );
-    
-    #ifdef RAD_PS2
-        SetCoordsStart( 0, -20 -yMax );    
-    #else
-        SetCoordsStart( 0, -yMax );    
-    #endif
-
+    SetCoordsStart( 0, -yMax );    
 }
 
 //==============================================================================
@@ -2747,12 +2733,7 @@ void Translator::SetStartOffscreenTop( const Scrooby::Drawable* drawable )
     int yMax;
     drawable->GetBoundingBox( xMin, yMin, xMax, yMax );
     SetCoordsStart( 0, 480 - yMin );    
-    #ifdef RAD_PS2
-        SetCoordsStart( 0, 480 + 20 - yMin );    
-    #else
-        SetCoordsStart( 0, 480 - yMin );    
-    #endif
-
+    SetCoordsStart( 0, 480 - yMin );    
 }
 
 //==============================================================================

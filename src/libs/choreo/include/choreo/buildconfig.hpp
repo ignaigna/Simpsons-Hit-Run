@@ -16,14 +16,9 @@
 #define RAD_DEBUG
 #endif
 
-// check that we're not tring to build somewhere we can't
-#if defined(RAD_PS2IOP)
-#error Choreo cannot be built for the PS2 IOP
-#endif
-
 // check that we have a valid platform define
-#if !defined(RAD_PS2) && !defined(RAD_XBOX) && !defined(RAD_WIN32) && !defined(RAD_LINUX)
-#error No platform defined, define one of RAD_PS2, RAD_XBOX, RAD_WIN32 or RAD_LINUX 
+#if !defined(RAD_UWP) && !defined(RAD_WIN32) && !defined(RAD_LINUX)
+#error No platform defined, define one of RAD_UWP, RAD_WIN32 or RAD_LINUX 
 #endif
 
 #if !defined(RAD_WIN32) && !defined(RAD_CONSOLE) 
@@ -51,6 +46,4 @@
 #define CHOREO_TOOL
 #endif
 #endif
-
-
 #endif

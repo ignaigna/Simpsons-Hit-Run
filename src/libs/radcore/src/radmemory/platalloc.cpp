@@ -8,11 +8,7 @@
 #include <raddebug.hpp>
 #include "platalloc.hpp"
 
-#if defined RAD_PS2
-
-    #include <malloc.h>
-
-#elif defined WIN32 || defined RAD_XBOX
+#if defined WIN32 || defined RAD_UWP
     
     #include <stdlib.h>
     #include <malloc.h>

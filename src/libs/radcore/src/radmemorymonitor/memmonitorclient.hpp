@@ -44,19 +44,6 @@ class radMemoryMonitor;
 //=============================================================================
 // Defintions
 //=============================================================================
-#if defined RAD_PS2 
-extern unsigned int _codestart;
-extern unsigned int _codeend;
-extern unsigned int _datastart;
-extern unsigned int _dataend;
-extern unsigned int _stack_size;
-
-
-extern unsigned int _heapstart;
-extern unsigned int _heapend;
-extern unsigned int _stackstart;
-extern unsigned int _stackend;
-#endif
 
 //
 // max number of memory sections user can define, increase this number if

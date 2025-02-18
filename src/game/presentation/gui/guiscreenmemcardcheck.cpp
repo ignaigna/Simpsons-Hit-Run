@@ -91,22 +91,7 @@ CGuiScreenMemCardCheck::CGuiScreenMemCardCheck
     rAssert( m_messageText );
     m_messageText->SetTextMode( Scrooby::TEXT_WRAP );
 
-#ifdef RAD_PS2
-    m_messageText->SetIndex( CHECKING_MEMCARDS_PS2 );
-
-  #ifndef PAL
-    // no need to display checking message on PS2
-    //
-    m_messageText->SetVisible( false );
-    this->SetFadingEnabled( false );
-  #endif
-#endif
-
-#ifdef RAD_XBOX
-    m_messageText->SetIndex( CHECKING_HARDDISK_XBOX );
-#endif
-
-#ifdef RAD_WIN32
+#if defined(RAD_WIN32) || defined(RAD_UWP)
     m_messageText->SetIndex( CHECKING_HARDDISK_PC );
     // no need to display checking message on WIN32
     m_messageText->SetVisible( false );
@@ -173,19 +158,6 @@ void CGuiScreenMemCardCheck::HandleMessage
 			}
 		}
 	}
-    else if (message == GUI_MSG_PROMPT_UPDATE)
-    {
-#if defined( RAD_PS2 )
-        // detect memcard unplugged in prompt   
-        // update so status up to date
-        GetMemoryCardManager()->Update( param1 );
-        if (m_StatusPromptShown==false) { // check for user unplugging memcard if not showing status
-
-            if( !GetMemoryCardManager()->IsCurrentDrivePresent(CGuiScreenMemoryCard::s_currentMemoryCardSlot) )
-                ReloadScreen();
-        }
-#endif
-    }
 	else if ( message == GUI_MSG_MENU_PROMPT_RESPONSE || message == GUI_MSG_ERROR_PROMPT_RESPONSE)
     {
 		switch ( param1 )
@@ -291,7 +263,7 @@ CGuiScreenMemCardCheck::OnMemoryCardCheckDone( radFileError errorCode,
                                                int mostRecentSaveGameDriveIndex,
                                                int mostRecentSaveGameSlot )
 {
-#ifdef RAD_WIN32
+#if defined(RAD_WIN32) || defined(RAD_UWP)
     GetMemoryCardManager()->SetCurrentDrive( static_cast<unsigned int>( 0 ) );
 #endif
 
@@ -329,39 +301,9 @@ CGuiScreenMemCardCheck::OnMemoryCardCheckDone( radFileError errorCode,
 
 		int format_response = 0;
 
-        // TC: (PS2 TRC) formatting should NOT be offered to the user during the
-        //               boot-up check, but only during save contexts
-        //
-#ifndef RAD_PS2
-		if (mediaState==IRadDrive::MediaInfo::MediaNotFormatted)
-			format_response = ERROR_RESPONSE_FORMAT;
-#endif
-
         rAssert( errorMessage != -1 );
-
-#ifdef RAD_PS2
-        // add retry if card full, or no card
-        if( errorCode == NoFreeSpace || mediaState == IRadDrive::MediaInfo::MediaNotPresent)
-        {
-            m_guiManager->DisplayErrorPrompt( errorMessage, this, ERROR_RESPONSE_CONTINUE_WITHOUT_SAVE | ERROR_RESPONSE_RETRY );
-        }
-        else
-        {
-            if (format_response)
-            { // detect unplugged if we are asking for format
-                m_StatusPromptShown = false;
-            }
-            m_guiManager->DisplayErrorPrompt( errorMessage, this, format_response | ERROR_RESPONSE_CONTINUE | ERROR_RESPONSE_RETRY);
-        }
-#endif // RAD_PS2
-
-#ifdef RAD_XBOX
-       m_guiManager->DisplayErrorPrompt( errorMessage, this, ERROR_RESPONSE_CONTINUE );
-#endif // RAD_XBOX
-
-#ifdef RAD_WIN32 //parallel the xbox for now.
+        
         m_guiManager->DisplayErrorPrompt( errorMessage, this, ERROR_RESPONSE_CONTINUE );
-#endif // RAD_WIN32
     }
 }
 
@@ -431,11 +373,7 @@ CGuiScreenMemCardCheck::OnContinue()
 {
     GetMemoryCardManager()->UnloadMemcardInfo();
 
-#ifdef RAD_PS2
-    bool isCurrentDriveReady = true;
-#else
     bool isCurrentDriveReady = GetMemoryCardManager()->IsCurrentDriveReady( true );
-#endif
 
     if( m_isAutoLoadPending && isCurrentDriveReady )
     {

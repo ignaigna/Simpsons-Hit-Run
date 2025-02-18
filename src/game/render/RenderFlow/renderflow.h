@@ -76,7 +76,7 @@ private:
 
 #ifdef DEBUGWATCH
     unsigned int mDebugRenderTime;
-    pddiExtGammaControl* mpDebugXBoxGamma;
+    pddiExtGammaControl* mpDebugUwpGamma;
     float mDebugGammaR, mDebugGammaG, mDebugGammaB;
 #endif
 #ifdef RAD_WIN32

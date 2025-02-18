@@ -894,7 +894,6 @@ PascalCString PascalCString::Match
 {
     // The maximal match could be the shortest of the two strings.
     int ichMax;
-    //i=  __min( Length(), rhs.Length() );    there's no Min on ps2
     if( Length() < rhs.Length() )
     {
         ichMax = Length();

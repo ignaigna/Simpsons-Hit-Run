@@ -85,15 +85,7 @@ void CementFileHandler::LoadFile( const char* filename,
 
     mpCallback = pCallback;
     mpUserData = pUserData;
-
-    if( CommandLineOptions::Get( CLO_CD_FILES_ONLY ) )
-    {
-        priority = radCementLibraryBeforeDrive;
-    }
-    else
-    {
-        priority = radCementLibraryAfterDrive;
-    }
+    priority = radCementLibraryAfterDrive;
 
     ::radFileRegisterCementLibrary( &(m_libraryStruct->library),
                                     filename,

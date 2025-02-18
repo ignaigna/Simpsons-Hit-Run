@@ -4,35 +4,17 @@
 namespace Input
 {
     // Platform specific controller topology.
-    #ifdef RAD_XBOX
+    #if defined( RAD_UWP )
     const static unsigned int MaxPorts = 4;
     const static unsigned int MaxSlots = 1;
-    #endif
-    #ifdef RAD_PS2
-    const static unsigned int MaxPorts = 2;
-    const static unsigned int MaxSlots = 4;
     #endif
     #if defined( RAD_WIN32 )
     const static unsigned int MaxPorts = 4;
     const static unsigned int MaxSlots = 1;
     #endif
 
-    #ifdef RAD_PS2
-    enum USBID 
-    {
-        USB0 = (MaxPorts * MaxSlots),
-        USB1 = (MaxPorts * MaxSlots) + 1
-    };
-    static const unsigned int MaxUSB = 2;
-
-    // Platform specific max controllers.
-    const static unsigned int MaxControllers = (MaxPorts * MaxSlots) + MaxUSB;
-
-    #else //NOT PS2
     // Platform specific max controllers.
     const static unsigned int MaxControllers = (MaxPorts * MaxSlots);
-    #endif
-
 
     #ifdef RAD_WIN32
         const static unsigned int NumExtraButtonsForSuperSprint = 7;

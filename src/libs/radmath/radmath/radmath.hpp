@@ -11,7 +11,6 @@
 // Author:        Nigel Brooke (based on Radlib34 and Pure3D math library)
 //
 // History:
-//                Oct31/2001 amb - Added optimized PS2 specific code
 //                Jan21/2002 vmar - Added Sphere, Box, Plane, Triangle
 //                Jan24/2002 nbrooke - seperated into multiple headers for clarity
 //=============================================================================

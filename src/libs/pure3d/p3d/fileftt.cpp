@@ -23,13 +23,7 @@ static const unsigned gYieldTime = 5200;  // microseconds
 #endif
 
 static char globalCache[ (CACHE_SIZE * 2) + 1024];
-
-#ifndef RAD_PS2
-    static char globalUncompressedCache[ 4096 ];  // nv:  danger - this should be LZR_BLOCK_SIZE
-#else
-    static char* globalUncompressedCache = (char*)0x70002500; // nv:  Simpson's hack to put load buffer in SPR
-                                                              // magic address to avoid mfifo, and Pure3D shaders that use SPR
-#endif
+static char globalUncompressedCache[ 4096 ];  // nv:  danger - this should be LZR_BLOCK_SIZE
 
 //--------------------------------------------------------------------------
 void tFileFTT::SetYieldTime(unsigned ms)
@@ -217,9 +211,7 @@ bool tFileFTT::GetData(void* buf, unsigned count, DataType type)
      }
 
      // Reorder the bits in reverse order when needed
-    #ifndef RAD_PS2
-        EndianSwap(buf, count, type);
-    #endif
+    EndianSwap(buf, count, type);
 
     // Check to see if we have given this process 
     // enough time to process in a given thread instance

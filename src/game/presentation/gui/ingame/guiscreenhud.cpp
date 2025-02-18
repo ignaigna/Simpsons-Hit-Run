@@ -2029,11 +2029,7 @@ CGuiScreenHud::UpdateHudMapPosition( unsigned int elapsedTime )
         CGuiUserInputHandler* userInputHandler = GetGuiSystem()->GetUserInputHandler( i );
         if( userInputHandler != NULL )
         {
-#ifdef RAD_PS2
-            if( userInputHandler->IsButtonDown( GuiInput::Back ) ) // action button (for PS2)
-#else
             if( userInputHandler->IsButtonDown( GuiInput::AuxY ) ) // action button (for Xbox and GC)
-#endif
             {
                 static int NUM_PIXELS_PER_SECOND = 160;
                 int translationAmount = (int)( (elapsedTime / 1000.0f) * (float)NUM_PIXELS_PER_SECOND );

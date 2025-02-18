@@ -265,41 +265,14 @@ void radDispatcher::QueueCallbackFromInterrupt
     void*                 userData 
 )
 {
-    #if defined ( RAD_WIN32 ) || defined( RAD_XBOX )
+    #if defined ( RAD_WIN32 ) || defined( RAD_UWP )
         
     //
-    // Not supported under windows or XBOX
+    // Not supported under Windows or UWP
     //
     (void) pDispatchCallback;
     (void) userData;
     rAssert( false );
-
-    #endif
-
-    #if defined( RAD_PS2 )
-
-    //
-    // Update reference count on the dispatch event object since we are holding
-    // a pointer to it,
-    //      
-    pDispatchCallback->AddRef( );
-
-    //
-    // Assert that we have not exceeded the maximum number of events in the queue.
-    //
-    rAssert( m_EventsQueued != m_MaxEvents );                         
-
-    //
-    // Add it to the queue at the head.
-    //
-    m_EventQueue[ m_EventQueueHeadIndex ].m_Callback = pDispatchCallback;
-    m_EventQueue[ m_EventQueueHeadIndex ].m_UserData = userData;
-    m_EventQueueHeadIndex++;
-    if( m_EventQueueHeadIndex == m_MaxEvents )
-    {
-        m_EventQueueHeadIndex = 0;
-    }        
-    m_EventsQueued++;
 
     #endif
 }
@@ -322,16 +295,6 @@ unsigned int radDispatcher::Service( void )
     // For each invocation, we remove all of the events queued.
     //
     unsigned int eventsToDispatch = m_EventsQueued;
-
-    //
-    // On Ps2, get the callers thread prioriry.
-    //
-    #ifdef RAD_PS2
-
-    ThreadParam threadInfo;
-    ReferThreadStatus( GetThreadId( ), &threadInfo );
-        
-    #endif
 
     //
     // We only dispatch as many events that were initially in the queue. Since
@@ -369,14 +332,6 @@ unsigned int radDispatcher::Service( void )
         // Since we are now finished with the event, we can update our reference to the object.
         //
         event.m_Callback->Release( );   // don't call radRelease( ) to report this release to memory monitor
-
-        #ifdef RAD_PS2
-        //
-        // Under the PS2, we rotate the thread ready queue to allow other threads to
-        // run. Rotate only those threads at the calling priority.
-        //
-        RotateThreadReadyQueue( threadInfo.currentPriority );
-        #endif
 
         SDL_LockMutex(m_Mutex);
     }

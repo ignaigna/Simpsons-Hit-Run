@@ -34,12 +34,7 @@ struct composition;
 //-----------------------------------------------------------------------------
 
 extern const char * debug_channel;
-
-#ifdef RAD_PS2
-const radMemorySpace default_preloaded_stream_space = radMemorySpace_Iop;
-#else
 const radMemorySpace default_preloaded_stream_space = radMemorySpace_Local;
-#endif
 
 //-----------------------------------------------------------------------------
 // Interface Definitions

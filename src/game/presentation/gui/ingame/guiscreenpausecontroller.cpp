@@ -197,23 +197,7 @@ void CGuiScreenPauseController::InitOutro()
     if ( GetGameplayManager()->GetGameType() == GameplayManager::GT_NORMAL &&
          GetAvatarManager()->GetAvatarForPlayer( 0 )->GetVehicle() )
     {
-#ifdef RAD_PS2
-        if ( GetInputManager()->GetController( Input::USB0 )->IsConnected() )
-        {
-            GetInputManager()->SetRumbleForDevice( Input::USB0, vibrationOn );
-        }
-        else if ( GetInputManager()->GetController( Input::USB1 )->IsConnected() )
-        {
-            GetInputManager()->SetRumbleForDevice( Input::USB1, vibrationOn );
-        }
-        else
-        {
-            GetInputManager()->SetRumbleForDevice( controllerID, vibrationOn );
-        }
-#else
         GetInputManager()->SetRumbleForDevice( controllerID, vibrationOn );
-#endif
-
     }
 }
 

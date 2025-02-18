@@ -303,8 +303,7 @@ struct IRadSoundStitchCallback
 //      (and thus its buffer memory) as long as the data is in the same format
 //      as the previous input data source.
 //
-//      The buffer can be located in any memory space on the platform such
-//      as IOP or EE on the PS2.
+//      The buffer can be located in any memory space on the platform.
 //============================================================================
 
 struct IRadSoundBufferedDataSource : public IRadSoundHalDataSource
@@ -407,13 +406,9 @@ struct IRadSoundMemoryDataSource : public IRadSoundHalDataSource
 //============================================================================
 // Interface: IRadSoundDataCache
 //
-// Description: A cache for sound data that is not directly playbale by the
+// Description: A cache for sound data that is not directly playable by the
 //      hardware.
-//
-//      An example of this object's use on the PS2 is to cache clip or
-//      streaming data on the IOP so as to reduce CD usage.  For example the
-//      music engine uses this component to cache small stream files for
-//      stitching so as to not hit the disk to frequently.
+// 
 //============================================================================
 
 struct IRadSoundDataCache : public IRefCount

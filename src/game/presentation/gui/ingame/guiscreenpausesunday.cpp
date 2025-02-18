@@ -210,12 +210,6 @@ void CGuiScreenPauseSunday::HandleMessage
                     }
                     case MENU_ITEM_SAVE_GAME:
                     {
-#ifdef RAD_XBOX
-                        // Xbox TCR Requirement: always prompt user to select memory
-                        // device before loading/saving
-                        //
-                        CGuiScreenLoadSave::s_forceGotoMemoryCardScreen = true;
-#endif
                         m_pParent->HandleMessage( GUI_MSG_GOTO_SCREEN, GUI_SCREEN_ID_SAVE_GAME );
 
                         break;

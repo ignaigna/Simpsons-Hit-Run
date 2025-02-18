@@ -152,12 +152,9 @@ void Quaternion::BuildFromAngleAxis(const float a, const Vector& axis)
 void Quaternion::BuildFromAngleXYZ(const float ax, const float ay, const float az)
 {
     float cx, sx, cy, sy, cz, sz;
-#ifdef RAD_PS2
-    SinCos2(ax*0.5f, ay*0.5f, &sx, &cx, &sy, &cy);
-#else
+
     SinCos(ax*0.5f, &sx, &cx);
     SinCos(ay*0.5f, &sy, &cy);
-#endif
     SinCos(az*0.5f, &sz, &cz);
 
     // compute x*y
@@ -176,12 +173,9 @@ void Quaternion::BuildFromAngleXYZ(const float ax, const float ay, const float a
 void Quaternion::BuildFromAngleYZX(const float ax, const float ay, const float az)
 {
     float cx, sx, cy, sy, cz, sz;
-#ifdef RAD_PS2
-    SinCos2(ax*0.5f, ay*0.5f,&sx, &cx, &sy, &cy);
-#else
+
     SinCos(ax*0.5f, &sx, &cx);
     SinCos(ay*0.5f, &sy, &cy);
-#endif
     SinCos(az*0.5f, &sz, &cz);
     // compute y*z
     float cycz = cy*cz;

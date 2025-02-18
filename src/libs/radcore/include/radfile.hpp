@@ -25,8 +25,8 @@
 // Build Configuration Check
 //=============================================================================
  
-#if !defined(RAD_PS2) && !defined(RAD_XBOX) && !defined(RAD_WIN32)
-    #error 'FTech requires definition of RAD_PS2, RAD_XBOX, or RAD_WIN32'
+#if !defined(RAD_UWP) && !defined(RAD_WIN32)
+    #error 'FTech requires definition of RAD_UWP, or RAD_WIN32'
 #endif
  
 //=============================================================================
@@ -57,59 +57,10 @@ struct IRadDrive;
 // name or path. When the caller provides a path name or file name he can use
 // either the forward or backslash. (ie "\\" or "/" ).
 //
-// PS2 Drive and filename considerations: 
-// the host drive is used by default in debug mode and the CDVD is used in release mode.
-// The caller can use the drive spec if he wants explicit control of where the file 
-// is opened or set the default drive.
-//
-// Drive name       Details  
-// CDROM:           PS2 CDVD drive, always available, default drive (tune/release)
-// MEMCARD1A:       PS2 Memcard slot 1A, always available
-// MEMCARD1B:       PS2 Memcard slot 1B, media is not present if there is no mutitap
-// MEMCARD1C:       PS2 Memcard slot 1C, media is not present if there is no mutitap
-// MEMCARD1D:       PS2 Memcard slot 1D, media is not present if there is no mutitap
-// MEMCARD2A:       PS2 Memcard slot 2A, always available
-// MEMCARD2B:       PS2 Memcard slot 2B, media is not present if there is no mutitap
-// MEMCARD2C:       PS2 Memcard slot 2C, media is not present if there is no mutitap
-// MEMCARD2D:       PS2 Memcard slot 2D, media is not present if there is no mutitap
-// REMOTEDRIVE:     Radical File Server, only available if host communication is enabled
-// HOSTDRIVE:       native debugger file server (ie SNs TargetManager), default drive (debug)
-//
 // Win32 Drive and filename considerations: 
 // Just use drive letters A: B: C: etc...
 // By default the drive containing the current directory is used.
 //
-// XBOX Drive and filename considerations:
-// The dvd drive is used by default, but is mapped to the HDD by XBOX SDK during debugging.
-//
-// Drive name       Details  
-// D:               DVD drive, always available (default)
-// T:               Title data, always available
-// U:               Saved games, always available
-// W:               WMA soundtrack drive, always available
-// Z:               Utility drive, available only if mounted (either using the SDK or as a
-//                                 parameter when building the XBE file)
-// MEMCARD1A:       XBox memory unit in controller 1 (top),    always available
-// MEMCARD1B:       XBox memory unit in controller 1 (bottom), always available
-// MEMCARD2A:       XBox memory unit in controller 2 (top),    always available
-// MEMCARD2B:       XBox memory unit in controller 2 (bottom), always available
-// MEMCARD3A:       XBox memory unit in controller 3 (top),    always available
-// MEMCARD3B:       XBox memory unit in controller 3 (bottom), always available
-// MEMCARD4A:       XBox memory unit in controller 4 (top),    always available
-// MEMCARD4B:       XBox memory unit in controller 4 (bottom), always available
-// REMOTEDRIVE:     Radical File Server, only available if host communication is enabled
-//
-
-//=============================================================================
-// Macros and defines
-//=============================================================================
-
-#ifdef RAD_XBOX
-//
-// Drive file caching is enabled only on the XBOX
-//
-#define CACHING_ENABLED
-#endif // RAD_XBOX
 
 //=============================================================================
 // Enumerations and constants
@@ -119,23 +70,12 @@ struct IRadDrive;
 // This constant defines the optimal memory buffer alignment for use with
 // file read and write operations on the current platform.
 //
-#if defined RAD_PS2
-#define radFileOptimalMemoryAlignment 64
-#else
 #define radFileOptimalMemoryAlignment 16
-#endif
 
 //
 // This constant defines the best disk transfer size for the current platform.
 //
-#if defined RAD_PS2
-#define radFileMaxSectorSize        2048
-#define radFileMaxMemcardSectorSize 1024
-#elif defined RAD_XBOX
-#define radFileMaxSectorSize        2048
-#else
 #define radFileMaxSectorSize         512
-#endif
 
 //
 // This enumeration is used to control the priority at which file operations
@@ -198,68 +138,7 @@ const unsigned int radFileDriveMax = 26;
 // Save Game Structures
 //=============================================================================
 
-#ifdef RAD_PS2 
-#include <radstring.hpp>
-
-struct radPs2IconSys
-{
-    char m_Header[ 4 ];
-
-    unsigned short m_Reserved1;         // Must be 0x0000
-    unsigned short m_LineBreakPosition; // in bytes (2 bytes per character)
-    unsigned m_Reserved2;               // Must be 0x00000000
-
-    unsigned m_BgTransparency;
-
-    int m_BgColor[ 4 ][ 4 ];
-    float m_LightDir[ 3 ][ 4 ];
-    float m_LightColor[ 3 ][ 4 ];
-    float m_Ambient[ 4 ];
-
-    char m_TitleName[ 68 ]; // 32 chars in SJIS
-
-    char m_ListIconName[ 64 ];
-    char m_CopyIconName[ 64 ];
-    char m_DeleteIconName[ 64 ];
-
-    unsigned char m_Reserved3[ 512 ];   // All zero
-};
-
-struct radMemcardInfo
-{
-    radPs2IconSys   m_IconSys;
-    void*           m_ListIcon;
-    unsigned int    m_ListIconSize;
-    void*           m_CopyIcon;
-    unsigned int    m_CopyIconSize;
-    void*           m_DelIcon;
-    unsigned int    m_DelIconSize;
-};
-
-//
-// Function to fill out a radPs2IconSys structure. 
-// title is in SJIS, lineBreak is in characters.
-//
-void radMakeIconSys( radPs2IconSys* pIconSys, radSJISChar* title, unsigned short lineBreak ); 
-void radSetIconSysTitle( radPs2IconSys* pIconSys, radSJISChar* title, unsigned short lineBreak );  
-
-#endif
-
-#ifdef RAD_XBOX
-
-//
-// We need a 64 x 64 DXT1 texture in an xbx file.
-// If it's NULL, then we don't save that icon.
-//
-struct radMemcardInfo
-{
-    void*           m_Icon;
-    unsigned int    m_IconSize;
-};
-
-#endif
-
-#ifdef RAD_WIN32
+#if defined(RAD_WIN32) || defined(RAD_UWP)
 
 //
 // We don't have save games for win32.
@@ -281,11 +160,11 @@ struct radMemcardInfo
 // one time. Used to preallocate internal data structures to prevent memory fragmentation.
 // The maximum number of files objects that can be constructed at any one time is also
 // specified here. There is no inhererent limitation of the file system as to the number
-// of open files. However some operating systems, like the PS2 limit the number of 
+// of open files. However some operating systems limit the number of 
 // open files. If this limit is exceeded, the file system asserts and displays all open files.
 //
 void radFileInitialize( unsigned int maxOutstandingRequests = 50, 
-                        unsigned int maxOpenFiles = 14, // Ps2 Limit
+                        unsigned int maxOpenFiles = 14,
                         radMemoryAllocator alloc = RADMEMORY_ALLOC_DEFAULT );
 
 void radFileTerminate( void );
@@ -329,12 +208,7 @@ void radFileService( void );
 //
 // NOTE root relocations should be set up before setting cache file names,
 // otherwise the names will not be hashed correctly.
-//
-// NOTE that on the XBOX, you must set the root of the cache drive to the same
-// as the root of the drive being cached. That is, if you set the root of
-// D: to "foo" you must also set the root of CACHED: to "foo", regardless of
-// what you set the cache directory name to. If this is not done, cached
-// files will be ignored.
+// 
 //
 
 void radFileSetRootDirectory( const char* pDrive, const char *pRootDir );
@@ -440,27 +314,6 @@ inline void radDriveOpen( IRadDrive** pIRadDrive,
 //
 bool radSetDefaultDrive( const char* pDriveName );
 void radGetDefaultDrive( char* pDriveName );
-
-#ifdef CACHING_ENABLED
-//
-// On the XBOX, you can mirror files that are used regularly to the hard drive
-// to help shorten loading time.
-// All files in the given file name array (pCacheFileNameArray) will be
-// automattically mirrored onto the XBOX hard drive (currently Z:\radcache0R1G)
-// when they are opened. The last filename in the list
-// must always be NULL.
-// If you wish to cache files that are not in this list, explicitly specify
-// that you are using CACHED:, CACHEF:, etc.  (as opposed to D:, F:, etc. )
-//
-void radSetCacheFileNames( const char* pCacheFileNameArray[ ] );
-
-//
-// You can change the actual directory where files are cached manually.
-// Make sure that this is changed only when no files are currently open.
-//
-void radSetCacheDirectory( const char* pCacheDirectory );
-
-#endif //CACHING_ENABLED
 
 //
 // Set the default size of the various chunks transfered during a file read/write.
@@ -740,7 +593,7 @@ struct IRadDrive : public IRefCount
         unsigned int  m_FreeFiles;              // Free files
         unsigned int  m_SectorSize;             // Sector size for read/write alignments
         char          m_VolumeName[ 64 + 1];    // Volume name of media
-                                                // needs to be at least 64 + 1 for ps2 cd
+                                                // needs to be at least 64 + 1
     };
 
     struct DirectoryInfo

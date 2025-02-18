@@ -47,13 +47,8 @@ public:
     bool Equal(const Vector& a, float epsilon = 0.00001f) const { return Equals(a,epsilon); }
 
     // retrieving and setting the components
-#ifdef RAD_PS2
-    int Get(float* C1, float* C2, float* C3) { *C1 = x; *C2 = y; *C3 = z; return 0;}
-    int Set(float C1, float C2, float C3)    { x = C1; y = C2; z = C3; return 0;}
-#else
     void Get(float* C1, float* C2, float* C3) { *C1 = x; *C2 = y; *C3 = z; }
     void Set(float C1, float C2, float C3)    { x = C1; y = C2; z = C3;}
-#endif
 
     // arithmetic operations.
     // Calling:
@@ -152,30 +147,11 @@ public:
         z = vect.z + scaleMe.z * scaleFactor;
     }
 
-#ifdef RAD_PS2
-    inline float DotProduct(const Vector& vect) const
-    {
-        register float result;
-
-        asm __volatile__ (R"(
-            mula.s  %1, %2
-            madda.s %3, %4
-            madd.s  %0, %5, %6
-            )"
-            : "=f" (result)
-            : "f" (x), "f" (vect.x), "f" (y), "f" (vect.y), "f" (z), "f" (vect.z) );
-
-        return result;
-    }
-
-#else
     // dot product
     float DotProduct(const Vector& vect) const
     {
         return ((x * vect.x) + (y * vect.y) + (z * vect.z));
     }
-
-#endif
 
     float Dot( const Vector& vect ) const
     {
@@ -191,19 +167,6 @@ public:
     void Normalize(const Vector& vect);
 
     // test for a zero length vector, normalize the vector and return the original length
-#ifdef RAD_PS2
-
-    inline float NormalizeSafe(void)
-    {
-        float mag = sqrtf(DotProduct(*this));
-
-        Scale( 1.0f/mag );
-
-        return mag;
-    }
-
-#else
-
     float NormalizeSafe(void)
     {
         const float smallValue = 0.0000001f;
@@ -219,7 +182,7 @@ public:
         }
         return mag;
     }
-#endif
+
     // magnitude of the vector
     float Magnitude(void) const
     {

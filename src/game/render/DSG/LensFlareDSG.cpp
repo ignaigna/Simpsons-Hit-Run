@@ -47,13 +47,7 @@ SwapArray< LensFlareDSG* > LensFlareDSG::spVisTestQueue(MAX_NUM_FLARES);
 unsigned LensFlareDSG::sP3DVisibilityCounter = 0;
 
 static rmt::Vector s_PixelPos(320,240,0);
-
-#ifdef RAD_PS2
-const tColour PS2_VISIBILITY_MESH_COLOUR = tColour( 0, 0,0,0 );
-#endif
-
 static rmt::Vector dstart,dend;
-
 
 // Clears the flare draw queue. Should be done after they are drawn
 void LensFlareDSG::ClearAllFlares()
@@ -87,7 +81,6 @@ void LensFlareDSG::PostDisplayFlare( LensFlareDSG* pFlare )
 // Checks all queued flares to see if they are visible
 void LensFlareDSG::ReadFrameBufferIntensities()
 {
-#ifndef RAD_PS2
 	pddiExtVisibilityTest* mVisibilityTestExtension = static_cast<pddiExtVisibilityTest*> (p3d::pddi->GetExtension( PDDI_EXT_VISIBILITY_TEST ) );
 	if ( mVisibilityTestExtension != NULL )
 	{
@@ -99,8 +92,6 @@ void LensFlareDSG::ReadFrameBufferIntensities()
 		// Clear the array
 		spVisTestQueue.ClearUse();
 	}
-#endif
-
 }
 // LensFlareDSG constructor
 LensFlareDSG::LensFlareDSG()
@@ -237,7 +228,7 @@ void LensFlareDSG::Display()
 }
 void LensFlareDSG::DisplayImmediate()
 {
-#ifdef RAD_WIN32
+#if defined(RAD_WIN32) || defined(RAD_UWP) // TODO(3UR): would do this for uwp but cant rn idk why we cant use the view pointer
     return;
 #endif
 
@@ -259,14 +250,7 @@ void LensFlareDSG::DisplayImmediate()
 
     DSG_BEGIN_PROFILE(profileName)
 	DrawVisibilityChecker();
-#ifdef RAD_PS2
-    // turn z compare to always
-	SetBillBoardIntensity( 1.0f );
-    pddiCompareMode origZCompare = p3d::pddi->GetZCompare();
-    p3d::pddi->SetZCompare(PDDI_COMPARE_ALWAYS);
-    mpCompDraw->Display();
-    p3d::pddi->SetZCompare(origZCompare);
-#else
+
 	// Visible but not at full intensity, ramp up
 	if (mNumPixelsVisible > 0 && mCurrentIntensity < 1.0f)
 	{
@@ -287,9 +271,6 @@ void LensFlareDSG::DisplayImmediate()
     p3d::pddi->SetZCompare(PDDI_COMPARE_ALWAYS);
     mpCompDraw->Display();
     p3d::pddi->SetZCompare(origZCompare);
-
-#endif
-
 
     p3d::stack->Pop();
 
@@ -448,14 +429,7 @@ void LensFlareDSG::RenderUpdate()
 //
 //************************************************************************
 
-#ifdef RAD_PS2
-void LensFlareDSG::DrawVisibilityChecker()
-{
-
-}
-#endif
-
-#if defined( RAD_XBOX ) || defined( RAD_WIN32 )
+#if defined( RAD_UWP ) || defined( RAD_WIN32 )
 
 void LensFlareDSG::DrawVisibilityChecker()
 {

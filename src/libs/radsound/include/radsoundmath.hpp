@@ -10,8 +10,8 @@
 // Build Configuration Check
 //=============================================================================
 
-#if !defined(RAD_PS2) && !defined(RAD_XBOX) && !defined(RAD_WIN32)
-    #error 'FTech requires definition of RAD_PS2, RAD_XBOX, or RAD_WIN32'
+#if !defined(RAD_UWP) && !defined(RAD_WIN32)
+    #error 'FTech requires definition of RAD_UWP or RAD_WIN32'
 #endif
 
 //============================================================================
@@ -28,33 +28,15 @@
 // Casting functions (hardware accelerated on some platforms)
 //============================================================================
 
-#if ( defined RAD_PS2 && ! defined RAD_MW ) 
+inline float radSoundIntToFloat( int x )
+{
+    return (float)(x);
+}
 
-    inline float radSoundIntToFloat( int x)
-    {
-        float __value; int __arg = x;
-        asm ("mtc1  %1,%0;cvt.s.w  %0,%0": "=f" (__value): "r" (__arg)); 
-        return( __value );
-    }
-
-    inline int radSoundFloatToInt( float x)
-    {
-        int __value; float __arg = x;
-        asm ("cvt.w.s  $f1,%1;mfc1  %0,$f1": "=r" (__value): "f" (__arg): "$f1");
-        return( __value );
-    }
-
-#else
-	inline float radSoundIntToFloat( int x )
-	{
-	   return (float)(x);
-	}
-
-	inline int radSoundFloatToInt( float x )
-	{
-		return (int)(x);
-	}
-#endif
+inline int radSoundFloatToInt( float x )
+{
+    return (int)(x);
+}
 
 inline unsigned int radSoundFloatToUInt( float x )
 {
@@ -76,35 +58,15 @@ inline float radSoundShortToFloat( short x )
 	return static_cast< float >( x );
 }
 
-#if ( defined RAD_PS2 && ! defined RAD_MW ) 
-
-    extern "C" double fptodp( float );
-    
-    inline double radSoundFloatToDouble( float x )
-    {
-        return fptodp( x );
-    }
-#else
     inline double radSoundFloatToDouble( float x )
     {
         return (double) x;
     }
-#endif
 
-#if ( defined RAD_PS2 && ! defined RAD_MW ) 
-
-    extern "C" float dptofp( double );
-    
-    inline float radSoundDoubleToFloat( double x )
-    {
-        return dptofp( x );
-    }
-#else
     inline float radSoundDoubleToFloat( double x )
     {
         return (float) x;
     }
-#endif
 
 //============================================================================
 // Standard Math Functions ( wrapped for easy profiling )

@@ -6,12 +6,10 @@
 #ifndef _BASE_PLAT_FILEMAP_HPP
 #define _BASE_PLAT_FILEMAP_HPP
 
-#if defined(RAD_PS2)
-    #include <p3d/platform/ps2/plat_filemap.hpp>
-#elif defined(RAD_LINUX)
+#if defined(RAD_LINUX)
     #include <p3d/platform/linux/plat_filemap.hpp>
-#elif defined(RAD_XBOX)
-    #include <p3d/platform/xbox/plat_filemap.hpp>
-#elif defined(RAD_WIN32)
+#elif defined(RAD_WIN32) || defined(RAD_UWP)
     #include <p3d/platform/win32/plat_filemap.hpp>
 #endif
+
+#endif // _BASE_PLAT_FILEMAP_HPP

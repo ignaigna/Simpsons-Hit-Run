@@ -54,7 +54,6 @@ const int PDDI_LIBID_WIN32GDI   = 5;
 const int PDDI_LIBID_LINUX      = 6;
 const int PDDI_LIBID_PS2        = 7;
 const int PDDI_LIBID_MAC        = 8;
-const int PDDI_LIBID_GAMECUBE   = 9;
 const int PDDI_LIBID_XBOX       = 10;
 const int PDDI_LIBID_NEOGEO     = 11;
 const int PDDI_LIBID_VECTREX    = 12;
@@ -72,7 +71,7 @@ const int PDDI_LIBID_VECTREX    = 12;
 #define PDDI_TEX_TOO_BIG      201
 #define PDDI_TEX_BADFORMAT    202
 
-#if defined( RAD_WIN32 )
+#if defined( RAD_WIN32 ) || defined ( RAD_UWP )
 // code used for library initialisation on a PC
 
 // video mode information
@@ -232,7 +231,7 @@ protected:
 class pddiDevice : public pddiObject
 {
 public:
-#if defined( RAD_WIN32 )
+#if defined( RAD_WIN32 ) || defined ( RAD_UWP )
     PDDI_INTERFACE int GetDisplayInfo(pddiDisplayInfo** info) PDDI_PURE;
 #endif
     PDDI_INTERFACE void GetLibraryInfo(pddiLibInfo* info) PDDI_PURE;
@@ -302,7 +301,7 @@ class pddiDisplay : public pddiObject
 {
 public:
 
-#if defined( RAD_WIN32 )
+#if defined( RAD_WIN32 ) || defined ( RAD_UWP )
    PDDI_INTERFACE long ProcessWindowMessage(SDL_Window* win, const SDL_WindowEvent* event) PDDI_PURE;
    PDDI_INTERFACE void SetWindow(SDL_Window* win) PDDI_PURE;
    PDDI_INTERFACE pddiDisplayInfo* GetDisplayInfo(void) PDDI_PURE;

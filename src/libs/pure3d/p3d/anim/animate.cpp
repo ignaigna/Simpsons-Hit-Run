@@ -1457,11 +1457,10 @@ tEntity* tAnimationLoader::LoadObject(tChunkFile* f, tEntityStore* store)
                     unsigned int xboxSize = f->GetLong();
                     unsigned int gcSize = f->GetLong();
 
-                    #ifdef RAD_WIN32
+                    // TODO(3UR): uwp use pc size? as we technically use pc assets (idk maybe it should be done)
+                    #if defined(RAD_WIN32)
                     unsigned int animSize = pcSize;
-                    #elif defined(RAD_PS2)
-                    unsigned int animSize = ps2Size;
-                    #elif defined(RAD_XBOX)
+                    #elif defined(RAD_UWP)
                     unsigned int animSize = xboxSize;
                     #endif
                     if ((anim->numGroups==0)&&(animSize>0))

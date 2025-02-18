@@ -46,12 +46,9 @@
 #include <raddebugwatch.hpp>
 
 static float COIN_HOVER = 0.5f; // How far off the ground will the coin hover.
-#if !defined( RAD_PS2 ) && defined( RAD_RELEASE )
+#if defined( RAD_RELEASE )
 static const float FRAME_RATIO = 1.0f / 60.0f;
 //static float COIN_DRAG = 0.9848f; // .4 to the power of 1/60 of a second.
-#elif defined( RAD_RELEASE )
-static const float FRAME_RATIO = 1.0f / 30.0f;
-//static float COIN_DRAG = 0.9700f; // .4 to the power of 1/30 of a second.
 #else
 static const float FRAME_RATIO = 1.0f / 15.0f;
 //static float COIN_DRAG = 0.9407f; // .4 to the power of 1/15 of a second.
@@ -82,10 +79,10 @@ static float FLYING_TIME = 0.25f; // How long does it take to fly up to the HUD.
 static float MAX_VISIBLITY = 60.0f; // How far away is the coin.
 static float COUNTER_X = 0.45f;  // Where is the destination we are flying the coin up to.
 static float COUNTER_Y = 0.45f;  // Where is the destination we are flying the coin up to.
-#ifdef RAD_XBOX
+#ifdef RAD_UWP
 static float SPARKLE_FLOAT = 0.025f; // How much vertical velocity for the sparkles per frame.
 #else
-static float SPARKLE_FLOAT = 0.05f;
+static float SPARKLE_FLOAT = 0.05f; // How much vertical velocity for the sparkles per frame.
 #endif
 static float IN_CAR_RANGE_MULTIPLIER = 2.25f;
 static int dbg_CoinsDrawn = 0;
@@ -96,12 +93,9 @@ const static float COIN_HOVER = 0.5f; // How far off the ground will the coin ho
 // Use this for more accurate coins.
 //static const float COIN_SPAWN_VELOCITY = 4.0f;
 //static const float COIN_EXTRA_VERTICAL = 2.0f
-#if !defined( RAD_PS2 ) && defined ( RAD_RELEASE )
+#if defined ( RAD_RELEASE )
 static const float FRAME_RATIO = 1.0f / 60.0f;
 //static const float COIN_DRAG = 0.9848f; // .4 to the power of 1/60 of a second.
-#elif defined( RAD_RELEASE )
-static const float FRAME_RATIO = 1.0f / 30.0f;
-//static const float COIN_DRAG = 0.9700f; // .4 to the power of 1/30 of a second.
 #else
 static const float FRAME_RATIO = 1.0f / 15.0f;
 //static const float COIN_DRAG = 0.9407f; // .4 to the power of 1/15 of a second.
@@ -132,7 +126,7 @@ static const float I_FLYING_TIME = 1.0f / FLYING_TIME;
 static const float MAX_VISIBLITY = 60.0f; // How far away is the coin.
 static const float COUNTER_X = 0.25f;  // Where is the destination we are flying the coin up to.
 static const float COUNTER_Y = 0.4f;  // Where is the destination we are flying the coin up to.
-#ifdef RAD_XBOX
+#ifdef RAD_UWP
 static const float SPARKLE_FLOAT = 0.025f;
 #else
 static const float SPARKLE_FLOAT = 0.05f;
@@ -149,7 +143,7 @@ CoinManager* CoinManager::spCoinManager = 0;
 
 static const int NUM_COINS = 200;
 static const int NUM_SPARKLES = 120; // Although we seldom use all these sparkles we do when the vehicle explodes.
-#ifdef RAD_XBOX
+#ifdef RAD_UWP
 static int Sparkle_Rate = 6;
 static const int Glint_Rate = 4;
 static const int SPARKLE_RATE_TOGGLE = Sparkle_Rate ^ ( Sparkle_Rate + 2 );

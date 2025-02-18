@@ -53,10 +53,8 @@ daSoundResourceManager* daSoundResourceManager::s_pSingleton = NULL;
 //
 const unsigned int MaxNumResourceFiles = 512;
 
-#if defined( RAD_XBOX ) || defined( RAD_WIN32 )
+#if defined( RAD_UWP ) || defined( RAD_WIN32 )
     const IRadSoundHalAudioFormat::Encoding DEFAULT_ENCODING = IRadSoundHalAudioFormat::PCM;
-#elif defined RAD_PS2
-    const IRadSoundHalAudioFormat::Encoding DEFAULT_ENCODING = IRadSoundHalAudioFormat::VAG;
 #else
     Uh oh.
 #endif

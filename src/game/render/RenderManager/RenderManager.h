@@ -158,10 +158,6 @@ private:
    // Motion blur accessors / mutator functions
    void SetMotionBlurEnable( bool enable )  { mEnableMotionBlur = enable; }
    bool IsBlurEnabled() const               { return mEnableMotionBlur; }
-
-#ifdef RAD_PS2
-   void ApplyPS2Blur();
-#endif
    void AdjustBlurByFrameRate( unsigned int elapsedTime );
 
 #ifdef DEBUGWATCH

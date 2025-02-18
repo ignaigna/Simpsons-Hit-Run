@@ -20,10 +20,6 @@
 #include <stdlib.h>
 #include <math.h>
 
-#ifdef RAD_PS2
-#define atof ps2Atof
-#endif
-
 //**************************************************
 // Class tStateSequencerCommand
 //**************************************************

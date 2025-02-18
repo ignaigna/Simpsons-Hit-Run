@@ -34,7 +34,6 @@
 #include <string.h>              
 #include <radmemorymonitor.hpp>
 #include "targetx.hpp"          
-#include "targetdecichannel.hpp"   
 #include "protocol.hpp"
 
 //=============================================================================

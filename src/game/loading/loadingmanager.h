@@ -106,7 +106,7 @@ class LoadingManager : public FileHandler::LoadFileCallback
 
         void CancelPendingRequests();  //This will not cancel the current request.
 
-#ifdef RAD_WIN32
+#if defined( RAD_WIN32 ) || defined( RAD_UWP )
         int GetNumRequestsProcessed() const { return mRequestsProcessed; }
         inline void ResetRequestsProcessed();
 #endif
@@ -165,14 +165,14 @@ class LoadingManager : public FileHandler::LoadFileCallback
 
         bool mCancellingLoads;
 
-#ifdef RAD_WIN32
+#if defined( RAD_WIN32 ) || defined( RAD_UWP )
         int mRequestsProcessed;
 #endif
 
         //
         // Store cement libraries
         //
-#ifdef RAD_XBOX
+#ifdef RAD_UWP
         static const int MAX_CEMENT_LIBRARIES = 15;
 #else
         static const int MAX_CEMENT_LIBRARIES = 10;
@@ -203,7 +203,7 @@ inline int LoadingManager::GetNumCurrentRequests() const
     return( (mRequestTail - mRequestHead + MAX_REQUESTS) % MAX_REQUESTS );
 }
 
-#ifdef RAD_WIN32
+#if defined( RAD_WIN32 ) || defined( RAD_UWP )
     inline void LoadingManager::ResetRequestsProcessed()
     {
         mRequestsProcessed = 0;

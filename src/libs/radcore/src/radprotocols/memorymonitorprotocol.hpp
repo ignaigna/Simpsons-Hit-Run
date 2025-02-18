@@ -60,9 +60,7 @@
 enum MM_ClientPlatform
 {
     MM_Platform_Unknown = 0,
-    MM_Platform_PS2 = 1,
-    MM_Platform_XBOX = 3,
-    MM_Platform_WIN = 4
+    MM_Platform_WIN = 4 // UWP also can be this
 };
 
 //
@@ -71,10 +69,7 @@ enum MM_ClientPlatform
 enum MM_ClientMemorySpace
 {
     MM_UNKNOWN,
-    MM_PS2_EE,
-    MM_PS2_IOP,
-    MM_PS2_SOUND,
-    MM_WIN_MAIN
+    MM_WIN_MAIN = 4 // UWP also can be this
 };
 
 //

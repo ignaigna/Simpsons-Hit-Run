@@ -34,8 +34,8 @@
 // Build Configuration Check
 //=============================================================================
 
-#if !defined(RAD_PS2) && !defined(RAD_XBOX) && !defined(RAD_WIN32)
-    #error 'FTech requires definition of RAD_PS2, RAD_XBOX, or RAD_WIN32'
+#if !defined(RAD_UWP) && !defined(RAD_WIN32)
+    #error 'FTech requires definition of RAD_UWP or RAD_WIN32'
 #endif
 
 //=============================================================================
@@ -46,7 +46,7 @@
 #include <radobject.hpp>
 #include <radmemory.hpp>
 
-#ifdef WIN32
+#if defined(RAD_WIN32) || defined(RAD_UWP)
 //
 // windows.h must be included because radPlatformInitialize( ) need HWND and
 // HINSTANCE definition.
@@ -93,18 +93,15 @@ inline unsigned int radPlatformEndian<unsigned int>( unsigned int value ) { retu
 template<>
 inline float radPlatformEndian<float>( float value ) { return( value ); }
 
-#endif
-
 #define radPlatformEndian16     radPlatformEndian<unsigned short>
 #define radPlatformEndian32     radPlatformEndian<unsigned int>
 #define radPlatformEndianFloat  radPlatformEndian<float>
 
+#if defined(RAD_WIN32) || defined(RAD_UWP)
 
 //=============================================================================
 // RAD_WIN32 Platform
 //=============================================================================
-
-#ifdef RAD_WIN32
 
 //
 // Windows requires the game provide the main window handle and the module
@@ -119,7 +116,8 @@ struct IRadPlatformWin32MessageCallback
 {
     virtual void OnWindowMessage
     (
-        SDL_Window* pWnd, const SDL_Event* event
+        SDL_Window* pWnd, 
+        const SDL_Event* event
     ) = 0;
 };
 
@@ -128,7 +126,8 @@ struct IRadPlatformWin32MessageCallback
 //
 struct IRadPlatform : public IRefCount
 {
-#ifdef WIN32
+    // TODO(3ur): callbacks are fine to stay uncommented yes? maybe? no?
+#ifndef RAD_UWP
     virtual HWND GetMainWindowHandle( void ) = 0;
     virtual HINSTANCE GetInstanceHandle( void ) = 0;
 #endif
@@ -142,79 +141,5 @@ struct IRadPlatform : public IRefCount
     ) = 0;
 };
 
-//=============================================================================
-// XBOX Platform
-//=============================================================================
-
-#ifdef RAD_XBOX
-
-//
-// XBOX initialization requires no parameters
-//
-void radPlatformInitialize( void );
-
-//
-// XBOX Platform interface.
-//
-struct IRadPlatform : public IRefCount
-{
-    // Nothing yet
-};
-
-#endif // RAD_XBOX
-
-//=============================================================================
-// Playstation2 Platform
-//=============================================================================
-
-#ifdef RAD_PS2
-
-//
-// On the PS2, provide the root path for IRXs. Also provide the name of the 
-// IOP image to load if you want this operaton performed. The IRX path should
-// be of the form "IRX\\", with no leading slash. Pass enumeration identifying
-// the media the IOPs and image should be loaded from. 
-//
-enum radPlatformIOPMedia
-{
-    IOPMediaHost,           // Load from host
-    IOPMediaCDVD            // Load from CDVD
-};
-
-//  
-// Use this enumeration to specify the media that the game is using.
-//
-enum radPlatformGameMediaType
-{
-    GameMediaCD,            // Game is distributed on CD
-    GameMediaDVD            // Game is distributed on DVD
-};
-
-void radPlatformInitialize( const char* pIrxPath, radPlatformIOPMedia IOPMedia, 
-                            radPlatformGameMediaType = GameMediaCD,
-                            const char* pIopImage = RADPLATFORM_IOP_IMG_FILENAME,
-                            radMemoryAllocator = RADMEMORY_ALLOC_DEFAULT );
-
-//
-// PS2 plaform interface. 
-//
-struct IRadPlatform : public IRefCount
-{
-    virtual void LoadIrxModule
-    (
-        const char* pIrxFilenameNoPath,
-        int argSize = 0,
-        char* args = NULL
-    ) = 0;
-    virtual void UnloadIrxModule
-    (
-        const char* IrxFilenameNoPath
-    ) = 0;
-    virtual radPlatformGameMediaType GetMediaType
-    (
-        void
-    ) = 0;
-};
-
-#endif // RAD_PS2
+#endif // RAD_WIN32 || RAD_UWP
 #endif // RADPLATFORM_HPP

@@ -17,7 +17,9 @@
 //========================================
 
 #if !defined( RAD_RELEASE ) && !defined( WORLD_BUILDER ) && !defined( RAD_MW )
-//#define PROFILER_ENABLED
+#if defined(RAD_UWP)
+    #define PROFILER_ENABLED
+#endif
 //TODO(3ur)
 //#define MICROPROFILE_ENABLED 1
 #endif // RAD_RELEASE
@@ -77,16 +79,16 @@ template<class T> class HashTable;
     #define SNSTOP(id)   snStopMarker(id);
 #endif
 
-    #define CREATE_PROFILER()       if(!(CommandLineOptions::Get(CLO_DESIGNER) || CommandLineOptions::Get(CLO_FIREWIRE))) { Profiler::CreateInstance(); }
-    #define DESTROY_PROFILER()      if(!(CommandLineOptions::Get(CLO_DESIGNER) || CommandLineOptions::Get(CLO_FIREWIRE))) { Profiler::DestroyInstance(); }
+    #define CREATE_PROFILER()       if(!(CommandLineOptions::Get(CLO_DESIGNER))) { Profiler::CreateInstance(); }
+    #define DESTROY_PROFILER()      if(!(CommandLineOptions::Get(CLO_DESIGNER))) { Profiler::DestroyInstance(); }
 
-    #define BEGIN_PROFILE(string)   if(!(CommandLineOptions::Get(CLO_DESIGNER) || CommandLineOptions::Get(CLO_FIREWIRE))) { GetProfiler()->BeginProfile(string); }
-    #define END_PROFILE(string)     if(!(CommandLineOptions::Get(CLO_DESIGNER) || CommandLineOptions::Get(CLO_FIREWIRE))) { GetProfiler()->EndProfile(string); }
+    #define BEGIN_PROFILE(string)   if(!(CommandLineOptions::Get(CLO_DESIGNER))) { GetProfiler()->BeginProfile(string); }
+    #define END_PROFILE(string)     if(!(CommandLineOptions::Get(CLO_DESIGNER))) { GetProfiler()->EndProfile(string); }
 
-    #define BEGIN_PROFILER_FRAME()  if(!(CommandLineOptions::Get(CLO_DESIGNER) || CommandLineOptions::Get(CLO_FIREWIRE))) { GetProfiler()->BeginFrame(); }
-    #define END_PROFILER_FRAME()    if(!(CommandLineOptions::Get(CLO_DESIGNER) || CommandLineOptions::Get(CLO_FIREWIRE))) { GetProfiler()->EndFrame(); }
+    #define BEGIN_PROFILER_FRAME()  if(!(CommandLineOptions::Get(CLO_DESIGNER))) { GetProfiler()->BeginFrame(); }
+    #define END_PROFILER_FRAME()    if(!(CommandLineOptions::Get(CLO_DESIGNER))) { GetProfiler()->EndFrame(); }
 
-	#define RENDER_PROFILER()		if(!(CommandLineOptions::Get(CLO_DESIGNER) || CommandLineOptions::Get(CLO_FIREWIRE))) { GetProfiler()->Render(); }
+	#define RENDER_PROFILER()		if(!(CommandLineOptions::Get(CLO_DESIGNER))) { GetProfiler()->Render(); }
 
 
 #define MAX_PROFILER_DEPTH  32

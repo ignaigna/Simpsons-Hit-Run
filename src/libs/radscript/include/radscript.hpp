@@ -244,9 +244,9 @@ inline bool IRadScript::IsInt( const char * p )
 inline int IRadScript::SplitOption( char * pToken, int * pnOptionField )
 {
     // option looks like this
-    // PC|PS2|XBOX
+    // PC|XBOX
     // DEFAULT
-    // PC|PS2
+    // PC
     //
     // DEFAULT is mutually exclusive with everything else.
     if ( strcmp ( pToken, "DEFAULT" ) == 0 )
@@ -286,10 +286,6 @@ inline int IRadScript::SplitOption( char * pToken, int * pnOptionField )
             if ( strncmp ( pszOption [ j ], "PC", 2 ) == 0 )
             {
                 *pnOptionField |= ParserConst::PT_PC;
-            }
-            else if ( strncmp ( pszOption [ j ], "PS2", 3 ) == 0 )
-            {
-                *pnOptionField |= ParserConst::PT_PS2;
             }
             else if ( strncmp ( pszOption [ j ], "XBOX", 4 ) == 0 )
             {
@@ -332,14 +328,7 @@ inline bool IRadScript::IsCurrentPlatForm( ) const
     }
     #endif
 
-    #ifdef RAD_PS2
-    if ( nReturnOption & ParserConst::PT_PS2 )
-    {
-        return true;
-    }
-    #endif
-
-    #if defined RAD_XBOX
+    #if defined RAD_UWP
     if ( nReturnOption & ParserConst::PT_XBOX )
     {
         return true;

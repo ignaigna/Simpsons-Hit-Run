@@ -93,15 +93,6 @@ public:
 
 
     // for managing last used material/avoiding redundant state setting, should not be overloaded
-#ifdef RAD_PS2
-    bool IsCurrent(void) { return (uid == currentUID);  }
-    static void ClearCurrentShader(void)
-    {
-        currentUID = 0xffffffff;  
-        lastShader = NULL;
-    }
-
-#else
     bool IsCurrent(void) { return ((uid == currentUID) && (GetPasses() == 1)); }
     // number of passes this material requires, must be overloaded in derived class
     virtual int  GetPasses(void) = 0;
@@ -128,7 +119,6 @@ public:
         currentUID = 0xffffffff;  
         lastShader = NULL;
     }
-#endif
 
     // installing and allocating shaders
     static void InstallShader(const char* name, pddiShadeAllocFunc, const char* aux);
@@ -142,11 +132,9 @@ protected:
     unsigned uid;
     
     // internal setup function for each pass, derived class needs to define this
-#ifndef RAD_PS2
     virtual void SetPass(int pass) = 0;
     virtual void PreRender(void) {};
     virtual void PostRender(void) {};
-#endif
 
     // funcitons to return each parameter table
     // stubbed so that derived classes only need to impliment the ones they use

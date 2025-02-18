@@ -34,9 +34,6 @@
 #include <sprite.h>
 #include <text.h>
 
-#ifdef RAD_PS2
-#include <libmtap.h>
-#endif
 //===========================================================================
 // Global Data, Local Data, Local Classes
 //===========================================================================
@@ -245,50 +242,7 @@ CGuiScreenMessage::GetControllerDisconnectedMessage(int controller_id, char *str
 
     s_ControllerDisconnectedPort = controller_id;
 
-#ifdef RAD_XBOX
     P3D_UNICODE* uni_string = GetTextBibleString( "MSG_CONTROLLER_DISCONNECTED_(XBOX)" );
-#endif
-
-#ifdef RAD_PS2
-    P3D_UNICODE* uni_string = GetTextBibleString( "MSG_CONTROLLER_DISCONNECTED_(PS2)" );
-    if (s_ControllerDisconnectedPort > 7)
-        uni_string = GetTextBibleString( "MSG_CONTROLLER_DISCONNECTED_WHEEL" ); // usb
-    int port = controller_id/4;
-    if ( controller_id < 8 &&
-         GetInputManager()->GetLastMultitapStatus( port ) != 0 &&
-         sceMtapGetConnection( port ) == 0 )
-    {
-        uni_string = GetTextBibleString( "MSG_CONTROLLER_DISCONNECTED_MULTITAP" ); // multitap
-
-        // convert the first controller port wildcard character to either 1 or 2
-        //
-    	const UnicodeChar CONTROLLER_PORT_WILDCARD_CHARACTER = 0xa5;
-
-        HeapMgr()->PushHeap( GMA_TEMP );
-
-        multitapString = new P3D_UNICODE[ max_char + 1 ];
-        rAssert( multitapString != NULL );
-        p3d::UnicodeStrCpy( uni_string, multitapString, max_char );
-        for( int i = 0; multitapString[ i ] != '\0'; i++ )
-        {
-            if( multitapString[ i ] == CONTROLLER_PORT_WILDCARD_CHARACTER )
-            {
-                // found it!
-                //
-                multitapString[ i ] = '1' + port;
-                break;
-            }
-        }
-
-        uni_string = multitapString;
-
-        HeapMgr()->PopHeap( GMA_TEMP );
-    }
-#endif
-
-#ifdef RAD_WIN32
-    P3D_UNICODE* uni_string = GetTextBibleString( "MSG_CONTROLLER_DISCONNECTED_(XBOX)" );
-#endif
 
     CGuiScreenMessage::ConvertUnicodeToChar(str_buffer, uni_string, max_char);
 
@@ -310,35 +264,7 @@ CGuiScreenMessage::ConvertUnicodeToChar(char *str, P3D_UNICODE* uni_str, int max
             *str = '\n';
         else if (*uni_str==CONTROLLER_PORT_WILDCARD_CHARACTER)
         {
-#ifdef RAD_PS2
-            int port_number = s_ControllerDisconnectedPort/4;
-            if (sceMtapGetConnection(port_number)==1 
-                || GetInputManager()->GetLastMultitapStatus(port_number) == 1) { // is multitap
-
-                UnicodeString unicodeString; // splice the mu name inside
-                UnicodeString restofString;
-                UnicodeString deviceName;
-
-                *str++ = '1' + (s_ControllerDisconnectedPort/4);
-                i++;
-                if (i >= max_char) break;
-                *str++ = '-';
-                i++;
-                if (i >= max_char) break;
-                *str = 'A' + (s_ControllerDisconnectedPort%4);
-            }
-            else // no multitap
-            {
-                *str  = '1' + (s_ControllerDisconnectedPort/4);
-                if (s_ControllerDisconnectedPort==8)
-                    *str = '1';
-                else if (s_ControllerDisconnectedPort==9)
-                    *str = '2';
-            }
-
-#else
             *str = '1' + s_ControllerDisconnectedPort;
-#endif
         }
         else
             *str = (char)*uni_str;
@@ -378,153 +304,10 @@ CGuiScreenMessage::FormatMessage( Scrooby::Text* pText,
 		//
 		if( stringBuffer[ i ] == CONTROLLER_PORT_WILDCARD_CHARACTER )
 		{
-#ifdef RAD_PS2
-            int port_number = s_ControllerDisconnectedPort/4;
-            if (sceMtapGetConnection(port_number)==1) { // is multitap
-                HeapMgr()->PushHeap( GetGameFlow()->GetCurrentContext() == CONTEXT_FRONTEND ?
-                                        GMA_LEVEL_FE : GMA_LEVEL_HUD );
-
-                UnicodeString unicodeString; // splice the mu name inside
-                UnicodeString restofString;
-                UnicodeString deviceName;
-
-                deviceName.Append('1' + (s_ControllerDisconnectedPort/4));
-                deviceName.Append('-' );
-                deviceName.Append('A' + (s_ControllerDisconnectedPort%4));
-
-                unicodeString.ReadUnicode(stringBuffer, i);
-                restofString.ReadUnicode(&stringBuffer[i+1]);		  
-                unicodeString += deviceName;
-                unicodeString += restofString;
-                pText->SetString(pText->GetIndex(),unicodeString);
-
-                HeapMgr()->PopHeap(GetGameFlow()->GetCurrentContext() == CONTEXT_FRONTEND ?
-                                    GMA_LEVEL_FE : GMA_LEVEL_HUD);
-            }
-            else // no multitap
-                stringBuffer[ i ] = '1' + (s_ControllerDisconnectedPort/4);
-
-#else
 			stringBuffer[ i ] = '1' + s_ControllerDisconnectedPort;
-#endif
 			break;
 		}
 	}
-// update slot wild card character---------------------
-
-#ifdef RAD_PS2
-    for( int i = 0; stringBuffer[ i ] != '\0'; i++ )
-    {
-        // search for slot wildcard character
-        //
-        if( stringBuffer[ i ] == SLOT_WILDCARD_CHARACTER )
-        {
-            int port_number = CGuiScreenMemoryCard::s_currentMemoryCardSlot/4;
-            if (sceMtapGetConnection(port_number)==1) { // is multitap
-
-                HeapMgr()->PushHeap( GetGameFlow()->GetCurrentContext() == CONTEXT_FRONTEND ?
-                                        GMA_LEVEL_FE : GMA_LEVEL_HUD );
-
-                UnicodeString unicodeString; // splice the mu name inside
-                UnicodeString restofString;
-                UnicodeString deviceName;
-
-                deviceName.Append('1' + (CGuiScreenMemoryCard::s_currentMemoryCardSlot/4));
-                deviceName.Append('-' );
-                deviceName.Append('A' + (CGuiScreenMemoryCard::s_currentMemoryCardSlot%4));
-
-                unicodeString.ReadUnicode(stringBuffer, i);
-                restofString.ReadUnicode(&stringBuffer[i+1]);
-                unicodeString += deviceName;
-                unicodeString += restofString;
-                pText->SetString(pText->GetIndex(),unicodeString);
-
-                HeapMgr()->PopHeap(GetGameFlow()->GetCurrentContext() == CONTEXT_FRONTEND ?
-                                    GMA_LEVEL_FE : GMA_LEVEL_HUD);
-            }
-            else 
-            {
-                stringBuffer[ i ] = '1' + CGuiScreenMemoryCard::s_currentMemoryCardSlot/4;
-            }
-            break;
-        }
-
-    }
-#endif // RAD_PS2
-
-#ifdef RAD_XBOX
-    for( int i = 0; stringBuffer[ i ] != '\0'; i++ )
-    {
-        // search for num blocks wildcard character
-        //
-        if( stringBuffer[ i ] == BLOCKS_WILDCARD_CHARACTER )
-        {
-            const IRadDrive::MediaInfo* mediaInfo = GetMemoryCardManager()->GetMediaInfo( static_cast<unsigned int>( CGuiScreenMemoryCard::s_currentMemoryCardSlot ) );
-            rAssert( mediaInfo != NULL );
-
-            unsigned int savedGameSize = GetMemoryCardManager()->GetSavedGameCreationSize( static_cast<unsigned int>( CGuiScreenMemoryCard::s_currentMemoryCardSlot ) );
-
-            unsigned int numBlocksRequired = (savedGameSize - mediaInfo->m_FreeSpace) / NUM_BYTES_PER_BLOCK;
-            rAssert( numBlocksRequired > 0 );
-            rWarningMsg( numBlocksRequired < 10, "WARNING: *** Number of free blocks required is more than one digit long!" );
-
-            stringBuffer[ i ] = '0' + numBlocksRequired;
-
-            break;
-        }
-    }
-	for( int i = 0; stringBuffer[ i ] != '\0'; i++ )
-	{
-		// search for slot wildcard character
-		//
-		if( stringBuffer[ i ] == SLOT_WILDCARD_CHARACTER )
-		{
-			HeapMgr()->PushHeap( GetGameFlow()->GetCurrentContext() == CONTEXT_FRONTEND ?
-									GMA_LEVEL_FE : GMA_LEVEL_HUD );
-			UnicodeString deviceName;
-
-			const IRadDrive::MediaInfo* mediaInfo = 
-				GetMemoryCardManager()->GetMediaInfo( static_cast<unsigned int>(
-											CGuiScreenMemoryCard::s_currentMemoryCardSlot ) );
-            char textBibleEntry[ 32 ];
-            sprintf( textBibleEntry, "XBOX_%s", 
-                GetMemoryCardManager()->GetDriveName( static_cast<unsigned int>(
-                CGuiScreenMemoryCard::s_currentMemoryCardSlot ) ) );
-            deviceName.ReadUnicode( GetTextBibleString( textBibleEntry ) );
-
-            if (mediaInfo->m_VolumeName[0]!=0)  // append personalized  name
-			{
-				UnicodeString muName;
-				if (p3d::UnicodeStrLen((P3D_UNICODE*)( mediaInfo->m_VolumeName) ) < MAX_MEM_CARD_NAME)
-					muName.ReadUnicode((P3D_UNICODE*) mediaInfo->m_VolumeName);
-				else
-				{
-					muName.ReadUnicode((P3D_UNICODE*) mediaInfo->m_VolumeName, MAX_MEM_CARD_NAME-1);
-					UnicodeString ellipsis;
-					ellipsis.ReadAscii("...");
-					muName += ellipsis;
-				} 
-				deviceName.Append(' ');
-				deviceName.Append('(');
-				deviceName += muName;
-				deviceName.Append(')');
-			}
-			UnicodeString unicodeString; // splice the mu name inside
-			UnicodeString restofString;
-			unicodeString.ReadUnicode(stringBuffer, i);
-			restofString.ReadUnicode(&stringBuffer[i+1]);
-			unicodeString += deviceName;
-			unicodeString += restofString;
-
-			pText->SetString(pText->GetIndex(),unicodeString);
-
-			HeapMgr()->PopHeap(GetGameFlow()->GetCurrentContext() == CONTEXT_FRONTEND ?
-									GMA_LEVEL_FE : GMA_LEVEL_HUD);
-		}
-	}
-
-
-#endif // RAD_XBOX
 }
 
 //===========================================================================

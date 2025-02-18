@@ -263,7 +263,7 @@ private:
 
     enum {
         NUM_BRAKELIGHT_BBQS = 4,
-#ifdef RAD_WIN32 
+#if defined( RAD_WIN32 ) || defined( RAD_UWP )
         NUM_FRINKARC_BBQS = 3,
 #endif
         NUM_GHOSTGLOW_BBQGS = 6,
@@ -272,7 +272,7 @@ private:
         NUM_NUKEGLOW_BBQS = 3
     };
 
-#ifdef RAD_WIN32
+#if defined( RAD_WIN32 ) || defined( RAD_UWP )
     tBillboardQuadGroup* mFrinkArc;
     tColour mOriginalFrinkArcColour[ NUM_FRINKARC_BBQS   ];
 #endif

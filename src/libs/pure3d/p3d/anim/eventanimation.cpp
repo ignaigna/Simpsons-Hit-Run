@@ -18,10 +18,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#ifdef RAD_PS2
-#define atof ps2Atof
-#endif
-
 //**************************************************************
 // Class tEventController
 //**************************************************************

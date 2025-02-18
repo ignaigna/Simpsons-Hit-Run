@@ -34,37 +34,7 @@
 //*****************************************************************************
 unsigned int SuperSprintCam::mSprintCamCount = 0;
 
-#ifdef RAD_PS2
-static float CAMERA_VALUES[ RenderEnums::MAX_LEVEL - RenderEnums::numLevels ][ 3 ] = 
-{
-//    { 4.847f, 306.69729f, -289.8292f },
-    { 26.88f, 157.87f, -206.23f },
-    { 35.67f, 195.66f, -207.82f },
-    { -27.78f, 146.18f, -228.17f },
-    { 32.92f, 305.26f, -292.99f },
-    { 26.73f, 128.08f, -208.55f },
-    { 30.338f, 208.018f, -358.739f },
-    { 30.62f, 157.05f, -213.99f },
-};
- 
-//Theres a 1-1 bonus to main levels.
-static rmt::Vector* CAMERA_SETTINGS = (rmt::Vector*)(CAMERA_VALUES); 
-
-static float CAMERA_FOV[ RenderEnums::MAX_LEVEL - RenderEnums::numLevels ] =
-{
-//    0.2618f,
-    0.4f,
-    0.4f,
-    0.35f,
-    0.26f,
-    0.4f,
-    0.2618f,
-    0.4f
-};
-
-#endif
-
-#ifdef RAD_XBOX
+#ifdef RAD_UWP
 static float CAMERA_VALUES[ RenderEnums::MAX_LEVEL - RenderEnums::numLevels ][ 3 ] = 
 {
 //    { 49.99f, 160.21f, -233.60f },
@@ -255,18 +225,7 @@ void SuperSprintCam::Update( unsigned int milliseconds )
 #endif
     }
 
-#ifdef RAD_PS2
-    if ( (GetGameplayManager()->GetCurrentLevelIndex() + RenderEnums::B00) == RenderEnums::B06 )
-    {
-        SetNearPlane( 250.0f );  //HACK!
-    }
-    else
-    {
-        SetNearPlane( mNear );
-    }
-#else
     SetNearPlane( mNear );
-#endif
     SetFarPlane( mFar );
     SetFOV( mFOV );
     SetAspect( mAspect );

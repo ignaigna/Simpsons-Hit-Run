@@ -331,13 +331,7 @@ void SimState::SyncSimObj()
 
 void SimState::SetScaleFromTransform()
 {
-#ifdef RAD_PS2
-    static float eps = CENTI_EPS;
-#else
-    static float eps = MILLI_EPS;
-#endif
-
-    mScale = ComputeScaleFromMatrix(mTransform, eps);
+    mScale = ComputeScaleFromMatrix(mTransform, MILLI_EPS);
 }
 
 void SimState::GetVelocity(const rmt::Vector& inPosition, rmt::Vector& oVelocity, int inIndex)

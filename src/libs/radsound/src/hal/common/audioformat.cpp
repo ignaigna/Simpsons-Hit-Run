@@ -5,9 +5,6 @@
 
 #include "pch.hpp"
 #include "audioformat.hpp"
-#ifdef RAD_PS2
-#include "../ps2/adpcm/vagheader.hpp"
-#endif
 #include "../../radsound/radicaladpcm.hpp"
 
 //
@@ -55,16 +52,6 @@ void radSoundHalAudioFormat::Initialize(
 		m_FrameSizeInSamples = 64.0f;
 		m_SampleSizeInBits = ::radSoundUIntToFloat( bitResolution * channels );
 	}
-
-    #ifdef RAD_PS2
-	    else if ( m_Encoding == IRadSoundHalAudioFormat::VAG )
-	    {
-		    m_FrameSizeInBytes   = ::radSoundUIntToFloat( VAG_MONO_FRAME_SIZE * channels );
-		    m_FrameSizeInSamples = VAG_SAMPLES_PER_FRAME;
-		    m_SampleSizeInBits   = ::radSoundUIntToFloat( bitResolution * channels );
-	    }
-    #endif
-	
 	else if ( m_Encoding == IRadSoundHalAudioFormat::RadicalAdpcm )
 	{
 

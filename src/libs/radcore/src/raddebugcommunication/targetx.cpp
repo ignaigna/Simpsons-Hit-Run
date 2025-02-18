@@ -25,41 +25,18 @@
 //=============================================================================
 
 #include "pch.hpp"
-#ifdef RAD_WIN32
+#if defined(RAD_WIN32) || defined(RAD_UWP)
 #include <windows.h>
-#endif // RAD_WIN32
-#ifdef RAD_XBOX
-#include <xtl.h>
-#endif // RAD_XBOX 
+#endif // RAD_WIN32 || RAD_UWP
 
 #include <stdlib.h>
-
-#ifdef RAD_PS2
-#ifdef SN_TCPIP
-extern "C"
-{
-#include "../../../Sdks/sntcpip/inc/snsocket.h"
-#include "../../../Sdks/sntcpip/inc/sneeutil.h"
-#include "../../../Sdks/sntcpip/inc/snskdefs.h"
-}
-#else
-#define SO_NBIO         0x1013          /* Set socket non-blocking */
-#endif
-#include <sifrpc.h>
-#endif
-
 #include <string.h>
 #include <radthread.hpp>
 #include <radplatform.hpp>
 #include <radmemorymonitor.hpp>
 #include "targetconnection.hpp"     // Connection objects
 #include "targetx.hpp"              // This module
-#include "targetdecichannel.hpp"    // Deci channel implementation
 #include "targetsocketchannel.hpp"  // Socket channel implementation
-
-#ifdef RAD_PS2
-    #include "target1394socket.hpp"     // Socket implementation using 1394 FireWire
-#endif
 
 #undef NULL
 #define NULL 0
@@ -72,10 +49,6 @@ extern "C"
 // This constant governs the period at which we check for incoming connections.
 //
 const unsigned int CheckForConnectTimeout = 100;    // Milliseconds
-
-#ifdef RAD_PS2
-#define INVALID_SOCKET -1 
-#endif
 
 //=============================================================================
 // Static Data Defintions
@@ -351,43 +324,14 @@ rDbgComTarget::~rDbgComTarget( void )
         rAssert( m_ProtocolTable[ i ].m_State == ProtocolInfoEntry::Free );
     }
 
-	#if defined( RAD_WIN32 ) || defined( RAD_XBOX )
+	#if defined( RAD_WIN32 ) || defined( RAD_UWP )
     {
         //
         // Terminate our access to sockets for this process.
         //
         WSACleanup( );
-
-        #ifdef RAD_XBOX
-        {
-            #ifndef OLD_XDK
-                XNetCleanup();
-            #else
-                XnetCleanup();
-            #endif
-        }
-        #endif // RAD_XBOX
-
         delete m_SocketImp;
      }
-    #endif
-     
-    #ifdef RAD_PS2
-
-    if( m_TargetType == UsbTcpIp )
-    {
-        #ifdef SN_TCPIP
-        //
-        // PS2 shutdown SNs stack. 
-        //
-        sockAPIderegthr();
-        #endif
-    }
-    if( m_TargetType != Deci )
-    {
-        delete m_SocketImp;
-    }
-
     #endif
 
     radRelease( m_Dispatcher, this );
@@ -448,31 +392,15 @@ void rDbgComTarget::Initialize
     radMemoryMonitorReportAddRef( m_TimerList, this );
     
     //
-    // Lets initialize sockets. For now, if RAD_PS2 we assume the SNTCPIP stack and for Windows
-    // just the Windows Sockets.
+    // Lets initialize sockets.
     //
-	#if defined( RAD_WIN32 ) || defined( RAD_XBOX )
+	#if defined( RAD_WIN32 ) || defined( RAD_UWP )
     if( m_TargetType == WinSocket )
     {
         //
         // Lets initialize sockets on for the calling processes.We want a socket implementation
         // of version 2.0 or greater. If less than 2.0, still use it.
         //
- 
-	    #ifdef RAD_XBOX
-        #ifndef OLD_XDK
-
-        XNetStartupParams xnsp;
-        memset(&xnsp, 0, sizeof(xnsp));
-        xnsp.cfgSizeOfStruct = sizeof(XNetStartupParams);
-        xnsp.cfgFlags = XNET_STARTUP_BYPASS_SECURITY; 
-        XNetStartup(&xnsp);
-
-        #else
-    	    XnetInitialize( NULL, true );
-        #endif
-        #endif // RAD_XBOX
-
 	    WORD    wVersionRequested;
         WSADATA wsaData;
         int     err;
@@ -483,100 +411,6 @@ void rDbgComTarget::Initialize
         rAssert( err == 0 );
 
         m_SocketImp = new( alloc ) radSocket( );
-    }
-    #endif
-
-    #ifdef RAD_PS2
-
-    //
-    // Now lets perform some initialization. The DECI system requires no explicit initialization
-    // 
-    if( m_TargetType == Deci )
-    {
-        return;
-    }
-    else if( m_TargetType == UsbTcpIp )
-    {
-        //
-        // This code has been removed. Uncomment if you want to use TCPIP over USB. Performance
-        // was very poor.
-        //
-        rAssert( false );
-    
-        #ifdef SN_TCPIP           
-        
-        //
-        // Lets load and initialize SNs tcpip stack.
-        //
-        sceSifInitRpc(0);
-
-        //
-        // Load up the IRX modules. Need the USB drive and sns stack. Need to build up
-        // the IP address information correctly. Check if the Modules are all ready in place.
-        //
-        if( SN_EIOPNORESP == sockAPIinit(1) )
-        {
-            radDbgComUsbTcpIpInitInfo*   pAddr =  (radDbgComUsbTcpIpInitInfo*) initInfo;
-            char iop_params[ 512 ];
-            unsigned int x = 0;
-            strcpy( &iop_params[ x ], pAddr->m_IPAddress );
-            x += (strlen( &iop_params[ x ] ) + 1 );
-            strcpy( &iop_params[ x ], pAddr->m_SubMask );
-            x += (strlen( &iop_params[ x ] ) + 1 );
-            strcpy( &iop_params[ x ], pAddr->m_Gateway );
-            x += (strlen( &iop_params[ x ] ) + 1 );
- 
-            IRadPlatform* pIPs2Platform;
-            pIPs2Platform = radPlatformGet( );
-	        pIPs2Platform->LoadIrxModule( "usbd.irx" );
-	        pIPs2Platform->LoadIrxModule( "sndbget.irx", x, iop_params  );
-	        
-            result = sockAPIinit(1);
-            rAssert( result == 0 );
-        } 
-
-        //
-        // Register this thread.
-        //
-        sockAPIregthr();
-
-        //
-        // Wait to attach 
-        //
-        sn_bool Attached = SN_FALSE;
-        short   idVendor;
-        short   idProduct;
-
-        while( Attached == SN_FALSE)
-        {
-            result = snmdm_get_attached(&Attached, &idVendor, &idProduct);
-            rAssert( result == 0 );
-            sn_delay(10);
-        }
-
-        //
-        // Start the stack.
-        //
-        int currentState;
-        sn_stack_state( SN_STACK_STATE_START, &currentState);
-  
-        //
-        // Wait a couple seconds as per the example.
-        //
-        sn_delay(4000);
-
-        m_SocketImp = new( alloc ) radSocket( );
-
-        #endif
-
-    }
-    else if( m_TargetType == FireWire )
-    {
-        m_SocketImp = new( alloc ) CTarget1394Socket( );
-    }
-    else
-    {
-        rAssertMsg( false, "Invalid com type specified\n");
     }
     #endif
 
@@ -594,11 +428,9 @@ void rDbgComTarget::Initialize
     result = m_SocketImp->setsockopt( m_ListeningSocket, SOL_SOCKET, SO_REUSEADDR, (const char*) &ReuseAddr, sizeof( int ) );
     rAssert( result == 0 );
 
-#ifndef RAD_XBOX
     int KeepAlive = 1;
     result = m_SocketImp->setsockopt( m_ListeningSocket, SOL_SOCKET, SO_KEEPALIVE, (const char*) &KeepAlive, sizeof( int ) );
     rAssert( result == 0 );    
-#endif // !RAD_XBOX
 
     //  
     // Bind the socket using the specified port.
@@ -615,13 +447,7 @@ void rDbgComTarget::Initialize
     //  
     // Set the socket option to be non-blocking. Must use two different techiques.
     //
-    #ifdef RAD_PS2
-    int NonBlocking = 1;
-    result = m_SocketImp->setsockopt( m_ListeningSocket, SOL_SOCKET, SO_NBIO, (const char*) &NonBlocking, sizeof( int ) );
-    rAssert( result == 0 );    
-    #endif
-    
-	#if defined( RAD_WIN32 ) || defined( RAD_XBOX )
+	#if defined( RAD_WIN32 ) || defined( RAD_UWP )
     unsigned long NonBlocking = 1;
     result = m_SocketImp->ioctlsocket( m_ListeningSocket, FIONBIO, &NonBlocking );
     rAssert( result == 0 );    
@@ -661,7 +487,7 @@ void rDbgComTarget::Terminate
 )
 {
 
-#if defined( RAD_WIN32 ) || defined( RAD_XBOX )
+#if defined( RAD_WIN32 ) || defined( RAD_UWP )
 
     radSingleLock< IRadThreadMutex > singleLock( this, true );
 
@@ -671,20 +497,6 @@ void rDbgComTarget::Terminate
     // Close our listening socket.
     //
     m_SocketImp->closesocket( m_ListeningSocket );
-
-#endif
-
-#ifdef RAD_PS2
-
-    if( m_TargetType != Deci )
-    {
-        radRelease( m_Timer, this );
-  
-        //
-        // Close our listening socket.
-        //
-        m_SocketImp->closesocket( m_ListeningSocket );
-    }
 
 #endif
 
@@ -698,25 +510,6 @@ void rDbgComTarget::Terminate
             m_ProtocolTable[ i ].m_pConnection->Deactivate( );
         }        
     }
-
-#ifdef RAD_PS2
-
-    //
-    // It is possible for oustanding operations to exist. These operations
-    // can complete as a result of iterrupts. To prevent problems, spin
-    // here for a bit. This will only occur at terminatation of the game
-    // and will not be probibitative.  Service the dispatcher while waiting 
-    // for timer to expire. This is not a great solution but will do.
-    //
-    unsigned int StartTime = radTimeGetMilliseconds( );
-        
-    while( radTimeGetMilliseconds( ) - StartTime < 2000 )
-    {
-        m_TimerList->Service( );
-        m_Dispatcher->Service( );
-    }
-
-#endif
 
     //
     // Spin here until no more dispatch events are queued.
@@ -790,30 +583,9 @@ void rDbgComTarget::CreateChannel
     // Based on the target type, construct the appropaite target channel object. Currently
     // we support DECI and sockets target channels.
     //
-#if defined( RAD_WIN32 ) || defined( RAD_XBOX )
+#if defined( RAD_WIN32 ) || defined( RAD_UWP )
 
      *ppChannel = new( alloc ) rDbgComSocketTargetChannel( this, protocol );        
-
-#endif
-
-#ifdef RAD_PS2    
-
-    if( m_TargetType == Deci )
-    {
-        //
-        // Construct up a DECITargetChannel
-        //
-        *ppChannel = new( alloc ) rDbgComDECITargetChannel( this, protocol );
-
-    }
-    else
-    {
-        //
-        // Here we are using standard sockets for our communication. Construct 
-        // the socket channel object.
-        //  
-        *ppChannel = new( alloc ) rDbgComSocketTargetChannel( this, protocol );        
-    }
 
 #endif
 }

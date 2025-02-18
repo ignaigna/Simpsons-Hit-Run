@@ -140,54 +140,6 @@ void radThreadSleep
 }
 
 //=============================================================================
-// Function:    PS2SleepAlarm
-//=============================================================================
-// Description: This function is invoked under interrupts by the Sony alarms.
-//              It is used to create a sleep functionality. Its job is
-//              to wake the sleeping thread after time has elapsed.
-//
-// Parameters:  id - id of alarm.
-//              time - time of alarm setting.
-//              pInfo - used data.
-//              
-// Returns:     N/A
-//
-//------------------------------------------------------------------------------
-
-#ifdef RAD_PS2
-
-void PS2SleepAlarm( int id, unsigned short time, PS2SleepInfo* pInfo )
-{
-    //
-    // The Sony alarm has exired. Update the alarm count and check if
-    // zero.
-    //
-    pInfo->m_AlarmCount--;
-
-    if( pInfo->m_AlarmCount == 0 )
-    {
-        //
-        // We are done. Indicate no alarm needs to be terminated and wake up
-        // the thread.
-        //
-        pInfo->m_AlarmId = -1;
-
-        iWakeupThread( pInfo->m_ThreadId );
-    }
-    else
-    {
-        //
-        // Reset the alarm for another count.
-        //
-        pInfo->m_AlarmId = iSetAlarm( pInfo->m_AlarmSetting,
-                                      (void(*)(int,unsigned short,void*)) PS2SleepAlarm,
-                                      pInfo );
-    }
-}
-
-#endif
-
-//=============================================================================
 // Function:    radThreadCreateLocalStorage
 //=============================================================================
 // Description: This is the factory for the thread local storage object. 
@@ -316,24 +268,6 @@ void radThread::Initialize( unsigned int milliseconds )
 void radThread::Terminate( void )
 {
     //
-    // On the PS2, release the alarm that is performing our round robin 
-    // scheduling. Protect this operation as the alarm may expired while 
-    // releasing it. This could cause a new one to be created.
-    //
-#ifdef RAD_PS2
-
-    DI( );
-    
-    if( s_AlarmId != -1 )
-    {
-        ReleaseAlarm( s_AlarmId );
-    }
-
-    EI( );
-
-#endif
-
-    //
     // Exlicitly destruct our thread object that represents the main thread.
     //
     ((radThread*)s_theThreadMemory)->~radThread( );
@@ -346,45 +280,6 @@ void radThread::Terminate( void )
         rAssert( s_ThreadTable[ i ] == NULL );
     }
 }
-
-//=============================================================================
-// Function:    radThread::AlarmHandler
-//=============================================================================
-// Description: On the PS2, this routine is invoked as an interrupt handler.
-//              This routine goes rotates threads of each prioity this 
-//              system supports. This stuff should be very fast (hopefully).
-//
-// Parameters:  alarm id, 
-//              time
-//              userdata
-//              
-// Returns:     N/A
-//
-//------------------------------------------------------------------------------
-
-#ifdef RAD_PS2
-
-void radThread::AlarmHandler( int id, unsigned short time, void* userData )
-{
-    (void) id; (void) time; (void) userData;
-
-    //
-    // For each prioirty we support, rotate threads of that proirity.
-    //
-    for( unsigned int i = 0 ; i < (sizeof( s_PriorityMap ) / sizeof( int ) ) ; i++ )
-    {
-        iRotateThreadReadyQueue( s_PriorityMap[ i ] );
-    }
-
-    //
-    // Reset the alarm.
-    //
-    s_AlarmId = iSetAlarm( RADTHREAD_PS2_ROUNDROBINTIME, AlarmHandler, NULL );
-
-}
-
-#endif
-
 
 //=============================================================================
 // Function:    radThread::radThread
@@ -645,7 +540,7 @@ int radThread::InternalThreadEntry( void* param )
     //
     // Under windows, convert this thread to a fiber.
     //
-#if defined(RAD_WIN32) || defined(RAD_XBOX)
+#if defined( RAD_WIN32 ) || defined( RAD_UWP )
     //pThread->m_Fiber.m_Win32Fiber = ConvertThreadToFiber( NULL );
 #endif
 
@@ -1308,22 +1203,9 @@ radThreadFiber::radThreadFiber
     radMemoryMonitorIdentifyAllocation( this, g_nameFTech, "radThreadFiber" );
     rAssert( stackSize != 0 );   
 
-#if defined(RAD_WIN32) || defined(RAD_XBOX)
+#if defined( RAD_WIN32 ) || defined( RAD_UWP )
 
     m_Win32Fiber = CreateFiber( stackSize, FiberEntry, this );
-
-#endif
-
-#ifdef RAD_PS2
-
-    //
-    // One the ps2ee, allocate a stack and set up the entry 
-    // point for this fiber.
-    //
-    m_Stack = radMemoryAllocAligned( GetThisAllocator( ), stackSize + 16, 16 );
-
-    m_CurrentStackPointer = (unsigned int) ((char*) m_Stack + stackSize );
-    m_CurrentProgramCounter = (unsigned int) FiberEntry;
 
 #endif
 
@@ -1350,15 +1232,11 @@ radThreadFiber::~radThreadFiber( void )
     //
     if( m_StackSize != 0 )
     {
-#if defined(RAD_WIN32) || defined(RAD_XBOX)
+#if defined( RAD_WIN32 ) || defined( RAD_UWP )
         //
         // Under windows, delete the fiber.
         //
         DeleteFiber( m_Win32Fiber );
-#endif    
-
-#ifdef RAD_PS2
-        radMemoryFreeAligned( GetThisAllocator( ), m_Stack );
 #endif
 
     }
@@ -1386,7 +1264,7 @@ void radThreadFiber::SwitchTo( void )
     //
     // Perform OS specific switch.
     //
-#if defined(RAD_WIN32) || defined(RAD_XBOX)
+#if defined( RAD_WIN32 ) || defined( RAD_UWP )
     
     // 
     // Set this fiber as the calling threads active fiber and switch,
@@ -1394,20 +1272,6 @@ void radThreadFiber::SwitchTo( void )
     ((radThread*) radThread::GetActiveThread( ))->m_pActiveFiber = this;
 
     SwitchToFiber( m_Win32Fiber );        
-
-#endif
-
-#ifdef RAD_PS2
-
-    //
-    // Get the active fiber. Sets its program counter and stack to where we 
-    // are. Then switch to new one.
-    //
-    radThreadFiber* oldFiber = (radThreadFiber*) radThreadGetActiveFiber( );
-    ((radThread*) radThread::GetActiveThread( ))->m_pActiveFiber = this;
-
-    PS2SwitchToFiber( &(oldFiber->m_CurrentStackPointer), &(oldFiber->m_CurrentProgramCounter),
-                      m_CurrentStackPointer, m_CurrentProgramCounter );
 
 #endif
 
@@ -1532,15 +1396,10 @@ void radThreadFiber::Dump( char* pStringBuffer, unsigned int bufferSize )
 // Notes:
 //------------------------------------------------------------------------------
 
-#if defined(RAD_WIN32) || defined(RAD_XBOX)
 void CALLBACK radThreadFiber::FiberEntry( void* param )
 {
     (void) param;
-#endif
-#ifdef RAD_PS2
-void radThreadFiber::FiberEntry( void )
-{
-#endif
+
     //
     // Get the active thread and invoke callers function with user data.
     //
@@ -1554,71 +1413,5 @@ void radThreadFiber::FiberEntry( void )
     rAssertMsg( false, "Fibers are not allowed to return\n");
 
 }
-
-//=============================================================================
-// Function:    radThreadFiber::PS2SwitchToFiber
-//=============================================================================
-// Description: This static is used on the PS2 to switch fibers.
-//
-// Parameters:  Where to copy old SP and old PC
-//              new values for SP and PC
-//
-// Returns:     n/a
-//
-// Notes:
-//------------------------------------------------------------------------------
-
-#ifdef RAD_PS2
-
-#ifndef RAD_MW
-
-void radThreadFiber::PS2SwitchToFiber( unsigned int* oldSp, unsigned int* oldPc, unsigned int newSp, unsigned int newPc )
-{
-    asm( "addiu $29, 0xfff8" );         // Make room on stack to store frame pointer and return address
-    asm( "sw $31, 0($29)" );            // Save return address on stack
-    asm( "sw $30, 4($29)" );            // Save frame pointer on stack
-    asm( "sw $29, 0($4 )" );            // Save the current stack pointer to *oldSp 
-    asm( "la $8, returnpoint" );        // Load return address in temp register
-    asm( "sw $8, 0($5)" );              // Save temp register into *oldPc
-    asm( "add $29,$6,$0" );             // Set the stack pointer to newSP
-    asm( "jr $7 " );                    // Set PC to newCP
-
-    asm( "returnpoint: nop" );          // Were we return to
-    asm( "lw $30,4($29)" );             // Restore frame pointer
-    asm( "lw $31,0($29)" );             // Restore return address
-    asm( "addiu $29, 0x8" );            // Balance stack
-}
-
-#else
-
-//
-// Metrowerks verions is a little different    
-//
-asm void radThreadFiber::PS2SwitchToFiber( unsigned int* oldSp, unsigned int* oldPc, unsigned int newSp, unsigned int newPc )
-{
-    addiu $29, -8           // Make room on stack to store frame pointer and return address
-    sw $31, 0($29)              // Save return address on stack
-    sw $30, 4($29)              // Save frame pointer on stack
-    sw $29, 0($4 )              // Save the current stack pointer to *oldSp 
-    
-    jal next                    // load retrun address to point to next
-    nop
-next:
-    add $8,$31, 16              // Temp now has the address of return point 
-    sw $8, 0($5)                // Save temp register into *oldPc
-    add $29,$6,$0               // Set the stack pointer to newSP
-    jr $7                       // Set PC to newCP
-
-    returnpoint: nop            // Were we return to
-    lw $30,4($29)               // Restore frame pointer
-    lw $31,0($29)               // Restore return address
-    addiu $29, 0x8              // Balance stack
-    jr  $31
-    nop
-}
-
-#endif
-
-#endif
 
 #endif // if 0

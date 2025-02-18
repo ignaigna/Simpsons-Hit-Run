@@ -197,7 +197,7 @@ unsigned int radSoundHalSystem::GetNumAuxSends( )
 
 void radSoundHalSystem::SetOutputMode( radSoundOutputMode mode )
 {
-	rDebugString( "radSoundHalSystem: SetOutputMode() not supported on Win32/XBox use DashBoard\n" );
+	rDebugString( "radSoundHalSystem: SetOutputMode() not supported on Win32/UWP use DashBoard\n" );
 }
 
 //============================================================================

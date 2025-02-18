@@ -149,25 +149,12 @@ void RenderFlow::DoAllRegistration()
 
    p3d::pddi->EnableStatsOverlay(sDrawStatsOverlay);
 
-#ifndef RAD_PS2
-   p3d::pddi->SetCullMode(PDDI_CULL_NONE);
-#endif
-
-#ifdef RAD_PS2
-    pddiExtPS2Control* ps2Control = (pddiExtPS2Control*)p3d::pddi->GetExtension(PDDI_EXT_PS2_CONTROL);
-
-  ps2Control->DisableTexCache( false );
-
-//	pddiExtPS2Control* ps2Control = (pddiExtPS2Control*) p3d::pddi->GetExtension(PDDI_EXT_PS2_CONTROL);
-//	ps2Control->ForceMFIFOSync( true );
-#endif
-
-#if (defined(RAD_XBOX))
+#if (defined(RAD_UWP))
     ((pddiExtGammaControl*)p3d::pddi->GetExtension(PDDI_EXT_GAMMACONTROL))->SetGamma(0.956f,0.914f,0.866f);
 #endif
-#if (defined(RAD_XBOX) && defined(DEBUGWATCH))
-    mpDebugXBoxGamma = (pddiExtGammaControl*)p3d::pddi->GetExtension(PDDI_EXT_GAMMACONTROL);
-    mpDebugXBoxGamma->GetGamma( &mDebugGammaR, &mDebugGammaG, &mDebugGammaB );
+#if (defined(RAD_UWP) && defined(DEBUGWATCH))
+    mpDebugUwpGamma = (pddiExtGammaControl*)p3d::pddi->GetExtension(PDDI_EXT_GAMMACONTROL);
+    mpDebugUwpGamma->GetGamma( &mDebugGammaR, &mDebugGammaG, &mDebugGammaB );
 #endif
 
 #ifdef RAD_WIN32
@@ -209,9 +196,9 @@ void RenderFlow::OnTimerDone( unsigned int iElapsedTime, void* pUserData )
     // Debugging stuff.
     //////////////////////////////////////////////////
 
-#if (defined(RAD_XBOX) && defined(DEBUGWATCH))
-    if(mpDebugXBoxGamma != NULL)
-        mpDebugXBoxGamma->SetGamma( mDebugGammaR, mDebugGammaG, mDebugGammaB );
+#if (defined(RAD_UWP) && defined(DEBUGWATCH))
+    if(mpDebugUwpGamma != NULL)
+        mpDebugUwpGamma->SetGamma( mDebugGammaR, mDebugGammaG, mDebugGammaB );
 #endif
     #ifndef RAD_RELEASE
 
@@ -315,11 +302,11 @@ RenderFlow::RenderFlow() :
 #ifdef DEBUGWATCH
    radDbgWatchAddUnsignedInt( &mDebugRenderTime, "Debug Render Flow micros", "RenderFlow", NULL, NULL );
    radDbgWatchAddBoolean( &sDrawStatsOverlay, "Draw Stats Overlay", "RenderFlow" );
-   radDbgWatchAddFloat( &mDebugGammaR, "Xbox R Gamma", "RenderFlow", NULL, NULL, 0.0f, 2.0f );
-   radDbgWatchAddFloat( &mDebugGammaG, "Xbox G Gamma", "RenderFlow", NULL, NULL, 0.0f, 2.0f );
-   radDbgWatchAddFloat( &mDebugGammaB, "Xbox B Gamma", "RenderFlow", NULL, NULL, 0.0f, 2.0f );
+   radDbgWatchAddFloat( &mDebugGammaR, "Uwp R Gamma", "RenderFlow", NULL, NULL, 0.0f, 2.0f );
+   radDbgWatchAddFloat( &mDebugGammaG, "Uwp G Gamma", "RenderFlow", NULL, NULL, 0.0f, 2.0f );
+   radDbgWatchAddFloat( &mDebugGammaB, "Uwp B Gamma", "RenderFlow", NULL, NULL, 0.0f, 2.0f );
 
-    mpDebugXBoxGamma = NULL;
+    mpDebugUwpGamma = NULL;
 #endif
 #ifdef RAD_WIN32
     mpGammaControl = NULL;

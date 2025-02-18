@@ -163,7 +163,7 @@ void CreateSingletons()
     CGuiSystem* pGuiSystem = CGuiSystem::CreateInstance();
     rAssert( pGuiSystem != NULL );
 
-    SoundManager* pSoundManager = 
+    SoundManager* pSoundManager =
         SoundManager::CreateInstance( CommandLineOptions::Get( CLO_MUTE ),
                                       CommandLineOptions::Get( CLO_NO_MUSIC ),
                                       CommandLineOptions::Get( CLO_NO_EFFECTS ),

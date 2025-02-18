@@ -11,9 +11,7 @@
 //
 // Description:	This file contains the data definitions used to communicated over
 //              the gamecube host i/o system. It is used to create a sockets 
-//              implementation. This file is included by the host (win32 ) and 
-//              targer ( GameCube ). Note that the game cube uses different endian
-//              than the PC.
+//              implementation. This file is included by the host (win32 ).
 //
 // Author:		Peter Mielcarski
 //
