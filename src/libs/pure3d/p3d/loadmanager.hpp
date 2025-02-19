@@ -207,8 +207,8 @@ public:
     void SwitchTask(void);
     void TriggerCallbacks(void);
 
-    tFileHandler* AddHandler(tFileHandler*, char* ext);
-    tFileHandler* GetHandler(char* ext);
+    tFileHandler* AddHandler(tFileHandler*, const char* ext);
+    tFileHandler* GetHandler(const char* ext);
     void RemoveHandler(char* ext);
     void RemoveAllHandlers(void);
 

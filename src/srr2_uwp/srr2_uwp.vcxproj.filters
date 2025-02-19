@@ -264,21 +264,10 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\resources\uwp\SplashScreen.png">
-      <Filter>Resource Files\Assets</Filter>
-    </Image>
-    <Image Include="..\resources\uwp\Square44x44Logo.png">
-      <Filter>Resource Files\Assets</Filter>
-    </Image>
-    <Image Include="Assets\Square44x44Logo.scale-100.png">
-      <Filter>Resource Files\Assets</Filter>
-    </Image>
-    <Image Include="..\resources\uwp\Square150x150Logo.png">
-      <Filter>Resource Files\Assets</Filter>
-    </Image>
-    <Image Include="..\resources\uwp\StoreLogo.png">
-      <Filter>Resource Files\Assets</Filter>
-    </Image>
+    <Image Include="resources\SplashScreen.png" />
+    <Image Include="resources\Square150x150Logo.png" />
+    <Image Include="resources\Square44x44Logo.png" />
+    <Image Include="resources\StoreLogo.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="SRR2_UWP_TemporaryKey.pfx">
@@ -1123,9 +1112,6 @@
       <Filter>Source Files\presentation\gui\ingame</Filter>
     </ClCompile>
     <ClCompile Include="..\game\presentation\gui\ingame\guiscreenpausecontroller.cpp">
-      <Filter>Source Files\presentation\gui\ingame</Filter>
-    </ClCompile>
-    <ClCompile Include="..\game\presentation\gui\ingame\guiscreenpausedisplay.cpp">
       <Filter>Source Files\presentation\gui\ingame</Filter>
     </ClCompile>
     <ClCompile Include="..\game\presentation\gui\ingame\guiscreenpausemission.cpp">
@@ -2847,9 +2833,6 @@
       <Filter>Source Files\presentation\gui\ingame</Filter>
     </ClInclude>
     <ClInclude Include="..\game\presentation\gui\ingame\guiscreenpausecontroller.h">
-      <Filter>Source Files\presentation\gui\ingame</Filter>
-    </ClInclude>
-    <ClInclude Include="..\game\presentation\gui\ingame\guiscreenpausedisplay.h">
       <Filter>Source Files\presentation\gui\ingame</Filter>
     </ClInclude>
     <ClInclude Include="..\game\presentation\gui\ingame\guiscreenpausemission.h">

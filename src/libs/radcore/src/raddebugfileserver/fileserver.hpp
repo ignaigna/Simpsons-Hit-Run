@@ -129,7 +129,7 @@ class rDebugFileServer : public IRadDebugFileServer,
     //
     // Pass a debug message to the logger callback.
     //
-    void LogMessage( char* pString );
+    void LogMessage( const char* pString );
 
 
     //

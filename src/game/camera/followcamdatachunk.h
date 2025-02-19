@@ -47,7 +47,7 @@ public:
     tName mName;
     
     FollowCamDataChunk& operator=( const FollowCamDataChunk& followcamdatachunk );
-    bool operator==( const FollowCamDataChunk& followcamdatachunk );
+    //bool operator==( const FollowCamDataChunk& followcamdatachunk );
 private:
     //Prevent wasteful constructor creation.
     FollowCamDataChunk( const FollowCamDataChunk& followcamdatachunk );
@@ -87,7 +87,7 @@ inline FollowCamDataChunk& FollowCamDataChunk::operator=( const FollowCamDataChu
 // Return:      bool 
 //
 //=============================================================================
-inline bool FollowCamDataChunk::operator==( const FollowCamDataChunk& followcamdatachunk )
+/*inline bool FollowCamDataChunk::operator==(const FollowCamDataChunk& followcamdatachunk)
 {
     return ( mID == followcamdatachunk.mID &&
              mRotation == followcamdatachunk.mRotation &&
@@ -96,5 +96,5 @@ inline bool FollowCamDataChunk::operator==( const FollowCamDataChunk& followcamd
              mTargetOffset == followcamdatachunk.mTargetOffset &&
              mName == followcamdatachunk.mName );
 }
-
+*/
 #endif //FOLLOWCAMDATACHUNK_H

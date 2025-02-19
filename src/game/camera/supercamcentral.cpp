@@ -2296,9 +2296,17 @@ FollowCamDataChunk& SuperCamCentral::GetNewFollowCamDataChunk()
 void SuperCamCentral::ReleaseFollowCamDataChunk( FollowCamDataChunk& chunk )
 {
     unsigned int i;
+
     for ( i = 0; i < mNumUsedFDC; ++i )
     {
-        if ( mFollowCamDataChunks[ i ] == chunk )
+        bool fucked = mFollowCamDataChunks[i].mID == chunk.mID &&
+            mFollowCamDataChunks[i].mRotation == chunk.mRotation &&
+            mFollowCamDataChunks[i].mElevation == chunk.mElevation &&
+            mFollowCamDataChunks[i].mMagnitude == chunk.mMagnitude &&
+            mFollowCamDataChunks[i].mTargetOffset == chunk.mTargetOffset &&
+            mFollowCamDataChunks[i].mName == chunk.mName;
+
+        if ( fucked )
         {
             mFollowCamDataChunks[ i ] = mFollowCamDataChunks[ mNumUsedFDC - 1 ];
             mNumUsedFDC--;

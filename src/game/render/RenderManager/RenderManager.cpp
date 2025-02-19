@@ -122,7 +122,7 @@ void FinishedZone()
 //
 // Static list of items to load per level, per mission
 //
-static char* sLevelLoadList[] = 
+static const char* sLevelLoadList[] = 
 {
    "ART\\L1_TERRA.P3D", //L1
    "ART\\L2_TERRA.P3D", //L2
@@ -141,7 +141,7 @@ static char* sLevelLoadList[] =
    "ART\\B07.P3D"       //SUPER_SPRINT
 };
 
-static char* sIntersectLoadList[] = 
+static const char* sIntersectLoadList[] = 
 {
    "ART\\L1_INTER.P3D", //L1
    "ART\\L2_INTER.P3D", //L2
@@ -160,7 +160,7 @@ static char* sIntersectLoadList[] =
    ""
 };
 
-static char* sMissionLoadList[] = 
+static const char* sMissionLoadList[] = 
 {
    "everground.p3d"  //L1M1
 };

@@ -110,7 +110,7 @@ public:
     void Render();
 
     /** Push a section */
-    bool Push(char* szSection);
+    bool Push(const char* szSection);
 
     /** Pop a section */
     void Pop();

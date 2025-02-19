@@ -262,9 +262,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\resources\win\afxres.h">
-      <Filter>Resource Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\game\ai\actionbuttonhandler.h">
       <Filter>Source Files\ai</Filter>
     </ClInclude>
@@ -2110,16 +2107,13 @@
     <ClInclude Include="..\game\main\pchsrr2.h">
       <Filter>Source Files\main</Filter>
     </ClInclude>
+    <ClInclude Include="afxres.h" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\resources\win\Simpsons.ico">
-      <Filter>Resource Files</Filter>
-    </Image>
+    <Image Include="Simpsons.ico" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="..\resources\win\SRR2.rc">
-      <Filter>Resource Files</Filter>
-    </ResourceCompile>
+    <ResourceCompile Include="SRR2.rc" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\game\ai\actionbuttonhandler.cpp">

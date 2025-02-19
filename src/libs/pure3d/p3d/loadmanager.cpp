@@ -570,13 +570,13 @@ void tLoadManager::TriggerCallbacks(void)
 {
 }
 
-tFileHandler* tLoadManager::AddHandler(tFileHandler* l, char* ext)
+tFileHandler* tLoadManager::AddHandler(tFileHandler* l, const char* ext)
 {
     radLoad->AddFileLoader(l, ext);
     return l;
 }
 
-tFileHandler* tLoadManager::GetHandler(char* ext)
+tFileHandler* tLoadManager::GetHandler(const char* ext)
 {
     return dynamic_cast<tFileHandler*>(radLoad->GetFileLoader(ext));
 }
