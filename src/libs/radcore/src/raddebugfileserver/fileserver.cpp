@@ -2282,7 +2282,7 @@ void rDebugFileServer::CloseFiles( )
 //
 //===========================================================================
 
-void rDebugFileServer::LogMessage( char* pString )
+void rDebugFileServer::LogMessage( const char* pString )
 {
     if( m_LogCallback != NULL && pString != NULL )
     {

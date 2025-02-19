@@ -268,7 +268,7 @@ struct IRadDebugFileServer : public IRefCount
 //
 struct IRadDebugFileServerLogCallback
 {
-    virtual void OnFileServerLogMessage( char* pMessage ) = 0;
+    virtual void OnFileServerLogMessage( const char* pMessage ) = 0;
 };
 
 

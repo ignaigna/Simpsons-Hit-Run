@@ -293,7 +293,7 @@ void DebugInfo::OnSwitch()
 // Return:      
 //
 //==============================================================================
-bool DebugInfo::Push(char* szSection)
+bool DebugInfo::Push(const char* szSection)
 {
 MEMTRACK_PUSH_GROUP( "DebugInfo" );
     HeapMgr()->PushHeap (GMA_DEBUG);
