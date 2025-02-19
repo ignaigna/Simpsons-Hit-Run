@@ -109,7 +109,7 @@
       <ForcedIncludeFiles>pchsrr2.h;</ForcedIncludeFiles>
     </ClCompile>
     <Link>
-      <OutputFile>$(OutDir)SRR2.exe</OutputFile>
+      <OutputFile>$(OutDir)SRR2_UWP.exe</OutputFile>
       <AdditionalDependencies>odbc32.lib;odbccp32.lib;dsound.lib;dxguid.lib;winmm.lib;dinput8.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <GenerateMapFile>true</GenerateMapFile>
@@ -148,7 +148,7 @@
       <DisableSpecificWarnings>
       </DisableSpecificWarnings>
       <AdditionalIncludeDirectories>.;..\game;..\libs\radcore\include;..\libs\radmovie\include;..\libs\radsound\include;..\libs\radscript\include;..\libs\radmusic\include;..\libs\pure3d;..\libs\scrooby\include;..\libs\scrooby\src;..\libs\radmath;..\libs\sim;..\libs\poser\include;..\libs\choreo\include;..\libs\radcontent\include;..\libs\radcontent;$(ProjectDir);$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <SDLCheck>false</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;RAD_RELEASE;WIN64;_WINDOWS;RAD_UWP;RAD_CONSOLE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <LanguageStandard>stdcpp17</LanguageStandard>
@@ -160,7 +160,7 @@
       <CompileAsWinRT>false</CompileAsWinRT>
     </ClCompile>
     <Link>
-      <OutputFile>$(OutDir)SRR2.exe</OutputFile>
+      <OutputFile>$(OutDir)SRR2_UWP.exe</OutputFile>
       <AdditionalDependencies>odbc32.lib;odbccp32.lib;dsound.lib;dxguid.lib;winmm.lib;dinput8.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <GenerateMapFile>true</GenerateMapFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
