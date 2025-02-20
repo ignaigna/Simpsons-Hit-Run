@@ -12,17 +12,13 @@ If you encounter issues, please [create an issue](https://github.com/3UR/Simpson
 
 ## Installation
 
-> [!IMPORTANT]
-> Assets are too large to include in the repository. You can obtain them from (TODO) and place them in the build folder.
-
 ### Quick Installation (Pre-built)
 
 1. Download the latest build from the [Releases page](https://github.com/3UR/Simpsons-Hit-Run/releases/latest).
 2. Locate a zip file similar to `SRR2-Release-x64-2025.02.11-12.07.28-73389fa.zip` and download it.
 3. Extract the contents of the zip file to your desired location.
 4. Navigate to the extracted folder and locate `SRR2.exe`.
-5. Download the assets from the note above and place them in the same directory as `SRR2.exe`.
-6. You can now run the game. (Note: The game will crash without the required assets)
+5. You can now run the game. (Note: The game will crash without the required assets)
 
 ### Developer Installation (Building from Source)
 
@@ -35,9 +31,6 @@ When working on the code you must have some things
 - VCPkg support (When selecting `Desktop development with C++`, ensure `vcpkg package manager` is checked on the right side)
 
 #### Setup
-
-> [!WARNING]
-> The source directory root must have an 'assets' folder and you must put all assets here if you intend to run the debugger and not manually deploy.
 
 1. Open command prompt and navigate to a directory where you want to store the source and run `git clone https://github.com/3UR/Simpsons-Hit-Run`
 2. When done you can open `SRR2.sln` with Visual Studio.
