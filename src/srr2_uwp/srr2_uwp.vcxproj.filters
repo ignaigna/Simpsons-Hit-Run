@@ -4,9 +4,6 @@
     <Filter Include="Resource Files">
       <UniqueIdentifier>{7251b5a8-5cf9-4e4f-9d34-0f200fd6bcd2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resource Files\Assets">
-      <UniqueIdentifier>{1f28a8db-388d-4fa1-bc55-12014ef252e0}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files">
       <UniqueIdentifier>{7657083f-8cfe-4697-8214-fef3ccbe4909}</UniqueIdentifier>
     </Filter>

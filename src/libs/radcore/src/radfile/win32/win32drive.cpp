@@ -628,7 +628,7 @@ void radWin32Drive::TranslateDirInfo
     }
     else
     {
-        std::string filename = directoryEntry.filename().u8string();
+        std::string filename = directoryEntry.filename().string();
         strncpy( pDirectoryInfo->m_Name, filename.c_str(), radFileFilenameMax);
         pDirectoryInfo->m_Name[ radFileFilenameMax ] = '\0';
         pDirectoryInfo->m_Type = (*pHandle)->is_directory() ? IRadDrive::DirectoryInfo::IsDirectory : IRadDrive::DirectoryInfo::IsFile;

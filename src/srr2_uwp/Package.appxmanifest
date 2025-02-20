@@ -10,7 +10,7 @@
   <Identity
     Name="f1e514bc-23b5-40c7-a7cf-c250f424d377"
     Publisher="CN=3UR"
-    Version="1.0.0.0" />
+    Version="1.0.4.0" />
 
   <mp:PhoneIdentity PhoneProductId="f1e514bc-23b5-40c7-a7cf-c250f424d377" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
@@ -38,7 +38,6 @@
         Square44x44Logo="resources\Square44x44Logo.png"
         Description="The Simpsons: Hit &amp; Run ported to Xbox UWP"
         BackgroundColor="transparent">
-        <uap:DefaultTile Wide310x150Logo="resources\Wide310x150Logo.png"/>
         <uap:SplashScreen Image="resources\SplashScreen.png" />
       </uap:VisualElements>
     </Application>

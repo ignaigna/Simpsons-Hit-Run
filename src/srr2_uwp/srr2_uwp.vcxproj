@@ -58,21 +58,26 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros">
-    <PackageCertificateThumbprint>A73979F3BD39A6028C23943EC0069D88C1587522</PackageCertificateThumbprint>
     <PackageCertificateKeyFile>SRR2_UWP_TemporaryKey.pfx</PackageCertificateKeyFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseUwp|x64'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>..\..\build\UWP-bin-$(Platform)-$(Configuration)\</OutDir>
     <IntDir>..\..\build\UWP-obj-$(Platform)-$(Configuration)\</IntDir>
+    <CustomBuildAfterTargets>BscMake</CustomBuildAfterTargets>
+    <CustomBuildBeforeTargets>PostBuildEvent</CustomBuildBeforeTargets>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='TuneUwp|x64'">
     <OutDir>..\..\build\UWP-bin-$(Platform)-$(Configuration)\</OutDir>
     <IntDir>..\..\build\UWP-obj-$(Platform)-$(Configuration)\</IntDir>
+    <CustomBuildAfterTargets>BscMake</CustomBuildAfterTargets>
+    <CustomBuildBeforeTargets>PostBuildEvent</CustomBuildBeforeTargets>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugUwp|x64'">
     <OutDir>..\..\build\UWP-bin-$(Platform)-$(Configuration)\</OutDir>
     <IntDir>..\..\build\UWP-obj-$(Platform)-$(Configuration)\</IntDir>
+    <CustomBuildAfterTargets>BscMake</CustomBuildAfterTargets>
+    <CustomBuildBeforeTargets>PostBuildEvent</CustomBuildBeforeTargets>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='TuneUwp|x64'" Label="Vcpkg">
     <VcpkgTriplet>x64-uwp</VcpkgTriplet>
@@ -90,6 +95,13 @@
   </PropertyGroup>
   <PropertyGroup Label="Vcpkg">
     <VcpkgEnableManifest>true</VcpkgEnableManifest>
+    <GenerateAppInstallerFile>False</GenerateAppInstallerFile>
+    <AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
+    <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
+    <GenerateTestArtifacts>True</GenerateTestArtifacts>
+    <AppxBundle>Always</AppxBundle>
+    <AppxBundlePlatforms>x64</AppxBundlePlatforms>
+    <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='TuneUwp|x64'">
     <ClCompile>
@@ -115,6 +127,16 @@
       <GenerateMapFile>true</GenerateMapFile>
       <GenerateWindowsMetadata>false</GenerateWindowsMetadata>
     </Link>
+    <CustomBuildStep>
+      <Command>echo "https://stackoverflow.com/questions/46186041/uwp-deploy-assets-from-arbitrary-path"</Command>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Message>Game Assets</Message>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Outputs>..\..\assets\;%(Outputs)</Outputs>
+      <TreatOutputAsContent>true</TreatOutputAsContent>
+    </CustomBuildStep>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugUwp|x64'">
     <ClCompile>
@@ -141,6 +163,16 @@
       <GenerateMapFile>true</GenerateMapFile>
       <GenerateWindowsMetadata>false</GenerateWindowsMetadata>
     </Link>
+    <CustomBuildStep>
+      <Command>echo "https://stackoverflow.com/questions/46186041/uwp-deploy-assets-from-arbitrary-path"</Command>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Message>Game Assets</Message>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Outputs>..\..\assets\;%(Outputs)</Outputs>
+      <TreatOutputAsContent>true</TreatOutputAsContent>
+    </CustomBuildStep>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseUwp|x64'">
     <ClCompile>
@@ -166,6 +198,16 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <GenerateWindowsMetadata>false</GenerateWindowsMetadata>
     </Link>
+    <CustomBuildStep>
+      <Command>echo "https://stackoverflow.com/questions/46186041/uwp-deploy-assets-from-arbitrary-path"</Command>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Message>Game Assets</Message>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Outputs>..\..\assets\;%(Outputs)</Outputs>
+      <TreatOutputAsContent>true</TreatOutputAsContent>
+    </CustomBuildStep>
   </ItemDefinitionGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -1373,6 +1415,4 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-  <!-- Assets -->
-  <!-- TODO(3UR): need to copy the folder and keep structure of all subfolders in /assets -->
 </Project>
