@@ -50,6 +50,8 @@ build/
 
 # Game UWP
 src/srr2_uwp/Generated Files/
+src/srr2_uwp/BundleArtifacts/
+AppPackages/
 
 # I hate all these configs too everything was nicer with just 3 configs but whatever we need RAD_UWP defined in libs
 
