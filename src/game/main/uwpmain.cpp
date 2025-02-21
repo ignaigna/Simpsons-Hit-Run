@@ -54,7 +54,11 @@ int SDL_main(int argc, char* argv[])
     //
 
     if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_GAMECONTROLLER) < 0) return -1;
+
+    // this is really verbose and not useful unless debugging so just keep it disabled for now
+    #if 0
     SDL_LogSetOutputFunction(LogOutputFunction, NULL);
+    #endif
 
     //
     // Have to get FTech setup first so that we can use all the memory services.
