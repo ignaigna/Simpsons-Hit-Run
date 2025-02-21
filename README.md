@@ -8,6 +8,8 @@ Xbox now fully works, it is still jank but there is lots of progression from the
 
 ### Videos
 
+*the version of code shown in the video will be committed to the repository later once i clean up some things and make it less jank*
+
 [_Watch HD on YouTube_](https://www.youtube.com/watch?v=l_Ii-4Wygn8)
 
 https://github.com/user-attachments/assets/9793dccf-5dd6-4bbf-beb6-a6db33521a0b
