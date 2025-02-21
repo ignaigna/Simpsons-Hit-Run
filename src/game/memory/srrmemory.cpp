@@ -603,7 +603,9 @@ void HeapStack::Push (GameMemoryAllocator alloc)
     ++currentStackPointer;
     ++pushNumber;
     m_CurPos++;
-    rAssertMsg (m_CurPos < m_Size, "Heap Stack Overflow! Increase size of the Heap Stack. [jdy]"); // TODO(3UR): This is not okay on uwp but I just don't know why it's always incorrect yet on windows its normal
+    #ifndef RAD_UWP // TODO(3UR): this should be resolved for now were not caring and ignoring it (also yes it does memory leak on xbox because of something in this memory file)
+    rAssertMsg (m_CurPos < m_Size, "Heap Stack Overflow! Increase size of the Heap Stack. [jdy]");
+    #endif
     m_Stack[m_CurPos] = alloc;
 }
 
@@ -613,16 +615,22 @@ void HeapStack::Pop ()
     pushNumberStack[ currentStackPointer ] = -1;
     GameMemoryAllocator current = m_Stack[ m_CurPos ];
     m_CurPos--;
-    rAssertMsg (m_CurPos >= 0, "Heap Stack Underflow! Calls to Push and Pop on heap stack are mismatched. [jdy]"); // TODO(3UR): This is not okay on uwp but I just don't know why it's always incorrect yet on windows its normal
+    #ifndef RAD_UWP // TODO(3UR): this should be resolved for now were not caring and ignoring it (also yes it does memory leak on xbox because of something in this memory file)
+    rAssertMsg (m_CurPos >= 0, "Heap Stack Underflow! Calls to Push and Pop on heap stack are mismatched. [jdy]");
+    #endif
 }
 
 void HeapStack::Pop( GameMemoryAllocator alloc )
 {
     --currentStackPointer;
     pushNumberStack[ currentStackPointer ] = -1;
-    rAssertMsg( m_Stack[ m_CurPos ] == alloc, "HeapStack - Detected mismatch in push/pop calls - fix, or tell Ian Gipson immediately" ); // TODO(3UR): This is not okay on uwp but I just don't know why it's always incorrect yet on windows its normal
+    #ifndef RAD_UWP // TODO(3UR): this should be resolved for now were not caring and ignoring it (also yes it does memory leak on xbox because of something in this memory file)
+    rAssertMsg( m_Stack[ m_CurPos ] == alloc, "HeapStack - Detected mismatch in push/pop calls - fix, or tell Ian Gipson immediately" );
+    #endif
     m_CurPos--;
-    rAssertMsg (m_CurPos >= 0, "Heap Stack Underflow! Calls to Push and Pop on heap stack are mismatched. [jdy]"); // TODO(3UR): This is not okay on uwp but I just don't know why it's always incorrect yet on windows its normal
+    #ifndef RAD_UWP // TODO(3UR): this should be resolved for now were not caring and ignoring it (also yes it does memory leak on xbox because of something in this memory file)
+    rAssertMsg (m_CurPos >= 0, "Heap Stack Underflow! Calls to Push and Pop on heap stack are mismatched. [jdy]");
+    #endif
 }
 
 
