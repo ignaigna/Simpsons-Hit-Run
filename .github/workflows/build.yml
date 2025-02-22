@@ -100,7 +100,7 @@ jobs:
       if: ${{ github.event.inputs.is_uwp_build == 'true' }}
       id: appx_version
       run: |
-        $MANIFEST = [xml](Get-Content pcsx2-winrt\Package.appxmanifest)
+        $MANIFEST = [xml](Get-Content src\srr2_uwp\Package.appxmanifest)
         $APPX_VERSION = $MANIFEST.Package.Identity.Version
         echo $APPX_VERSION
         echo APPX_VERSION=$APPX_VERSION >> $env:GITHUB_OUTPUT
