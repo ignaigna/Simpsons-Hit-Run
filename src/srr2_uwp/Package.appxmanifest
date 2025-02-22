@@ -38,7 +38,8 @@
         Square44x44Logo="resources\Square44x44Logo.png"
         Description="The Simpsons: Hit &amp; Run ported to Xbox UWP"
         BackgroundColor="transparent">
-        <uap:SplashScreen Image="resources\SplashScreen.png" />
+        <uap:DefaultTile/>
+        <uap:SplashScreen Image="resources\SplashScreen.scale-400.png"/>
       </uap:VisualElements>
     </Application>
   </Applications>
