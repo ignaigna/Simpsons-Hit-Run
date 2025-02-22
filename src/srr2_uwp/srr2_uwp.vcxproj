@@ -1394,7 +1394,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="resources\SplashScreen.scale-400.png">
+    <Image Include="resources\SplashScreen.png">
       <DeploymentContent>true</DeploymentContent>
     </Image>
     <Image Include="resources\Square150x150Logo.png" />
