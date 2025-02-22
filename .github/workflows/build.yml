@@ -23,11 +23,6 @@ on:
         options:
           - x86
           - x64
-      create_release:
-        description: 'Should a release be created?'
-        required: false
-        default: false
-        type: boolean
       # dont care right now shouldnt have to have this its terrible because we should check based on the configuration input
       is_uwp_build:
         description: 'Check this if your using a UWP configuration'
@@ -114,7 +109,7 @@ jobs:
     # these upload build steps dont upload to releases but rather the actions ui it is ran only if create release is false
     - name: Upload Build (Non-UWP)
       uses: actions/upload-artifact@v4
-      if: ${{ github.event.inputs.create_release == 'false' && github.event.inputs.is_uwp_build == 'false' }}
+      if: ${{ github.event.inputs.is_uwp_build == 'false' }}
       with:
         name: ${{ steps.version.outputs.version }}
         path: build/**
@@ -122,7 +117,7 @@ jobs:
 
     - name: Upload Build (UWP)
       uses: actions/upload-artifact@v4
-      if: ${{ github.event.inputs.create_release == 'false' && github.event.inputs.is_uwp_build == 'true' }}
+      if: ${{ github.event.inputs.is_uwp_build == 'true' }}
       with:
         name: ${{ steps.version.outputs.version }}
         path: AppPackages/SRR2.appx
@@ -130,46 +125,18 @@ jobs:
 
     # so we can get the tag before we do a new release and then we can use generate_release_notes
     - name: Get Previous Tag
-      if: ${{ github.event.inputs.create_release == 'true' }}
       id: get_previous_tag
       shell: pwsh
       run: |
         $LATEST_TAG = git describe --tags (git rev-list --tags --max-count=1)
         "previous_tag=$LATEST_TAG" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
 
-    # https://github.com/mikepenz/release-changelog-builder-action/issues/1303#issuecomment-1949897430
-    # TODO(3ur): work on this
-    - name: Build Changelog
-      if: false 
-      # TODO(3ur): disabled this ${{ github.event.inputs.create_release == 'true' }}
-      id: changelog
-      uses: mikepenz/release-changelog-builder-action@v5
-      with:
-        commitMode: true
-        configurationJson: |
-          {
-            "categories": [
-              {
-                "title": "## What's Changed since #{{FROM_TAG}}",
-                "labels": []
-              }
-            ],
-            "template": "#{{CHANGELOG}}",
-            "pr_template": "- #{{TITLE}}\n",
-            "empty_template": "#{{OWNER}}\n#{{REPO}}\n#{{FROM_TAG}}\n#{{TO_TAG}}",
-            "max_pull_requests": 1000,
-            "max_back_track_time_days": 1000
-          }
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        
     - name: Create Release
-      if: ${{ github.event.inputs.create_release == 'true' }}
       uses: actions/create-release@v1
       id: create_release
       with:
         draft: false
-        prerelease: ${{ github.event.inputs.configuration != 'Release' }}
+        prerelease: ${{ github.event.inputs.configuration != 'Release' && github.event.inputs.configuration != 'ReleaseUwp'  }}
         release_name: ${{ steps.version.outputs.version }}
         tag_name: ${{ steps.version.outputs.version }}
       env:
@@ -178,13 +145,13 @@ jobs:
     # pretty much the upload build step but it makes a zip of build folder
     # TODO(3ur): jank jank jank why the hell does this have the version inside the zip but no extension ? instead of just a zip with bin and obj folders
     - name: Zip Build # doesnt happen on uwp. we just upload appx directly
-      if: ${{ github.event.inputs.create_release == 'false' && !contains(github.event.inputs.configuration, 'Uwp') }}
+      if: ${{ github.event.inputs.is_uwp_build == 'false' }}
       run: |
         tar -czf ${{ github.workspace }}/${{ steps.version.outputs.version }}.zip -C build .
 
     # nasty boilerplate n duplicated code but im rushing this since i got half a screen and its still dying more 
     - name: Upload Build (Non-UWP)
-      if: ${{ github.event.inputs.create_release == 'false' && github.event.inputs.is_uwp_build == 'false' }}
+      if: ${{ github.event.inputs.is_uwp_build == 'false' }}
       uses: actions/upload-release-asset@v1
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }} 
@@ -195,7 +162,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Upload Build (UWP)
-      if: ${{ github.event.inputs.create_release == 'false' && github.event.inputs.is_uwp_build == 'true' }}
+      if: ${{ github.event.inputs.is_uwp_build == 'true' }}
       uses: actions/upload-release-asset@v1
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }} 
