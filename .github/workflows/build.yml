@@ -57,7 +57,9 @@ jobs:
     
     - uses: actions/checkout@v3
     - uses: GuillaumeFalourd/setup-windows10-sdk-action@v2.4
-    
+      with:
+        sdk-version: 22621
+        
     - name: Setup MSBuild
       uses: microsoft/setup-msbuild@v1.1
       with:
@@ -98,12 +100,12 @@ jobs:
     - name: Package as APPX (UWP)
       if: ${{ github.event.inputs.is_uwp_build == 'true' }}
       run: |
-        MakeAppx.exe pack /d "build/UWP-bin-${{ github.event.inputs.platform }}-${{ github.event.inputs.configuration }}/Appx" /p "AppPackages\SRR2.appx" /o
+        "C:\Program Files (x86)\Windows Kits\10\bin\10.0.22621.0\x64\MakeAppx.exe" pack /d "build/UWP-bin-x64-DebugUwp/Appx" /p "AppPackages\SRR2.appx" /o
 
     - name: Sign APPX (UWP)
       if: ${{ github.event.inputs.is_uwp_build == 'true' }}
       run: |
-        SignTool sign /fd SHA256 /a /f "src/srr2_uwp/SRR2_UWP_TemporaryKey.pfx" "AppPackages\SRR2.appx"
+        "C:\Program Files (x86)\Windows Kits\10\bin\10.0.22621.0\x64\SignTool.exe" sign /fd SHA256 /a /f "src/srr2_uwp/SRR2_UWP_TemporaryKey.pfx" "AppPackages\SRR2.appx"
 
     # these upload build steps dont upload to releases but rather the actions ui it is ran only if create release is false
     - name: Upload Build (Non-UWP)
