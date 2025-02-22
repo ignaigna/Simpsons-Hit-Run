@@ -38,7 +38,8 @@ radSoundHalVoiceWin::radSoundHalVoiceWin( void )
     if ( error!= AL_NO_ERROR )
     {
         m_Source = 0;
-        rDebugPrintf( false, "Failed to generate OpenAL source. Code: 0x%X", error );
+        rDebugPrintf( "Failed to generate OpenAL source. Code: 0x%X", error );
+
     }
     else
     {
