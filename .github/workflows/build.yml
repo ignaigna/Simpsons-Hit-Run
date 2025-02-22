@@ -87,41 +87,23 @@ jobs:
       if: ${{ github.event.inputs.is_uwp_build == 'true' }}
       run: msbuild.exe src/srr2_uwp/SRR2_UWP.vcxproj /p:Configuration=${{ github.event.inputs.configuration }} /p:Platform=${{ github.event.inputs.platform }} /p:PlatformToolset=v143 /p:WindowsTargetPlatformVersion=10.0 /m /clp:PerformanceSummary /p:SolutionDir=${{ github.workspace }}
       
-    - name: Generate Version
+    - name: Generate Release Version
       id: version
       shell: pwsh
       run: |
         $DATE = Get-Date -Format "yyyy.MM.dd-HH.mm.ss"
         $VERSION = "SRR2-${{ github.event.inputs.configuration }}-${{ github.event.inputs.platform }}-$DATE-$(${env:GITHUB_SHA}.Substring(0,7))"
-        "version=$VERSION" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
-        
-    - name: Package as APPX (UWP)
+        echo version=$VERSION >> $env:GITHUB_OUTPUT
+
+    # from https://github.com/XboxEmulationHub/XBSX2/blob/dev/.github/workflows/buildwinrt.yml#L27
+    - name: Extract appx version from AppxManifest
       if: ${{ github.event.inputs.is_uwp_build == 'true' }}
-      shell: pwsh
+      id: appx_version
       run: |
-        & "C:\Program Files (x86)\Windows Kits\10\bin\10.0.22621.0\x64\MakeAppx.exe" pack /d "build/UWP-bin-${{ github.event.inputs.platform }}-${{ github.event.inputs.configuration }}" /p "AppPackages\SRR2.appx" /o
-
-    - name: Sign APPX (UWP)
-      if: ${{ github.event.inputs.is_uwp_build == 'true' }}
-      run: |
-        & "C:\Program Files (x86)\Windows Kits\10\bin\10.0.22621.0\x64\SignTool.exe" sign /fd SHA256 /a /f "src/srr2_uwp/SRR2_UWP_TemporaryKey.pfx" "AppPackages\SRR2.appx"
-
-    # these upload build steps dont upload to releases but rather the actions ui it is ran only if create release is false
-    - name: Upload Build (Non-UWP)
-      uses: actions/upload-artifact@v4
-      if: ${{ github.event.inputs.is_uwp_build == 'false' }}
-      with:
-        name: ${{ steps.version.outputs.version }}
-        path: build/**
-        # 3ur: ^ dont care, we arent distributing it through a release so keep the obj and bin
-
-    - name: Upload Build (UWP)
-      uses: actions/upload-artifact@v4
-      if: ${{ github.event.inputs.is_uwp_build == 'true' }}
-      with:
-        name: ${{ steps.version.outputs.version }}
-        path: AppPackages/SRR2.appx
-        # 3ur: ^ dont care, we arent distributing it through a release so keep the obj and bin
+        $MANIFEST = [xml](Get-Content pcsx2-winrt\Package.appxmanifest)
+        $APPX_VERSION = $MANIFEST.Package.Identity.Version
+        echo $APPX_VERSION
+        echo APPX_VERSION=$APPX_VERSION >> $env:GITHUB_OUTPUT
 
     # so we can get the tag before we do a new release and then we can use generate_release_notes
     - name: Get Previous Tag
@@ -137,8 +119,8 @@ jobs:
       with:
         draft: false
         prerelease: ${{ github.event.inputs.configuration != 'Release' && github.event.inputs.configuration != 'ReleaseUwp'  }}
-        release_name: ${{ steps.version.outputs.version }}
-        tag_name: ${{ steps.version.outputs.version }}
+        release_name: ${{ steps.release_version.outputs.release_version }}
+        tag_name: ${{ steps.release_version.outputs.release_version }}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # https://docs.github.com/en/actions/security-for-github-actions/security-guides/automatic-token-authentication#about-the-github_token-secret
 
@@ -147,7 +129,7 @@ jobs:
     - name: Zip Build # doesnt happen on uwp. we just upload appx directly
       if: ${{ github.event.inputs.is_uwp_build == 'false' }}
       run: |
-        tar -czf ${{ github.workspace }}/${{ steps.version.outputs.version }}.zip -C build .
+        tar -czf ${{ github.workspace }}/${{ steps.release_version.outputs.release_version }}.zip -C build .
 
     # nasty boilerplate n duplicated code but im rushing this since i got half a screen and its still dying more 
     - name: Upload Build (Non-UWP)
@@ -155,8 +137,8 @@ jobs:
       uses: actions/upload-release-asset@v1
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }} 
-        asset_path: ${{ github.workspace }}/${{ steps.version.outputs.version }}.zip
-        asset_name: ${{ steps.version.outputs.version }}.zip
+        asset_path: ${{ github.workspace }}/${{ steps.release_version.outputs.release_version }}.zip
+        asset_name: ${{ steps.release_version.outputs.release_version }}.zip
         asset_content_type: application/zip
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -166,8 +148,8 @@ jobs:
       uses: actions/upload-release-asset@v1
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }} 
-        asset_path: AppPackages/SRR2.appx
-        asset_name: SRR2.appx
+        asset_path: build/UWP-bin-${{ github.event.inputs.platform }}-${{ github.event.inputs.configuration }}/SRR2_UWP_${{ steps.appx_version.outputs.appx_version }}_${{ github.event.inputs.platform }}_${{ github.event.inputs.configuration }}.appx
+        asset_name: SRR2_UWP_${{ steps.appx_version.outputs.appx_version }}_${{ github.event.inputs.platform }}_${{ github.event.inputs.configuration }}.appx
         asset_content_type: application/vnd.ms-appx
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
