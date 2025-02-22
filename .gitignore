@@ -175,8 +175,5 @@ src/libs/sim/[Tt]une[Uu]wp
 src/libs/sim/lib/
 src/libs/sim/obj/
 
-# Asset RCF Files (Too large to include in the assets folder buttt we can do a very ugly workaround to this by having it compressed really really good in a zip and having a pre build rune to check)
-assets/**/*.rcf
-
 # Allow these deps (Required for UWP)
 !deps/**/*.dll
