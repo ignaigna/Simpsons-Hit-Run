@@ -69,7 +69,11 @@ jobs:
 
     - name: Install Dependencies (VCPKG)
       run: |
-        .\vcpkg\vcpkg.exe install
+        if (${{ contains(github.event.inputs.configuration, 'Uwp') }}) {
+          .\vcpkg\vcpkg.exe install --triplet x64-uwp --allow-unsupported
+        } else {
+          .\vcpkg\vcpkg.exe install
+        }
     - name: Integrate (VCPKG)
       run: |
         .\vcpkg\vcpkg.exe integrate install
