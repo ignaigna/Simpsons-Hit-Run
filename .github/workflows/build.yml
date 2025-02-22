@@ -101,7 +101,6 @@ jobs:
     - name: Package as APPX (UWP)
       if: ${{ github.event.inputs.is_uwp_build == 'true' }}
       run: |
-        mkdir build\UWP
         MakeAppx.exe pack /d "build/UWP-bin-${{ github.event.inputs.platform }}-${{ github.event.inputs.configuration }}/Appx /p "AppPackages\SRR2.appx" /o
 
     - name: Sign APPX (UWP)
