@@ -39,7 +39,7 @@ permissions:
 
 env:
   VCPKG_BINARY_SOURCES: 'clear;x-gha,readwrite'
-  VCPKG_COMMIT_ID: '7e21420f775f72ae938bdeb5e6068f722088f06a' # just sync with vcpkg-configuration.json baseline
+  VCPKG_COMMIT_ID: '5f8c424e267b7360d451df406eeefb3767985b17' # just sync with vcpkg-configuration.json baseline
 
 jobs:     
   build:
