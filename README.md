@@ -1,5 +1,11 @@
 # SRR2
 
+**Development paused temporarily; I cannot actively review issues or pull requests because I accidentally broke my monitor (Xbox fell and hit the corner of the monitor 💔) I will try my best to commit frequently but it is hard when half of your monitor is broken and getting worse**
+
+![image](https://github.com/user-attachments/assets/d1c109ba-5f38-4658-a396-cbccf77bface)
+![image](https://github.com/user-attachments/assets/7f183076-30a5-448f-a58c-9f8a1c69c932)
+
+
 SRR2 is a modified fork of _The Simpsons: Hit & Run_ with lots of enhancements, including C++17 support, x64, and VCPkg for easier third-party library management. 
 
 ## Latest Update
