@@ -51,10 +51,11 @@ When working on the code you must have some things
 #### Setup
 
 1. Open command prompt and navigate to a directory where you want to store the source and run `git clone https://github.com/3UR/Simpsons-Hit-Run`
-2. When done you can open `SRR2.sln` with Visual Studio.
-3. Once in Visual Studio press `Tools -> Command Line -> Developer Command Prompt`
-4. A Developer Command Prompt will open enter the following `vcpkg.exe install`
-5. Once that is done you may need to run `vcpkg integrate install`
+2. Run `git lfs pull` and make sure you have Git LFS installed.
+3. When done you can open `SRR2.sln` with Visual Studio.
+4. Once in Visual Studio press `Tools -> Command Line -> Developer Command Prompt`
+5. A Developer Command Prompt will open enter the following `vcpkg.exe install`
+6. Once that is done you may need to run `vcpkg integrate install`
 
 #### Building
 
