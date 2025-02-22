@@ -34,10 +34,10 @@ on:
         required: false
         default: true
         type: boolean
-
+        
 permissions:
   contents: write
-
+  
 env:
   VCPKG_BINARY_SOURCES: 'clear;x-gha,readwrite'
   VCPKG_COMMIT_ID: '5f8c424e267b7360d451df406eeefb3767985b17' # just sync with vcpkg-configuration.json baseline
@@ -55,12 +55,9 @@ jobs:
           core.exportVariable('ACTIONS_CACHE_URL', process.env.ACTIONS_CACHE_URL || '');
           core.exportVariable('ACTIONS_RUNTIME_TOKEN', process.env.ACTIONS_RUNTIME_TOKEN || '');
     
-    - name: Checkout Source Code 
-      uses: actions/checkout@v3
-      with:
-        fetch-depth: 0
-        ref: ${{ github.sha }}
-        
+    - uses: actions/checkout@v3
+    - uses: GuillaumeFalourd/setup-windows10-sdk-action@v2.4
+    
     - name: Setup MSBuild
       uses: microsoft/setup-msbuild@v1.1
       with:
@@ -72,7 +69,7 @@ jobs:
         vcpkgDirectory: 'vcpkg'
         vcpkgGitCommitId: ${{ env.VCPKG_COMMIT_ID }}
         doNotCache: false
-    
+
     - name: Install Dependencies (VCPKG) (Non-UWP)
       if: ${{ github.event.inputs.is_uwp_build == 'false' }}
       run: .\vcpkg\vcpkg.exe install
