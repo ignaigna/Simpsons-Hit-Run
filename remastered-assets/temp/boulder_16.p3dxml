@@ -1,0 +1,1865 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--Saved with Lucas' Pure3D Editor 4.5-->
+<Pure3DChunk Type="0x22000" LucasPure3DEditorVersion="4.4">
+	<!--"boulder_16" (Texture Font)-->
+	<Value Name="Name" Value="boulder_16" />
+	<Value Name="Version" Value="0" />
+	<Value Name="Shader" Value="" />
+	<Value Name="FontSize" Value="32" />
+	<Value Name="FontWidth" Value="32" />
+	<Value Name="FontHeight" Value="37" />
+	<Value Name="FontBaseLine" Value="30" />
+	<Chunk Type="0x19000">
+		<!--"boulder_32_texture_0" (Texture)-->
+		<Value Name="Name" Value="boulder_32_texture_0" />
+		<Value Name="Version" Value="14000" />
+		<Value Name="Width" Value="256" />
+		<Value Name="Height" Value="256" />
+		<Value Name="Bpp" Value="4" />
+		<Value Name="AlphaDepth" Value="8" />
+		<Value Name="TextureType" Value="0" />
+		<Value Name="Usage" Value="0" />
+		<Value Name="Priority" Value="0" />
+		<Chunk Type="0x19001">
+			<!--"" (Image)-->
+			<Value Name="Name" Value="" />
+			<Value Name="Version" Value="14000" />
+			<Value Name="Width" Value="256" />
+			<Value Name="Height" Value="256" />
+			<Value Name="Bpp" Value="4" />
+			<Value Name="Palettized" Value="1" />
+			<Value Name="HasAlpha" Value="1" />
+			<Value Name="Format" Value="1" />
+			<Chunk Type="0x19002">
+				<!--Image Data-->
+				<Value Name="ImageData" Value="iVBORw0KGgoAAAANSUhEUgAAAQAAAAEABAMAAACuXLVVAAAAMFBMVEX///////////////////////////////////////////////////////////////9Or7hAAAAAEHRSTlMAESIzRFVmd4iZqrvM3e7/dpUBFQAAGjBJREFUeJztXQuMq0d1Htvr3b37stM0CZCQdUUrArSsKaUEAVkThAh9ZE0qpRVQ1qloQVRll1ISUCDr0KoKSmAXaGiKGuy2SQqCizeqRGgVshtaAaUCL0gFQij2DVBeKfa+H17/p3Ne8z9s792k9yFRH+muf4/nn/nmnDPzn3P+M3ON6VOf/k8Uk3/Hqvvhl515ANP3m9hK9nh1h+HwjPcfb3jzr4fHjld5AnbOOICnAxQXoJ0+VuVZqIe+x4tH1wdonrbNFTgwJwCW8frNp6tchVCPsUW/fbCdzUJzjiDO1Ida9iNpC63M4h/1/h6rjN4nsG9vtN+DF7a+GQJYRRS71Mhp+k8AWE4lTsKPc/T9FggBqC/A2iI2ZxbLo3u2/4YttG3O2L+oZLNtrjqHxQV7YeubKYCMMZfj32EL4A1HAhix3DKmguNCkb0FwgCw9wqU7ZeV+YktCwMIQAxxIF9qW8wAKsZrRFuBPeZV2cz8AG6BvDGpnpKbgk3LSLr/q8b8PkQALJdguUZCauSm1pFfBGAI/1oODxJzDAqcRWNs/QRjs8LdtBIBaB8JgPhLDISW+W2IAiivwBLgEOJgZtcsvxjAGOwOYX8TwJN9AiA3i6Kxkl+yleaxcMYyN16Bw5w5CkADW29wu9laB4ClKtxK0k62TamM7RCAFKzHwLPwD7imLU9PYQHqdIrUyphxlJUV7gePAjCIdw1ws7C02AGg2IC32fZiXMGz7eyYC2+27TUNNg8bXNP29cEaaVMD5mdlabNyyr8ebztKBOMoyWErpwuqdu5MdQCYB7jeYhSIBynWNMtyC8Czol8y2pelDbonv8jzD28qLu7Ai3FK9AQwA+ukgzuoLvVxqEQAFPQ6tZEAGil8I413bA/acU5B+tmNH9nvNCsgx1VXGKTlDywPZsBcaYTD3TCs4BisCm3i5G0OvScVAZDX6+nm4KFo+47RWVDZw2lh1/wBBPA581JSyZoKxs5iXoh6A4iD4w93HQXgnmhzqyf2db7fz2p7KoE8s+LD5Qen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" />
+			</Chunk>
+		</Chunk>
+	</Chunk>
+	<Chunk Type="0x19000">
+		<!--"boulder_32_texture_1" (Texture)-->
+		<Value Name="Name" Value="boulder_32_texture_1" />
+		<Value Name="Version" Value="14000" />
+		<Value Name="Width" Value="256" />
+		<Value Name="Height" Value="256" />
+		<Value Name="Bpp" Value="4" />
+		<Value Name="AlphaDepth" Value="8" />
+		<Value Name="TextureType" Value="0" />
+		<Value Name="Usage" Value="0" />
+		<Value Name="Priority" Value="0" />
+		<Chunk Type="0x19001">
+			<!--"" (Image)-->
+			<Value Name="Name" Value="" />
+			<Value Name="Version" Value="14000" />
+			<Value Name="Width" Value="256" />
+			<Value Name="Height" Value="256" />
+			<Value Name="Bpp" Value="4" />
+			<Value Name="Palettized" Value="1" />
+			<Value Name="HasAlpha" Value="1" />
+			<Value Name="Format" Value="1" />
+			<Chunk Type="0x19002">
+				<!--Image Data-->
+				<Value Name="ImageData" Value="iVBORw0KGgoAAAANSUhEUgAAAQAAAAEABAMAAACuXLVVAAAAMFBMVEX///////////////////////////////////////////////////////////////9Or7hAAAAAEHRSTlMAESIzRFVmd4iZqrvM3e7/dpUBFQAAEMBJREFUeJztXHtsZFUZPzOdvrftkKwBZZeOaNQQ3DYSyK7gTn0tJATaJYY/UOiYLK6JSouJuxjBqZjgChvbqBEFcWrCH6BoGxMl0bjtig+CYae7iSQs6nSRNxtv3695fH6Pc86905k7My1lN+r9LZ37zbn3nvM753znO9/5zhmUChAgQK34CcAMXjoAXjsv5beAJQBD54NAO8ASCwMA0+eDQAc1ANZehHWIHHXOJvC6766fn1RNf//ttw7glw87Z+81dwtPd+tHrzsBZ7+51QTCGbyRjyk1BrCotuGXVaUa8QKDeLee7kK+jx+9lWT42xYTaONc55XqAlhjLZlVqp/SVpQKTfBdvIG4WGQY3VoCXBbklWoFKKi41DzNid1qJ8CfYuEvApxEMhnI3aTel4Z81PN6WLonEuMvMXWp0sJ7aiWg65hQdfgZSxILhc8uNsIrRGRR7TsUHYCcot6hnmgAmLQvt5zAtovDHP7lR699GKZUJv9Y37UPO1MqhQI3KDWlD4GrFJfFmORqD06QIlDirPpdVDVBIXYbKkUdjd5heBGfe7MnTn2j0UrDawBfQeLjqETzVIvRCSolTXnGOe9ZHwJ1zogQiN38qQ9hs/ZiJo7ULy293gmLDZTD+ADMhrABSF7CFNsHjaQeKVRbLHwQlWi1mbLrJ53ivhxgAkM+BOKQjeLblM5AdZzHLz2iGERuACa74PkHYGEblZtT+PJAHtklbB1Ie9J4BwdLN5q7Qjsxwo9l7lDiBcS3g+zPegL0yClRAUmox5cBsiTukusEJFJ47V1rgGwrNja+3AFIa9xWAluMMybVoQxTVPkmzKiBFTujR1MnNQM91+4h0MrDK+MSEHlOielGcph9LDPPWg35drwDK0fSeRyvU5YAVvEK4L81o8/j+DQUsC+WVUirAI7mV7mzqc9mvfo/KDqoE7jHqOmTJBRiiqomhAE6pBdR4To83YivHMLEg2zr43rwUs47pSpUqREi8JwQUPfoSUGaYFFzVO/g0dwuHUZv7R8GeLGUwIrz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" />
+			</Chunk>
+		</Chunk>
+	</Chunk>
+	<Chunk Type="0x22001">
+		<!--Texture Glyph List-->
+		<Value Name="Glyphs">
+			<Entry>
+				<Key Value="0" />
+				<Value>
+					<Value Name="TextureNum" Value="0" />
+					<Value Name="BottomLeft" X="0.00390625" Y="0.8515625" />
+					<Value Name="TopRight" X="0.01953125" Y="0.99609375" />
+					<Value Name="LeftBearing" Value="0" />
+					<Value Name="RightBearing" Value="0" />
+					<Value Name="Width" Value="4" />
+					<Value Name="Advance" Value="4" />
+					<Value Name="Code" Value="0" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="32" />
+				<Value>
+					<Value Name="TextureNum" Value="0" />
+					<Value Name="BottomLeft" X="0.0234375" Y="0.8515625" />
+					<Value Name="TopRight" X="0.0234375" Y="0.99609375" />
+					<Value Name="LeftBearing" Value="0" />
+					<Value Name="RightBearing" Value="9" />
+					<Value Name="Width" Value="0" />
+					<Value Name="Advance" Value="9" />
+					<Value Name="Code" Value="32" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="33" />
+				<Value>
+					<Value Name="TextureNum" Value="0" />
+					<Value Name="BottomLeft" X="0.02734375" Y="0.8515625" />
+					<Value Name="TopRight" X="0.05859375" Y="0.99609375" />
+					<Value Name="LeftBearing" Value="1" />
+					<Value Name="RightBearing" Value="1" />
+					<Value Name="Width" Value="8" />
+					<Value Name="Advance" Value="10" />
+					<Value Name="Code" Value="33" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="34" />
+				<Value>
+					<Value Name="TextureNum" Value="0" />
+					<Value Name="BottomLeft" X="0.0625" Y="0.8515625" />
+					<Value Name="TopRight" X="0.10546875" Y="0.99609375" />
+					<Value Name="LeftBearing" Value="1" />
+					<Value Name="RightBearing" Value="1" />
+					<Value Name="Width" Value="11" />
+					<Value Name="Advance" Value="13" />
+					<Value Name="Code" Value="34" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="35" />
+				<Value>
+					<Value Name="TextureNum" Value="0" />
+					<Value Name="BottomLeft" X="0.109375" Y="0.8515625" />
+					<Value Name="TopRight" X="0.171875" Y="0.99609375" />
+					<Value Name="LeftBearing" Value="1" />
+					<Value Name="RightBearing" Value="1" />
+					<Value Name="Width" Value="16" />
+					<Value Name="Advance" Value="18" />
+					<Value Name="Code" Value="35" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="36" />
+				<Value>
+					<Value Name="TextureNum" Value="0" />
+					<Value Name="BottomLeft" X="0.17578125" Y="0.8515625" />
+					<Value Name="TopRight" X="0.234375" Y="0.99609375" />
+					<Value Name="LeftBearing" Value="1" />
+					<Value Name="RightBearing" Value="1" />
+					<Value Name="Width" Value="15" />
+					<Value Name="Advance" Value="17" />
+					<Value Name="Code" Value="36" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="37" />
+				<Value>
+					<Value Name="TextureNum" Value="0" />
+					<Value Name="BottomLeft" X="0.23828125" Y="0.8515625" />
+					<Value Name="TopRight" X="0.34765625" Y="0.99609375" />
+					<Value Name="LeftBearing" Value="1" />
+					<Value Name="RightBearing" Value="1" />
+					<Value Name="Width" Value="28" />
+					<Value Name="Advance" Value="30" />
+					<Value Name="Code" Value="37" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="38" />
+				<Value>
+					<Value Name="TextureNum" Value="0" />
+					<Value Name="BottomLeft" X="0.3515625" Y="0.8515625" />
+					<Value Name="TopRight" X="0.43359375" Y="0.99609375" />
+					<Value Name="LeftBearing" Value="1" />
+					<Value Name="RightBearing" Value="1" />
+					<Value Name="Width" Value="21" />
+					<Value Name="Advance" Value="23" />
+					<Value Name="Code" Value="38" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="39" />
+				<Value>
+					<Value Name="TextureNum" Value="0" />
+					<Value Name="BottomLeft" X="0.4375" Y="0.8515625" />
+					<Value Name="TopRight" X="0.45703125" Y="0.99609375" />
+					<Value Name="LeftBearing" Value="1" />
+					<Value Name="RightBearing" Value="1" />
+					<Value Name="Width" Value="5" />
+					<Value Name="Advance" Value="7" />
+					<Value Name="Code" Value="39" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="40" />
+				<Value>
+					<Value Name="TextureNum" Value="0" />
+					<Value Name="BottomLeft" X="0.4609375" Y="0.8515625" />
+					<Value Name="TopRight" X="0.50390625" Y="0.99609375" />
+					<Value Name="LeftBearing" Value="1" />
+					<Value Name="RightBearing" Value="0" />
+					<Value Name="Width" Value="11" />
+					<Value Name="Advance" Value="12" />
+					<Value Name="Code" Value="40" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="41" />
+				<Value>
+					<Value Name="TextureNum" Value="0" />
+					<Value Name="BottomLeft" X="0.5078125" Y="0.8515625" />
+					<Value Name="TopRight" X="0.55078125" Y="0.99609375" />
+					<Value Name="LeftBearing" Value="0" />
+					<Value Name="RightBearing" Value="2" />
+					<Value Name="Width" Value="11" />
+					<Value Name="Advance" Value="13" />
+					<Value Name="Code" Value="41" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="42" />
+				<Value>
+					<Value Name="TextureNum" Value="0" />
+					<Value Name="BottomLeft" X="0.5546875" Y="0.8515625" />
+					<Value Name="TopRight" X="0.59765625" Y="0.99609375" />
+					<Value Name="LeftBearing" Value="1" />
+					<Value Name="RightBearing" Value="1" />
+					<Value Name="Width" Value="11" />
+					<Value Name="Advance" Value="13" />
+					<Value Name="Code" Value="42" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="43" />
+				<Value>
+					<Value Name="TextureNum" Value="0" />
+					<Value Name="BottomLeft" X="0.6015625" Y="0.8515625" />
+					<Value Name="TopRight" X="0.66796875" Y="0.99609375" />
+					<Value Name="LeftBearing" Value="1" />
+					<Value Name="RightBearing" Value="1" />
+					<Value Name="Width" Value="17" />
+					<Value Name="Advance" Value="19" />
+					<Value Name="Code" Value="43" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="44" />
+				<Value>
+					<Value Name="TextureNum" Value="0" />
+					<Value Name="BottomLeft" X="0.671875" Y="0.8515625" />
+					<Value Name="TopRight" X="0.703125" Y="0.99609375" />
+					<Value Name="LeftBearing" Value="1" />
+					<Value Name="RightBearing" Value="1" />
+					<Value Name="Width" Value="8" />
+					<Value Name="Advance" Value="10" />
+					<Value Name="Code" Value="44" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="45" />
+				<Value>
+					<Value Name="TextureNum" Value="0" />
+					<Value Name="BottomLeft" X="0.70703125" Y="0.8515625" />
+					<Value Name="TopRight" X="0.74609375" Y="0.99609375" />
+					<Value Name="LeftBearing" Value="1" />
+					<Value Name="RightBearing" Value="1" />
+					<Value Name="Width" Value="10" />
+					<Value Name="Advance" Value="12" />
+					<Value Name="Code" Value="45" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="46" />
+				<Value>
+					<Value Name="TextureNum" Value="0" />
+					<Value Name="BottomLeft" X="0.75" Y="0.8515625" />
+					<Value Name="TopRight" X="0.78125" Y="0.99609375" />
+					<Value Name="LeftBearing" Value="1" />
+					<Value Name="RightBearing" Value="1" />
+					<Value Name="Width" Value="8" />
+					<Value Name="Advance" Value="10" />
+					<Value Name="Code" Value="46" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="47" />
+				<Value>
+					<Value Name="TextureNum" Value="0" />
+					<Value Name="BottomLeft" X="0.78515625" Y="0.8515625" />
+					<Value Name="TopRight" X="0.8515625" Y="0.99609375" />
+					<Value Name="LeftBearing" Value="1" />
+					<Value Name="RightBearing" Value="1" />
+					<Value Name="Width" Value="17" />
+					<Value Name="Advance" Value="19" />
+					<Value Name="Code" Value="47" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="48" />
+				<Value>
+					<Value Name="TextureNum" Value="0" />
+					<Value Name="BottomLeft" X="0.85546875" Y="0.8515625" />
+					<Value Name="TopRight" X="0.91796875" Y="0.99609375" />
+					<Value Name="LeftBearing" Value="1" />
+					<Value Name="RightBearing" Value="1" />
+					<Value Name="Width" Value="16" />
+					<Value Name="Advance" Value="18" />
+					<Value Name="Code" Value="48" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="49" />
+				<Value>
+					<Value Name="TextureNum" Value="0" />
+					<Value Name="BottomLeft" X="0.921875" Y="0.8515625" />
+					<Value Name="TopRight" X="0.96484375" Y="0.99609375" />
+					<Value Name="LeftBearing" Value="1" />
+					<Value Name="RightBearing" Value="4" />
+					<Value Name="Width" Value="11" />
+					<Value Name="Advance" Value="16" />
+					<Value Name="Code" Value="49" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="50" />
+				<Value>
+					<Value Name="TextureNum" Value="0" />
+					<Value Name="BottomLeft" X="0.00390625" Y="0.703125" />
+					<Value Name="TopRight" X="0.07421875" Y="0.84765625" />
+					<Value Name="LeftBearing" Value="1" />
+					<Value Name="RightBearing" Value="1" />
+					<Value Name="Width" Value="18" />
+					<Value Name="Advance" Value="20" />
+					<Value Name="Code" Value="50" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="51" />
+				<Value>
+					<Value Name="TextureNum" Value="0" />
+					<Value Name="BottomLeft" X="0.078125" Y="0.703125" />
+					<Value Name="TopRight" X="0.14453125" Y="0.84765625" />
+					<Value Name="LeftBearing" Value="0" />
+					<Value Name="RightBearing" Value="1" />
+					<Value Name="Width" Value="17" />
+					<Value Name="Advance" Value="18" />
+					<Value Name="Code" Value="51" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="52" />
+				<Value>
+					<Value Name="TextureNum" Value="0" />
+					<Value Name="BottomLeft" X="0.1484375" Y="0.703125" />
+					<Value Name="TopRight" X="0.21875" Y="0.84765625" />
+					<Value Name="LeftBearing" Value="0" />
+					<Value Name="RightBearing" Value="1" />
+					<Value Name="Width" Value="18" />
+					<Value Name="Advance" Value="19" />
+					<Value Name="Code" Value="52" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="53" />
+				<Value>
+					<Value Name="TextureNum" Value="0" />
+					<Value Name="BottomLeft" X="0.22265625" Y="0.703125" />
+					<Value Name="TopRight" X="0.2890625" Y="0.84765625" />
+					<Value Name="LeftBearing" Value="0" />
+					<Value Name="RightBearing" Value="1" />
+					<Value Name="Width" Value="17" />
+					<Value Name="Advance" Value="18" />
+					<Value Name="Code" Value="53" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="54" />
+				<Value>
+					<Value Name="TextureNum" Value="0" />
+					<Value Name="BottomLeft" X="0.29296875" Y="0.703125" />
+					<Value Name="TopRight" X="0.359375" Y="0.84765625" />
+					<Value Name="LeftBearing" Value="1" />
+					<Value Name="RightBearing" Value="1" />
+					<Value Name="Width" Value="17" />
+					<Value Name="Advance" Value="19" />
+					<Value Name="Code" Value="54" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="55" />
+				<Value>
+					<Value Name="TextureNum" Value="0" />
+					<Value Name="BottomLeft" X="0.36328125" Y="0.703125" />
+					<Value Name="TopRight" X="0.4375" Y="0.84765625" />
+					<Value Name="LeftBearing" Value="0" />
+					<Value Name="RightBearing" Value="0" />
+					<Value Name="Width" Value="19" />
+					<Value Name="Advance" Value="19" />
+					<Value Name="Code" Value="55" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="56" />
+				<Value>
+					<Value Name="TextureNum" Value="0" />
+					<Value Name="BottomLeft" X="0.44140625" Y="0.703125" />
+					<Value Name="TopRight" X="0.5078125" Y="0.84765625" />
+					<Value Name="LeftBearing" Value="1" />
+					<Value Name="RightBearing" Value="2" />
+					<Value Name="Width" Value="17" />
+					<Value Name="Advance" Value="20" />
+					<Value Name="Code" Value="56" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="57" />
+				<Value>
+					<Value Name="TextureNum" Value="0" />
+					<Value Name="BottomLeft" X="0.51171875" Y="0.703125" />
+					<Value Name="TopRight" X="0.578125" Y="0.84765625" />
+					<Value Name="LeftBearing" Value="1" />
+					<Value Name="RightBearing" Value="1" />
+					<Value Name="Width" Value="17" />
+					<Value Name="Advance" Value="19" />
+					<Value Name="Code" Value="57" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="58" />
+				<Value>
+					<Value Name="TextureNum" Value="0" />
+					<Value Name="BottomLeft" X="0.58203125" Y="0.703125" />
+					<Value Name="TopRight" X="0.61328125" Y="0.84765625" />
+					<Value Name="LeftBearing" Value="1" />
+					<Value Name="RightBearing" Value="1" />
+					<Value Name="Width" Value="8" />
+					<Value Name="Advance" Value="10" />
+					<Value Name="Code" Value="58" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="59" />
+				<Value>
+					<Value Name="TextureNum" Value="0" />
+					<Value Name="BottomLeft" X="0.6171875" Y="0.703125" />
+					<Value Name="TopRight" X="0.65234375" Y="0.84765625" />
+					<Value Name="LeftBearing" Value="0" />
+					<Value Name="RightBearing" Value="0" />
+					<Value Name="Width" Value="9" />
+					<Value Name="Advance" Value="9" />
+					<Value Name="Code" Value="59" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="60" />
+				<Value>
+					<Value Name="TextureNum" Value="0" />
+					<Value Name="BottomLeft" X="0.65625" Y="0.703125" />
+					<Value Name="TopRight" X="0.72265625" Y="0.84765625" />
+					<Value Name="LeftBearing" Value="1" />
+					<Value Name="RightBearing" Value="1" />
+					<Value Name="Width" Value="17" />
+					<Value Name="Advance" Value="19" />
+					<Value Name="Code" Value="60" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="61" />
+				<Value>
+					<Value Name="TextureNum" Value="0" />
+					<Value Name="BottomLeft" X="0.7265625" Y="0.703125" />
+					<Value Name="TopRight" X="0.79296875" Y="0.84765625" />
+					<Value Name="LeftBearing" Value="1" />
+					<Value Name="RightBearing" Value="1" />
+					<Value Name="Width" Value="17" />
+					<Value Name="Advance" Value="19" />
+					<Value Name="Code" Value="61" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="62" />
+				<Value>
+					<Value Name="TextureNum" Value="0" />
+					<Value Name="BottomLeft" X="0.796875" Y="0.703125" />
+					<Value Name="TopRight" X="0.86328125" Y="0.84765625" />
+					<Value Name="LeftBearing" Value="1" />
+					<Value Name="RightBearing" Value="1" />
+					<Value Name="Width" Value="17" />
+					<Value Name="Advance" Value="19" />
+					<Value Name="Code" Value="62" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="63" />
+				<Value>
+					<Value Name="TextureNum" Value="0" />
+					<Value Name="BottomLeft" X="0.8671875" Y="0.703125" />
+					<Value Name="TopRight" X="0.921875" Y="0.84765625" />
+					<Value Name="LeftBearing" Value="0" />
+					<Value Name="RightBearing" Value="1" />
+					<Value Name="Width" Value="14" />
+					<Value Name="Advance" Value="15" />
+					<Value Name="Code" Value="63" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="64" />
+				<Value>
+					<Value Name="TextureNum" Value="0" />
+					<Value Name="BottomLeft" X="0.00390625" Y="0.5546875" />
+					<Value Name="TopRight" X="0.08984375" Y="0.69921875" />
+					<Value Name="LeftBearing" Value="2" />
+					<Value Name="RightBearing" Value="2" />
+					<Value Name="Width" Value="22" />
+					<Value Name="Advance" Value="26" />
+					<Value Name="Code" Value="64" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="65" />
+				<Value>
+					<Value Name="TextureNum" Value="0" />
+					<Value Name="BottomLeft" X="0.09375" Y="0.5546875" />
+					<Value Name="TopRight" X="0.1875" Y="0.69921875" />
+					<Value Name="LeftBearing" Value="0" />
+					<Value Name="RightBearing" Value="0" />
+					<Value Name="Width" Value="24" />
+					<Value Name="Advance" Value="24" />
+					<Value Name="Code" Value="65" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="66" />
+				<Value>
+					<Value Name="TextureNum" Value="0" />
+					<Value Name="BottomLeft" X="0.19140625" Y="0.5546875" />
+					<Value Name="TopRight" X="0.26171875" Y="0.69921875" />
+					<Value Name="LeftBearing" Value="1" />
+					<Value Name="RightBearing" Value="1" />
+					<Value Name="Width" Value="18" />
+					<Value Name="Advance" Value="20" />
+					<Value Name="Code" Value="66" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="67" />
+				<Value>
+					<Value Name="TextureNum" Value="0" />
+					<Value Name="BottomLeft" X="0.265625" Y="0.5546875" />
+					<Value Name="TopRight" X="0.33203125" Y="0.69921875" />
+					<Value Name="LeftBearing" Value="1" />
+					<Value Name="RightBearing" Value="1" />
+					<Value Name="Width" Value="17" />
+					<Value Name="Advance" Value="19" />
+					<Value Name="Code" Value="67" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="68" />
+				<Value>
+					<Value Name="TextureNum" Value="0" />
+					<Value Name="BottomLeft" X="0.3359375" Y="0.5546875" />
+					<Value Name="TopRight" X="0.41015625" Y="0.69921875" />
+					<Value Name="LeftBearing" Value="1" />
+					<Value Name="RightBearing" Value="1" />
+					<Value Name="Width" Value="19" />
+					<Value Name="Advance" Value="21" />
+					<Value Name="Code" Value="68" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="69" />
+				<Value>
+					<Value Name="TextureNum" Value="0" />
+					<Value Name="BottomLeft" X="0.4140625" Y="0.5546875" />
+					<Value Name="TopRight" X="0.47265625" Y="0.69921875" />
+					<Value Name="LeftBearing" Value="1" />
+					<Value Name="RightBearing" Value="1" />
+					<Value Name="Width" Value="15" />
+					<Value Name="Advance" Value="17" />
+					<Value Name="Code" Value="69" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="70" />
+				<Value>
+					<Value Name="TextureNum" Value="0" />
+					<Value Name="BottomLeft" X="0.4765625" Y="0.5546875" />
+					<Value Name="TopRight" X="0.53125" Y="0.69921875" />
+					<Value Name="LeftBearing" Value="1" />
+					<Value Name="RightBearing" Value="0" />
+					<Value Name="Width" Value="14" />
+					<Value Name="Advance" Value="15" />
+					<Value Name="Code" Value="70" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="71" />
+				<Value>
+					<Value Name="TextureNum" Value="0" />
+					<Value Name="BottomLeft" X="0.53515625" Y="0.5546875" />
+					<Value Name="TopRight" X="0.609375" Y="0.69921875" />
+					<Value Name="LeftBearing" Value="1" />
+					<Value Name="RightBearing" Value="1" />
+					<Value Name="Width" Value="19" />
+					<Value Name="Advance" Value="21" />
+					<Value Name="Code" Value="71" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="72" />
+				<Value>
+					<Value Name="TextureNum" Value="0" />
+					<Value Name="BottomLeft" X="0.61328125" Y="0.5546875" />
+					<Value Name="TopRight" X="0.6875" Y="0.69921875" />
+					<Value Name="LeftBearing" Value="1" />
+					<Value Name="RightBearing" Value="1" />
+					<Value Name="Width" Value="19" />
+					<Value Name="Advance" Value="21" />
+					<Value Name="Code" Value="72" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="73" />
+				<Value>
+					<Value Name="TextureNum" Value="0" />
+					<Value Name="BottomLeft" X="0.69140625" Y="0.5546875" />
+					<Value Name="TopRight" X="0.71875" Y="0.69921875" />
+					<Value Name="LeftBearing" Value="1" />
+					<Value Name="RightBearing" Value="1" />
+					<Value Name="Width" Value="7" />
+					<Value Name="Advance" Value="9" />
+					<Value Name="Code" Value="73" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="74" />
+				<Value>
+					<Value Name="TextureNum" Value="0" />
+					<Value Name="BottomLeft" X="0.72265625" Y="0.5546875" />
+					<Value Name="TopRight" X="0.765625" Y="0.69921875" />
+					<Value Name="LeftBearing" Value="0" />
+					<Value Name="RightBearing" Value="1" />
+					<Value Name="Width" Value="11" />
+					<Value Name="Advance" Value="12" />
+					<Value Name="Code" Value="74" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="75" />
+				<Value>
+					<Value Name="TextureNum" Value="0" />
+					<Value Name="BottomLeft" X="0.76953125" Y="0.5546875" />
+					<Value Name="TopRight" X="0.84765625" Y="0.69921875" />
+					<Value Name="LeftBearing" Value="1" />
+					<Value Name="RightBearing" Value="0" />
+					<Value Name="Width" Value="20" />
+					<Value Name="Advance" Value="21" />
+					<Value Name="Code" Value="75" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="76" />
+				<Value>
+					<Value Name="TextureNum" Value="0" />
+					<Value Name="BottomLeft" X="0.8515625" Y="0.5546875" />
+					<Value Name="TopRight" X="0.91015625" Y="0.69921875" />
+					<Value Name="LeftBearing" Value="1" />
+					<Value Name="RightBearing" Value="0" />
+					<Value Name="Width" Value="15" />
+					<Value Name="Advance" Value="16" />
+					<Value Name="Code" Value="76" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="77" />
+				<Value>
+					<Value Name="TextureNum" Value="0" />
+					<Value Name="BottomLeft" X="0.00390625" Y="0.40625" />
+					<Value Name="TopRight" X="0.10546875" Y="0.55078125" />
+					<Value Name="LeftBearing" Value="0" />
+					<Value Name="RightBearing" Value="1" />
+					<Value Name="Width" Value="26" />
+					<Value Name="Advance" Value="27" />
+					<Value Name="Code" Value="77" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="78" />
+				<Value>
+					<Value Name="TextureNum" Value="0" />
+					<Value Name="BottomLeft" X="0.109375" Y="0.40625" />
+					<Value Name="TopRight" X="0.1953125" Y="0.55078125" />
+					<Value Name="LeftBearing" Value="1" />
+					<Value Name="RightBearing" Value="1" />
+					<Value Name="Width" Value="22" />
+					<Value Name="Advance" Value="24" />
+					<Value Name="Code" Value="78" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="79" />
+				<Value>
+					<Value Name="TextureNum" Value="0" />
+					<Value Name="BottomLeft" X="0.19921875" Y="0.40625" />
+					<Value Name="TopRight" X="0.2890625" Y="0.55078125" />
+					<Value Name="LeftBearing" Value="1" />
+					<Value Name="RightBearing" Value="1" />
+					<Value Name="Width" Value="23" />
+					<Value Name="Advance" Value="25" />
+					<Value Name="Code" Value="79" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="80" />
+				<Value>
+					<Value Name="TextureNum" Value="0" />
+					<Value Name="BottomLeft" X="0.29296875" Y="0.40625" />
+					<Value Name="TopRight" X="0.359375" Y="0.55078125" />
+					<Value Name="LeftBearing" Value="1" />
+					<Value Name="RightBearing" Value="1" />
+					<Value Name="Width" Value="17" />
+					<Value Name="Advance" Value="19" />
+					<Value Name="Code" Value="80" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="81" />
+				<Value>
+					<Value Name="TextureNum" Value="0" />
+					<Value Name="BottomLeft" X="0.36328125" Y="0.40625" />
+					<Value Name="TopRight" X="0.45703125" Y="0.55078125" />
+					<Value Name="LeftBearing" Value="1" />
+					<Value Name="RightBearing" Value="1" />
+					<Value Name="Width" Value="24" />
+					<Value Name="Advance" Value="26" />
+					<Value Name="Code" Value="81" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="82" />
+				<Value>
+					<Value Name="TextureNum" Value="0" />
+					<Value Name="BottomLeft" X="0.4609375" Y="0.40625" />
+					<Value Name="TopRight" X="0.53515625" Y="0.55078125" />
+					<Value Name="LeftBearing" Value="1" />
+					<Value Name="RightBearing" Value="0" />
+					<Value Name="Width" Value="19" />
+					<Value Name="Advance" Value="20" />
+					<Value Name="Code" Value="82" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="83" />
+				<Value>
+					<Value Name="TextureNum" Value="0" />
+					<Value Name="BottomLeft" X="0.5390625" Y="0.40625" />
+					<Value Name="TopRight" X="0.59765625" Y="0.55078125" />
+					<Value Name="LeftBearing" Value="1" />
+					<Value Name="RightBearing" Value="1" />
+					<Value Name="Width" Value="15" />
+					<Value Name="Advance" Value="17" />
+					<Value Name="Code" Value="83" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="84" />
+				<Value>
+					<Value Name="TextureNum" Value="0" />
+					<Value Name="BottomLeft" X="0.6015625" Y="0.40625" />
+					<Value Name="TopRight" X="0.6640625" Y="0.55078125" />
+					<Value Name="LeftBearing" Value="0" />
+					<Value Name="RightBearing" Value="1" />
+					<Value Name="Width" Value="16" />
+					<Value Name="Advance" Value="17" />
+					<Value Name="Code" Value="84" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="85" />
+				<Value>
+					<Value Name="TextureNum" Value="0" />
+					<Value Name="BottomLeft" X="0.66796875" Y="0.40625" />
+					<Value Name="TopRight" X="0.73828125" Y="0.55078125" />
+					<Value Name="LeftBearing" Value="1" />
+					<Value Name="RightBearing" Value="1" />
+					<Value Name="Width" Value="18" />
+					<Value Name="Advance" Value="20" />
+					<Value Name="Code" Value="85" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="86" />
+				<Value>
+					<Value Name="TextureNum" Value="0" />
+					<Value Name="BottomLeft" X="0.7421875" Y="0.40625" />
+					<Value Name="TopRight" X="0.8203125" Y="0.55078125" />
+					<Value Name="LeftBearing" Value="0" />
+					<Value Name="RightBearing" Value="0" />
+					<Value Name="Width" Value="20" />
+					<Value Name="Advance" Value="20" />
+					<Value Name="Code" Value="86" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="87" />
+				<Value>
+					<Value Name="TextureNum" Value="0" />
+					<Value Name="BottomLeft" X="0.82421875" Y="0.40625" />
+					<Value Name="TopRight" X="0.9375" Y="0.55078125" />
+					<Value Name="LeftBearing" Value="0" />
+					<Value Name="RightBearing" Value="0" />
+					<Value Name="Width" Value="29" />
+					<Value Name="Advance" Value="29" />
+					<Value Name="Code" Value="87" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="88" />
+				<Value>
+					<Value Name="TextureNum" Value="0" />
+					<Value Name="BottomLeft" X="0.00390625" Y="0.2578125" />
+					<Value Name="TopRight" X="0.08203125" Y="0.40234375" />
+					<Value Name="LeftBearing" Value="0" />
+					<Value Name="RightBearing" Value="0" />
+					<Value Name="Width" Value="20" />
+					<Value Name="Advance" Value="20" />
+					<Value Name="Code" Value="88" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="89" />
+				<Value>
+					<Value Name="TextureNum" Value="0" />
+					<Value Name="BottomLeft" X="0.0859375" Y="0.2578125" />
+					<Value Name="TopRight" X="0.16796875" Y="0.40234375" />
+					<Value Name="LeftBearing" Value="0" />
+					<Value Name="RightBearing" Value="0" />
+					<Value Name="Width" Value="21" />
+					<Value Name="Advance" Value="21" />
+					<Value Name="Code" Value="89" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="90" />
+				<Value>
+					<Value Name="TextureNum" Value="0" />
+					<Value Name="BottomLeft" X="0.171875" Y="0.2578125" />
+					<Value Name="TopRight" X="0.2421875" Y="0.40234375" />
+					<Value Name="LeftBearing" Value="0" />
+					<Value Name="RightBearing" Value="0" />
+					<Value Name="Width" Value="18" />
+					<Value Name="Advance" Value="18" />
+					<Value Name="Code" Value="90" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="91" />
+				<Value>
+					<Value Name="TextureNum" Value="0" />
+					<Value Name="BottomLeft" X="0.24609375" Y="0.2578125" />
+					<Value Name="TopRight" X="0.26953125" Y="0.40234375" />
+					<Value Name="LeftBearing" Value="1" />
+					<Value Name="RightBearing" Value="1" />
+					<Value Name="Width" Value="6" />
+					<Value Name="Advance" Value="8" />
+					<Value Name="Code" Value="91" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="92" />
+				<Value>
+					<Value Name="TextureNum" Value="0" />
+					<Value Name="BottomLeft" X="0.2734375" Y="0.2578125" />
+					<Value Name="TopRight" X="0.33984375" Y="0.40234375" />
+					<Value Name="LeftBearing" Value="1" />
+					<Value Name="RightBearing" Value="1" />
+					<Value Name="Width" Value="17" />
+					<Value Name="Advance" Value="19" />
+					<Value Name="Code" Value="92" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="93" />
+				<Value>
+					<Value Name="TextureNum" Value="0" />
+					<Value Name="BottomLeft" X="0.34375" Y="0.2578125" />
+					<Value Name="TopRight" X="0.3671875" Y="0.40234375" />
+					<Value Name="LeftBearing" Value="1" />
+					<Value Name="RightBearing" Value="1" />
+					<Value Name="Width" Value="6" />
+					<Value Name="Advance" Value="8" />
+					<Value Name="Code" Value="93" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="94" />
+				<Value>
+					<Value Name="TextureNum" Value="0" />
+					<Value Name="BottomLeft" X="0.37109375" Y="0.2578125" />
+					<Value Name="TopRight" X="0.44921875" Y="0.40234375" />
+					<Value Name="LeftBearing" Value="0" />
+					<Value Name="RightBearing" Value="0" />
+					<Value Name="Width" Value="20" />
+					<Value Name="Advance" Value="20" />
+					<Value Name="Code" Value="94" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="95" />
+				<Value>
+					<Value Name="TextureNum" Value="0" />
+					<Value Name="BottomLeft" X="0.453125" Y="0.2578125" />
+					<Value Name="TopRight" X="0.515625" Y="0.40234375" />
+					<Value Name="LeftBearing" Value="0" />
+					<Value Name="RightBearing" Value="0" />
+					<Value Name="Width" Value="16" />
+					<Value Name="Advance" Value="16" />
+					<Value Name="Code" Value="95" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="96" />
+				<Value>
+					<Value Name="TextureNum" Value="0" />
+					<Value Name="BottomLeft" X="0.51953125" Y="0.2578125" />
+					<Value Name="TopRight" X="0.5625" Y="0.40234375" />
+					<Value Name="LeftBearing" Value="0" />
+					<Value Name="RightBearing" Value="1" />
+					<Value Name="Width" Value="11" />
+					<Value Name="Advance" Value="12" />
+					<Value Name="Code" Value="96" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="97" />
+				<Value>
+					<Value Name="TextureNum" Value="0" />
+					<Value Name="BottomLeft" X="0.56640625" Y="0.2578125" />
+					<Value Name="TopRight" X="0.6328125" Y="0.40234375" />
+					<Value Name="LeftBearing" Value="1" />
+					<Value Name="RightBearing" Value="1" />
+					<Value Name="Width" Value="17" />
+					<Value Name="Advance" Value="19" />
+					<Value Name="Code" Value="97" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="98" />
+				<Value>
+					<Value Name="TextureNum" Value="0" />
+					<Value Name="BottomLeft" X="0.63671875" Y="0.2578125" />
+					<Value Name="TopRight" X="0.70703125" Y="0.40234375" />
+					<Value Name="LeftBearing" Value="1" />
+					<Value Name="RightBearing" Value="1" />
+					<Value Name="Width" Value="18" />
+					<Value Name="Advance" Value="20" />
+					<Value Name="Code" Value="98" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="99" />
+				<Value>
+					<Value Name="TextureNum" Value="0" />
+					<Value Name="BottomLeft" X="0.7109375" Y="0.2578125" />
+					<Value Name="TopRight" X="0.7734375" Y="0.40234375" />
+					<Value Name="LeftBearing" Value="1" />
+					<Value Name="RightBearing" Value="0" />
+					<Value Name="Width" Value="16" />
+					<Value Name="Advance" Value="17" />
+					<Value Name="Code" Value="99" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="100" />
+				<Value>
+					<Value Name="TextureNum" Value="0" />
+					<Value Name="BottomLeft" X="0.77734375" Y="0.2578125" />
+					<Value Name="TopRight" X="0.84765625" Y="0.40234375" />
+					<Value Name="LeftBearing" Value="1" />
+					<Value Name="RightBearing" Value="1" />
+					<Value Name="Width" Value="18" />
+					<Value Name="Advance" Value="20" />
+					<Value Name="Code" Value="100" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="101" />
+				<Value>
+					<Value Name="TextureNum" Value="0" />
+					<Value Name="BottomLeft" X="0.8515625" Y="0.2578125" />
+					<Value Name="TopRight" X="0.91796875" Y="0.40234375" />
+					<Value Name="LeftBearing" Value="1" />
+					<Value Name="RightBearing" Value="1" />
+					<Value Name="Width" Value="17" />
+					<Value Name="Advance" Value="19" />
+					<Value Name="Code" Value="101" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="102" />
+				<Value>
+					<Value Name="TextureNum" Value="0" />
+					<Value Name="BottomLeft" X="0.921875" Y="0.2578125" />
+					<Value Name="TopRight" X="0.96875" Y="0.40234375" />
+					<Value Name="LeftBearing" Value="0" />
+					<Value Name="RightBearing" Value="0" />
+					<Value Name="Width" Value="12" />
+					<Value Name="Advance" Value="12" />
+					<Value Name="Code" Value="102" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="103" />
+				<Value>
+					<Value Name="TextureNum" Value="0" />
+					<Value Name="BottomLeft" X="0.00390625" Y="0.109375" />
+					<Value Name="TopRight" X="0.0703125" Y="0.25390625" />
+					<Value Name="LeftBearing" Value="1" />
+					<Value Name="RightBearing" Value="1" />
+					<Value Name="Width" Value="17" />
+					<Value Name="Advance" Value="19" />
+					<Value Name="Code" Value="103" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="104" />
+				<Value>
+					<Value Name="TextureNum" Value="0" />
+					<Value Name="BottomLeft" X="0.07421875" Y="0.109375" />
+					<Value Name="TopRight" X="0.13671875" Y="0.25390625" />
+					<Value Name="LeftBearing" Value="1" />
+					<Value Name="RightBearing" Value="1" />
+					<Value Name="Width" Value="16" />
+					<Value Name="Advance" Value="18" />
+					<Value Name="Code" Value="104" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="105" />
+				<Value>
+					<Value Name="TextureNum" Value="0" />
+					<Value Name="BottomLeft" X="0.140625" Y="0.109375" />
+					<Value Name="TopRight" X="0.171875" Y="0.25390625" />
+					<Value Name="LeftBearing" Value="1" />
+					<Value Name="RightBearing" Value="2" />
+					<Value Name="Width" Value="8" />
+					<Value Name="Advance" Value="11" />
+					<Value Name="Code" Value="105" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="106" />
+				<Value>
+					<Value Name="TextureNum" Value="0" />
+					<Value Name="BottomLeft" X="0.17578125" Y="0.109375" />
+					<Value Name="TopRight" X="0.22265625" Y="0.25390625" />
+					<Value Name="LeftBearing" Value="0" />
+					<Value Name="RightBearing" Value="1" />
+					<Value Name="Width" Value="12" />
+					<Value Name="Advance" Value="13" />
+					<Value Name="Code" Value="106" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="107" />
+				<Value>
+					<Value Name="TextureNum" Value="0" />
+					<Value Name="BottomLeft" X="0.2265625" Y="0.109375" />
+					<Value Name="TopRight" X="0.29296875" Y="0.25390625" />
+					<Value Name="LeftBearing" Value="1" />
+					<Value Name="RightBearing" Value="0" />
+					<Value Name="Width" Value="17" />
+					<Value Name="Advance" Value="18" />
+					<Value Name="Code" Value="107" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="108" />
+				<Value>
+					<Value Name="TextureNum" Value="0" />
+					<Value Name="BottomLeft" X="0.296875" Y="0.109375" />
+					<Value Name="TopRight" X="0.3203125" Y="0.25390625" />
+					<Value Name="LeftBearing" Value="1" />
+					<Value Name="RightBearing" Value="1" />
+					<Value Name="Width" Value="6" />
+					<Value Name="Advance" Value="8" />
+					<Value Name="Code" Value="108" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="109" />
+				<Value>
+					<Value Name="TextureNum" Value="0" />
+					<Value Name="BottomLeft" X="0.32421875" Y="0.109375" />
+					<Value Name="TopRight" X="0.41796875" Y="0.25390625" />
+					<Value Name="LeftBearing" Value="1" />
+					<Value Name="RightBearing" Value="1" />
+					<Value Name="Width" Value="24" />
+					<Value Name="Advance" Value="26" />
+					<Value Name="Code" Value="109" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="110" />
+				<Value>
+					<Value Name="TextureNum" Value="0" />
+					<Value Name="BottomLeft" X="0.421875" Y="0.109375" />
+					<Value Name="TopRight" X="0.484375" Y="0.25390625" />
+					<Value Name="LeftBearing" Value="1" />
+					<Value Name="RightBearing" Value="1" />
+					<Value Name="Width" Value="16" />
+					<Value Name="Advance" Value="18" />
+					<Value Name="Code" Value="110" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="111" />
+				<Value>
+					<Value Name="TextureNum" Value="0" />
+					<Value Name="BottomLeft" X="0.48828125" Y="0.109375" />
+					<Value Name="TopRight" X="0.55859375" Y="0.25390625" />
+					<Value Name="LeftBearing" Value="1" />
+					<Value Name="RightBearing" Value="1" />
+					<Value Name="Width" Value="18" />
+					<Value Name="Advance" Value="20" />
+					<Value Name="Code" Value="111" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="112" />
+				<Value>
+					<Value Name="TextureNum" Value="0" />
+					<Value Name="BottomLeft" X="0.5625" Y="0.109375" />
+					<Value Name="TopRight" X="0.6328125" Y="0.25390625" />
+					<Value Name="LeftBearing" Value="1" />
+					<Value Name="RightBearing" Value="1" />
+					<Value Name="Width" Value="18" />
+					<Value Name="Advance" Value="20" />
+					<Value Name="Code" Value="112" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="113" />
+				<Value>
+					<Value Name="TextureNum" Value="0" />
+					<Value Name="BottomLeft" X="0.63671875" Y="0.109375" />
+					<Value Name="TopRight" X="0.70703125" Y="0.25390625" />
+					<Value Name="LeftBearing" Value="1" />
+					<Value Name="RightBearing" Value="1" />
+					<Value Name="Width" Value="18" />
+					<Value Name="Advance" Value="20" />
+					<Value Name="Code" Value="113" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="114" />
+				<Value>
+					<Value Name="TextureNum" Value="0" />
+					<Value Name="BottomLeft" X="0.7109375" Y="0.109375" />
+					<Value Name="TopRight" X="0.7578125" Y="0.25390625" />
+					<Value Name="LeftBearing" Value="1" />
+					<Value Name="RightBearing" Value="0" />
+					<Value Name="Width" Value="12" />
+					<Value Name="Advance" Value="13" />
+					<Value Name="Code" Value="114" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="115" />
+				<Value>
+					<Value Name="TextureNum" Value="0" />
+					<Value Name="BottomLeft" X="0.76171875" Y="0.109375" />
+					<Value Name="TopRight" X="0.8125" Y="0.25390625" />
+					<Value Name="LeftBearing" Value="1" />
+					<Value Name="RightBearing" Value="1" />
+					<Value Name="Width" Value="13" />
+					<Value Name="Advance" Value="15" />
+					<Value Name="Code" Value="115" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="116" />
+				<Value>
+					<Value Name="TextureNum" Value="0" />
+					<Value Name="BottomLeft" X="0.81640625" Y="0.109375" />
+					<Value Name="TopRight" X="0.859375" Y="0.25390625" />
+					<Value Name="LeftBearing" Value="0" />
+					<Value Name="RightBearing" Value="0" />
+					<Value Name="Width" Value="11" />
+					<Value Name="Advance" Value="11" />
+					<Value Name="Code" Value="116" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="117" />
+				<Value>
+					<Value Name="TextureNum" Value="0" />
+					<Value Name="BottomLeft" X="0.86328125" Y="0.109375" />
+					<Value Name="TopRight" X="0.92578125" Y="0.25390625" />
+					<Value Name="LeftBearing" Value="1" />
+					<Value Name="RightBearing" Value="1" />
+					<Value Name="Width" Value="16" />
+					<Value Name="Advance" Value="18" />
+					<Value Name="Code" Value="117" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="118" />
+				<Value>
+					<Value Name="TextureNum" Value="0" />
+					<Value Name="BottomLeft" X="0.9296875" Y="0.109375" />
+					<Value Name="TopRight" X="0.99609375" Y="0.25390625" />
+					<Value Name="LeftBearing" Value="0" />
+					<Value Name="RightBearing" Value="0" />
+					<Value Name="Width" Value="17" />
+					<Value Name="Advance" Value="17" />
+					<Value Name="Code" Value="118" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="119" />
+				<Value>
+					<Value Name="TextureNum" Value="1" />
+					<Value Name="BottomLeft" X="0.00390625" Y="0.8515625" />
+					<Value Name="TopRight" X="0.09765625" Y="0.99609375" />
+					<Value Name="LeftBearing" Value="0" />
+					<Value Name="RightBearing" Value="0" />
+					<Value Name="Width" Value="24" />
+					<Value Name="Advance" Value="24" />
+					<Value Name="Code" Value="119" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="120" />
+				<Value>
+					<Value Name="TextureNum" Value="1" />
+					<Value Name="BottomLeft" X="0.1015625" Y="0.8515625" />
+					<Value Name="TopRight" X="0.16796875" Y="0.99609375" />
+					<Value Name="LeftBearing" Value="0" />
+					<Value Name="RightBearing" Value="0" />
+					<Value Name="Width" Value="17" />
+					<Value Name="Advance" Value="17" />
+					<Value Name="Code" Value="120" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="121" />
+				<Value>
+					<Value Name="TextureNum" Value="1" />
+					<Value Name="BottomLeft" X="0.171875" Y="0.8515625" />
+					<Value Name="TopRight" X="0.2421875" Y="0.99609375" />
+					<Value Name="LeftBearing" Value="0" />
+					<Value Name="RightBearing" Value="0" />
+					<Value Name="Width" Value="18" />
+					<Value Name="Advance" Value="18" />
+					<Value Name="Code" Value="121" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="122" />
+				<Value>
+					<Value Name="TextureNum" Value="1" />
+					<Value Name="BottomLeft" X="0.24609375" Y="0.8515625" />
+					<Value Name="TopRight" X="0.3046875" Y="0.99609375" />
+					<Value Name="LeftBearing" Value="0" />
+					<Value Name="RightBearing" Value="1" />
+					<Value Name="Width" Value="15" />
+					<Value Name="Advance" Value="16" />
+					<Value Name="Code" Value="122" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="123" />
+				<Value>
+					<Value Name="TextureNum" Value="1" />
+					<Value Name="BottomLeft" X="0.30859375" Y="0.8515625" />
+					<Value Name="TopRight" X="0.34765625" Y="0.99609375" />
+					<Value Name="LeftBearing" Value="1" />
+					<Value Name="RightBearing" Value="1" />
+					<Value Name="Width" Value="10" />
+					<Value Name="Advance" Value="12" />
+					<Value Name="Code" Value="123" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="124" />
+				<Value>
+					<Value Name="TextureNum" Value="1" />
+					<Value Name="BottomLeft" X="0.3515625" Y="0.8515625" />
+					<Value Name="TopRight" X="0.375" Y="0.99609375" />
+					<Value Name="LeftBearing" Value="1" />
+					<Value Name="RightBearing" Value="1" />
+					<Value Name="Width" Value="6" />
+					<Value Name="Advance" Value="8" />
+					<Value Name="Code" Value="124" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="125" />
+				<Value>
+					<Value Name="TextureNum" Value="1" />
+					<Value Name="BottomLeft" X="0.37890625" Y="0.8515625" />
+					<Value Name="TopRight" X="0.4140625" Y="0.99609375" />
+					<Value Name="LeftBearing" Value="1" />
+					<Value Name="RightBearing" Value="1" />
+					<Value Name="Width" Value="9" />
+					<Value Name="Advance" Value="11" />
+					<Value Name="Code" Value="125" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="126" />
+				<Value>
+					<Value Name="TextureNum" Value="1" />
+					<Value Name="BottomLeft" X="0.41796875" Y="0.8515625" />
+					<Value Name="TopRight" X="0.4765625" Y="0.99609375" />
+					<Value Name="LeftBearing" Value="2" />
+					<Value Name="RightBearing" Value="2" />
+					<Value Name="Width" Value="15" />
+					<Value Name="Advance" Value="19" />
+					<Value Name="Code" Value="126" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="161" />
+				<Value>
+					<Value Name="TextureNum" Value="1" />
+					<Value Name="BottomLeft" X="0.48046875" Y="0.8515625" />
+					<Value Name="TopRight" X="0.515625" Y="0.99609375" />
+					<Value Name="LeftBearing" Value="1" />
+					<Value Name="RightBearing" Value="1" />
+					<Value Name="Width" Value="9" />
+					<Value Name="Advance" Value="11" />
+					<Value Name="Code" Value="161" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="163" />
+				<Value>
+					<Value Name="TextureNum" Value="1" />
+					<Value Name="BottomLeft" X="0.51953125" Y="0.8515625" />
+					<Value Name="TopRight" X="0.59765625" Y="0.99609375" />
+					<Value Name="LeftBearing" Value="1" />
+					<Value Name="RightBearing" Value="1" />
+					<Value Name="Width" Value="20" />
+					<Value Name="Advance" Value="22" />
+					<Value Name="Code" Value="163" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="165" />
+				<Value>
+					<Value Name="TextureNum" Value="1" />
+					<Value Name="BottomLeft" X="0.6015625" Y="0.8515625" />
+					<Value Name="TopRight" X="0.68359375" Y="0.99609375" />
+					<Value Name="LeftBearing" Value="0" />
+					<Value Name="RightBearing" Value="0" />
+					<Value Name="Width" Value="21" />
+					<Value Name="Advance" Value="21" />
+					<Value Name="Code" Value="165" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="167" />
+				<Value>
+					<Value Name="TextureNum" Value="1" />
+					<Value Name="BottomLeft" X="0.6875" Y="0.8515625" />
+					<Value Name="TopRight" X="0.74609375" Y="0.99609375" />
+					<Value Name="LeftBearing" Value="1" />
+					<Value Name="RightBearing" Value="1" />
+					<Value Name="Width" Value="15" />
+					<Value Name="Advance" Value="17" />
+					<Value Name="Code" Value="167" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="169" />
+				<Value>
+					<Value Name="TextureNum" Value="1" />
+					<Value Name="BottomLeft" X="0.75" Y="0.8515625" />
+					<Value Name="TopRight" X="0.84375" Y="0.99609375" />
+					<Value Name="LeftBearing" Value="1" />
+					<Value Name="RightBearing" Value="1" />
+					<Value Name="Width" Value="24" />
+					<Value Name="Advance" Value="26" />
+					<Value Name="Code" Value="169" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="174" />
+				<Value>
+					<Value Name="TextureNum" Value="1" />
+					<Value Name="BottomLeft" X="0.84765625" Y="0.8515625" />
+					<Value Name="TopRight" X="0.94140625" Y="0.99609375" />
+					<Value Name="LeftBearing" Value="1" />
+					<Value Name="RightBearing" Value="1" />
+					<Value Name="Width" Value="24" />
+					<Value Name="Advance" Value="26" />
+					<Value Name="Code" Value="174" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="181" />
+				<Value>
+					<Value Name="TextureNum" Value="1" />
+					<Value Name="BottomLeft" X="0.00390625" Y="0.703125" />
+					<Value Name="TopRight" X="0.06640625" Y="0.84765625" />
+					<Value Name="LeftBearing" Value="1" />
+					<Value Name="RightBearing" Value="1" />
+					<Value Name="Width" Value="16" />
+					<Value Name="Advance" Value="18" />
+					<Value Name="Code" Value="181" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="186" />
+				<Value>
+					<Value Name="TextureNum" Value="1" />
+					<Value Name="BottomLeft" X="0.0703125" Y="0.703125" />
+					<Value Name="TopRight" X="0.11328125" Y="0.84765625" />
+					<Value Name="LeftBearing" Value="1" />
+					<Value Name="RightBearing" Value="1" />
+					<Value Name="Width" Value="11" />
+					<Value Name="Advance" Value="13" />
+					<Value Name="Code" Value="186" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="191" />
+				<Value>
+					<Value Name="TextureNum" Value="1" />
+					<Value Name="BottomLeft" X="0.1171875" Y="0.703125" />
+					<Value Name="TopRight" X="0.17578125" Y="0.84765625" />
+					<Value Name="LeftBearing" Value="1" />
+					<Value Name="RightBearing" Value="1" />
+					<Value Name="Width" Value="15" />
+					<Value Name="Advance" Value="17" />
+					<Value Name="Code" Value="191" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="193" />
+				<Value>
+					<Value Name="TextureNum" Value="1" />
+					<Value Name="BottomLeft" X="0.1796875" Y="0.703125" />
+					<Value Name="TopRight" X="0.2734375" Y="0.84765625" />
+					<Value Name="LeftBearing" Value="0" />
+					<Value Name="RightBearing" Value="0" />
+					<Value Name="Width" Value="24" />
+					<Value Name="Advance" Value="24" />
+					<Value Name="Code" Value="193" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="196" />
+				<Value>
+					<Value Name="TextureNum" Value="1" />
+					<Value Name="BottomLeft" X="0.27734375" Y="0.703125" />
+					<Value Name="TopRight" X="0.37109375" Y="0.84765625" />
+					<Value Name="LeftBearing" Value="0" />
+					<Value Name="RightBearing" Value="0" />
+					<Value Name="Width" Value="24" />
+					<Value Name="Advance" Value="24" />
+					<Value Name="Code" Value="196" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="201" />
+				<Value>
+					<Value Name="TextureNum" Value="1" />
+					<Value Name="BottomLeft" X="0.375" Y="0.703125" />
+					<Value Name="TopRight" X="0.43359375" Y="0.84765625" />
+					<Value Name="LeftBearing" Value="1" />
+					<Value Name="RightBearing" Value="1" />
+					<Value Name="Width" Value="15" />
+					<Value Name="Advance" Value="17" />
+					<Value Name="Code" Value="201" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="202" />
+				<Value>
+					<Value Name="TextureNum" Value="1" />
+					<Value Name="BottomLeft" X="0.4375" Y="0.703125" />
+					<Value Name="TopRight" X="0.49609375" Y="0.84765625" />
+					<Value Name="LeftBearing" Value="1" />
+					<Value Name="RightBearing" Value="1" />
+					<Value Name="Width" Value="15" />
+					<Value Name="Advance" Value="17" />
+					<Value Name="Code" Value="202" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="205" />
+				<Value>
+					<Value Name="TextureNum" Value="1" />
+					<Value Name="BottomLeft" X="0.5" Y="0.703125" />
+					<Value Name="TopRight" X="0.53515625" Y="0.84765625" />
+					<Value Name="LeftBearing" Value="0" />
+					<Value Name="RightBearing" Value="1" />
+					<Value Name="Width" Value="9" />
+					<Value Name="Advance" Value="10" />
+					<Value Name="Code" Value="205" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="209" />
+				<Value>
+					<Value Name="TextureNum" Value="1" />
+					<Value Name="BottomLeft" X="0.5390625" Y="0.703125" />
+					<Value Name="TopRight" X="0.625" Y="0.84765625" />
+					<Value Name="LeftBearing" Value="1" />
+					<Value Name="RightBearing" Value="1" />
+					<Value Name="Width" Value="22" />
+					<Value Name="Advance" Value="24" />
+					<Value Name="Code" Value="209" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="211" />
+				<Value>
+					<Value Name="TextureNum" Value="1" />
+					<Value Name="BottomLeft" X="0.62890625" Y="0.703125" />
+					<Value Name="TopRight" X="0.71875" Y="0.84765625" />
+					<Value Name="LeftBearing" Value="1" />
+					<Value Name="RightBearing" Value="1" />
+					<Value Name="Width" Value="23" />
+					<Value Name="Advance" Value="25" />
+					<Value Name="Code" Value="211" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="214" />
+				<Value>
+					<Value Name="TextureNum" Value="1" />
+					<Value Name="BottomLeft" X="0.72265625" Y="0.703125" />
+					<Value Name="TopRight" X="0.8125" Y="0.84765625" />
+					<Value Name="LeftBearing" Value="1" />
+					<Value Name="RightBearing" Value="1" />
+					<Value Name="Width" Value="23" />
+					<Value Name="Advance" Value="25" />
+					<Value Name="Code" Value="214" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="218" />
+				<Value>
+					<Value Name="TextureNum" Value="1" />
+					<Value Name="BottomLeft" X="0.81640625" Y="0.703125" />
+					<Value Name="TopRight" X="0.88671875" Y="0.84765625" />
+					<Value Name="LeftBearing" Value="1" />
+					<Value Name="RightBearing" Value="1" />
+					<Value Name="Width" Value="18" />
+					<Value Name="Advance" Value="20" />
+					<Value Name="Code" Value="218" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="220" />
+				<Value>
+					<Value Name="TextureNum" Value="1" />
+					<Value Name="BottomLeft" X="0.890625" Y="0.703125" />
+					<Value Name="TopRight" X="0.9609375" Y="0.84765625" />
+					<Value Name="LeftBearing" Value="1" />
+					<Value Name="RightBearing" Value="1" />
+					<Value Name="Width" Value="18" />
+					<Value Name="Advance" Value="20" />
+					<Value Name="Code" Value="220" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="223" />
+				<Value>
+					<Value Name="TextureNum" Value="1" />
+					<Value Name="BottomLeft" X="0.00390625" Y="0.5546875" />
+					<Value Name="TopRight" X="0.0859375" Y="0.69921875" />
+					<Value Name="LeftBearing" Value="0" />
+					<Value Name="RightBearing" Value="1" />
+					<Value Name="Width" Value="21" />
+					<Value Name="Advance" Value="22" />
+					<Value Name="Code" Value="223" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="224" />
+				<Value>
+					<Value Name="TextureNum" Value="1" />
+					<Value Name="BottomLeft" X="0.08984375" Y="0.5546875" />
+					<Value Name="TopRight" X="0.15625" Y="0.69921875" />
+					<Value Name="LeftBearing" Value="1" />
+					<Value Name="RightBearing" Value="1" />
+					<Value Name="Width" Value="17" />
+					<Value Name="Advance" Value="19" />
+					<Value Name="Code" Value="224" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="225" />
+				<Value>
+					<Value Name="TextureNum" Value="1" />
+					<Value Name="BottomLeft" X="0.16015625" Y="0.5546875" />
+					<Value Name="TopRight" X="0.2265625" Y="0.69921875" />
+					<Value Name="LeftBearing" Value="1" />
+					<Value Name="RightBearing" Value="1" />
+					<Value Name="Width" Value="17" />
+					<Value Name="Advance" Value="19" />
+					<Value Name="Code" Value="225" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="226" />
+				<Value>
+					<Value Name="TextureNum" Value="1" />
+					<Value Name="BottomLeft" X="0.23046875" Y="0.5546875" />
+					<Value Name="TopRight" X="0.296875" Y="0.69921875" />
+					<Value Name="LeftBearing" Value="1" />
+					<Value Name="RightBearing" Value="1" />
+					<Value Name="Width" Value="17" />
+					<Value Name="Advance" Value="19" />
+					<Value Name="Code" Value="226" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="228" />
+				<Value>
+					<Value Name="TextureNum" Value="1" />
+					<Value Name="BottomLeft" X="0.30078125" Y="0.5546875" />
+					<Value Name="TopRight" X="0.3671875" Y="0.69921875" />
+					<Value Name="LeftBearing" Value="1" />
+					<Value Name="RightBearing" Value="1" />
+					<Value Name="Width" Value="17" />
+					<Value Name="Advance" Value="19" />
+					<Value Name="Code" Value="228" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="231" />
+				<Value>
+					<Value Name="TextureNum" Value="1" />
+					<Value Name="BottomLeft" X="0.37109375" Y="0.5546875" />
+					<Value Name="TopRight" X="0.43359375" Y="0.69921875" />
+					<Value Name="LeftBearing" Value="1" />
+					<Value Name="RightBearing" Value="0" />
+					<Value Name="Width" Value="16" />
+					<Value Name="Advance" Value="17" />
+					<Value Name="Code" Value="231" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="232" />
+				<Value>
+					<Value Name="TextureNum" Value="1" />
+					<Value Name="BottomLeft" X="0.4375" Y="0.5546875" />
+					<Value Name="TopRight" X="0.50390625" Y="0.69921875" />
+					<Value Name="LeftBearing" Value="1" />
+					<Value Name="RightBearing" Value="1" />
+					<Value Name="Width" Value="17" />
+					<Value Name="Advance" Value="19" />
+					<Value Name="Code" Value="232" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="233" />
+				<Value>
+					<Value Name="TextureNum" Value="1" />
+					<Value Name="BottomLeft" X="0.5078125" Y="0.5546875" />
+					<Value Name="TopRight" X="0.57421875" Y="0.69921875" />
+					<Value Name="LeftBearing" Value="1" />
+					<Value Name="RightBearing" Value="1" />
+					<Value Name="Width" Value="17" />
+					<Value Name="Advance" Value="19" />
+					<Value Name="Code" Value="233" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="234" />
+				<Value>
+					<Value Name="TextureNum" Value="1" />
+					<Value Name="BottomLeft" X="0.578125" Y="0.5546875" />
+					<Value Name="TopRight" X="0.64453125" Y="0.69921875" />
+					<Value Name="LeftBearing" Value="1" />
+					<Value Name="RightBearing" Value="1" />
+					<Value Name="Width" Value="17" />
+					<Value Name="Advance" Value="19" />
+					<Value Name="Code" Value="234" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="237" />
+				<Value>
+					<Value Name="TextureNum" Value="1" />
+					<Value Name="BottomLeft" X="0.6484375" Y="0.5546875" />
+					<Value Name="TopRight" X="0.68359375" Y="0.69921875" />
+					<Value Name="LeftBearing" Value="0" />
+					<Value Name="RightBearing" Value="1" />
+					<Value Name="Width" Value="9" />
+					<Value Name="Advance" Value="10" />
+					<Value Name="Code" Value="237" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="238" />
+				<Value>
+					<Value Name="TextureNum" Value="1" />
+					<Value Name="BottomLeft" X="0.6875" Y="0.5546875" />
+					<Value Name="TopRight" X="0.75" Y="0.69921875" />
+					<Value Name="LeftBearing" Value="0" />
+					<Value Name="RightBearing" Value="0" />
+					<Value Name="Width" Value="16" />
+					<Value Name="Advance" Value="16" />
+					<Value Name="Code" Value="238" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="239" />
+				<Value>
+					<Value Name="TextureNum" Value="1" />
+					<Value Name="BottomLeft" X="0.75390625" Y="0.5546875" />
+					<Value Name="TopRight" X="0.8203125" Y="0.69921875" />
+					<Value Name="LeftBearing" Value="0" />
+					<Value Name="RightBearing" Value="0" />
+					<Value Name="Width" Value="17" />
+					<Value Name="Advance" Value="17" />
+					<Value Name="Code" Value="239" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="241" />
+				<Value>
+					<Value Name="TextureNum" Value="1" />
+					<Value Name="BottomLeft" X="0.82421875" Y="0.5546875" />
+					<Value Name="TopRight" X="0.88671875" Y="0.69921875" />
+					<Value Name="LeftBearing" Value="1" />
+					<Value Name="RightBearing" Value="1" />
+					<Value Name="Width" Value="16" />
+					<Value Name="Advance" Value="18" />
+					<Value Name="Code" Value="241" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="243" />
+				<Value>
+					<Value Name="TextureNum" Value="1" />
+					<Value Name="BottomLeft" X="0.890625" Y="0.5546875" />
+					<Value Name="TopRight" X="0.9609375" Y="0.69921875" />
+					<Value Name="LeftBearing" Value="1" />
+					<Value Name="RightBearing" Value="1" />
+					<Value Name="Width" Value="18" />
+					<Value Name="Advance" Value="20" />
+					<Value Name="Code" Value="243" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="244" />
+				<Value>
+					<Value Name="TextureNum" Value="1" />
+					<Value Name="BottomLeft" X="0.00390625" Y="0.40625" />
+					<Value Name="TopRight" X="0.07421875" Y="0.55078125" />
+					<Value Name="LeftBearing" Value="1" />
+					<Value Name="RightBearing" Value="1" />
+					<Value Name="Width" Value="18" />
+					<Value Name="Advance" Value="20" />
+					<Value Name="Code" Value="244" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="246" />
+				<Value>
+					<Value Name="TextureNum" Value="1" />
+					<Value Name="BottomLeft" X="0.078125" Y="0.40625" />
+					<Value Name="TopRight" X="0.1484375" Y="0.55078125" />
+					<Value Name="LeftBearing" Value="1" />
+					<Value Name="RightBearing" Value="1" />
+					<Value Name="Width" Value="18" />
+					<Value Name="Advance" Value="20" />
+					<Value Name="Code" Value="246" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="250" />
+				<Value>
+					<Value Name="TextureNum" Value="1" />
+					<Value Name="BottomLeft" X="0.15234375" Y="0.40625" />
+					<Value Name="TopRight" X="0.21484375" Y="0.55078125" />
+					<Value Name="LeftBearing" Value="1" />
+					<Value Name="RightBearing" Value="1" />
+					<Value Name="Width" Value="16" />
+					<Value Name="Advance" Value="18" />
+					<Value Name="Code" Value="250" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="251" />
+				<Value>
+					<Value Name="TextureNum" Value="1" />
+					<Value Name="BottomLeft" X="0.21875" Y="0.40625" />
+					<Value Name="TopRight" X="0.28125" Y="0.55078125" />
+					<Value Name="LeftBearing" Value="1" />
+					<Value Name="RightBearing" Value="1" />
+					<Value Name="Width" Value="16" />
+					<Value Name="Advance" Value="18" />
+					<Value Name="Code" Value="251" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="252" />
+				<Value>
+					<Value Name="TextureNum" Value="1" />
+					<Value Name="BottomLeft" X="0.28515625" Y="0.40625" />
+					<Value Name="TopRight" X="0.34765625" Y="0.55078125" />
+					<Value Name="LeftBearing" Value="1" />
+					<Value Name="RightBearing" Value="1" />
+					<Value Name="Width" Value="16" />
+					<Value Name="Advance" Value="18" />
+					<Value Name="Code" Value="252" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="338" />
+				<Value>
+					<Value Name="TextureNum" Value="1" />
+					<Value Name="BottomLeft" X="0.3515625" Y="0.40625" />
+					<Value Name="TopRight" X="0.4765625" Y="0.55078125" />
+					<Value Name="LeftBearing" Value="1" />
+					<Value Name="RightBearing" Value="1" />
+					<Value Name="Width" Value="32" />
+					<Value Name="Advance" Value="34" />
+					<Value Name="Code" Value="338" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="339" />
+				<Value>
+					<Value Name="TextureNum" Value="1" />
+					<Value Name="BottomLeft" X="0.48046875" Y="0.40625" />
+					<Value Name="TopRight" X="0.59375" Y="0.55078125" />
+					<Value Name="LeftBearing" Value="1" />
+					<Value Name="RightBearing" Value="1" />
+					<Value Name="Width" Value="29" />
+					<Value Name="Advance" Value="31" />
+					<Value Name="Code" Value="339" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="8230" />
+				<Value>
+					<Value Name="TextureNum" Value="1" />
+					<Value Name="BottomLeft" X="0.59765625" Y="0.40625" />
+					<Value Name="TopRight" X="0.703125" Y="0.55078125" />
+					<Value Name="LeftBearing" Value="1" />
+					<Value Name="RightBearing" Value="1" />
+					<Value Name="Width" Value="27" />
+					<Value Name="Advance" Value="29" />
+					<Value Name="Code" Value="8230" />
+				</Value>
+			</Entry>
+			<Entry>
+				<Key Value="32639" />
+				<Value>
+					<Value Name="TextureNum" Value="1" />
+					<Value Name="BottomLeft" X="0.70703125" Y="0.40625" />
+					<Value Name="TopRight" X="0.796875" Y="0.55078125" />
+					<Value Name="LeftBearing" Value="2" />
+					<Value Name="RightBearing" Value="2" />
+					<Value Name="Width" Value="23" />
+					<Value Name="Advance" Value="27" />
+					<Value Name="Code" Value="32639" />
+				</Value>
+			</Entry>
+		</Value>
+	</Chunk>
+</Pure3DChunk>

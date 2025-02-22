@@ -54,12 +54,6 @@ public:
 
     tShader* GetShader(void);
 
-#ifdef RAD_UWP
-    static void EnableLinearTexture(bool enable)  { createLinear = enable; }
-#else
-    static void EnableLinearTexture(bool enable)  { createLinear = false; }
-#endif
-
 protected:
     ~tSprite();
 
@@ -84,9 +78,6 @@ protected:
 
     rmt::Box3D box;
     rmt::Sphere sphere;
-
-    bool linear;
-    static bool createLinear;
 };
 
 

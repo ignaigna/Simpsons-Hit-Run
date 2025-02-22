@@ -14,57 +14,29 @@
 #include <microprofile.h>
 
 // bruh
-#define GL_COMPRESSED_RGB_S3TC_DXT1_EXT   0x83F0
+#define GL_COMPRESSED_RGB_S3TC_DXT1_EXT   0x83F0 // TODO(3UR): we need these still cant use the new stuff such as GL_COMPRESSED_RGBA_BPTC_UNORM in SetGLState because idk and I know nothing about graphics but having the new ones in PickPixelFormat makes tge lighting sooo much better so... if a graphics pro wants to actually clean this feel free to
 #define GL_COMPRESSED_RGBA_S3TC_DXT1_EXT  0x83F1
 #define GL_COMPRESSED_RGBA_S3TC_DXT3_EXT  0x83F2
 #define GL_COMPRESSED_RGBA_S3TC_DXT5_EXT  0x83F3
-#define GL_SHARED_TEXTURE_PALETTE_EXT     0x81FB
-#define GL_COLOR_INDEX1_EXT               0x80E2
-#define GL_COLOR_INDEX2_EXT               0x80E3
-#define GL_COLOR_INDEX4_EXT               0x80E4
-#define GL_COLOR_INDEX8_EXT               0x80E5
-#define GL_COLOR_INDEX12_EXT              0x80E6
-#define GL_COLOR_INDEX16_EXT              0x80E7
-#define GL_TEXTURE_INDEX_SIZE_EXT         0x80ED
-#define GL_COLOR_TABLE_FORMAT_EXT         0x80D8
-#define GL_COLOR_TABLE_WIDTH_EXT_EXT_EXT  0x80D9
-#define GL_COLOR_TABLE_RED_SIZE_EXT_EXT   0x80DA
-#define GL_COLOR_TABLE_GREEN_SIZE_EXT_EXT 0x80DB
-#define GL_COLOR_TABLE_BLUE_SIZE_EXT_EXT  0x80DC
-#define GL_COLOR_TABLE_ALPHA_SIZE_EXT_EXT 0x80DD
-#define GL_COLOR_TABLE_LUMINANCE_SIZE_EXT 0x80DE
-#define GL_COLOR_TABLE_INTENSITY_SIZE_EXT 0x80DF
-#define GL_BGR_EXT                        0x80E0
-#define GL_BGRA_EXT                       0x80E1
+#define GL_BGRA_EXT                       0x80E1 // TODO(3UR): why cant we use GL_BGRA
 
 static inline GLenum PickPixelFormat(pddiPixelFormat format)
 {
     switch (format)
     {
-#if defined RAD_GLES
-    case PDDI_PIXEL_RGB888: return GL_BGRA_EXT;
-    case PDDI_PIXEL_ARGB8888: return GL_BGRA_EXT;
-#else
     case PDDI_PIXEL_RGB555:
     case PDDI_PIXEL_RGB565: return GL_RGB5;
     case PDDI_PIXEL_ARGB1555: return GL_RGB5_A1;
     case PDDI_PIXEL_ARGB4444: return GL_RGBA4;
-    case PDDI_PIXEL_RGB888: return GL_RGB8;
-    case PDDI_PIXEL_ARGB8888: return GL_RGBA8;
-    case PDDI_PIXEL_PAL8: return GL_COLOR_INDEX8_EXT;
-    case PDDI_PIXEL_PAL4: return GL_COLOR_INDEX4_EXT;
+    case PDDI_PIXEL_RGB888: return GL_SRGB8;
+    case PDDI_PIXEL_ARGB8888: return GL_SRGB8_ALPHA8;
+    case PDDI_PIXEL_PAL8: return GL_RGB8;
+    case PDDI_PIXEL_PAL4: return GL_RGB8;
     case PDDI_PIXEL_LUM8: return GL_LUMINANCE8;
     case PDDI_PIXEL_DUDV88: return GL_LUMINANCE8_ALPHA8;
-#endif
-#if defined(RAD_GLES)
-    case PDDI_PIXEL_DXT1: return GL_RGBA;
-    case PDDI_PIXEL_DXT3: return GL_RGBA;
-    case PDDI_PIXEL_DXT5: return GL_RGBA;
-#else
-    case PDDI_PIXEL_DXT1: return GL_COMPRESSED_RGB_S3TC_DXT1_EXT;
-    case PDDI_PIXEL_DXT3: return GL_COMPRESSED_RGBA_S3TC_DXT3_EXT;
-    case PDDI_PIXEL_DXT5: return GL_COMPRESSED_RGBA_S3TC_DXT5_EXT;
-#endif
+    case PDDI_PIXEL_DXT1: return GL_COMPRESSED_RGBA_BPTC_UNORM;
+    case PDDI_PIXEL_DXT3: return GL_COMPRESSED_RGBA_BPTC_UNORM;
+    case PDDI_PIXEL_DXT5: return GL_COMPRESSED_SRGB_ALPHA_BPTC_UNORM;
     }
     PDDIASSERT(false);
     return GL_INVALID_ENUM;
@@ -117,10 +89,6 @@ static inline pddiPixelFormat PickPixelFormat(pddiTextureType type, int bitDepth
     return PDDI_PIXEL_UNKNOWN;
 };
 
-#if defined(RAD_GLES)
-#include "decompress.h"
-#endif
-
 void pglTexture::SetGLState(void)
 {
     if(context->contextID != contextID)
@@ -138,29 +106,13 @@ void pglTexture::SetGLState(void)
         glGenTextures(1,&gltexture);
         glBindTexture(GL_TEXTURE_2D, gltexture);
 
-//      if(nMipMap == 0)
         if (type == PDDI_TEXTYPE_DXT1 || type == PDDI_TEXTYPE_DXT3 || type == PDDI_TEXTYPE_DXT5)
         {
-#if defined(RAD_GLES)
-            unsigned char* image = new unsigned char[xSize * ySize * 4];
-            unsigned int blocksize = lock.format == PDDI_PIXEL_DXT1 ? 8 : 16;
-            if (type == PDDI_TEXTYPE_DXT1)
-                BlockDecompressImageBC1(xSize, ySize, (const uint8_t*)bits[0], image);
-            else if (type == PDDI_TEXTYPE_DXT3)
-                BlockDecompressImageBC2(xSize, ySize, (const uint8_t*)bits[0], image);
-            else if( type == PDDI_TEXTYPE_DXT5)
-                BlockDecompressImageBC3(xSize, ySize, (const uint8_t*)bits[0], image);
-            glTexImage2D(GL_TEXTURE_2D, 0, PickPixelFormat(lock.format), xSize,
-                ySize, 0, GL_RGBA, GL_UNSIGNED_BYTE,
-                image);
-            delete [] image;
-#else
             unsigned int blocksize = lock.format == PDDI_PIXEL_DXT1 ? 8 : 16;
             GLenum internalFormat = lock.format == PDDI_PIXEL_DXT5 ? GL_COMPRESSED_RGBA_S3TC_DXT5_EXT :
                 lock.format == PDDI_PIXEL_DXT3 ? GL_COMPRESSED_RGBA_S3TC_DXT3_EXT : GL_COMPRESSED_RGBA_S3TC_DXT1_EXT;
             glCompressedTexImage2D(GL_TEXTURE_2D, 0, internalFormat, xSize,
                 ySize, 0, ceil(xSize/4.0)*ceil(ySize/4.0)*blocksize, (GLvoid*)bits[0]);
-#endif
         }
         else
         {
@@ -168,51 +120,6 @@ void pglTexture::SetGLState(void)
                 ySize, 0, lock.native ? GL_BGRA_EXT : GL_RGBA, GL_UNSIGNED_BYTE,
                 (GLvoid *)bits[0]);
         }
-        /*
-        else
-        {
-
-            int tmpMipMap = nMipMap;
-            tmpMipMap--;
-            if(tmpMipMap < 0)
-                tmpMipMap = 0;
-
-            int i = 0;
-            int width = xSize;
-            int height = ySize;
-            bool bottomed = false;
-            bool done = false;
-
-            while(!done)
-            {
-                char* data = bits[i];
-                if(i > tmpMipMap)
-                    data = bits[tmpMipMap];
-
-                glTexImage2D(GL_TEXTURE_2D, i, GL_RGBA8, xSize >> i,
-                    ySize >> i, 0, lock.native ? GL_BGRA_EXT : GL_RGBA, GL_UNSIGNED_BYTE,
-                    (GLvoid *)data);
-
-                done = (width == 1) || (height == 1);
-
-                width >>= 1;
-                if(width < 1) 
-                {
-                    width = 1;
-                    bottomed = true;
-                }
-
-                height >>= 1;
-                if(height < 1) 
-                {
-                    height = 1;
-                    bottomed = true;
-                }
-
-                i++;
-            }
-        }
-        */
 
         valid = true;
     }
@@ -220,11 +127,6 @@ void pglTexture::SetGLState(void)
     {
         glBindTexture(GL_TEXTURE_2D, gltexture);
     }
-
-#if !defined RAD_GLES
-    float fpriority = float(priority) / 31.0f;
-    glPrioritizeTextures(1, &gltexture, &fpriority);
-#endif
 }
 
 int fastlog2(int x)

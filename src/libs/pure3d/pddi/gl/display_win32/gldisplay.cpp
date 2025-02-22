@@ -32,9 +32,6 @@ pglDisplay ::pglDisplay(pddiDisplayInfo* info)
     prevRC = NULL;
 
     extBGRA = false;
-#ifdef RAD_GLES
-    extBlend = false;
-#endif
 
     gammaR = gammaG = gammaB = 1.0f;
 
@@ -181,13 +178,8 @@ bool pglDisplay ::InitDisplay(const pddiDisplayInit* init)
         SDL_Log("SDL_GL_CreateContext() error: %s", SDL_GetError());
     PDDIASSERT(hRC);
 
-#ifdef RAD_GLES
-    if (!gladLoadGLES1Loader( (GLADloadproc)SDL_GL_GetProcAddress ))
-        return false;
-#else
     if (!gladLoadGLLoader( (GLADloadproc)SDL_GL_GetProcAddress ))
         return false;
-#endif
 
     char* glVendor   = (char*)glGetString(GL_VENDOR);
     char* glRenderer = (char*)glGetString(GL_RENDERER);
@@ -218,9 +210,6 @@ bool pglDisplay ::InitDisplay(const pddiDisplayInit* init)
     }
 
     extBGRA = CheckExtension("GL_EXT_bgra") || CheckExtension("GL_EXT_texture_format_BGRA8888");
-#ifdef RAD_GLES
-    extBlend = CheckExtension("GL_OES_blend_equation_separate");
-#endif
 
     SDL_Log("OpenGL - Vendor: %s, Renderer: %s, Version: %s",glVendor,glRenderer,glVersion);
 
@@ -320,13 +309,9 @@ unsigned pglDisplay::Screenshot(pddiColour* buffer, int nBytes)
     if(nBytes < (winHeight * winWidth * 4))
         return 0;
 
-#ifndef RAD_GLES
     glReadBuffer(GL_FRONT);
-#endif
     glReadPixels(0, 0,  winWidth, winHeight, GL_BGRA, GL_UNSIGNED_BYTE, buffer);
-#ifndef RAD_GLES
     glReadBuffer(GL_BACK);
-#endif
 
     unsigned tmp[2048];
     PDDIASSERT(winWidth < 2048);

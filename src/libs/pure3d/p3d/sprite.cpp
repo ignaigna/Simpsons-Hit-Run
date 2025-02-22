@@ -16,16 +16,8 @@
 #include <p3d/targa.hpp>
 
 static const int IMAGE_VERSION = 14000;
-
-#ifdef RAD_UWP 
-    bool tSprite::createLinear = true;
-    static int minSpriteSize = 2;
-    static const int maxSpriteSize = 256;
-#else
-    bool tSprite::createLinear = false;
-    static const int minSpriteSize = 32;
-    static const int maxSpriteSize = 256;
-#endif
+static const int minSpriteSize = 32;
+static const int maxSpriteSize = 256;
 
 struct tSpriteConstruction
 {
@@ -48,17 +40,7 @@ struct tRect
 tSprite::tSprite(tImage* image, tShader* mat, int border, int nx, int ny, tImageConverter* conv)
 {
     P3DASSERT(image);
-
-    linear = createLinear;
-    
-    if (linear)
-    {
-        SetBlitBorder(0);
-    }
-    else
-    {
-        SetBlitBorder(border);
-    }
+    SetBlitBorder(border);
 
     nativeX = nx;
     nativeY = ny;
@@ -92,12 +74,6 @@ tSprite::tSprite(tImage* image, tShader* mat, int border, int nx, int ny, tImage
 
 tSprite::tSprite(tTexture** images, int w, int h, int count, tShader* mat, int border, int nx, int ny, tImageConverter* conv)
 {
-    linear = false;
-
-#ifdef RAD_UWP
-    minSpriteSize = 32;
-#endif
-
     SetBlitBorder(border);
 
     nativeX = nx;
@@ -213,80 +189,58 @@ void tSprite::SetBlitBorder(int border)
 
 int tSprite::CalcSections(tRect** sections, int &numXSect, int &numYSect)
 {  
-    if (linear)
+    int x = 0;
+    int y = 0;
+    int xSect, ySect;
+    int current, accumulated;
+
+    xSect = 0;
+    accumulated = 0;
+    while (x<width)
     {
-        if (!sections)
+        current = SelectSegment(width-x);
+        accumulated = x + current;
+        if (sections)
         {
-            numXSect = 1;
-            numYSect = 1;
-            return 1;
+            for (ySect = 0; ySect<numYSect; ySect++)
+            {
+                sections[xSect][ySect].left = x;
+                sections[xSect][ySect].right = accumulated;
+                sections[xSect][ySect].width = current;
+            }
         }
-        else
-        {
-            sections[0][0].left = 0;
-            sections[0][0].right = width;
-            sections[0][0].width = width;
-            sections[0][0].top = 0;
-            sections[0][0].bottom = height;
-            sections[0][0].height = height;
-            return 1;
-        }
+        x = accumulated;
+        xSect++;
     }
-    else
+
+    ySect = 0;
+    accumulated = 0;
+    while (y<height)
     {
-        int x = 0;
-        int y = 0;
-        int xSect, ySect;
-        int current, accumulated;
-
-        xSect = 0;
-        accumulated = 0;
-        while (x<width)
+        current = SelectSegment(height-y);
+        accumulated = y + current;
+        if (sections)
         {
-            current = SelectSegment(width-x);
-            accumulated = x + current;
-            if (sections)
+            for (xSect = 0; xSect<numXSect; xSect++)
             {
-                for (ySect = 0; ySect<numYSect; ySect++)
-                {
-                    sections[xSect][ySect].left = x;
-                    sections[xSect][ySect].right = accumulated;
-                    sections[xSect][ySect].width = current;
-                }
+                sections[xSect][ySect].top = y;
+                sections[xSect][ySect].bottom = accumulated;
+                sections[xSect][ySect].height = current;
             }
-            x = accumulated;
-            xSect++;
         }
-
-        ySect = 0;
-        accumulated = 0;
-        while (y<height)
-        {
-            current = SelectSegment(height-y);
-            accumulated = y + current;
-            if (sections)
-            {
-                for (xSect = 0; xSect<numXSect; xSect++)
-                {
-                    sections[xSect][ySect].top = y;
-                    sections[xSect][ySect].bottom = accumulated;
-                    sections[xSect][ySect].height = current;
-                }
-            }
-            y = accumulated;
-            ySect++;
-        }
-
-        if (!sections)
-        {
-            numXSect = xSect;
-            numYSect = ySect;
-        }
-
-        P3DASSERT(xSect>0);
-        P3DASSERT(ySect>0);
-        return xSect*ySect;
+        y = accumulated;
+        ySect++;
     }
+
+    if (!sections)
+    {
+        numXSect = xSect;
+        numYSect = ySect;
+    }
+
+    P3DASSERT(xSect>0);
+    P3DASSERT(ySect>0);
+    return xSect*ySect;
 }
 
 void tSprite::BuildSections(tImage* image, tImageConverter* conv)
@@ -317,23 +271,15 @@ void tSprite::BuildSections(tImage* image, tImageConverter* conv)
     
     tImage* buffer = NULL;
 
-    if (linear)
+    
+    switch(image->GetDepth())
     {
-        buffer = new tImage32; 
-        buffer->EnableColourKey(image->GetColourKeyStatus());
-    }
-    else
-    {
-        switch(image->GetDepth())
-        {
-            case 8 :  buffer = new tImage8; 
-                         ((tImage8*)buffer)->SetPalette(((tImage8*)image)->GetPalette());
-
-                         break;
-            case 32 : buffer = new tImage32; 
-                         buffer->EnableColourKey(image->GetColourKeyStatus());
-                         break;
-        }  
+        case 8 :  buffer = new tImage8; 
+            ((tImage8*)buffer)->SetPalette(((tImage8*)image)->GetPalette());
+            break;
+        case 32 : buffer = new tImage32; 
+            buffer->EnableColourKey(image->GetColourKeyStatus());
+            break;  
     }
 
     buffer->SetAlpha(image->HasAlpha());
@@ -509,7 +455,7 @@ void tSprite::BuildTexture(int texNum, tRect& src, int newX, int newY, tImage* i
         }
     }
 
-    textures[texNum] = conv->ImageToTexture(buffer,linear);
+    textures[texNum] = conv->ImageToTexture(buffer);
     textures[texNum]->AddRef();
 
 /*
@@ -524,22 +470,12 @@ void tSprite::BuildPoly(int polyNum, tRect& src, int newX, int newY)
 {
     float u0, u1, v0, v1;
 
-    if (linear)
-    {
-        u0 = 0.0f;
-        u1 = (float)src.width;
-        v0 = (float)src.height;
-        v1 = 0.0f;
-    }
-    else
-    {
-        float fudgeU = (1/((float)newX * 2));
-        float fudgeV = (1/((float)newY * 4));
-        u0 = float(blitBorder) / float(newX) + fudgeU;
-        u1 = float(blitBorder+src.width) / float(newX) + fudgeU;
-        v0 = 1.0f - float(blitBorder) / float(newY) - fudgeV;
-        v1 = 1.0f - float(blitBorder+src.height) / float(newY) - fudgeV;
-    }
+    float fudgeU = (1/((float)newX * 2));
+    float fudgeV = (1/((float)newY * 4));
+    u0 = float(blitBorder) / float(newX) + fudgeU;
+    u1 = float(blitBorder+src.width) / float(newX) + fudgeU;
+    v0 = 1.0f - float(blitBorder) / float(newY) - fudgeV;
+    v1 = 1.0f - float(blitBorder+src.height) / float(newY) - fudgeV;
 
     for(int i = 0; i < 4; i++)
     {

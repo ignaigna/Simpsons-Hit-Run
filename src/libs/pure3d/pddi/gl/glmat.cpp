@@ -318,12 +318,7 @@ void pglMat::SetDevPass(unsigned pass)
     else
     {
         glEnable(GL_BLEND);
-#ifdef RAD_GLES
-        if(context->GetDisplay()->ExtBlend())
-            glBlendEquationSeparateOES(alphaBlendTable[texEnv[i].alphaBlendMode][0],alphaBlendTable[texEnv[i].alphaBlendMode][0]);
-#else
         glBlendEquation(alphaBlendTable[texEnv[i].alphaBlendMode][0]);
-#endif
         glBlendFunc(alphaBlendTable[texEnv[i].alphaBlendMode][1],alphaBlendTable[texEnv[i].alphaBlendMode][2]);
     }
  

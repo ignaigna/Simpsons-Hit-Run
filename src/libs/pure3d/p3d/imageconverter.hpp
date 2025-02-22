@@ -23,7 +23,7 @@ public:
     tImageConverter();
     virtual ~tImageConverter();
 
-    virtual tTexture*    ImageToTexture(tImage* image, bool linear = false);
+    virtual tTexture*    ImageToTexture(tImage* image);
     virtual tTexture*    ImageToVolumeTexture(tImage** image, int numImages, int numMipMaps = 0, pddiTextureUsageHint usage = PDDI_USAGE_STATIC);
     virtual tTexture*    ImageInToVolumeTexture(tImage** image, int numImages, tTexture* texture, int mipLevel = 0);
     virtual tImage*      LockToImage(pddiLockInfo*);

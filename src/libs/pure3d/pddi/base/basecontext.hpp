@@ -17,13 +17,7 @@
 
 #define PDDI_MAX_UV_CHANNELS 4
 #define PDDI_MAX_CLIP_PLANES 6
-
-#if defined(RAD_GLES)
-    #define PDDI_MAX_LIGHTS 4
-#else
-    #define PDDI_MAX_LIGHTS 8
-#endif
-
+#define PDDI_MAX_LIGHTS 8
 #define PDDI_MAX_STATS 40
 #define PDDI_MAX_MATRIX_STACKS 5
 

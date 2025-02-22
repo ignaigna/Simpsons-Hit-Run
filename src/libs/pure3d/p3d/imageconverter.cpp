@@ -22,7 +22,7 @@ tImageConverter::~tImageConverter()
 }
 
 //-------------------------------------------------------------------
-tTexture* tImageConverter::ImageToTexture(tImage* image, bool linear)
+tTexture* tImageConverter::ImageToTexture(tImage* image)
 {
     P3DASSERT(image);
     tTexture* texture = new tTexture;
@@ -34,11 +34,6 @@ tTexture* tImageConverter::ImageToTexture(tImage* image, bool linear)
     if(image->GetDepth() == 8)
     {
         requestedType = PDDI_TEXTYPE_PALETTIZED;
-    }
-
-    if(linear)
-    {
-        requestedType = PDDI_TEXTYPE_LINEAR;
     }
 
     if(!texture->Create(image->GetWidth(), image->GetHeight(), image->GetDepth(), image->GetAlphaDepth(), 0, requestedType, PDDI_USAGE_STATIC))
