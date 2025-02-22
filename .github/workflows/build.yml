@@ -1,10 +1,5 @@
 # pretty much all copied from game-engine
 name: Build SRR2
-
-# TODO: 3ur uwp somehow asset stuff too but we cant get them on the repo rn 
-# NOTES:
-# triplet for uwp should be x64-uwp not x64-windows and we should add the argument --allow-unsupported
-
 on:
   workflow_dispatch:
     inputs:
@@ -39,13 +34,11 @@ permissions:
 
 env:
   VCPKG_BINARY_SOURCES: 'clear;x-gha,readwrite'
-  VCPKG_COMMIT_ID: '7e21420f775f72ae938bdeb5e6068f722088f06a' # just sync with vcpkg-configuration.json baseline
+  VCPKG_COMMIT_ID: '5f8c424e267b7360d451df406eeefb3767985b17' # just sync with vcpkg-configuration.json baseline
 
 jobs:     
   build:
     runs-on: windows-2022
-    # wont use self hosted for SRR2 because other people may not have a self hosted runner setup
-    #runs-on: self-hosted
 
     steps:
     # https://learn.microsoft.com/en-us/vcpkg/consume/binary-caching-github-actions-cache
@@ -60,6 +53,7 @@ jobs:
       uses: actions/checkout@v3
       with:
         fetch-depth: 0
+        ref: ${{ github.sha }}
         
     - name: Setup MSBuild
       uses: microsoft/setup-msbuild@v1.1
@@ -75,7 +69,11 @@ jobs:
 
     - name: Install Dependencies (VCPKG)
       run: |
-        .\vcpkg\vcpkg.exe install
+        if (${{ contains(github.event.inputs.configuration, 'Uwp') }}) {
+          .\vcpkg\vcpkg.exe install --triplet x64-uwp --allow-unsupported
+        } else {
+          .\vcpkg\vcpkg.exe install
+        }
     - name: Integrate (VCPKG)
       run: |
         .\vcpkg\vcpkg.exe integrate install
