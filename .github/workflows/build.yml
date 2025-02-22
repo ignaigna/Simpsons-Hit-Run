@@ -11,7 +11,7 @@ on:
       configuration:
         description: 'Build configuration'
         required: true
-        default: 'Release'
+        default: 'ReleaseUwp'
         type: choice
         options:
           - DebugWindows
@@ -21,7 +21,7 @@ on:
           - ReleaseUwp
           - TuneUwp
       platform:
-        description: 'Build platform'
+        description: 'Build platform (x86 will not work with UWP)'
         required: true
         default: 'x64'
         type: choice
@@ -82,8 +82,12 @@ jobs:
 
     - name: Build SRR2
       run: |
-        msbuild.exe src/srr2/SRR2.vcxproj /p:Configuration=${{ github.event.inputs.configuration }} /p:Platform=${{ github.event.inputs.platform }} /p:PlatformToolset=v143 /p:WindowsTargetPlatformVersion=10.0 /m /clp:PerformanceSummary /p:SolutionDir=${{ github.workspace }}
-        
+        if (${{ contains(github.event.inputs.configuration, 'Uwp') }}) {
+          msbuild.exe src/srr2_uwp/SRR2_UWP.vcxproj /p:Configuration=${{ github.event.inputs.configuration }} /p:Platform=${{ github.event.inputs.platform }} /p:PlatformToolset=v143 /p:WindowsTargetPlatformVersion=10.0 /m /clp:PerformanceSummary /p:SolutionDir=${{ github.workspace }}
+        } else {
+          msbuild.exe src/srr2/SRR2.vcxproj /p:Configuration=${{ github.event.inputs.configuration }} /p:Platform=${{ github.event.inputs.platform }} /p:PlatformToolset=v143 /p:WindowsTargetPlatformVersion=10.0 /m /clp:PerformanceSummary /p:SolutionDir=${{ github.workspace }}
+        }
+
     - name: Generate Version
       id: version
       shell: pwsh
@@ -92,13 +96,32 @@ jobs:
         $VERSION = "SRR2-${{ github.event.inputs.configuration }}-${{ github.event.inputs.platform }}-$DATE-$(${env:GITHUB_SHA}.Substring(0,7))"
         "version=$VERSION" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
         
+    - name: Package as APPX
+      if: contains(github.event.inputs.configuration, 'Uwp')
+      run: |
+        mkdir build\UWP
+        MakeAppx.exe pack /d "build/UWP-bin-${{ github.event.inputs.platform }}-${{ github.event.inputs.configuration }}/Appx /p "AppPackages\SRR2.appx" /o
+
+    - name: Sign APPX
+      if: contains(github.event.inputs.configuration, 'Uwp')
+      run: |
+        SignTool sign /fd SHA256 /a /f "src/srr2_uwp/SRR2_UWP_TemporaryKey.pfx" "AppPackages\SRR2.appx"
+
+    # these upload build steps dont upload to releases but rather the actions ui it is ran only if create release is false
     - name: Upload Build
       uses: actions/upload-artifact@v4
-      if: ${{ github.event.inputs.create_release == 'false' }} # with releases we can just grab the build there so this is useless
+      if: ${{ github.event.inputs.create_release == 'false' && !contains(github.event.inputs.configuration, 'Uwp') }}
       with:
         name: ${{ steps.version.outputs.version }}
-        path: |
-          build/**
+        path: build/**
+        # 3ur: ^ dont care, we arent distributing it through a release so keep the obj and bin
+
+    - name: Upload Build
+      uses: actions/upload-artifact@v4
+      if: ${{ github.event.inputs.create_release == 'false' && contains(github.event.inputs.configuration, 'Uwp') }}
+      with:
+        name: ${{ steps.version.outputs.version }}
+        path: AppPackages/SRR2.appx
         # 3ur: ^ dont care, we arent distributing it through a release so keep the obj and bin
 
     # so we can get the tag before we do a new release and then we can use generate_release_notes
@@ -150,18 +173,30 @@ jobs:
 
     # pretty much the upload build step but it makes a zip of build folder
     # TODO(3ur): jank jank jank why the hell does this have the version inside the zip but no extension ? instead of just a zip with bin and obj folders
-    - name: Zip Build
-      if: ${{ github.event.inputs.create_release == 'true' }}
+    - name: Zip Build # doesnt happen on uwp. we just upload appx directly
+      if: ${{ github.event.inputs.create_release == 'false' && !contains(github.event.inputs.configuration, 'Uwp') }}
       run: |
         tar -czf ${{ github.workspace }}/${{ steps.version.outputs.version }}.zip -C build .
 
+    # nasty boilerplate n duplicated code but im rushing this since i got half a screen and its still dying more 
     - name: Upload Build
-      id: upload-release-asset 
+      if: ${{ github.event.inputs.create_release == 'false' && !contains(github.event.inputs.configuration, 'Uwp') }}
       uses: actions/upload-release-asset@v1
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }} 
         asset_path: ${{ github.workspace }}/${{ steps.version.outputs.version }}.zip
         asset_name: ${{ steps.version.outputs.version }}.zip
         asset_content_type: application/zip
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Upload Build
+      if: ${{ github.event.inputs.create_release == 'false' && contains(github.event.inputs.configuration, 'Uwp') }}
+      uses: actions/upload-release-asset@v1
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }} 
+        asset_path: AppPackages/SRR2.appx
+        asset_name: SRR2.appx
+        asset_content_type: application/vnd.ms-appx
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
