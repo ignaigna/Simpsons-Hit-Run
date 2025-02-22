@@ -6,7 +6,7 @@ on:
       configuration:
         description: 'Build configuration'
         required: true
-        default: 'ReleaseUwp'
+        default: 'DebugUwp'
         type: choice
         options:
           - DebugWindows
@@ -27,6 +27,12 @@ on:
         description: 'Should a release be created?'
         required: false
         default: false
+        type: boolean
+      # dont care right now shouldnt have to have this its terrible because we should check based on the configuration input
+      is_uwp_build:
+        description: 'Check this if your using a UWP configuration'
+        required: false
+        default: true
         type: boolean
 
 permissions:
@@ -69,7 +75,7 @@ jobs:
 
     - name: Install Dependencies (VCPKG)
       run: |
-        if (${{ github.event.inputs.configuration == 'DebugUwp' || github.event.inputs.configuration == 'ReleaseUwp' || github.event.inputs.configuration == 'TuneUwp' }}) {
+        if (github.event.inputs.is_uwp_build == 'true') {
           .\vcpkg\vcpkg.exe install --triplet x64-uwp --allow-unsupported
         } else {
           .\vcpkg\vcpkg.exe install
@@ -78,16 +84,14 @@ jobs:
       run: |
         .\vcpkg\vcpkg.exe integrate install
 
-    - name: Build SRR2 (Non-UWP)
-      if: contains(github.event.inputs.configuration, 'Uwp')
+    - name: Build SRR2
       run: |
-        msbuild.exe src/srr2/SRR2.vcxproj /p:Configuration=${{ github.event.inputs.configuration }} /p:Platform=${{ github.event.inputs.platform }} /p:PlatformToolset=v143 /p:WindowsTargetPlatformVersion=10.0 /m /clp:PerformanceSummary /p:SolutionDir=${{ github.workspace }}
-
-    - name: Build SRR2 (UWP)
-      if: ${{!contains(github.event.inputs.configuration, 'Uwp')}}
-      run: |
-        msbuild.exe src/srr2_uwp/SRR2_UWP.vcxproj /p:Configuration=${{ github.event.inputs.configuration }} /p:Platform=${{ github.event.inputs.platform }} /p:PlatformToolset=v143 /p:WindowsTargetPlatformVersion=10.0 /m /clp:PerformanceSummary /p:SolutionDir=${{ github.workspace }}
-
+        if (github.event.inputs.is_uwp_build == 'true') {
+          msbuild.exe src/srr2_uwp/SRR2_UWP.vcxproj /p:Configuration=${{ github.event.inputs.configuration }} /p:Platform=${{ github.event.inputs.platform }} /p:PlatformToolset=v143 /p:WindowsTargetPlatformVersion=10.0 /m /clp:PerformanceSummary /p:SolutionDir=${{ github.workspace }}
+        } else {
+          msbuild.exe src/srr2/SRR2.vcxproj /p:Configuration=${{ github.event.inputs.configuration }} /p:Platform=${{ github.event.inputs.platform }} /p:PlatformToolset=v143 /p:WindowsTargetPlatformVersion=10.0 /m /clp:PerformanceSummary /p:SolutionDir=${{ github.workspace }}
+        }
+        
     - name: Generate Version
       id: version
       shell: pwsh
@@ -97,20 +101,20 @@ jobs:
         "version=$VERSION" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
         
     - name: Package as APPX (UWP)
-      if: contains(github.event.inputs.configuration, 'Uwp')
+      if: ${{ github.event.inputs.is_uwp_build == 'true' }}
       run: |
         mkdir build\UWP
         MakeAppx.exe pack /d "build/UWP-bin-${{ github.event.inputs.platform }}-${{ github.event.inputs.configuration }}/Appx /p "AppPackages\SRR2.appx" /o
 
     - name: Sign APPX (UWP)
-      if: contains(github.event.inputs.configuration, 'Uwp')
+      if: ${{ github.event.inputs.is_uwp_build == 'true' }}
       run: |
         SignTool sign /fd SHA256 /a /f "src/srr2_uwp/SRR2_UWP_TemporaryKey.pfx" "AppPackages\SRR2.appx"
 
     # these upload build steps dont upload to releases but rather the actions ui it is ran only if create release is false
     - name: Upload Build (Non-UWP)
       uses: actions/upload-artifact@v4
-      if: ${{ github.event.inputs.create_release == 'false' && !contains(github.event.inputs.configuration, 'Uwp') }}
+      if: ${{ github.event.inputs.create_release == 'false' && github.event.inputs.is_uwp_build == 'false' }}
       with:
         name: ${{ steps.version.outputs.version }}
         path: build/**
@@ -118,7 +122,7 @@ jobs:
 
     - name: Upload Build (UWP)
       uses: actions/upload-artifact@v4
-      if: ${{ github.event.inputs.create_release == 'false' && contains(github.event.inputs.configuration, 'Uwp') }}
+      if: ${{ github.event.inputs.create_release == 'false' && github.event.inputs.is_uwp_build == 'true' }}
       with:
         name: ${{ steps.version.outputs.version }}
         path: AppPackages/SRR2.appx
@@ -180,7 +184,7 @@ jobs:
 
     # nasty boilerplate n duplicated code but im rushing this since i got half a screen and its still dying more 
     - name: Upload Build (Non-UWP)
-      if: ${{ github.event.inputs.create_release == 'false' && !contains(github.event.inputs.configuration, 'Uwp') }}
+      if: ${{ github.event.inputs.create_release == 'false' && github.event.inputs.is_uwp_build == 'false' }}
       uses: actions/upload-release-asset@v1
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }} 
@@ -191,7 +195,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Upload Build (UWP)
-      if: ${{ github.event.inputs.create_release == 'false' && contains(github.event.inputs.configuration, 'Uwp') }}
+      if: ${{ github.event.inputs.create_release == 'false' && github.event.inputs.is_uwp_build == 'true' }}
       uses: actions/upload-release-asset@v1
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }} 
