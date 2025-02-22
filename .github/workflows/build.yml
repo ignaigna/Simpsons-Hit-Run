@@ -72,26 +72,24 @@ jobs:
         vcpkgDirectory: 'vcpkg'
         vcpkgGitCommitId: ${{ env.VCPKG_COMMIT_ID }}
         doNotCache: false
-
-    - name: Install Dependencies (VCPKG)
-      run: |
-        if (github.event.inputs.is_uwp_build == 'true') {
-          .\vcpkg\vcpkg.exe install --triplet x64-uwp --allow-unsupported
-        } else {
-          .\vcpkg\vcpkg.exe install
-        }
+    
+    - name: Install Dependencies (VCPKG) (Non-UWP)
+      if: ${{ github.event.inputs.is_uwp_build == 'false' }}
+      run: .\vcpkg\vcpkg.exe install
+    - name: Install Dependencies (VCPKG) (UWP)
+      if: ${{ github.event.inputs.is_uwp_build == 'true' }}
+      run: .\vcpkg\vcpkg.exe install --triplet x64-uwp --allow-unsupported
     - name: Integrate (VCPKG)
       run: |
         .\vcpkg\vcpkg.exe integrate install
 
-    - name: Build SRR2
-      run: |
-        if (github.event.inputs.is_uwp_build == 'true') {
-          msbuild.exe src/srr2_uwp/SRR2_UWP.vcxproj /p:Configuration=${{ github.event.inputs.configuration }} /p:Platform=${{ github.event.inputs.platform }} /p:PlatformToolset=v143 /p:WindowsTargetPlatformVersion=10.0 /m /clp:PerformanceSummary /p:SolutionDir=${{ github.workspace }}
-        } else {
-          msbuild.exe src/srr2/SRR2.vcxproj /p:Configuration=${{ github.event.inputs.configuration }} /p:Platform=${{ github.event.inputs.platform }} /p:PlatformToolset=v143 /p:WindowsTargetPlatformVersion=10.0 /m /clp:PerformanceSummary /p:SolutionDir=${{ github.workspace }}
-        }
-        
+    - name: Build SRR2 (Non-UWP)
+      if: ${{ github.event.inputs.is_uwp_build == 'false' }}
+      run: msbuild.exe src/srr2/SRR2.vcxproj /p:Configuration=${{ github.event.inputs.configuration }} /p:Platform=${{ github.event.inputs.platform }} /p:PlatformToolset=v143 /p:WindowsTargetPlatformVersion=10.0 /m /clp:PerformanceSummary /p:SolutionDir=${{ github.workspace }}
+    - name: Build SRR2 (UWP)
+      if: ${{ github.event.inputs.is_uwp_build == 'true' }}
+      run: msbuild.exe src/srr2_uwp/SRR2_UWP.vcxproj /p:Configuration=${{ github.event.inputs.configuration }} /p:Platform=${{ github.event.inputs.platform }} /p:PlatformToolset=v143 /p:WindowsTargetPlatformVersion=10.0 /m /clp:PerformanceSummary /p:SolutionDir=${{ github.workspace }}
+      
     - name: Generate Version
       id: version
       shell: pwsh
