@@ -65,7 +65,7 @@ jobs:
       with:
         vcpkgDirectory: 'vcpkg'
         vcpkgGitCommitId: ${{ env.VCPKG_COMMIT_ID }}
-        doNotCache: false
+        doNotCache: true
 
     - name: Install Dependencies (VCPKG)
       run: |
