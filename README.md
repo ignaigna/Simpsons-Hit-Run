@@ -10,21 +10,7 @@ This repository and or build distributations contains a modified version of _The
 - **Use of Copyrighted Material:** Assets and source code are used strictly for modifications and improvements.
 - **No Commercial Intent:** This project is not sold, monetized, or distributed for profit. Donations are not accepted.
 - **End-User Restrictions: (YOU)** You are not permitted to sell or commercially distribute this project in any form. Anyone attempting to do so will be blocked.
-
-## Development Temporarily Paused
-
-**Development paused temporarily;** 
-
-I cannot actively review issues or pull requests because I accidentally broke my monitor (Xbox fell and hit the corner of the monitor 💔) 
-
-I will try my best to commit frequently but it is hard when half of your monitor is broken and getting worse.
-
-Right now I can somewhat still use my monitor so I have fixed UWP builds with GitHub actions see https://github.com/3UR/Simpsons-Hit-Run/releases/tag/SRR2-DebugUwp-x64-2025.02.22-22.32.00-5ca4479 for a working UWP build (**Sadly only works on Xbox Series** right now till I can start coding easily again. Please don't try to offer donations I don't need or want anything I will be back in 1-2 months! The only reason this is here is so people don't think "oh he quit" or "oh this is a abandoned project")
-
-
-![image](https://github.com/user-attachments/assets/d1c109ba-5f38-4658-a396-cbccf77bface)
-![image](https://github.com/user-attachments/assets/7f183076-30a5-448f-a58c-9f8a1c69c932)
-
+- 
 ## Goal
 
 We want to add as many new features as possible and improve upon existing features. While keeping UWP and Windows support.
@@ -79,11 +65,25 @@ If the setup was successful, you should now be able to build any project in the 
 
 ### Xbox
 
-[_Watch HD on YouTube_](https://www.youtube.com/watch?v=l_Ii-4Wygn8)
+[_Watch HD on YouTube_](https://www.youtube.com/watch?v=qxqnziUVz9c)
 
 https://github.com/user-attachments/assets/9793dccf-5dd6-4bbf-beb6-a6db33521a0b
 
 [_Watch HD on YouTube_](https://www.youtube.com/watch?v=l_Ii-4Wygn8)
 
 https://github.com/user-attachments/assets/ccfdb377-10ed-418b-a81b-932aad9938e1
+
+## Development Temporarily Paused
+
+**Development paused temporarily;** 
+
+I cannot actively review issues or pull requests because I accidentally broke my monitor (Xbox fell and hit the corner of the monitor 💔) 
+
+I will try my best to commit frequently but it is hard when half of your monitor is broken and getting worse.
+
+Right now I can somewhat still use my monitor so I have fixed UWP builds with GitHub actions see https://github.com/3UR/Simpsons-Hit-Run/releases/tag/SRR2-DebugUwp-x64-2025.02.22-22.32.00-5ca4479 for a working UWP build (**Sadly only works on Xbox Series** right now till I can start coding easily again. Please don't try to offer donations I don't need or want anything I will be back in 1-2 months! The only reason this is here is so people don't think "oh he quit" or "oh this is a abandoned project")
+
+
+![image](https://github.com/user-attachments/assets/d1c109ba-5f38-4658-a396-cbccf77bface)
+![image](https://github.com/user-attachments/assets/7f183076-30a5-448f-a58c-9f8a1c69c932)
 
