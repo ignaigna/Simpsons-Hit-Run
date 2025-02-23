@@ -9,6 +9,7 @@ This repository and or build distributations contains a modified version of _The
 - **Purpose:** Enhancement, preservation, and research.
 - **Use of Copyrighted Material:** Assets and source code are used strictly for modifications and improvements.
 - **No Commercial Intent:** This project is not sold, monetized, or distributed for profit. Donations are not accepted.
+- **End-User Restrictions: (YOU)** You are not permitted to sell or commercially distribute this project in any form. Anyone attempting to do so will be blocked.
 
 ## Development Temporarily Paused
 
