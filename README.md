@@ -1,12 +1,5 @@
 # SRR2
 
-**Development paused temporarily; I cannot actively review issues or pull requests because I accidentally broke my monitor (Xbox fell and hit the corner of the monitor 💔) I will try my best to commit frequently but it is hard when half of your monitor is broken and getting worse**
-
-**UPDATE** Before I stop committing for a little while I have fixed the workflow for UWP and now it builds so check out https://github.com/3UR/Simpsons-Hit-Run/releases/tag/SRR2-DebugUwp-x64-2025.02.22-22.32.00-5ca4479 for a working UWP build (Sadly only works on Xbox Series right now till I can start coding easily again. Also please don't try to donate I don't need or want anything I will be back in 1-2 months!)
-
-![image](https://github.com/user-attachments/assets/d1c109ba-5f38-4658-a396-cbccf77bface)
-![image](https://github.com/user-attachments/assets/7f183076-30a5-448f-a58c-9f8a1c69c932)
-
 SRR2 is a modified fork of _The Simpsons: Hit & Run_ with lots of enhancements, including C++17 support, x64, and VCPkg for easier third-party library management. 
 
 ## Fair Use Disclaimer
@@ -16,6 +9,20 @@ This repository contains a modified version of _The Simpsons: Hit & Run_, using 
 - **Purpose:** Enhancement, preservation, and research.
 - **Use of Copyrighted Material:** Assets and source code are used strictly for modifications and improvements.
 - **No Commercial Intent:** This project is not sold, monetized, or distributed for profit. Donations are not accepted.
+
+## Development Temporarily Paused
+
+**Development paused temporarily;** 
+
+I cannot actively review issues or pull requests because I accidentally broke my monitor (Xbox fell and hit the corner of the monitor 💔) 
+
+I will try my best to commit frequently but it is hard when half of your monitor is broken and getting worse.
+
+Right now I can somewhat still use my monitor so I have fixed UWP builds with GitHub actions see https://github.com/3UR/Simpsons-Hit-Run/releases/tag/SRR2-DebugUwp-x64-2025.02.22-22.32.00-5ca4479 for a working UWP build (**Sadly only works on Xbox Series** right now till I can start coding easily again. Please don't try to offer donations I don't need or want anything I will be back in 1-2 months! The only reason this is here is so people don't think "oh he quit" or "oh this is a abandoned project")
+
+
+![image](https://github.com/user-attachments/assets/d1c109ba-5f38-4658-a396-cbccf77bface)
+![image](https://github.com/user-attachments/assets/7f183076-30a5-448f-a58c-9f8a1c69c932)
 
 ## Goal
 
