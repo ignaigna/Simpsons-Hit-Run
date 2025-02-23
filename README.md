@@ -4,7 +4,7 @@ SRR2 is a modified fork of _The Simpsons: Hit & Run_ with lots of enhancements, 
 
 ## Fair Use Disclaimer
 
-This repository contains a modified version of _The Simpsons: Hit & Run_, using its original source code and assets strictly for non-commercial, educational, and archival purposes under fair use. There is no intent to cause harm to the original work or its market.
+This repository and or build distributations contains a modified version of _The Simpsons: Hit & Run_, using its original source code and assets strictly for non-commercial, educational, and archival purposes under fair use. There is no intent to cause harm to the original work or its market.
 
 - **Purpose:** Enhancement, preservation, and research.
 - **Use of Copyrighted Material:** Assets and source code are used strictly for modifications and improvements.
