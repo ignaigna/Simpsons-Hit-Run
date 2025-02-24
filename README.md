@@ -6,11 +6,11 @@ SRR2 is a modified fork of _The Simpsons: Hit & Run_ with lots of enhancements, 
 
 This repository and or build distributations contains a modified version of _The Simpsons: Hit & Run_, using its original source code and assets strictly for non-commercial, educational, and archival purposes under fair use. There is no intent to cause harm to the original work or its market.
 
+- **End-User Restrictions: (YOU)** You are not permitted to sell or commercially distribute this project in any form. Anyone attempting to do so will be blocked.
 - **Purpose:** Enhancement, preservation, and research.
 - **Use of Copyrighted Material:** Assets and source code are used strictly for modifications and improvements.
 - **No Commercial Intent:** This project is not sold, monetized, or distributed for profit. Donations are not accepted.
-- **End-User Restrictions: (YOU)** You are not permitted to sell or commercially distribute this project in any form. Anyone attempting to do so will be blocked.
-- 
+
 ## Goal
 
 We want to add as many new features as possible and improve upon existing features. While keeping UWP and Windows support.
