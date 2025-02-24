@@ -6,14 +6,14 @@ SRR2 is a modified fork of _The Simpsons: Hit & Run_ with lots of enhancements, 
 
 This repository and or build distributations contains a modified version of _The Simpsons: Hit & Run_, using its original source code and assets strictly for non-commercial, educational, and archival purposes under fair use. There is no intent to cause harm to the original work or its market.
 
-- **End-User Restrictions: (YOU)** You are not permitted to sell or commercially distribute this project in any form. Anyone attempting to do so will be blocked.
+- **End-User Restrictions: (YOU)** You are not permitted to sell or commercially distribute this project in any form. Anyone attempting to do so will be blocked if found and reported to wherever it is distributed.
 - **Purpose:** Enhancement, preservation, and research.
 - **Use of Copyrighted Material:** Assets and source code are used strictly for modifications and improvements.
 - **No Commercial Intent:** This project is not sold, monetized, or distributed for profit. Donations are not accepted.
 
-## Goal
+## Suggesting Ports / Contact
 
-We want to add as many new features as possible and improve upon existing features. While keeping UWP and Windows support.
+If you want to talk to me or suggest a port you can contact me in [discord.gg/uwp](https://discord.gg/uwp).
 
 ## Issues
 
@@ -77,12 +77,7 @@ https://github.com/user-attachments/assets/ccfdb377-10ed-418b-a81b-932aad9938e1
 
 **Development paused temporarily;** 
 
-I cannot actively review issues or pull requests because I accidentally broke my monitor (Xbox fell and hit the corner of the monitor 💔) 
-
-I will try my best to commit frequently but it is hard when half of your monitor is broken and getting worse.
-
-Right now I can somewhat still use my monitor so I have fixed UWP builds with GitHub actions see https://github.com/3UR/Simpsons-Hit-Run/releases/tag/SRR2-DebugUwp-x64-2025.02.22-22.32.00-5ca4479 for a working UWP build (**Sadly only works on Xbox Series** right now till I can start coding easily again. Please don't try to offer donations I don't need or want anything I will be back in 1-2 months! The only reason this is here is so people don't think "oh he quit" or "oh this is a abandoned project")
-
+Xbox fell on my monitor by accident, I can still use my current monitor but it isn't fun coding with half of a screen so I will be doing minimum things for around a month till my new monitor is delivered.
 
 ![image](https://github.com/user-attachments/assets/d1c109ba-5f38-4658-a396-cbccf77bface)
 ![image](https://github.com/user-attachments/assets/7f183076-30a5-448f-a58c-9f8a1c69c932)
