@@ -128,10 +128,15 @@ jobs:
 
     # pretty much the upload build step but it makes a zip of build folder
     # TODO(3ur): jank jank jank why the hell does this have the version inside the zip but no extension ? instead of just a zip with bin and obj folders
-    - name: Zip Build # doesnt happen on uwp. we just upload appx directly
+    - name: Zip Build (Non-UWP) # doesnt happen on uwp. we just upload appx directly
       if: ${{ github.event.inputs.is_uwp_build == 'false' }}
       run: |
         tar -czf ${{ github.workspace }}/${{ steps.release_version.outputs.release_version }}.zip -C build .
+
+    - name: Zip Build Dependencies (UWP)
+      if: ${{ github.event.inputs.is_uwp_build == 'false' }}
+      run: |
+        tar -czf ${{ github.workspace }}/Dependencies.zip -C build/UWP-bin-${{ github.event.inputs.platform }}-${{ github.event.inputs.configuration }}/Dependencies/x64 .
 
     # nasty boilerplate n duplicated code but im rushing this since i got half a screen and its still dying more 
     - name: Upload Build (Non-UWP)
@@ -153,5 +158,16 @@ jobs:
         asset_path: build/UWP-bin-${{ github.event.inputs.platform }}-${{ github.event.inputs.configuration }}/SRR2_UWP_${{ steps.appx_version.outputs.appx_version }}_${{ github.event.inputs.platform }}_${{ github.event.inputs.configuration }}.appx
         asset_name: SRR2_UWP_${{ steps.appx_version.outputs.appx_version }}_${{ github.event.inputs.platform }}_${{ github.event.inputs.configuration }}.appx
         asset_content_type: application/vnd.ms-appx
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Upload Build Dependencies (UWP)
+      if: ${{ github.event.inputs.is_uwp_build == 'true' }}
+      uses: actions/upload-release-asset@v1
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }} 
+        asset_path: ${{ github.workspace }}/Dependencies.zip
+        asset_name: Dependencies.zip
+        asset_content_type: application/zip
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
