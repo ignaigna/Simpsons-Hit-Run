@@ -1,28 +1,19 @@
 # SRR2
 
-**Development paused temporarily; I cannot actively review issues or pull requests because I accidentally broke my monitor (Xbox fell and hit the corner of the monitor 💔) I will try my best to commit frequently but it is hard when half of your monitor is broken and getting worse**
+SRR2 is a modified fork of _The Simpsons: Hit & Run_ with lots of enhancements, including C++20 support, x64, and VCPkg for easier third-party library management. 
 
-![image](https://github.com/user-attachments/assets/d1c109ba-5f38-4658-a396-cbccf77bface)
-![image](https://github.com/user-attachments/assets/7f183076-30a5-448f-a58c-9f8a1c69c932)
+## Fair Use Disclaimer
 
+This repository and or build distributations contains a modified version of _The Simpsons: Hit & Run_, using its original source code and assets strictly for non-commercial, educational, and archival purposes under fair use. There is no intent to cause harm to the original work or its market.
 
-SRR2 is a modified fork of _The Simpsons: Hit & Run_ with lots of enhancements, including C++17 support, x64, and VCPkg for easier third-party library management. 
+- **End-User Restrictions: (YOU)** You are not permitted to sell or commercially distribute this project in any form. Anyone attempting to do so will be blocked if found and reported to wherever it is distributed.
+- **Purpose:** Enhancement, preservation, and research.
+- **Use of Copyrighted Material:** Assets and source code are used strictly for modifications and improvements.
+- **No Commercial Intent:** This project is not sold, monetized, or distributed for profit. Donations are not accepted.
 
-## Latest Update
+## Suggesting Ports / Contact
 
-Xbox now fully works, it is still jank but there is lots of progression from the bug that prevented you from getting into the main game.
-
-### Videos
-
-*the version of code shown in the video will be committed to the repository later once i clean up some things and make it less jank*
-
-[_Watch HD on YouTube_](https://www.youtube.com/watch?v=l_Ii-4Wygn8)
-
-https://github.com/user-attachments/assets/9793dccf-5dd6-4bbf-beb6-a6db33521a0b
-
-## Goal
-
-We want to add as many new features as possible and improve upon existing features. While keeping UWP and Windows support.
+If you want to talk to me or suggest a port you can contact me in [discord.gg/uwp](https://discord.gg/uwp).
 
 ## Issues
 
@@ -31,6 +22,8 @@ If you encounter issues, please [create an issue](https://github.com/3UR/Simpson
 ## Installation
 
 ### Quick Installation (Pre-built)
+
+**NOTE:** If using Xbox below steps wont apply instead just download the latest `.appx` file from [Releases page](https://github.com/3UR/Simpsons-Hit-Run/releases/latest) it will be named something like `SRR2_UWP_1.0.4.0_x64_DebugUwp.appx` then deploy to Xbox via dev mode.
 
 1. Download the latest build from the [Releases page](https://github.com/3UR/Simpsons-Hit-Run/releases/latest).
 2. Locate a zip file similar to `SRR2-Release-x64-2025.02.11-12.07.28-73389fa.zip` and download it.
@@ -70,9 +63,22 @@ If the setup was successful, you should now be able to build any project in the 
 
 ![Screenshot 2025-02-10 092453](https://github.com/user-attachments/assets/7b5c9c6a-259d-4e5d-bd07-e429bd2f54bb)
 
-### UWP
+### Xbox
+
+[_Watch HD on YouTube_](https://www.youtube.com/watch?v=qxqnziUVz9c)
+
+https://github.com/user-attachments/assets/9793dccf-5dd6-4bbf-beb6-a6db33521a0b
 
 [_Watch HD on YouTube_](https://www.youtube.com/watch?v=l_Ii-4Wygn8)
 
 https://github.com/user-attachments/assets/ccfdb377-10ed-418b-a81b-932aad9938e1
+
+## Development Temporarily Paused
+
+**Development paused temporarily;** 
+
+Xbox fell on my monitor by accident, I can still use my current monitor but it isn't fun coding with half of a screen so I will be doing minimum things for around a month till my new monitor is delivered.
+
+![image](https://github.com/user-attachments/assets/d1c109ba-5f38-4658-a396-cbccf77bface)
+![image](https://github.com/user-attachments/assets/7f183076-30a5-448f-a58c-9f8a1c69c932)
 
