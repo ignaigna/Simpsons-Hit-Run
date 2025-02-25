@@ -133,11 +133,6 @@ jobs:
       run: |
         tar -czf ${{ github.workspace }}/${{ steps.release_version.outputs.release_version }}.zip -C build .
 
-    - name: Zip Build Dependencies (UWP)
-      if: ${{ github.event.inputs.is_uwp_build == 'true' }}
-      run: |
-        tar -czf ${{ github.workspace }}/Dependencies.zip -C build/UWP-bin-${{ github.event.inputs.platform }}-${{ github.event.inputs.configuration }}/Dependencies/x64 .
-
     # nasty boilerplate n duplicated code but im rushing this since i got half a screen and its still dying more 
     - name: Upload Build (Non-UWP)
       if: ${{ github.event.inputs.is_uwp_build == 'false' }}
@@ -158,16 +153,5 @@ jobs:
         asset_path: build/UWP-bin-${{ github.event.inputs.platform }}-${{ github.event.inputs.configuration }}/SRR2_UWP_${{ steps.appx_version.outputs.appx_version }}_${{ github.event.inputs.platform }}_${{ github.event.inputs.configuration }}.appx
         asset_name: SRR2_UWP_${{ steps.appx_version.outputs.appx_version }}_${{ github.event.inputs.platform }}_${{ github.event.inputs.configuration }}.appx
         asset_content_type: application/vnd.ms-appx
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-    - name: Upload Build Dependencies (UWP)
-      if: ${{ github.event.inputs.is_uwp_build == 'true' }}
-      uses: actions/upload-release-asset@v1
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }} 
-        asset_path: ${{ github.workspace }}/Dependencies.zip
-        asset_name: Dependencies.zip
-        asset_content_type: application/zip
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
