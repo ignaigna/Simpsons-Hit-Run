@@ -23,13 +23,22 @@ If you encounter issues, please [create an issue](https://github.com/3UR/Simpson
 
 ### Quick Installation (Pre-built)
 
-**NOTE:** If using Xbox below steps wont apply instead just download the latest `.appx` file from [Releases page](https://github.com/3UR/Simpsons-Hit-Run/releases/latest) it will be named something like `SRR2_UWP_1.0.4.0_x64_DebugUwp.appx` then deploy to Xbox via dev mode.
+### Windows
 
 1. Download the latest build from the [Releases page](https://github.com/3UR/Simpsons-Hit-Run/releases/latest).
-2. Locate a zip file similar to `SRR2-Release-x64-2025.02.11-12.07.28-73389fa.zip` and download it.
-3. Extract the contents of the zip file to your desired location.
-4. Navigate to the extracted folder and locate `SRR2.exe`.
-5. You can now run the game. (Note: The game will crash without the required assets)
+2. Extract the contents of the zip file to your desired location.
+3. Navigate to the extracted folder and locate `SRR2.exe`.
+4. You can now run the game. (Note: The game will crash without the required assets)
+
+### Xbox (Will work on Windows too but requires controller for input; note - it will also act as the console version because it is)
+
+**NOTE:** Sadly Xbox One is not supported right now so it will just crash Xbox Series is okay and another thing to note is on UWP no matter PC or Xbox there is a memory leak and issues with the `srrmemory.cpp` file which end up causing a crash.
+
+1. Navigate to the [Releases page](https://github.com/3UR/Simpsons-Hit-Run/releases/latest).
+2. Download two files one will be named like `SRR2_UWP_X.X.X.X_x64_XXX.appx` and the other `Dependencies.zip`.
+3. Now navigate to the Xbox dev mode portal (https://xbox:11443/ or the local IP and port the dev mode dashboard shows you) or if on PC just double click the AppX and install then run and make sure a controller is connected.
+4. Then press "Add" and drag and drop the AppX you downloaded.
+5. Once done it should run.
 
 ### Developer Installation (Building from Source)
 
