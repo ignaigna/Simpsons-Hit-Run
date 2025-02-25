@@ -134,7 +134,7 @@ jobs:
         tar -czf ${{ github.workspace }}/${{ steps.release_version.outputs.release_version }}.zip -C build .
 
     - name: Zip Build Dependencies (UWP)
-      if: ${{ github.event.inputs.is_uwp_build == 'false' }}
+      if: ${{ github.event.inputs.is_uwp_build == 'true' }}
       run: |
         tar -czf ${{ github.workspace }}/Dependencies.zip -C build/UWP-bin-${{ github.event.inputs.platform }}-${{ github.event.inputs.configuration }}/Dependencies/x64 .
 
