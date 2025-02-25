@@ -55,6 +55,7 @@ jobs:
         fetch-depth: 0
         ref: ${{ github.sha }}
         lfs: true
+        submodules: recursive
     - uses: GuillaumeFalourd/setup-windows10-sdk-action@v2.4
       with:
         sdk-version: 22621
@@ -127,7 +128,7 @@ jobs:
 
     # pretty much the upload build step but it makes a zip of build folder
     # TODO(3ur): jank jank jank why the hell does this have the version inside the zip but no extension ? instead of just a zip with bin and obj folders
-    - name: Zip Build # doesnt happen on uwp. we just upload appx directly
+    - name: Zip Build (Non-UWP) # doesnt happen on uwp. we just upload appx directly
       if: ${{ github.event.inputs.is_uwp_build == 'false' }}
       run: |
         tar -czf ${{ github.workspace }}/${{ steps.release_version.outputs.release_version }}.zip -C build .
