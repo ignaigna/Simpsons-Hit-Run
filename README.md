@@ -13,11 +13,11 @@ This repository and or build distributations contains a modified version of _The
 
 ## Suggesting Ports / Contact
 
-If you want to talk to me or suggest a port you can contact me in [discord.gg/uwp](https://discord.gg/uwp).
+If you want to talk to me or suggest a port you can contact me on [Discord](https://discord.gg/jngRaMK69D).
 
 ## Issues
 
-If you encounter issues, please [create an issue](https://github.com/3UR/Simpsons-Hit-Run/issues/new) on the GitHub repository.
+If you encounter issues, please [create an issue](https://github.com/3UR/Simpsons-Hit-Run/issues/new).
 
 ## Installation
 
@@ -80,13 +80,4 @@ https://github.com/user-attachments/assets/9793dccf-5dd6-4bbf-beb6-a6db33521a0b
 [_Watch HD on YouTube_](https://www.youtube.com/watch?v=l_Ii-4Wygn8)
 
 https://github.com/user-attachments/assets/ccfdb377-10ed-418b-a81b-932aad9938e1
-
-## Development Temporarily Paused
-
-**Development paused temporarily;** 
-
-Xbox fell on my monitor by accident, I can still use my current monitor but it isn't fun coding with half of a screen so I will be doing minimum things for around a month till my new monitor is delivered.
-
-![image](https://github.com/user-attachments/assets/d1c109ba-5f38-4658-a396-cbccf77bface)
-![image](https://github.com/user-attachments/assets/7f183076-30a5-448f-a58c-9f8a1c69c932)
 
