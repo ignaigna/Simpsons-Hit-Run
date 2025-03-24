@@ -11,10 +11,6 @@ This repository and or build distributations contains a modified version of _The
 - **Use of Copyrighted Material:** Assets and source code are used strictly for modifications and improvements.
 - **No Commercial Intent:** This project is not sold, monetized, or distributed for profit. Donations are not accepted.
 
-## Suggesting Ports / Contact
-
-If you want to talk to me or suggest a port you can contact me on [Discord](https://discord.gg/jngRaMK69D).
-
 ## Issues
 
 If you encounter issues, please [create an issue](https://github.com/3UR/Simpsons-Hit-Run/issues/new).
