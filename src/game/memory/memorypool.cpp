@@ -95,7 +95,15 @@ FBMemoryPool::FBMemoryPool
 //==============================================================================
 FBMemoryPool::~FBMemoryPool()
 {
-    rAssertMsg( mCurrentAllocs == 0, "*** MEMORY LEAK ! ***\n" );
+    for(int i = 0; i < MAX_BLOCKS; ++i)
+    {
+        if(mpBlockArray[i] != NULL)
+        {
+            ::operator delete(mpBlockArray[i], mGMAllocator);
+            mpBlockArray[i] = NULL;
+        }
+    }
+    rAssertMsg(mCurrentAllocs == 0, "*** MEMORY LEAK ! ***\n");
 }
 
 
@@ -221,41 +229,29 @@ void* FBMemoryPool::Allocate( size_t size )
 //==============================================================================
 void FBMemoryPool::Free( void* mem, size_t size )
 {
-    //
-    // Calling delete on a NULL pointer is "legal" so better handle it.
-    //
-    if( mem == NULL )
+    if(mem == NULL)
     {
         return;
     }
 
-    rAssert( size <= mSize );
+    rAssert(size <= mSize);
 
-    //
-    // Return the memory to the free list.
-    //
-    MemoryPoolList* pCarcass = static_cast<MemoryPoolList*>( mem );
-
+    MemoryPoolList* pCarcass = static_cast<MemoryPoolList*>(mem);
     pCarcass->mpNext = mpHeadOfFreeList;
     mpHeadOfFreeList = pCarcass;
 
     --mCurrentAllocs;
 
-    //
-    // If there are no outstanding alloctions, free all the memory blocks.
-    //
-    if( mCurrentAllocs == 0 )
+    if(mCurrentAllocs == 0)
     {
-        int i;
-        for( i = 0; i < MAX_BLOCKS; ++i )
+        for(int i = 0; i < MAX_BLOCKS; ++i)
         {
-            if( mpBlockArray[i] != NULL )
+            if(mpBlockArray[i] != NULL)
             {
-                ::operator delete( mpBlockArray[i], mGMAllocator );
+                ::operator delete(mpBlockArray[i], mGMAllocator);
                 mpBlockArray[i] = NULL;
             }
         }
-
         mpHeadOfFreeList = NULL;
         mCurrentBlock = 0;
     }

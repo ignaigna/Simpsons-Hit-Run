@@ -268,25 +268,43 @@ void radMemoryTerminate( void )
 
     rAssert( g_Initialized == true );
 
-    //
-    // Free the thread local storage object if it was allocated.
-    //
     if( g_CurrentAllocator != NULL )
     {
         radRelease( g_CurrentAllocator, NULL );
-    }        
+        g_CurrentAllocator = NULL;
+    }
+
+    if( g_CurrentAllocatorCallback != NULL )
+    {
+        radRelease( g_CurrentAllocatorCallback, NULL );
+        g_CurrentAllocatorCallback = NULL;
+    }
+
+    if( g_MemoryActivityCallback != NULL )
+    {
+        radRelease( g_MemoryActivityCallback, NULL );
+        g_MemoryActivityCallback = NULL;
+    }
 
     g_Initialized = false;
     
-    g_pRadMemoryAllocator_Malloc->~radMemoryAllocatorMalloc( );
+    if( g_pRadMemoryAllocator_Malloc != NULL )
+    {
+        g_pRadMemoryAllocator_Malloc->~radMemoryAllocatorMalloc( );
+        g_pRadMemoryAllocator_Malloc = NULL;
+    }
 
     ::radMemoryPlatTerminate( );
     
-    //
-    // Check to make sure the game cleaned up all of its allocators
-    //    
-
     rAssert( g_AllocatorTreeNode_Root.m_pChildren_Head == NULL );
+    
+    for( unsigned int i = 0; i < ALLOCATOR_TABLE_SIZE; i++ )
+    {
+        if( g_AllocatorTreeNodes[ i ].m_pIRadMemoryAllocator != NULL )
+        {
+            g_AllocatorTreeNodes[ i ].m_pIRadMemoryAllocator = NULL;
+        }
+    }
 }
 
 //============================================================================

@@ -758,20 +758,40 @@ void MemoryPool::Release
 // Notes:
 //------------------------------------------------------------------------------
 
-MemoryPool::~MemoryPool
-(
-)
+MemoryPool::~MemoryPool()
 {
-	rAssert( m_NumberAllocated == 0 );
-	rAssert( m_ReferenceCount == 0 );
-	    
-	Chain( NULL );
-	if( m_pPlacement != NULL )
-	{
-        radMemoryMonitorRescindSection( m_First );
-		radMemoryFree( m_pPlacement );
-		m_pPlacement = NULL;
-	}
+    rAssert(m_NumberAllocated == 0);
+    rAssert(m_ReferenceCount == 0);
+    
+    Chain(NULL);
+    
+    if(m_pPlacement != NULL)
+    {
+        radMemoryMonitorRescindSection(m_First);
+        radMemoryFree(m_pPlacement);
+        m_pPlacement = NULL;
+    }
+    
+    if(m_pFirst != NULL)
+    {
+        radMemoryFree(m_pFirst);
+        m_pFirst = NULL;
+    }
+    
+    if(m_pLast != NULL)
+    {
+        radMemoryFree(m_pLast);
+        m_pLast = NULL;
+    }
+    
+    m_NumberAllocated = 0;
+    m_NumberFree = 0;
+    m_ElementSize = 0;
+    m_NumberOfElements = 0;
+    m_GrowBy = 0;
+    m_DebugLevel = None;
+    m_IsThreadSafe = false;
+    m_ReferenceCount = 0;
 }
 
 //=============================================================================
