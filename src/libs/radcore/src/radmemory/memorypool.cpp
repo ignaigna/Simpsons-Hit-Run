@@ -772,21 +772,21 @@ MemoryPool::~MemoryPool()
         m_pPlacement = NULL;
     }
     
-    if(m_pFirst != NULL)
+    if(m_First != NULL)
     {
-        radMemoryFree(m_pFirst);
-        m_pFirst = NULL;
+        radMemoryFree(m_First);
+        m_First = NULL;
     }
     
-    if(m_pLast != NULL)
+    if(m_Last != NULL)
     {
-        radMemoryFree(m_pLast);
-        m_pLast = NULL;
+        radMemoryFree(m_Last);
+        m_Last = NULL;
     }
     
     m_NumberAllocated = 0;
     m_NumberFree = 0;
-    m_ElementSize = 0;
+    m_RequestedElementSize = 0;
     m_NumberOfElements = 0;
     m_GrowBy = 0;
     m_DebugLevel = None;

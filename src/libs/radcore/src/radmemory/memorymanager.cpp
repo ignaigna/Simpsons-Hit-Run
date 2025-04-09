@@ -268,12 +268,6 @@ void radMemoryTerminate( void )
 
     rAssert( g_Initialized == true );
 
-    if( g_CurrentAllocator != NULL )
-    {
-        radRelease( g_CurrentAllocator, NULL );
-        g_CurrentAllocator = NULL;
-    }
-
     if( g_CurrentAllocatorCallback != NULL )
     {
         radRelease( g_CurrentAllocatorCallback, NULL );
@@ -282,7 +276,7 @@ void radMemoryTerminate( void )
 
     if( g_MemoryActivityCallback != NULL )
     {
-        radRelease( g_MemoryActivityCallback, NULL );
+        radRelease( static_cast<IRefCount*>(g_MemoryActivityCallback), NULL );
         g_MemoryActivityCallback = NULL;
     }
 
