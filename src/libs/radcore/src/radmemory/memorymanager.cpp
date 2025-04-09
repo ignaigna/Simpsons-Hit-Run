@@ -276,7 +276,7 @@ void radMemoryTerminate( void )
 
     if( g_MemoryActivityCallback != NULL )
     {
-        radRelease( static_cast<IRefCount*>(g_MemoryActivityCallback), NULL );
+        radRelease( reinterpret_cast<IRefCount*>(g_MemoryActivityCallback), NULL );
         g_MemoryActivityCallback = NULL;
     }
 
